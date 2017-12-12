@@ -18,6 +18,11 @@ public class TravelByPhysics {
     this.ProjectList = new ProjectList();
     this.UserList = new UserList();
     }
-    
-    
+
+    /**
+     * @return the ProjectList
+     */
+    public ProjectList getProjectList() {
+        return ProjectList;
+    }
 }
