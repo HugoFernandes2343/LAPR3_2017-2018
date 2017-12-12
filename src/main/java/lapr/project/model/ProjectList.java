@@ -13,9 +13,9 @@ import java.util.Set;
  */
 public class ProjectList {
     
-    private Set<Project> setProjects;
+    private Set<Project> projects;
     
     public ProjectList(){
-    this.setProjects = new HashSet();
+    this.projects = new HashSet();
     }
 }

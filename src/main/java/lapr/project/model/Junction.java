@@ -10,5 +10,9 @@ package lapr.project.model;
  * @author hugod
  */
 public class Junction {
+
+    private Object toll;
     
+    public Junction(){
+    }
 }

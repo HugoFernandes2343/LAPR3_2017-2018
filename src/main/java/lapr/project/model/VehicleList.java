@@ -16,24 +16,24 @@ import java.util.Set;
  */
 public class VehicleList {
 
-    private Set<Vehicle> vehicleList;
+    private Set<Vehicle> vehicles;
 
     public VehicleList() {
-        this.vehicleList = new HashSet();
+        this.vehicles = new HashSet();
     }
 
-    public Set<Vehicle> getVehicleList() {
-        return vehicleList;
+    public Set<Vehicle> getvehicles() {
+        return vehicles;
     }
 
-    public void setVehicleList(Set<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
+    public void setvehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
     
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.vehicleList);
+        hash = 59 * hash + Objects.hashCode(this.vehicles);
         return hash;
     }
 
@@ -49,11 +49,11 @@ public class VehicleList {
             return false;
         }
         final VehicleList other = (VehicleList) obj;
-        if (this.vehicleList.size() == other.vehicleList.size()) {
+        if (this.vehicles.size() == other.vehicles.size()) {
             return false;
         }
-        Iterator itr = this.vehicleList.iterator();
-        Iterator itr2 = other.vehicleList.iterator();
+        Iterator itr = this.vehicles.iterator();
+        Iterator itr2 = other.vehicles.iterator();
         while (itr.hasNext()) {
             if (!itr.next().equals(itr2.next())) {
                 return false;
