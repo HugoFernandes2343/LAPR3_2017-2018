@@ -16,104 +16,107 @@ public class User {
 //    static final long serialVersionID = '';
     private String username;
     private int charKey;
-    private String nome;
+    private String name;
     private String password;
     private String email;
 
     public User(String username, int charKey, String nome, String password, String email) {
         this.username = username;
         this.charKey = charKey;
-        this.nome = nome;
+        this.name = nome;
         this.password = password;
         this.email = email;
     }
 
+    /**
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @param username the username to set
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public int getCharKey() {
-        return charKey;
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
-    public void setCharKey(int charKey) {
-        this.charKey = charKey;
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
+    /**
+     * @param password the password to set
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @param email the email to set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return the integer representation of the object User
+     */
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 61 * hash + Objects.hashCode(this.username);
-        hash = 61 * hash + this.charKey;
-        hash = 61 * hash + Objects.hashCode(this.nome);
         hash = 61 * hash + Objects.hashCode(this.password);
         hash = 61 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
+    /**
+     *
+     * @param obj the object to compare to the User
+     * @return the result of the comparisons made. 
+     * True if the objects are the same, otherwise, it returns false
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
-        if (this.charKey != other.charKey) {
+        User other = (User) obj;
+        if (!this.username.equals(other.username)) {
             return false;
         }
-        if (!Objects.equals(this.username, other.username)) {
+        if (!this.email.equals(other.email)) {
             return false;
         }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        return true;
+        return this.password.equals(other.password);
     }
 
+    /**
+     *
+     * @return the String representation of the User
+     */
     @Override
     public String toString() {
-        return "User{" + "username=" + username + ", charKey=" + charKey + ", nome=" + nome + ", password=" + password + ", email=" + email + '}';
+        return String.format("Name: %s, Email: %s", name, email);
     }
-
-   
-
 }

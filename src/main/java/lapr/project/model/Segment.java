@@ -5,14 +5,12 @@
  */
 package lapr.project.model;
 
-import java.util.Objects;
-
 /**
  *
  * @author hugod
  */
 public class Segment {
-    
+
     private int segmentIndex;
     private double initialHeight;
     private double slope;
@@ -35,138 +33,103 @@ public class Segment {
         this.toll = toll;
     }
 
+    /**
+     * @return the segmentIndex
+     */
     public int getSegmentIndex() {
         return segmentIndex;
     }
 
-    public void setSegmentIndex(int segmentIndex) {
-        this.segmentIndex = segmentIndex;
-    }
-
+    /**
+     * @return the initialHeight
+     */
     public double getInitialHeight() {
         return initialHeight;
     }
 
-    public void setInitialHeight(double initialHeight) {
-        this.initialHeight = initialHeight;
-    }
-
+    /**
+     * @return the slope
+     */
     public double getSlope() {
         return slope;
     }
 
-    public void setSlope(double slope) {
-        this.slope = slope;
-    }
-
+    /**
+     * @return the length
+     */
     public double getLength() {
         return length;
     }
 
-    public void setLength(double length) {
-        this.length = length;
-    }
-
+    /**
+     * @return the windDirection
+     */
     public double getWindDirection() {
         return windDirection;
     }
 
-    public void setWindDirection(double windDirection) {
-        this.windDirection = windDirection;
-    }
-
+    /**
+     * @return the windSpeed
+     */
     public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
+    /**
+     * @return the maximumVelocity
+     */
     public double getMaximumVelocity() {
         return maximumVelocity;
     }
 
-    public void setMaximumVelocity(double maximumVelocity) {
-        this.maximumVelocity = maximumVelocity;
-    }
-
+    /**
+     * @return the minimumVelocity
+     */
     public double getMinimumVelocity() {
         return minimumVelocity;
     }
 
-    public void setMinimumVelocity(double minimumVelocity) {
-        this.minimumVelocity = minimumVelocity;
-    }
-
+    /**
+     * @return the toll
+     */
     public Object getToll() {
         return toll;
     }
 
-    public void setToll(Object toll) {
-        this.toll = toll;
-    }
-
+    /**
+     *
+     * @return the integer representation of the object Segment
+     */
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 89 * hash + this.segmentIndex;
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.initialHeight) ^ (Double.doubleToLongBits(this.initialHeight) >>> 32));
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.slope) ^ (Double.doubleToLongBits(this.slope) >>> 32));
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.length) ^ (Double.doubleToLongBits(this.length) >>> 32));
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.windDirection) ^ (Double.doubleToLongBits(this.windDirection) >>> 32));
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.windSpeed) ^ (Double.doubleToLongBits(this.windSpeed) >>> 32));
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.maximumVelocity) ^ (Double.doubleToLongBits(this.maximumVelocity) >>> 32));
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.minimumVelocity) ^ (Double.doubleToLongBits(this.minimumVelocity) >>> 32));
-        hash = 89 * hash + Objects.hashCode(this.toll);
         return hash;
     }
 
+    
+    /**
+     *
+     * @param obj the object to compare to the Segment
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Segment other = (Segment) obj;
-        if (this.segmentIndex != other.segmentIndex) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.initialHeight) != Double.doubleToLongBits(other.initialHeight)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.slope) != Double.doubleToLongBits(other.slope)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.length) != Double.doubleToLongBits(other.length)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.windDirection) != Double.doubleToLongBits(other.windDirection)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.windSpeed) != Double.doubleToLongBits(other.windSpeed)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.maximumVelocity) != Double.doubleToLongBits(other.maximumVelocity)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.minimumVelocity) != Double.doubleToLongBits(other.minimumVelocity)) {
-            return false;
-        }
-        if (!Objects.equals(this.toll, other.toll)) {
-            return false;
-        }
-        return true;
+        Segment other = (Segment) obj;
+        return this.segmentIndex == other.segmentIndex;
     }
 
+    /**
+     *
+     * @return the String representation of the Segment
+     */
     @Override
     public String toString() {
-        return "Segment{" + "segmentIndex=" + segmentIndex + ", initialHeight=" + initialHeight + ", slope=" + slope + ", length=" + length + ", windDirection=" + windDirection + ", windSpeed=" + windSpeed + ", maximumVelocity=" + maximumVelocity + ", minimumVelocity=" + minimumVelocity + ", toll=" + toll + '}';
+        return String.format("Segment id: %d", this.segmentIndex);
     }
-    
+
 }

@@ -25,80 +25,81 @@ public class Project {
         this.vehicleList = new VehicleList();
     }
 
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name the name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param description the description to set
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * @return the vehicleList
+     */
     public VehicleList getVehicleList() {
         return vehicleList;
     }
 
-    public void setVehicleList(VehicleList vehicleList) {
-        this.vehicleList = vehicleList;
-    }
-
+    /**
+     * @return the roadNetwork
+     */
     public RoadNetwork getRoadNetwork() {
         return roadNetwork;
     }
 
-    public void setRoadNetwork(RoadNetwork roadNetwork) {
-        this.roadNetwork = roadNetwork;
-    }
-
+     /**
+     *
+     * @return the integer representation of the object Project
+     */
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.name);
-        hash = 47 * hash + Objects.hashCode(this.description);
-        hash = 47 * hash + Objects.hashCode(this.vehicleList);
-        hash = 47 * hash + Objects.hashCode(this.roadNetwork);
+        hash = 47 * hash + Objects.hashCode(name);
         return hash;
     }
 
+    /**
+     *
+     * @param obj the object to compare to the Project
+     * @return the result of the comparisons made. 
+     * True if the objects are the same, otherwise, it returns false
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final Project other = (Project) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.vehicleList, other.vehicleList)) {
-            return false;
-        }
-        if (!Objects.equals(this.roadNetwork, other.roadNetwork)) {
-            return false;
-        }
-        return true;
+        return this.name.equals(other.name);
     }
 
+    /**
+     *
+     * @return the String representation of the Project
+     */
     @Override
     public String toString() {
-        return "Project{" + "name=" + name + ", description=" + description + ", vehicleList=" + vehicleList + ", roadNetwork=" + roadNetwork + '}';
+        return String.format("Project: %s", name);
     }
-
-    
 
 }

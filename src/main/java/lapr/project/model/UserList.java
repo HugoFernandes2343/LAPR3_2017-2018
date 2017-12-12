@@ -17,6 +17,6 @@ public class UserList {
     private Set<User> users;
     
     public UserList(){
-    this.users = new HashSet();
+    this.users = new HashSet<>();
     }
 }

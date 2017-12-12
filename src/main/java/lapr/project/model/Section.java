@@ -27,93 +27,69 @@ public class Section {
         this.direction = direction;
         this.segments = segments;
     }
-    
-    
-    
+
+    /**
+     * @return the beginningJunction
+     */
     public Junction getBeginningJunction() {
         return beginningJunction;
     }
 
-    public void setBeginningJunction(Junction beginningJunction) {
-        this.beginningJunction = beginningJunction;
-    }
-
+    /**
+     * @return the endingJunction
+     */
     public Junction getEndingJunction() {
         return endingJunction;
     }
 
-    public void setEndingJunction(Junction endingJunction) {
-        this.endingJunction = endingJunction;
-    }
-
+    /**
+     * @return the typology
+     */
     public String getTypology() {
         return typology;
     }
 
-    public void setTypology(String typology) {
-        this.typology = typology;
-    }
-
+    /**
+     * @return the direction
+     */
     public String getDirection() {
         return direction;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public LinkedList<Segment> getsegments() {
+    /**
+     * @return the segments
+     */
+    public LinkedList<Segment> getSegments() {
         return segments;
     }
 
-    public void setsegments(LinkedList<Segment> segments) {
-        this.segments = segments;
-    }
-
+    /**
+     *
+     * @return the integer representation of the object Section
+     */
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 83 * hash + Objects.hashCode(this.beginningJunction);
         hash = 83 * hash + Objects.hashCode(this.endingJunction);
-        hash = 83 * hash + Objects.hashCode(this.typology);
-        hash = 83 * hash + Objects.hashCode(this.direction);
-        hash = 83 * hash + Objects.hashCode(this.segments);
         return hash;
     }
 
+    /**
+     *
+     * @param obj the object to compare to the Section
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Section other = (Section) obj;
-        if (!Objects.equals(this.typology, other.typology)) {
+        Section other = (Section) obj;
+        if (!this.beginningJunction.equals(other.beginningJunction)) {
             return false;
         }
-        if (!Objects.equals(this.direction, other.direction)) {
-            return false;
-        }
-        if (!Objects.equals(this.beginningJunction, other.beginningJunction)) {
-            return false;
-        }
-        if (!Objects.equals(this.endingJunction, other.endingJunction)) {
-            return false;
-        }
-        if (!Objects.equals(this.segments, other.segments)) {
-            return false;
-        }
-        return true;
+        return this.endingJunction.equals(other.endingJunction);
     }
-
-    @Override
-    public String toString() {
-        return "Section{" + "beginningJunction=" + beginningJunction + ", endingJunction=" + endingJunction + ", typology=" + typology + ", direction=" + direction + ", segments=" + segments + '}';
-    }
-    
 }

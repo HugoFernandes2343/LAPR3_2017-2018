@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author hugod
  */
 public class Road {
-    
+
     private String name;
     private String description;
     private LinkedList<Section> sections;
@@ -24,67 +24,74 @@ public class Road {
         this.sections = sections;
     }
 
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name the name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param description the description to set
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public LinkedList<Section> getsections() {
+    /**
+     * @return the sections
+     */
+    public LinkedList<Section> getSections() {
         return sections;
     }
 
-    public void setsections(LinkedList<Section> sections) {
-        this.sections = sections;
-    }
-
+    /**
+     *
+     * @return the integer representation of the object Junction
+     */
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.sections);
         return hash;
     }
 
+    /**
+     *
+     * @param obj the object to compare to the Road
+     * @return the result of the comparisons made. 
+     * True if the objects are the same, otherwise, it returns false
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Road other = (Road) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.sections, other.sections)) {
-            return false;
-        }
-        return true;
+        Road other = (Road) obj;
+        return this.name.equals(other.name);
     }
 
+    /**
+     *
+     * @return the String representation of the Road
+     */
     @Override
     public String toString() {
-        return "Road{" + "name=" + name + ", description=" + description + ", sections=" + sections + '}';
+        return String.format("Road: %s", name);
     }
-    
-    
+
 }

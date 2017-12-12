@@ -14,8 +14,31 @@ import java.util.Set;
 public class ProjectList {
     
     private Set<Project> projects;
+    private Project actualProject;
     
     public ProjectList(){
-    this.projects = new HashSet();
+    this.projects = new HashSet<>();
+    this.actualProject=null;
+    }
+
+    /**
+     * @return the projects
+     */
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    /**
+     * @return the actualProject
+     */
+    public Project getActualProject() {
+        return actualProject;
+    }
+
+    /**
+     * @param actualProject the actualProject to set
+     */
+    public void setActualProject(Project actualProject) {
+        this.actualProject = actualProject;
     }
 }
