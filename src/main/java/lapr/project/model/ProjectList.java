@@ -5,7 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -44,12 +46,13 @@ public class ProjectList {
     }
 
     /**
-     * Method that adds a project to the list 
+     * Method that adds a project to the list
+     *
      * @param p - project to be added
      * @return true if the project is added, false otherwise.
      */
     public boolean addProject(Project p) {
-        if (verifieProject(p)) {
+        if (verifyProject(p)) {
             this.projects.add(p);
             this.actualProject = p;
             return true;
@@ -59,15 +62,39 @@ public class ProjectList {
 
     /**
      * Method that verifies if a project already exists.
+     *
      * @param p - project to be added
      * @return true if the project doesn't exists, false otherwise
      */
-    private boolean verifieProject(Project p) {
+    private boolean verifyProject(Project p) {
         for (Project p1 : this.projects) {
             if (p1.equals(p)) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Method that returns all names of the projects
+     * 
+     * @return List of names
+     */
+    public ArrayList<String> getAllNames() {
+        ArrayList<String> allNames = new ArrayList<>();
+        for (Project p : projects) {
+            allNames.add(p.getName());
+        }
+        return allNames;
+    }
+    
+    public Project getProject(String name){
+        Project ret = new Project();
+        for (Project p : projects) {
+            if(p.getName().equalsIgnoreCase(name)){
+                ret = p;
+            }
+        }
+        return ret;
     }
 }
