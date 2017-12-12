@@ -9,27 +9,28 @@ import lapr.project.model.CalculatorExample;
  */
 class Main {
 
-	/**
-	 * Logger class.
-	 */
-	private static final Logger LOGGER = Logger.getLogger("MainLog");
+    /**
+     * Logger class.
+     */
+    private static final Logger LOGGER = Logger.getLogger("MainLog");
 
-	/**
-	 * Private constructor to hide implicit public one.
-	 */
-	private Main() {
+    /**
+     * Private constructor to hide implicit public one.
+     */
+    private Main() {
 
-	}
+    }
 
-	/**
-	 * Application main method.
-	 * 
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		CalculatorExample calculatorExample = new CalculatorExample();
-		int value = calculatorExample.sum(3, 5);
-		LOGGER.log(Level.INFO, String.valueOf(value));
+    /**
+     * Application main method.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        new MenuUI();
+        CalculatorExample calculatorExample = new CalculatorExample();
+        int value = calculatorExample.sum(3, 5);
+        LOGGER.log(Level.INFO, String.valueOf(value));
 
-	}
+    }
 }
