@@ -74,12 +74,10 @@
             <version>1.4.8</version>
         </dependency>
         <dependency>
-        <!-- jsoup HTML parser library @ https://jsoup.org/ -->
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.11.2</version>
+            <groupId>com.googlecode.jatl</groupId>
+            <artifactId>jatl</artifactId>
+            <version>0.2.2</version>
         </dependency>
-        
         <!-- https://mvnrepository.com/artifact/org.codehaus.sonar-plugins.java/sonar-jacoco-listeners -->
         <dependency>
             <groupId>org.codehaus.sonar-plugins.java</groupId>
