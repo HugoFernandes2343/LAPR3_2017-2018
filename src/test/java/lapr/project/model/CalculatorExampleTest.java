@@ -1,7 +1,6 @@
 package lapr.project.model;
 
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -22,5 +21,19 @@ public class CalculatorExampleTest {
 		int result = calculator.sum(firstOperand, secondOperand);
 		assertEquals(expected, result);
 	}
+
+    /**
+     * Test of sum method, of class CalculatorExample.
+     */
+    @Test
+    public void testSum() {
+        System.out.println("sum");
+        int firstOperand = 5;
+        int secondOperand = 10;
+        CalculatorExample instance = new CalculatorExample();
+        int expResult = 15;
+        int result = instance.sum(firstOperand, secondOperand);
+        assertEquals(expResult, result);
+    }
 
 }

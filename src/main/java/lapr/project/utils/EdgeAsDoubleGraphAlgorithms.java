@@ -79,7 +79,7 @@ public class EdgeAsDoubleGraphAlgorithms {
             return -1;
         }
         recreatePath(graph, srcIndex, dstIndex, vertIndex, path);
-        LinkedList<V> stack = new LinkedList<V>();
+        LinkedList<V> stack = new LinkedList<>();
         while (!path.isEmpty()) {
             stack.push(path.remove());
         }

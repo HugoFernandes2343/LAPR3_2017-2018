@@ -53,20 +53,6 @@ public class Project {
         this.description = description;
     }
 
-    /**
-     * @return the vehicleList
-     */
-    public VehicleList getVehicleList() {
-        return vehicleList;
-    }
-
-    /**
-     * @return the roadNetwork
-     */
-    public RoadNetwork getRoadNetwork() {
-        return roadNetwork;
-    }
-
      /**
      *
      * @return the integer representation of the object Project

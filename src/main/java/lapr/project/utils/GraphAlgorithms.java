@@ -82,7 +82,7 @@ public class GraphAlgorithms {
         if (!graph.checkVertex(vertex)) {      //se ele não existir retorna null
             return null;
         } else {
-            LinkedList<V> qbfs = new LinkedList();               // lista a retornar
+            LinkedList<V> qbfs = new LinkedList<>();               // lista a retornar
             Queue<V> qaux = new LinkedList<>();               // auxiliar para guardar os vértices ainda não visitados
 
             qbfs.add(vertex);                                // adiciono porque é a origem. Adiciono sempre ao fim que assim eles ficam na ordem
