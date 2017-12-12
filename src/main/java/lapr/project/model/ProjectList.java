@@ -88,6 +88,11 @@ public class ProjectList {
         return allNames;
     }
     
+    /**
+     *
+     * @param name , name of the project to look for
+     * @return project with said name
+     */
     public Project getProject(String name){
         Project ret = new Project();
         for (Project p : projects) {
