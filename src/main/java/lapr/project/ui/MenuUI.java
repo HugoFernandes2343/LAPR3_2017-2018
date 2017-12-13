@@ -27,6 +27,7 @@ public class MenuUI extends JFrame {
 
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 450;
+    private static final long serialVersionUID = 1L;
 
     private static final String UC_IMPLEMENTATION = "Not Implemented";
 

@@ -176,7 +176,7 @@ public class GraphAlgorithms {
      */
     public static <V, E> AdjacencyMatrixGraph<V, E> transitiveClosure(AdjacencyMatrixGraph<V, E> graph, E dummyEdge) {
 
-        AdjacencyMatrixGraph<V, E> newGraph = (AdjacencyMatrixGraph) graph.clone();
+        AdjacencyMatrixGraph<V, E> newGraph = graph.clone();
         int tamV = newGraph.numVertices;
 
         for (int i = 0; i < tamV; i++) {

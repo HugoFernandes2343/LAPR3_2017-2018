@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
  * @author Hugo
  */
 public class JunctionTest {
-
+    
     private Junction instance;
-
+    
     public JunctionTest() {
         instance = new Junction();
     }
@@ -48,7 +48,9 @@ public class JunctionTest {
     @Test
     public void testEqualsTrueCase() {
         System.out.println("equals");
-        Object obj = new Junction();
+        Junction obj = new Junction();
+        obj.setToll("PLACEHOLDER");
+        instance.setToll("PLACEHOLDER");
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
@@ -72,9 +74,10 @@ public class JunctionTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
+        instance.setToll("PLACEHOLDER");
         int expResult = instance.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);//should always be the same for the same object
     }
-
+    
 }

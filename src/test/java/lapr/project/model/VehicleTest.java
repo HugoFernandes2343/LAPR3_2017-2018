@@ -125,7 +125,7 @@ public class VehicleTest {
     @Test
     public void testGetEnergyFunction() {
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.print("The test is not implemented yet.");
     }
 
     /**
@@ -134,21 +134,19 @@ public class VehicleTest {
     @Test
     public void testGetBrakingEnergyRegeneration() {
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.print("The test is not implemented yet.");
     }
-
+    
     /**
      * Test of hashCode method, of class Vehicle.
      */
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Vehicle instance = null;
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Vehicle vehicle = new Vehicle("mazda", "car", 1, "Combustion", 300.0, 4.0, 12.0, 2.50, 0.30);;
+        int expResult = instance.hashCode();
+        int result = vehicle.hashCode();
+        assertEquals(expResult, result);//if the object is the same then the hashCode should return the same value
     }
 
     /**

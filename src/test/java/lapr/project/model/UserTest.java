@@ -83,7 +83,6 @@ public class UserTest {
     public void testSetEmail() {
         System.out.println("setEmail");
         String email = "new email";
-        User instance = null;
         instance.setEmail(email);
         assertEquals(email, instance.getEmail());
     }
@@ -118,7 +117,7 @@ public class UserTest {
     public void testEqualsTrueCase() {
         System.out.println("equals");
         Object obj = new User("username", 1, "Test", "password", "email");
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
     }
@@ -129,7 +128,7 @@ public class UserTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        String expResult = "Name: name, Email: email";
+        String expResult = "Name: Test, Email: email";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

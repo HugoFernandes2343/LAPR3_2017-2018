@@ -7,6 +7,7 @@ package lapr.project.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  *
@@ -478,7 +479,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return the new cloned graph
      */
     @SuppressWarnings("unchecked")
-    public Object clone() {
+    public AdjacencyMatrixGraph<V, E> clone() {
         AdjacencyMatrixGraph<V, E> newObject = new AdjacencyMatrixGraph<V, E>();
 
         newObject.vertices = (ArrayList<V>) vertices.clone();
@@ -533,6 +534,16 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         // fails to recognise difference between objects with different <E> type
         // when vertices are the same and both graphs have no edges
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + this.numVertices;
+        hash = 41 * hash + this.numEdges;
+        hash = 41 * hash + Objects.hashCode(this.vertices);
+        hash = 41 * hash + Arrays.deepHashCode(this.edgeMatrix);
+        return hash;
     }
 
 }
