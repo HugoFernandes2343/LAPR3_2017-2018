@@ -14,29 +14,40 @@ import java.util.Objects;
 public class Vehicle {
 
     private String name;
+    private String description;
     private String type;
     private int tollClass;
     private String motorization;
+    private String fuel;
     private double mass;
     private double load;
-    private double dragCoefficient;
-    private double rollingResistanceCoefficient;
+    private double drag;
+    private double frontal_area;
+    private double rrc;
     private double wheelSize;
-    private Object energyFunction;
-    private Object brakingEnergyRegeneration;
+    private Energy energy;
+    private VelocityLimitList velocity_limit_list;
 
-    public Vehicle(String name, String type, int tollClass, String motorization, double mass, double load, double dragCoefficient, double rollingResistanceCoefficient, double wheelSize) {
+    public Vehicle(String name,String description, String type, int tollClass, String motorization,String fuel, double mass, double load, double drag,double frontal_area, double rrc , double wheelSize,Energy energy,VelocityLimitList velocity_limit_list) {
         this.name = name;
+        this.description = description;
         this.type = type;
         this.tollClass = tollClass;
         this.motorization = motorization;
+        this.fuel = fuel;
         this.mass = mass;
         this.load = load;
-        this.dragCoefficient = dragCoefficient;
-        this.rollingResistanceCoefficient = rollingResistanceCoefficient;
+        this.drag = drag;
+        this.frontal_area = frontal_area;
+        this.rrc = rrc;
         this.wheelSize = wheelSize;
+        this.energy = energy;
+        this.velocity_limit_list = velocity_limit_list;
     }
 
+    public Vehicle(String name){
+    this.name = name;
+    }
     /**
      * @return the name
      */
@@ -80,17 +91,17 @@ public class Vehicle {
     }
 
     /**
-     * @return the dragCoefficient
+     * @return the drag
      */
-    public double getDragCoefficient() {
-        return dragCoefficient;
+    public double getDrag() {
+        return drag;
     }
 
     /**
-     * @return the rollingResistanceCoefficient
+     * @return the rrc
      */
-    public double getRollingResistanceCoefficient() {
-        return rollingResistanceCoefficient;
+    public double getRrc() {
+        return rrc;
     }
 
     /**
@@ -100,21 +111,54 @@ public class Vehicle {
         return wheelSize;
     }
 
+    
     /**
-     * @return the energyFunction
+     * @return the description
      */
-    public Object getEnergyFunction() { // NAO IMPLEMENTADA A FORMULA AINDA
-        return energyFunction;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @return brakingEnergyRegeneration
+     * @param description the description to set
      */
-    public Object getBrakingEnergyRegeneration() { // NAO IMPLEMENTADA A FORMULA AINDA
-        if (getMotorization().equalsIgnoreCase("Combustion")) {
-            return 0;
-        }
-        return brakingEnergyRegeneration;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the fuel
+     */
+    public String getFuel() {
+        return fuel;
+    }
+
+    /**
+     * @param fuel the fuel to set
+     */
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    /**
+     * @return the frontal_area
+     */
+    public double getFrontal_area() {
+        return frontal_area;
+    }
+
+    /**
+     * @return the energy
+     */
+    public Energy getEnergy() {
+        return energy;
+    }
+
+    /**
+     * @return the velocity_limit_list
+     */
+    public VelocityLimitList getVelocity_limit_list() {
+        return velocity_limit_list;
     }
 
     /**

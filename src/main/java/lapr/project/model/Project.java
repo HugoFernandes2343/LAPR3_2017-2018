@@ -15,14 +15,14 @@ public class Project {
 
     private String name;
     private String description;
-    private VehicleList vehicleList;
-    private RoadNetwork roadNetwork;
+    private VehicleList vehicle_list;
+    private Network network;
 
     public Project() {
         this.name = "n/a";
         this.description = "n/a";
-        this.roadNetwork = new RoadNetwork();
-        this.vehicleList = new VehicleList();
+        this.network = new Network();
+        this.vehicle_list = new VehicleList();
     }
 
     /**
@@ -54,31 +54,31 @@ public class Project {
     }
 
     /**
-     * @return the vehicleList
+     * @return the VehicleList
      */
-    public VehicleList getVehicleList() {
-        return vehicleList;
+    public VehicleList getVehicle_list() {
+        return vehicle_list;
     }
 
     /**
-     * @param vehicleList the vehicleList to set
+     * @param vehicle_list the VehicleList to set
      */
-    public void setVehicleList(VehicleList vehicleList) {
-        this.vehicleList = vehicleList;
+    public void setVehicle_list(VehicleList vehicle_list) {
+        this.vehicle_list = vehicle_list;
     }
 
     /**
-     * @return the roadNetwork
+     * @return the network
      */
-    public RoadNetwork getRoadNetwork() {
-        return roadNetwork;
+    public Network getNetwork() {
+        return network;
     }
 
     /**
-     * @param roadNetwork the roadNetwork to set
+     * @param network the network to set
      */
-    public void setRoadNetwork(RoadNetwork roadNetwork) {
-        this.roadNetwork = roadNetwork;
+    public void setNetwork(Network network) {
+        this.network = network;
     }
 
     /**

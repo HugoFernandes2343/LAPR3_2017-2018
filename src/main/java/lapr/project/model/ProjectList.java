@@ -15,19 +15,19 @@ import java.util.Set;
  */
 public class ProjectList {
 
-    private Set<Project> projects;
+    private Set<Project> project_list;
     private Project actualProject;
 
     public ProjectList() {
-        this.projects = new HashSet<>();
+        this.project_list = new HashSet<>();
         this.actualProject = null;
     }
 
     /**
-     * @return the projects
+     * @return the project_list
      */
-    public Set<Project> getProjects() {
-        return projects;
+    public Set<Project> getProject_list() {
+        return project_list;
     }
 
     /**
@@ -56,7 +56,7 @@ public class ProjectList {
         }
 
         if (verifyProject(p)) {
-            this.projects.add(p);
+            this.project_list.add(p);
             this.actualProject = p;
             return true;
         }
@@ -71,7 +71,7 @@ public class ProjectList {
      * @return true if the project doesn't exists, false otherwise
      */
     private boolean verifyProject(Project p) {
-        for (Project p1 : this.projects) {
+        for (Project p1 : this.project_list) {
             if (p1.equals(p)) {
                 return false;
             }
@@ -80,13 +80,13 @@ public class ProjectList {
     }
 
     /**
-     * Method that returns all names of the projects
+     * Method that returns all names of the project_list
      *
      * @return List of names
      */
     public ArrayList<String> getAllNames() {
         ArrayList<String> allNames = new ArrayList<>();
-        for (Project p : projects) {
+        for (Project p : project_list) {
             allNames.add(p.getName());
         }
         return allNames;
@@ -99,11 +99,11 @@ public class ProjectList {
      */
     public Project getProject(String name) {
         Project ret = new Project();
-        for (Project p : projects) {
+        for (Project p : project_list) {
             if (p.getName().equalsIgnoreCase(name)) {
-                ret = p;
+                return p;
             }
         }
-        return ret;
+        return null;
     }
 }

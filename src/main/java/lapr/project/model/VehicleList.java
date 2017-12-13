@@ -14,16 +14,16 @@ import java.util.Set;
  */
 public class VehicleList {
 
-    private Set<Vehicle> vehicles;
+    private Set<Vehicle> vehicle_list;
 
     public VehicleList() {
-        this.vehicles = new HashSet<>();
+        this.vehicle_list = new HashSet<>();
     }
 
     /**
-     * @return the vehicles
+     * @return the vehicle_list
      */
-    public Set<Vehicle> getVehicles() {
-        return vehicles;
+    public Set<Vehicle> getVehicle_list() {
+        return vehicle_list;
     }
 }

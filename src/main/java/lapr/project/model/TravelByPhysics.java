@@ -14,25 +14,25 @@ public class TravelByPhysics {
     /**
      * Attribute that keeps the project list of the system.
      */
-    private ProjectList ProjectList;
+    private ProjectList project_list;
 
     /**
      * Attribute that keeps the users list of the system.
      */
-    private UserList UserList;
+    private UserList user_list;
 
     /**
      * Constructor of this class
      */
     public TravelByPhysics() {
-        this.ProjectList = new ProjectList();
-        this.UserList = new UserList();
+        this.project_list = new ProjectList();
+        this.user_list = new UserList();
     }
 
     /**
-     * @return the ProjectList
+     * @return the project_list
      */
-    public ProjectList getProjectList() {
-        return ProjectList;
+    public ProjectList getProject_list() {
+        return project_list;
     }
 }

@@ -11,103 +11,82 @@ package lapr.project.model;
  */
 public class Segment {
 
-    private int segmentIndex;
-    private double initialHeight;
-    private double slope;
-    private double length;
-    private double windDirection;
-    private double windSpeed;
-    private double maximumVelocity;
-    private double minimumVelocity;
-    private Object toll;
+    private String id;
+    private double init_height;
+    private double final_height;
+    private String length;
+    private double wind_direction;
+    private String wind_speed;
+    private String max_velocity;
+    private String min_velocity;
 
-    public Segment(int segmentIndex, double initialHeight, double slope, double length, double windDirection, double windSpeed, double maximumVelocity, double minimumVelocity, Object toll) {
-        this.segmentIndex = segmentIndex;
-        this.initialHeight = initialHeight;
-        this.slope = slope;
+    public Segment(String segmentIndex, double initialHeight, double slope, String length, double windDirection, String wind_speed, String max_velocity, String min_velocity, Object toll) {
+        this.id = segmentIndex;
+        this.init_height = initialHeight;
+        this.final_height = slope;
         this.length = length;
-        this.windDirection = windDirection;
-        this.windSpeed = windSpeed;
-        this.maximumVelocity = maximumVelocity;
-        this.minimumVelocity = minimumVelocity;
-        this.toll = toll;
+        this.wind_direction = windDirection;
+        this.wind_speed = wind_speed;
+        this.max_velocity = max_velocity;
+        this.min_velocity = min_velocity;
     }
 
     /**
-     * @return the segmentIndex
+     * @return the id
      */
-    public int getSegmentIndex() {
-        return segmentIndex;
+    public String getId() {
+        return id;
     }
 
     /**
-     * @return the initialHeight
+     * @return the init_height
      */
-    public double getInitialHeight() {
-        return initialHeight;
+    public double getInit_height() {
+        return init_height;
     }
 
     /**
-     * @return the slope
+     * @return the final_height
      */
-    public double getSlope() {
-        return slope;
+    public double getFinal_height() {
+        return final_height;
     }
 
     /**
      * @return the length
      */
-    public double getLength() {
+    public String getLength() {
         return length;
     }
 
     /**
-     * @return the windDirection
+     * @return the wind_direction
      */
-    public double getWindDirection() {
-        return windDirection;
+    public double getWind_direction() {
+        return wind_direction;
     }
 
     /**
-     * @return the windSpeed
+     * @return the wind_speed
      */
-    public double getWindSpeed() {
-        return windSpeed;
+    public String getWind_speed() {
+        return wind_speed;
     }
 
     /**
      * @return the maximumVelocity
      */
-    public double getMaximumVelocity() {
-        return maximumVelocity;
+    public String getMax_velocity() {
+        return max_velocity;
     }
 
     /**
      * @return the minimumVelocity
      */
-    public double getMinimumVelocity() {
-        return minimumVelocity;
+    public String getMin_velocity() {
+        return min_velocity;
     }
 
-    /**
-     * @return the toll
-     */
-    public Object getToll() {
-        return toll;
-    }
-
-    /**
-     *
-     * @return the integer representation of the object Segment
-     */
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + this.segmentIndex;
-        return hash;
-    }
-
-    
     /**
      *
      * @param obj the object to compare to the Segment
@@ -120,7 +99,7 @@ public class Segment {
             return false;
         }
         Segment other = (Segment) obj;
-        return this.segmentIndex == other.segmentIndex;
+        return this.id == other.id;
     }
 
     /**
@@ -129,7 +108,7 @@ public class Segment {
      */
     @Override
     public String toString() {
-        return String.format("Segment id: %d", this.segmentIndex);
+        return String.format("Segment id: %d", this.id);
     }
 
 }

@@ -14,9 +14,9 @@ import java.util.Set;
  */
 public class UserList {
     
-    private Set<User> users;
+    private Set<User> user_list;
     
     public UserList(){
-    this.users = new HashSet<>();
+    this.user_list = new HashSet<>();
     }
 }

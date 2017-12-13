@@ -5,8 +5,12 @@
  */
 package lapr.project.model;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -17,7 +21,23 @@ public class VehicleTest {
     private Vehicle instance;
 
     public VehicleTest() {
-        instance = new Vehicle("mazda", "car", 1, "Combustion", 300.0, 4.0, 12.0, 2.50, 0.30);
+        instance = new Vehicle("mazda");
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -93,7 +113,7 @@ public class VehicleTest {
     public void testGetDragCoefficient() {
         System.out.println("getDragCoefficient");
         double expResult = 12.0;
-        double result = instance.getDragCoefficient();
+        double result = instance.getDrag();
         assertEquals(expResult, result, 0.0);
     }
 
@@ -104,7 +124,7 @@ public class VehicleTest {
     public void testGetRollingResistanceCoefficient() {
         System.out.println("getRollingResistanceCoefficient");
         double expResult = 2.50;
-        double result = instance.getRollingResistanceCoefficient();
+        double result = instance.getRrc();
         assertEquals(expResult, result, 0.0);
     }
 
@@ -137,17 +157,7 @@ public class VehicleTest {
         System.out.print("The test is not implemented yet.");
     }
     
-    /**
-     * Test of hashCode method, of class Vehicle.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Vehicle vehicle = new Vehicle("mazda", "car", 1, "Combustion", 300.0, 4.0, 12.0, 2.50, 0.30);;
-        int expResult = instance.hashCode();
-        int result = vehicle.hashCode();
-        assertEquals(expResult, result);//if the object is the same then the hashCode should return the same value
-    }
+    
 
     /**
      * Test of equals method, of class Vehicle, false case.
@@ -161,17 +171,7 @@ public class VehicleTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of equals method, of class Vehicle, true case.
-     */
-    @Test
-    public void testEqualsTrueCase() {
-        System.out.println("equals");
-        Object obj = new Vehicle("mazda", "car", 1, "Combustion", 300.0, 4.0, 12.0, 2.50, 0.30);
-        boolean expResult = true;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-    }
+    
 
     /**
      * Test of toString method, of class Vehicle.
@@ -182,6 +182,159 @@ public class VehicleTest {
         String expResult = "Vehicle: mazda";
         String result = instance.toString();
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getDrag method, of class Vehicle.
+     */
+    @Test
+    public void testGetDrag() {
+        System.out.println("getDrag");
+        Vehicle instance = null;
+        double expResult = 0.0;
+        double result = instance.getDrag();
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRrc method, of class Vehicle.
+     */
+    @Test
+    public void testGetRrc() {
+        System.out.println("getRrc");
+        Vehicle instance = null;
+        double expResult = 0.0;
+        double result = instance.getRrc();
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getDescription method, of class Vehicle.
+     */
+    @Test
+    public void testGetDescription() {
+        System.out.println("getDescription");
+        Vehicle instance = null;
+        String expResult = "";
+        String result = instance.getDescription();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setDescription method, of class Vehicle.
+     */
+    @Test
+    public void testSetDescription() {
+        System.out.println("setDescription");
+        String description = "";
+        Vehicle instance = null;
+        instance.setDescription(description);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getFuel method, of class Vehicle.
+     */
+    @Test
+    public void testGetFuel() {
+        System.out.println("getFuel");
+        Vehicle instance = null;
+        String expResult = "";
+        String result = instance.getFuel();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setFuel method, of class Vehicle.
+     */
+    @Test
+    public void testSetFuel() {
+        System.out.println("setFuel");
+        String fuel = "";
+        Vehicle instance = null;
+        instance.setFuel(fuel);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getFrontal_area method, of class Vehicle.
+     */
+    @Test
+    public void testGetFrontal_area() {
+        System.out.println("getFrontal_area");
+        Vehicle instance = null;
+        double expResult = 0.0;
+        double result = instance.getFrontal_area();
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getEnergy method, of class Vehicle.
+     */
+    @Test
+    public void testGetEnergy() {
+        System.out.println("getEnergy");
+        Vehicle instance = null;
+        Energy expResult = null;
+        Energy result = instance.getEnergy();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getVelocity_limit_list method, of class Vehicle.
+     */
+    @Test
+    public void testGetVelocity_limit_list() {
+        System.out.println("getVelocity_limit_list");
+        Vehicle instance = null;
+        VelocityLimitList expResult = null;
+        VelocityLimitList result = instance.getVelocity_limit_list();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of equals method, of class Vehicle.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = null;
+        Vehicle instance = null;
+        boolean expResult = false;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hashCode method, of class Vehicle.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        Vehicle instance = null;
+        int expResult = 0;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }

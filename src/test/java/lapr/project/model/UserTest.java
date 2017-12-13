@@ -5,8 +5,12 @@
  */
 package lapr.project.model;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -18,6 +22,22 @@ public class UserTest {
 
     public UserTest() {
         instance = new User("username", 1, "Test", "password", "email");
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -131,5 +151,33 @@ public class UserTest {
         String expResult = "Name: Test, Email: email";
         String result = instance.toString();
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setPassword method, of class User.
+     */
+    @Test
+    public void testSetPassword() {
+        System.out.println("setPassword");
+        String password = "";
+        User instance = null;
+        instance.setPassword(password);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of equals method, of class User.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = null;
+        User instance = null;
+        boolean expResult = false;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }

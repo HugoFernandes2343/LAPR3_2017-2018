@@ -15,15 +15,23 @@ import java.util.Objects;
 public class Road {
 
     private String name;
-    private String description;
-    private LinkedList<Section> sections;
+    private String typology;
+    private String id;
+    private TollFare toll_fare;
 
-    public Road(String name, String description, LinkedList<Section> sections) {
+    public Road(String name, String description,String id) {
         this.name = name;
-        this.description = description;
-        this.sections = sections;
+        this.typology = description;
+        this.id = id;
     }
 
+    public Road(String name, String typology, String id, TollFare toll_fare) {
+        this.name = name;
+        this.typology = typology;
+        this.id = id;
+        this.toll_fare = toll_fare;
+    }
+    
     /**
      * @return the name
      */
@@ -39,37 +47,19 @@ public class Road {
     }
 
     /**
-     * @return the description
+     * @return the typology
      */
-    public String getDescription() {
-        return description;
+    public String getTypology() {
+        return typology;
     }
 
     /**
-     * @param description the description to set
+     * @param typology the typology to set
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTypology(String typology) {
+        this.typology = typology;
     }
-
-    /**
-     * @return the sections
-     */
-    public LinkedList<Section> getSections() {
-        return sections;
-    }
-
-    /**
-     *
-     * @return the integer representation of the object Junction
-     */
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
+    
     /**
      *
      * @param obj the object to compare to the Road
@@ -82,7 +72,18 @@ public class Road {
             return false;
         }
         Road other = (Road) obj;
-        return this.name.equals(other.name);
+        return this.id.equals(other.id);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
     /**
@@ -91,7 +92,35 @@ public class Road {
      */
     @Override
     public String toString() {
-        return String.format("Road: %s", name);
+        return String.format("Road name: %s \n id: %s", name,id);
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the toll_fare
+     */
+    public TollFare getToll_fare() {
+        return toll_fare;
+    }
+
+    /**
+     * @param toll_fare the toll_fare to set
+     */
+    public void setToll_fare(TollFare toll_fare) {
+        this.toll_fare = toll_fare;
     }
 
 }

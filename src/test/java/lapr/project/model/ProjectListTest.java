@@ -50,7 +50,7 @@ public class ProjectListTest {
     public void testGetProjects() {
         System.out.println("getProjects");
         Set<Project> expResult = new HashSet<>();
-        Set<Project> result = instance.getProjects();
+        Set<Project> result = instance.getProject_list();
         assertEquals(expResult, result);//sets should be empty at the start of application
     }
 
@@ -133,5 +133,19 @@ public class ProjectListTest {
         Project result = instance.getProject(name);
         assertEquals(expResult, result);
 
+    }
+
+    /**
+     * Test of getProject_list method, of class ProjectList.
+     */
+    @Test
+    public void testGetProject_list() {
+        System.out.println("getProject_list");
+        ProjectList instance = new ProjectList();
+        Set<Project> expResult = null;
+        Set<Project> result = instance.getProject_list();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }
