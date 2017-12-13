@@ -75,6 +75,8 @@ public class FileXML implements Serializable {
             JOptionPane.showMessageDialog(null,
                     "XML Tags in file '" + file_xml + "have problems",
                     "XML Reading Failure", JOptionPane.ERROR_MESSAGE);
+
+            return null;
         }
         return travel;
 
@@ -105,8 +107,9 @@ public class FileXML implements Serializable {
         } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
 
             JOptionPane.showMessageDialog(null,
-                    "XML Tags in file '" + file_xml + "have problems",
+                    "XML Tags in file '" + file_xml + " have problems",
                     "XML Reading Failure", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
         return list;
 
@@ -140,6 +143,8 @@ public class FileXML implements Serializable {
             JOptionPane.showMessageDialog(null,
                     "XML Tags in file '" + file_xml + "have problems",
                     "XML Reading Failure", JOptionPane.ERROR_MESSAGE);
+
+            return null;
         }
         return network;
 
