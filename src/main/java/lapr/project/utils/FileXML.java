@@ -28,9 +28,8 @@ public class FileXML implements Serializable {
 
     /**
      * Method that saves the current data to a file
-     * @param ObjectToExport - fair centre object that is being saved
      * @param name - file name (if default uses the final variable of this class)
-     * @throws IOException
+     * @throws IOException - Exception of Input/Output
      */
     public static void saveXml(TravelByPhysics travel, String name) throws IOException {
         File file_xml;
@@ -51,9 +50,9 @@ public class FileXML implements Serializable {
 
     /**
      * Loads an Object from a xml file
-     * @param name
-     * @return object
-     * @throws IOException
+     * @param name - file path
+     * @return object  - object of TravelByPhysics
+     * @throws IOException - Exception of Input/Output
      */
     public static TravelByPhysics loadXml(String name) throws IOException {
         File file_xml;
