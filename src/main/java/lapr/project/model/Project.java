@@ -54,10 +54,24 @@ public class Project {
     }
 
     /**
+     * @return the vehicleList
+     */
+    public VehicleList getVehicleList() {
+        return vehicleList;
+    }
+
+    /**
      * @param vehicleList the vehicleList to set
      */
     public void setVehicleList(VehicleList vehicleList) {
         this.vehicleList = vehicleList;
+    }
+
+    /**
+     * @return the roadNetwork
+     */
+    public RoadNetwork getRoadNetwork() {
+        return roadNetwork;
     }
 
     /**
@@ -66,8 +80,8 @@ public class Project {
     public void setRoadNetwork(RoadNetwork roadNetwork) {
         this.roadNetwork = roadNetwork;
     }
-    
-     /**
+
+    /**
      *
      * @return the integer representation of the object Project
      */
@@ -81,8 +95,8 @@ public class Project {
     /**
      *
      * @param obj the object to compare to the Project
-     * @return the result of the comparisons made. 
-     * True if the objects are the same, otherwise, it returns false
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
      */
     @Override
     public boolean equals(Object obj) {

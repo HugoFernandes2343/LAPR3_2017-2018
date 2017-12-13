@@ -77,6 +77,24 @@ public class ProjectListTest {
     }
 
     /**
+     * Test of addProject method, of class ProjectList.
+     */
+    @Test
+    public void testAddProject() {
+        System.out.println("addProject");
+        Project p = null;
+        ProjectList instance = new ProjectList();
+
+        assertFalse("Thid project shouldn't be added, since it is null", instance.addProject(p));
+
+        p = new Project();
+        p.setName("Projeto principal");
+        p.setDescription("Projeto inicial para testes");
+        assertTrue("This project should be added", instance.addProject(p));
+        assertFalse("This project shouldn't be added because it already exists", instance.addProject(p));
+    }
+
+    /**
      * Test of getAllNames method, of class ProjectList.
      */
     @Test
@@ -114,6 +132,6 @@ public class ProjectListTest {
         Project expResult = p1;
         Project result = instance.getProject(name);
         assertEquals(expResult, result);
-        
+
     }
 }

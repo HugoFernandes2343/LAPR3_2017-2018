@@ -5,6 +5,11 @@
  */
 package lapr.project.model;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -16,11 +21,37 @@ public class TravelByPhysicsTest {
     
     public TravelByPhysicsTest() {
     }
-    
-       @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        System.out.print("The test is not implemented yet.");
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    /**
+     * Test of getProjectList method, of class TravelByPhysics.
+     */
+    @Test
+    public void testGetProjectList() {
+        System.out.println("getProjectList");
+        TravelByPhysics instance = new TravelByPhysics();
+        ProjectList get = instance.getProjectList();
+        
+        assertTrue("The obtained list should be empty", get.getProjects().isEmpty());
+        Project p = new Project();
+        instance.getProjectList().addProject(p);
+        get = instance.getProjectList();
+        assertTrue("The obtained list should have one project", get.getProjects().size() == 1);
     }
         
 }

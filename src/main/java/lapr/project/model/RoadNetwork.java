@@ -18,4 +18,13 @@ public class RoadNetwork {
     public RoadNetwork() {
         this.roadMap = new AdjacencyMatrixGraph<>();
     }
+
+    /**
+     * @return the roadMap
+     */
+    public AdjacencyMatrixGraph<Junction, Road> getRoadMap() {
+        return roadMap;
+    }
+    
+    
 }
