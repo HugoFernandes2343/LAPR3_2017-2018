@@ -5,40 +5,39 @@
  */
 package lapr.project.model;
 
-import java.util.LinkedList;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author hugod
  */
 public class RoadTest {
-
+    
     private Road instance;
-
+    
     public RoadTest() {
         instance = new Road("A23", "Autoestrada", "A01");
     }
-
+    
     @BeforeClass
-    public static void setUpClass() throws Exception {
+    public static void setUpClass() {
     }
-
+    
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass() {
     }
-
+    
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
-
+    
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     /**
@@ -52,83 +51,18 @@ public class RoadTest {
         assertEquals(expResult, result);
     }
 
+
     /**
      * Test of setName method, of class Road.
      */
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String name = "A25";
+        String name = "";
+        Road instance = null;
         instance.setName(name);
-        assertEquals(name, instance.getName());
-    }
-
-    /**
-     * Test of getDescription method, of class Road.
-     */
-    @Test
-    public void testGetDescription() {
-        System.out.println("getDescription");
-        String expResult = "Autoestrada";
-        String result = instance.getTypology();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setDescription method, of class Road.
-     */
-    @Test
-    public void testSetDescription() {
-        System.out.println("setDescription");
-        String description = "Nova Autoestrada";
-        instance.setTypology(description);
-        assertEquals(description, instance.getTypology());
-    }
-
-    /**
-     * Test of hashCode method, of class Road.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        int expResult = instance.hashCode();
-        int result = instance.hashCode();
-        assertEquals(expResult, result);//should be the same when its the same object
-    }
-
-    /**
-     * Test of equals method, of class Road, false case.
-     */
-    @Test
-    public void testEqualsFalseCase() {
-        System.out.println("equals");
-        Object obj = "test";
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of equals method, of class Road, true case.
-     */
-    @Test
-    public void testEqualsTrueCase() {
-        System.out.println("equals");
-        Object obj = new Road("A23", "Autoestrada", new LinkedList<>());
-        boolean expResult = true;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of toString method, of class Road.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        String expResult = "Road: A23";
-        String result = instance.toString();
-        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -168,6 +102,34 @@ public class RoadTest {
         Road instance = null;
         boolean expResult = false;
         boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hashCode method, of class Road.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        Road instance = null;
+        int expResult = 0;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class Road.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Road instance = null;
+        String expResult = "";
+        String result = instance.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -226,4 +188,5 @@ public class RoadTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    
 }

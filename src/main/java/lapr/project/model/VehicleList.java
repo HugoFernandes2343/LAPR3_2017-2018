@@ -23,7 +23,15 @@ public class VehicleList {
     /**
      * @return the vehicle_list
      */
-    public Set<Vehicle> getVehicle_list() {
+    public Set<Vehicle> getVehicleList() {
         return vehicle_list;
     }
+
+    /**
+     * @param vehicle_list the vehicle_list to set
+     */
+    public void setVehicleList(Set<Vehicle> vehicle_list) {
+        this.vehicle_list = vehicle_list;
+    }
+
 }

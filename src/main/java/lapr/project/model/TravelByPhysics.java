@@ -32,7 +32,7 @@ public class TravelByPhysics {
     /**
      * @return the project_list
      */
-    public ProjectList getProject_list() {
+    public ProjectList getProjectList() {
         return project_list;
     }
 }

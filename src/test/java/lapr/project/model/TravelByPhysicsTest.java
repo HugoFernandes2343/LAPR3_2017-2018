@@ -45,27 +45,15 @@ public class TravelByPhysicsTest {
     public void testGetProjectList() {
         System.out.println("getProjectList");
         TravelByPhysics instance = new TravelByPhysics();
-        ProjectList get = instance.getProject_list();
+        ProjectList get = instance.getProjectList();
         
-        assertTrue("The obtained list should be empty", get.getProject_list().isEmpty());
+        assertTrue("The obtained list should be empty", get.getProjectList().isEmpty());
         Project p = new Project();
-        instance.getProject_list().addProject(p);
-        get = instance.getProject_list();
-        assertTrue("The obtained list should have one project", get.getProject_list().size() == 1);
+        instance.getProjectList().addProject(p);
+        get = instance.getProjectList();
+        assertTrue("The obtained list should have one project", get.getProjectList().size() == 1);
     }
 
-    /**
-     * Test of getProject_list method, of class TravelByPhysics.
-     */
-    @Test
-    public void testGetProject_list() {
-        System.out.println("getProject_list");
-        TravelByPhysics instance = new TravelByPhysics();
-        ProjectList expResult = null;
-        ProjectList result = instance.getProject_list();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
         
 }

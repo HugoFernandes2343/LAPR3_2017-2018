@@ -26,7 +26,7 @@ public class ProjectList {
     /**
      * @return the project_list
      */
-    public Set<Project> getProject_list() {
+    public Set<Project> getProjectList() {
         return project_list;
     }
 

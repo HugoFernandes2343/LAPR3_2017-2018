@@ -7,7 +7,7 @@ package lapr.project.controller;
 
 import java.io.IOException;
 import lapr.project.model.Project;
-import lapr.project.model.RoadNetwork;
+import lapr.project.model.Network;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.model.VehicleList;
 import lapr.project.utils.FileXML;
@@ -63,21 +63,21 @@ public class CreateProjectController {
     /**
      * Method that reads all the information needed for the new project.
      *
-     * @param fileRoadNetwork - path to the file with the road network.
+     * @param fileNetwork - path to the file with the road network.
      * @param fileVehicleList - path to the file with the vehicle list.
      * @return
      */
-    public boolean readInfo(String fileRoadNetwork, String fileVehicleList) {
+    public boolean readInfo(String fileNetwork, String fileVehicleList) {
 
         try {
-            RoadNetwork r = FileXML.loadXmlRoadNetwork(fileRoadNetwork);
+            Network r = FileXML.loadXmlNetwork(fileNetwork);
             VehicleList v = FileXML.loadXmlVehicleList(fileVehicleList);
 
             if (v == null || r == null) {
                 return false;
             }
 
-            this.newP.setRoadNetwork(r);
+            this.newP.setNetwork(r);
             this.newP.setVehicleList(v);
             return true;
         } catch (IOException ex) {

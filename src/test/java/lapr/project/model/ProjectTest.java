@@ -138,12 +138,12 @@ public class ProjectTest {
         System.out.println("setVehicleList");
         VehicleList vehicleList = null;
         Project instance = new Project();
-        instance.setVehicle_list(vehicleList);
+        instance.setVehicleList(vehicleList);
         
-        assertTrue("If we get the vehicle list it should be null", instance.getVehicle_list() == null);
+        assertTrue("If we get the vehicle list it should be null", instance.getVehicleList() == null);
         vehicleList = new VehicleList();
-        instance.setVehicle_list(vehicleList);
-        assertTrue("If we get the vehicle list it should be empty", instance.getVehicle_list().getVehicle_list().isEmpty());
+        instance.setVehicleList(vehicleList);
+        assertTrue("If we get the vehicle list it should be empty", instance.getVehicleList().getVehicleList().isEmpty());
     }
 
     /**
@@ -184,60 +184,19 @@ public class ProjectTest {
     public void testGetVehicleList() {
         System.out.println("getVehicleList");
         Project instance = new Project();
-        VehicleList result = instance.getVehicle_list();
-        assertTrue("The list returned should be empty", result.getVehicle_list().isEmpty());
+        VehicleList result = instance.getVehicleList();
+        assertTrue("The list returned should be empty", result.getVehicleList().isEmpty());
     }
 
     /**
      * Test of getRoadNetwork method, of class Project.
      */
     @Test
-    public void testGetRoadNetwork() {
+    public void testGetNetwork() {
         System.out.println("getRoadNetwork");
         Project instance = new Project();
         Network result = instance.getNetwork();
         assertTrue("The list returned should be empty", result.getRoadMap().numEdges() == 0 && result.getRoadMap().numVertices() == 0);
-    }
-
-    /**
-     * Test of getVehicle_list method, of class Project.
-     */
-    @Test
-    public void testGetVehicle_list() {
-        System.out.println("getVehicle_list");
-        Project instance = new Project();
-        VehicleList expResult = null;
-        VehicleList result = instance.getVehicle_list();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setVehicle_list method, of class Project.
-     */
-    @Test
-    public void testSetVehicle_list() {
-        System.out.println("setVehicle_list");
-        VehicleList vehicle_list = null;
-        Project instance = new Project();
-        instance.setVehicle_list(vehicle_list);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getNetwork method, of class Project.
-     */
-    @Test
-    public void testGetNetwork() {
-        System.out.println("getNetwork");
-        Project instance = new Project();
-        Network expResult = null;
-        Network result = instance.getNetwork();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

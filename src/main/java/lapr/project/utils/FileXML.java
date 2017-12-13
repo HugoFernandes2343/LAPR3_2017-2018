@@ -2,7 +2,7 @@ package lapr.project.utils;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import lapr.project.model.RoadNetwork;
+import lapr.project.model.Network;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.model.VehicleList;
 
@@ -119,10 +119,10 @@ public class FileXML implements Serializable {
     /**
      * Load a road network file and saves data
      * @param name - file path
-     * @return RoadNetwork
+     * @return Network
      * @throws IOException
      */
-    public static RoadNetwork loadXmlRoadNetwork(String name) throws IOException {
+    public static Network loadXmlNetwork(String name) throws IOException {
         File file_xml;
         if(name.equalsIgnoreCase("default")){
             file_xml = XML_FILE;
@@ -130,13 +130,13 @@ public class FileXML implements Serializable {
             file_xml = new File(name);
         }
 
-        RoadNetwork network = new RoadNetwork();
+        Network network = new Network();
 
         XStream xstream = new XStream(new DomDriver("UTF-8"));
 
         try (BufferedReader in = new BufferedReader(new FileReader(file_xml))) {
 
-            network = (RoadNetwork) xstream.fromXML(in);
+            network = (Network) xstream.fromXML(in);
 
         } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
 

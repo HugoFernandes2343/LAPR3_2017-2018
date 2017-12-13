@@ -56,14 +56,14 @@ public class Project {
     /**
      * @return the VehicleList
      */
-    public VehicleList getVehicle_list() {
+    public VehicleList getVehicleList() {
         return vehicle_list;
     }
 
     /**
      * @param vehicle_list the VehicleList to set
      */
-    public void setVehicle_list(VehicleList vehicle_list) {
+    public void setVehicleList(VehicleList vehicle_list) {
         this.vehicle_list = vehicle_list;
     }
 
