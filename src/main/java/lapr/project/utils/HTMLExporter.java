@@ -33,24 +33,29 @@ public class HTMLExporter/*<T>*/ {
     }
 
     /**
-     * Adds a <header> tag so that the html has a title. Note that this title
-     * isnt displayed in the actual visualization of the page. Naming purposes
-     * only
-     *
+     * Adds a <header> tag.
      * @param text text to be the title
      */
-    void addHeader(String text) {
-        html.head().text(text);
+    Html addHeader(String text) {
+        return html.head().text(text);
     }
 
+    /**
+     * Adds the <title> tag
+     * @param text text to be the title
+     */
+    Html addTitle(String text){
+        return html.title().text(text);
+    }
+    
     /**
      * Add a division segment <div>
      *
      * @param text Text to serve as ID for the div when in HTML, this is not
      * displayed outside of source code
      */
-    void addDiv(String text) {
-        html.div().text(text);
+    Html addDiv(String text) {
+        return html.div().text(text);
     }
 
     /**
@@ -58,8 +63,8 @@ public class HTMLExporter/*<T>*/ {
      *
      * @param headerText text to add/header title
      */
-    void addHead2(String headerText) {
-        html.h2().text(headerText);
+    Html addHead2(String headerText) {
+        return html.h2().text(headerText);
     }
 
     /**
@@ -67,15 +72,15 @@ public class HTMLExporter/*<T>*/ {
      *
      * @param string Text to add in the pharagraph
      */
-    void addParagraph(String string) {
-        html.p().text(string);
+    Html addParagraph(String string) {
+        return html.p().text(string);
     }
 
     /**
      * Closes the last opened tag
      */
-    void closeTag() {
-        html.end();
+    Html closeTag() {
+        return html.end();
     }
 
     /**
@@ -83,15 +88,15 @@ public class HTMLExporter/*<T>*/ {
      *
      * @param i number of tags to close
      */
-    void closeSetOfTags(int i) {
-        html.end(i);
+    Html closeSetOfTags(int i) {
+        return html.end(i);
     }
 
     /**
      * Cloes all openedTags
      */
-    void closeAllTags() {
-        html.endAll();
+    Html closeAllTags() {
+        return html.endAll();
     }
 
     /**
@@ -103,6 +108,7 @@ public class HTMLExporter/*<T>*/ {
 
     //Add the rest of needed tags as more are needed
     //Figure out how to create the actual export , maybe string stream? after building the html
+    
     /**
      * Method to return a String representation of the actual output built by
      * JATL from the buffer
@@ -112,6 +118,11 @@ public class HTMLExporter/*<T>*/ {
     String getOutput() {
         return sw.getBuffer().toString();
     }
+    
+//    String getOutput() {
+//        String output = sw.getBuffer().toString();
+//        return output.substring(2, output.length()-2);
+//    }
 
     /**
      * Resets the buffer cleaning all text
