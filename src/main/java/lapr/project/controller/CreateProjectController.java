@@ -21,8 +21,8 @@ public class CreateProjectController {
     /**
      * Attribute that keeps the base to add the new project
      */
-    private TravelByPhysics base;
-    
+    private final TravelByPhysics base;
+
     /**
      * Atribute that keeps the project to add.
      */
@@ -30,6 +30,7 @@ public class CreateProjectController {
 
     /**
      * Constructor of this controller
+     * @param base - the base of the system.
      */
     public CreateProjectController(TravelByPhysics base) {
         this.base = base;
@@ -44,10 +45,14 @@ public class CreateProjectController {
      * @return true if the new project is created, false otherwise.
      */
     public boolean createProject(String name, String description) {
-        if(name.isEmpty() || description.isEmpty()){
+        if (name.isEmpty() || description.isEmpty()) {
             return false;
         }
-        
+
+        if (this.base.getProjectList().getProject(name) != null) {
+            return false;
+        }
+
         Project p = new Project();
         p.setName(name);
         p.setDescription(description);
@@ -57,28 +62,36 @@ public class CreateProjectController {
 
     /**
      * Method that reads all the information needed for the new project.
+     *
      * @param fileRoadNetwork - path to the file with the road network.
      * @param fileVehicleList - path to the file with the vehicle list.
-     * @return 
+     * @return
      */
     public boolean readInfo(String fileRoadNetwork, String fileVehicleList) {
-        
+
         try {
             RoadNetwork r = FileXML.loadXmlRoadNetwork(fileRoadNetwork);
             VehicleList v = FileXML.loadXmlVehicleList(fileVehicleList);
+
+            if (v == null || r == null) {
+                return false;
+            }
+
             this.newP.setRoadNetwork(r);
             this.newP.setVehicleList(v);
             return true;
         } catch (IOException ex) {
             return false;
         }
+
     }
 
     /**
      * Method that adds the new project to the system.
+     *
      * @return true if the new project is addes, false otherwise.
      */
     public boolean addProject() {
-      return this.base.getProjectList().addProject(this.newP);
+        return this.base.getProjectList().addProject(this.newP);
     }
 }
