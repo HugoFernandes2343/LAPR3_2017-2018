@@ -7,7 +7,6 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -52,11 +51,16 @@ public class ProjectList {
      * @return true if the project is added, false otherwise.
      */
     public boolean addProject(Project p) {
+        if (p == null) {
+            return false;
+        }
+
         if (verifyProject(p)) {
             this.projects.add(p);
             this.actualProject = p;
             return true;
         }
+
         return false;
     }
 
@@ -77,7 +81,7 @@ public class ProjectList {
 
     /**
      * Method that returns all names of the projects
-     * 
+     *
      * @return List of names
      */
     public ArrayList<String> getAllNames() {
@@ -87,16 +91,16 @@ public class ProjectList {
         }
         return allNames;
     }
-    
+
     /**
      *
      * @param name , name of the project to look for
      * @return project with said name
      */
-    public Project getProject(String name){
+    public Project getProject(String name) {
         Project ret = new Project();
         for (Project p : projects) {
-            if(p.getName().equalsIgnoreCase(name)){
+            if (p.getName().equalsIgnoreCase(name)) {
                 ret = p;
             }
         }

@@ -53,6 +53,20 @@ public class Project {
         this.description = description;
     }
 
+    /**
+     * @param vehicleList the vehicleList to set
+     */
+    public void setVehicleList(VehicleList vehicleList) {
+        this.vehicleList = vehicleList;
+    }
+
+    /**
+     * @param roadNetwork the roadNetwork to set
+     */
+    public void setRoadNetwork(RoadNetwork roadNetwork) {
+        this.roadNetwork = roadNetwork;
+    }
+    
      /**
      *
      * @return the integer representation of the object Project

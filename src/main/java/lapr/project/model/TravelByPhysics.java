@@ -10,13 +10,23 @@ package lapr.project.model;
  * @author hugod
  */
 public class TravelByPhysics {
-    
+
+    /**
+     * Attribute that keeps the project list of the system.
+     */
     private ProjectList ProjectList;
+
+    /**
+     * Attribute that keeps the users list of the system.
+     */
     private UserList UserList;
-    
-    public TravelByPhysics(){
-    this.ProjectList = new ProjectList();
-    this.UserList = new UserList();
+
+    /**
+     * Constructor of this class
+     */
+    public TravelByPhysics() {
+        this.ProjectList = new ProjectList();
+        this.UserList = new UserList();
     }
 
     /**
