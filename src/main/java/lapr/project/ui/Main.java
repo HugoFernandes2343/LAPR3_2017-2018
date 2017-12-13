@@ -3,6 +3,7 @@ package lapr.project.ui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.model.CalculatorExample;
+import lapr.project.model.TravelByPhysics;
 
 /**
  * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
@@ -27,7 +28,7 @@ class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new MenuUI();
+        new MenuUI(new TravelByPhysics());
         CalculatorExample calculatorExample = new CalculatorExample();
         int value = calculatorExample.sum(3, 5);
         LOGGER.log(Level.INFO, String.valueOf(value));

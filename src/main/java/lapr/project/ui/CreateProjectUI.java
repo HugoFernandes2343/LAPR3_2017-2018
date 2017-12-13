@@ -1,4 +1,294 @@
 package lapr.project.ui;
 
-public class CreateProjectUI {
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import lapr.project.controller.CreateProjectController;
+import lapr.project.model.TravelByPhysics;
+
+public class CreateProjectUI extends JPanel implements ErrorMessages {
+
+    private final CreateProjectController cp;
+
+    private JTextField projectName;
+    private String nameStr;
+    private JTextArea projectDescription;
+    private String descrStr;
+
+    private boolean flag;
+
+    private final TravelByPhysics tp;
+
+    private final JPanel mPanel;
+    private JPanel page1;
+    private JPanel page2;
+
+    private JTextPane roadsFilePath;
+    private JTextPane vehiclesFilePath;
+
+    private final CardLayout layout = new CardLayout();
+
+    public CreateProjectUI(TravelByPhysics tp) {
+        this.tp = tp;
+        cp = new CreateProjectController(tp);
+        mPanel = new JPanel(layout);
+
+        mPanel.add(createPageOne(), "page1");
+        mPanel.add(createPageTwo(), "page2");
+        layout.show(mPanel, "page1");
+        add(mPanel);
+    }
+
+    private JPanel createPageOne() {
+        page1 = new JPanel(new GridLayout(2, 1, 20, 60));
+
+        JPanel fields = new JPanel(new GridLayout(2, 2, 10, 40));
+        JPanel nameLabel = createHeader("Project Name: ");
+        fields.add(nameLabel);
+        projectName = new JTextField(20);
+        JPanel pName = new JPanel();
+        pName.add(projectName);
+        fields.add(pName);
+        JPanel descriptionLabel = createHeader("Project Description: ");
+        fields.add(descriptionLabel);
+        projectDescription = new JTextArea(7, 20);
+        fields.add(projectDescription);
+
+        JPanel buttons1 = createPageOneButtons();
+        page1.add(fields, BorderLayout.CENTER);
+        page1.add(buttons1, BorderLayout.PAGE_END);
+
+        return page1;
+    }
+
+    private JPanel createPageOneButtons() {
+        JPanel buttonsPageOne = new JPanel(new GridLayout(1, 2, 20, 0));
+        JPanel btCancel = new JPanel();
+        btCancel.add(createCancelButton());
+        buttonsPageOne.add(btCancel);
+
+        JPanel btNext = new JPanel();
+        btNext.add(createNextButtonOne());
+        buttonsPageOne.add(btNext);
+        return buttonsPageOne;
+    }
+
+    private JButton createNextButtonOne() {
+        JButton nextOne = new JButton("Next");
+        nextOne.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                nameStr = projectName.getText();
+                descrStr = projectDescription.getText();
+                if (cp.createProject(nameStr, descrStr)) {
+                    layout.show(mPanel, "page2");
+                } else {
+                    JOptionPane.showMessageDialog(null, EMPTY_FIELDS, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        );
+        return nextOne;
+    }
+
+    private JButton createCancelButton() {
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                removeAll();
+                add(new MainPanel());
+                revalidate();
+                repaint();
+            }
+        });
+        return cancelButton;
+    }
+
+    private JPanel createHeader(String text) {
+        JPanel p = new JPanel();
+        p.add(new JLabel(text));
+        return p;
+    }
+
+    private JPanel createPageTwo() {
+        page2 = new JPanel(new GridLayout(2, 1));
+
+        JPanel p1 = new JPanel(new GridLayout(3, 2));
+        JPanel pr = new JPanel();
+        roadsFilePath = new JTextPane();
+        roadsFilePath.setText("Select file:");
+        roadsFilePath.setEditable(false);
+        pr.add(roadsFilePath);
+        p1.add(pr);
+
+        p1.add(createButtonRoads());
+
+        JPanel pv = new JPanel();
+        vehiclesFilePath = new JTextPane();
+        vehiclesFilePath.setText("Select file:");
+        vehiclesFilePath.setEditable(false);
+        pv.add(vehiclesFilePath);
+        p1.add(pv);
+
+        p1.add(createButtonVehicle());
+
+        JPanel empty = new JPanel();
+        p1.add(empty);
+
+        page2.add(p1);
+
+        JPanel buttonsPageTwo = new JPanel(new GridLayout(1, 3, 20, 0));
+        JPanel btCancel = new JPanel();
+        btCancel.add(createCancelButton());
+        buttonsPageTwo.add(btCancel);
+
+        JPanel btDone = new JPanel();
+        btDone.add(creatButtonImport());
+        buttonsPageTwo.add(btDone);
+
+        JPanel btNext = new JPanel();
+        btNext.add(createDoneBT());
+        buttonsPageTwo.add(btNext);
+
+        page2.add(buttonsPageTwo);
+        return page2;
+    }
+
+    private JButton createDoneBT() {
+        JButton buttonDone = new JButton("Done");
+        buttonDone.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (flag) {
+                    int dialogButton = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Project: " + nameStr + "\nDescription: " + descrStr + "\nCreate this Project?",
+                            MESS_CONF, dialogButton);
+                    if (dialogResult == 0) {
+                        if (cp.addProject()) {
+                            JOptionPane.showMessageDialog(null, CREATE_SUCCESS, MESS_SUCC, JOptionPane.INFORMATION_MESSAGE);
+                            removeAll();
+                            add(new MainPanel(tp.getProjectList().getActualProject()));
+                            revalidate();
+                            repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        return buttonDone;
+    }
+
+    /**
+     * Method that creates the button to chose the event file path.
+     *
+     * @return the new JButton
+     */
+    private JPanel createButtonRoads() {
+        JPanel p = new JPanel();
+        JButton buttonRoads = new JButton("Choose Roads file");
+        buttonRoads.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFileChooser roadsChooser = new JFileChooser("Choose file to import roads data");
+                roadsChooser.showOpenDialog(page2);
+                try {
+                    String roadsFilePathStr = roadsChooser.getSelectedFile().getAbsolutePath();
+                    if (!(roadsFilePathStr.isEmpty()) && validateFile(roadsChooser.getSelectedFile().getAbsolutePath())) {
+                        roadsFilePath.setText(roadsFilePathStr);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ERR_WRONG_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NullPointerException ex) {
+                    JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        });
+        p.add(buttonRoads);
+        return p;
+    }
+
+    /**
+     * Method that creates the button to chose the Vehicles file.
+     *
+     * @return the new JButton and ActionListener in a panel.
+     */
+    private JPanel createButtonVehicle() {
+        JPanel panel = new JPanel();
+        JButton buttonVehicles = new JButton("Choose vehicles file");
+        buttonVehicles.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFileChooser vehiclesChooser = new JFileChooser("Choose file to import vehicles data");
+                vehiclesChooser.showOpenDialog(page2);
+                try {
+                    String vehiclesFilePathStr = vehiclesChooser.getSelectedFile().getAbsolutePath();
+                    if (!(vehiclesFilePathStr.isEmpty()) && validateFile(vehiclesChooser.getSelectedFile().getAbsolutePath())) {
+                        vehiclesFilePath.setText(vehiclesFilePathStr);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ERR_WRONG_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NullPointerException ex) {
+                    JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        });
+        panel.add(buttonVehicles);
+        return panel;
+    }
+
+    /**
+     * Verifies if the chosen file is a xml file
+     *
+     * @return true if it is, false otherwise.
+     */
+    private boolean validateFile(String path) {
+        return path.endsWith(".xml");
+    }
+
+    /**
+     * Method that creates the button to import all the info.
+     *
+     * @return the new JButton and ActionListener.
+     */
+    private JPanel creatButtonImport() {
+        JPanel panel = new JPanel(new BorderLayout());
+        JButton buttonImport = new JButton("Import");
+        buttonImport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    if (cp.readInfo(roadsFilePath.getText(), vehiclesFilePath.getText())) {
+                        JOptionPane.showMessageDialog(null, IMPORT_SUCCESS, MESS_SUCC, JOptionPane.INFORMATION_MESSAGE);
+                        flag = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, ERR_IMPORT, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NullPointerException ex) {
+                    JOptionPane.showMessageDialog(null, ERR_IMPORT, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        );
+        panel.add(buttonImport);
+        return panel;
+    }
 }

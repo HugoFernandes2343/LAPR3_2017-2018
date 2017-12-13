@@ -5,7 +5,6 @@
  */
 package lapr.project.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,37 +12,43 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.ImageIcon;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import lapr.project.model.TravelByPhysics;
 
 public class MenuUI extends JFrame {
-
-    private JMenuBar menuBarMain;
-
-    private static final int WINDOW_HEIGHT = 700;
-    private static final int WINDOW_WIDTH = 450;
     private static final long serialVersionUID = 1L;
+    private JMenuBar menuBarMain;
+    private JPanel mPanel;
+
+    TravelByPhysics tp;
+    
+    private static final int WINDOW_HEIGHT = 700;
+    private static final int WINDOW_WIDTH = 475;
 
     private static final String UC_IMPLEMENTATION = "Not Implemented";
 
-    public MenuUI() {
-
+    public MenuUI(TravelByPhysics tp) {
+        setLookAndFeel();
+        this.tp = tp;
         JMenuBar barraMenu = criarBarraMenu();
         setJMenuBar(barraMenu);
-        JPanel pPrincipal = criarPainelPrincipal();
-        add(pPrincipal);
-
+        mPanel = new MainPanel();
+        add(mPanel);
+        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 dispose();
             }
-
         });
 
         setTitle("Travel by Physics");
@@ -52,15 +57,7 @@ public class MenuUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
-    private JPanel criarPainelPrincipal() {
-        JPanel p = new JPanel(new BorderLayout());
-        ImageIcon image = new ImageIcon("src/main/resources/car1.jpg");
-        JLabel label = new JLabel(image, JLabel.CENTER);
-        p.add(label, BorderLayout.CENTER);
-        return p;
-    }
-
+    
     private JMenuBar criarBarraMenu() {
 
         menuBarMain = new JMenuBar();
@@ -85,7 +82,11 @@ public class MenuUI extends JFrame {
         createProject.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //açao do butao
+                mPanel.removeAll();
+                mPanel.add(new CreateProjectUI(tp));
+                mPanel.revalidate();
+                mPanel.repaint();
+
             }
         });
         Project.add(createProject);
@@ -213,6 +214,14 @@ public class MenuUI extends JFrame {
         });
         m.add(saveHTML);
         return m;
+    }
+    
+        private void setLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void createNotImplementedWindow(String text) {
