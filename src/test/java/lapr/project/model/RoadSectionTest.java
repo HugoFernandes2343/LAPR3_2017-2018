@@ -18,22 +18,26 @@ import static org.junit.Assert.*;
  * @author Hugo
  */
 public class RoadSectionTest {
-    
+
+    private RoadSection instance;
+
     public RoadSectionTest() {
+        LinkedList<Segment> segment_list = new LinkedList<>();
+        instance = new RoadSection("begin", "end", "A01", "positive", segment_list);
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -44,12 +48,9 @@ public class RoadSectionTest {
     @Test
     public void testGetBegin() {
         System.out.println("getBegin");
-        RoadSection instance = null;
-        String expResult = "";
+        String expResult = "begin";
         String result = instance.getBegin();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -58,12 +59,9 @@ public class RoadSectionTest {
     @Test
     public void testGetEnd() {
         System.out.println("getEnd");
-        RoadSection instance = null;
-        String expResult = "";
+        String expResult = "end";
         String result = instance.getEnd();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,12 +70,9 @@ public class RoadSectionTest {
     @Test
     public void testGetRoad_id() {
         System.out.println("getRoad_id");
-        RoadSection instance = null;
-        String expResult = "";
+        String expResult = "A01";
         String result = instance.getRoad_id();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -86,12 +81,9 @@ public class RoadSectionTest {
     @Test
     public void testGetDirection() {
         System.out.println("getDirection");
-        RoadSection instance = null;
-        String expResult = "";
+        String expResult = "positive";
         String result = instance.getDirection();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -100,12 +92,9 @@ public class RoadSectionTest {
     @Test
     public void testGetSegment_list() {
         System.out.println("getSegment_list");
-        RoadSection instance = null;
-        LinkedList<Segment> expResult = null;
+        LinkedList<Segment> expResult = new LinkedList<>();
         LinkedList<Segment> result = instance.getSegment_list();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.size(), result.size());
     }
 
     /**
@@ -114,12 +103,11 @@ public class RoadSectionTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        RoadSection instance = null;
-        int expResult = 0;
+        LinkedList<Segment> segment_list = new LinkedList<>();
+        RoadSection test = new RoadSection("begin", "end", "A01", "positive", segment_list);
+        int expResult = test.hashCode();
         int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);//should be the same if it is the same RoadSection
     }
 
     /**
@@ -128,13 +116,15 @@ public class RoadSectionTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        RoadSection instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LinkedList<Segment> segment_list = new LinkedList<>();
+        Object obj = new RoadSection("begin", "end", "A01", "positive", segment_list);
+        assertEquals("Should be the same if the objects are the same", true, instance.equals(obj));
+        obj = "test";
+        assertEquals("Should not be the same if the objects are from different classes", false, instance.equals(obj));
+        obj = new RoadSection("test", "end", "A01", "positive", segment_list);
+        assertEquals("Should be the same if the RoadSections begin are different", false, instance.equals(obj));
+        obj = new RoadSection("begin", "test", "A01", "positive", segment_list);
+        assertEquals("Should be the same if the RoadSections end are different", false, instance.equals(obj));
     }
-    
+
 }

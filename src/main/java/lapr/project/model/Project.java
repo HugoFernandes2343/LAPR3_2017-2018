@@ -5,14 +5,17 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author hugod
  */
-public class Project {
+public class Project implements Serializable{
 
+    private static final long serialVersionUID = 601L;
+    
     private String name;
     private String description;
     private VehicleList vehicle_list;

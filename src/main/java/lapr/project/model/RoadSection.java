@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -12,7 +13,9 @@ import java.util.Objects;
  *
  * @author hugod
  */
-public class RoadSection {
+public class RoadSection implements Serializable {
+    
+    private static final long serialVersionUID = 600L;
 
     private String begin;
     private String end;
@@ -20,10 +23,10 @@ public class RoadSection {
     private String direction;
     private LinkedList<Segment> segment_list;
 
-    public RoadSection(String beginningJunction, String endingJunction, String typology, String direction, LinkedList<Segment> segments) {
+    public RoadSection(String beginningJunction, String endingJunction, String road_id, String direction, LinkedList<Segment> segments) {
         this.begin = beginningJunction;
         this.end = endingJunction;
-        this.road_id = typology;
+        this.road_id = road_id;
         this.direction = direction;
         this.segment_list = segments;
     }

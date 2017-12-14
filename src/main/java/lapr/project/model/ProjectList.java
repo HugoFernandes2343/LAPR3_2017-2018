@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,21 +14,16 @@ import java.util.Set;
  *
  * @author hugod
  */
-public class ProjectList {
+public class ProjectList implements Serializable{
 
+    private static final long serialVersionUID = 602L;
+    
     private Set<Project> project_list;
     private Project actualProject;
 
     public ProjectList() {
         this.project_list = new HashSet<>();
         this.actualProject = null;
-    }
-
-    /**
-     * @return the project_list
-     */
-    public Set<Project> getProjectList() {
-        return project_list;
     }
 
     /**
@@ -98,7 +94,6 @@ public class ProjectList {
      * @return project with said name
      */
     public Project getProject(String name) {
-        Project ret = new Project();
         for (Project p : project_list) {
             if (p.getName().equalsIgnoreCase(name)) {
                 return p;

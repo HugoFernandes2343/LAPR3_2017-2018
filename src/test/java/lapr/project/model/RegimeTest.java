@@ -17,22 +17,25 @@ import static org.junit.Assert.*;
  * @author Hugo
  */
 public class RegimeTest {
-    
+
+    private Regime instance;
+
     public RegimeTest() {
+        instance = new Regime(20, 30, 40, 50);
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,12 +46,9 @@ public class RegimeTest {
     @Test
     public void testGetTorque() {
         System.out.println("getTorque");
-        Regime instance = null;
-        int expResult = 0;
+        int expResult = 20;
         int result = instance.getTorque();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +57,9 @@ public class RegimeTest {
     @Test
     public void testGetRpm_low() {
         System.out.println("getRpm_low");
-        Regime instance = null;
-        int expResult = 0;
+        int expResult = 30;
         int result = instance.getRpm_low();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -71,12 +68,9 @@ public class RegimeTest {
     @Test
     public void testGetRpm_high() {
         System.out.println("getRpm_high");
-        Regime instance = null;
-        int expResult = 0;
+        int expResult = 40;
         int result = instance.getRpm_high();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -85,12 +79,9 @@ public class RegimeTest {
     @Test
     public void testGetSFC() {
         System.out.println("getSFC");
-        Regime instance = null;
-        int expResult = 0;
+        int expResult = 50;
         int result = instance.getSFC();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -99,27 +90,29 @@ public class RegimeTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Regime instance = null;
-        int expResult = 0;
+        Regime test = new Regime(20, 30, 40, 50);;
+        int expResult = test.hashCode();
         int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);//result of hashCode should be the same if it is the same object
     }
 
     /**
-     * Test of equals method, of class Regime.
+     * Test of equals method, of class Regime, true case.
      */
     @Test
-    public void testEquals() {
+    public void testEqualsTrueCase() {
         System.out.println("equals");
-        Object obj = null;
-        Regime instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Object obj = new Regime(20, 30, 40, 50);
+        assertEquals("Should be true if they are the same object",true, instance.equals(obj));
+        obj = "test";
+        assertEquals("Should be false if they are not from the same class",false, instance.equals(obj));
+        obj = new Regime(2, 30, 40, 50);
+        assertEquals("Should be false if they have not the same torque",false, instance.equals(obj));
+        obj = new Regime(20, 3, 40, 50);
+        assertEquals("Should be false if they have not the same rpm_low",false, instance.equals(obj));
+        obj = new Regime(20, 30, 4, 50);
+        assertEquals("Should be false if they have not the same rpm_high",false, instance.equals(obj));
+        obj = new Regime(20, 30, 40, 5);
+        assertEquals("Should be false if they have not the same SFC",false, instance.equals(obj));
     }
-    
 }

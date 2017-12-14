@@ -5,15 +5,17 @@
  */
 package lapr.project.model;
 
-import java.util.LinkedList;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author hugod
  */
-public class Road {
+public class Road implements Serializable{
 
+    private static final long serialVersionUID = 604L;
+    
     private String name;
     private String typology;
     private String id;
@@ -92,7 +94,7 @@ public class Road {
      */
     @Override
     public String toString() {
-        return String.format("Road name: %s \n id: %s", name,id);
+        return String.format("Road name: %s, id: %s", name,id);
     }
 
     /**

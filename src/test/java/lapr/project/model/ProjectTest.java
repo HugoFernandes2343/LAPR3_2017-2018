@@ -96,10 +96,48 @@ public class ProjectTest {
     }
 
     /**
-     * Test of equals method, of class Project false case.
+     * Test of toString method, of class Project.
      */
     @Test
-    public void testEqualsFalseCase() {
+    public void testToString() {
+        System.out.println("toString");
+        String expResult = "Project: n/a";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setVehicleList method, of class Project.
+     */
+    @Test
+    public void testSetVehicleList() {
+        System.out.println("setVehicleList");
+        VehicleList vehicleList = null;
+        instance.setVehicleList(vehicleList);
+        assertTrue("If we get the vehicle list it should be null", instance.getVehicleList() == null);
+        vehicleList = new VehicleList();
+        instance.setVehicleList(vehicleList);
+        assertTrue("If we get the vehicle list it should be empty", instance.getVehicleList().getVehicleList().isEmpty());
+    }
+
+    /**
+     * Test of equals method, of class Project, false case not the same project.
+     */
+    @Test
+    public void testEqualsFalseCaseName() {
+        System.out.println("equals");
+        Project test = new Project();
+        test.setName("test");
+        boolean expResult = false;
+        boolean result = instance.equals(test);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of equals method, of class Project false case not the same class.
+     */
+    @Test
+    public void testEqualsFalseCaseClass() {
         System.out.println("equals");
         Object obj = "test";
         boolean expResult = false;
@@ -120,70 +158,11 @@ public class ProjectTest {
     }
 
     /**
-     * Test of toString method, of class Project.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        String expResult = "Project: n/a";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setVehicleList method, of class Project.
-     */
-    @Test
-    public void testSetVehicleList() {
-        System.out.println("setVehicleList");
-        VehicleList vehicleList = null;
-        Project instance = new Project();
-        instance.setVehicleList(vehicleList);
-        
-        assertTrue("If we get the vehicle list it should be null", instance.getVehicleList() == null);
-        vehicleList = new VehicleList();
-        instance.setVehicleList(vehicleList);
-        assertTrue("If we get the vehicle list it should be empty", instance.getVehicleList().getVehicleList().isEmpty());
-    }
-
-    /**
-     * Test of setRoadNetwork method, of class Project.
-     */
-    @Test
-    public void testSetRoadNetwork() {
-        System.out.println("setRoadNetwork");
-        Network roadNetwork = null;
-        Project instance = new Project();
-        instance.setNetwork(roadNetwork);
-        
-         assertTrue("If we get the vehicle list it should be null", instance.getNetwork() == null);
-        roadNetwork = new Network();
-        instance.setNetwork(roadNetwork);
-        assertTrue("If we get the vehicle list it should be empty", instance.getNetwork().getRoadMap().numEdges() == 0 && instance.getNetwork().getRoadMap().numVertices() == 0);
-    }
-
-    /**
-     * Test of equals method, of class Project.
-     */
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        
-        Project instance = new Project();
-        Project instance1 = new Project();
-        
-        assertTrue("This two instances should be equal since their names are equal", instance.equals(instance1));
-        instance1.setName("Principal Project");
-        assertFalse("This two instances shouldn't be equal since their names are different", instance.equals(instance1));
-    }
-
-    /**
      * Test of getVehicleList method, of class Project.
      */
     @Test
     public void testGetVehicleList() {
         System.out.println("getVehicleList");
-        Project instance = new Project();
         VehicleList result = instance.getVehicleList();
         assertTrue("The list returned should be empty", result.getVehicleList().isEmpty());
     }
@@ -194,7 +173,6 @@ public class ProjectTest {
     @Test
     public void testGetNetwork() {
         System.out.println("getRoadNetwork");
-        Project instance = new Project();
         Network result = instance.getNetwork();
         assertTrue("The list returned should be empty", result.getRoadMap().numEdges() == 0 && result.getRoadMap().numVertices() == 0);
     }
@@ -206,10 +184,11 @@ public class ProjectTest {
     public void testSetNetwork() {
         System.out.println("setNetwork");
         Network network = null;
-        Project instance = new Project();
         instance.setNetwork(network);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue("If we get the network it should be null", instance.getNetwork() == null);
+        network = new Network();
+        instance.setNetwork(network);
+        assertTrue("If we get the network should be empty", instance.getNetwork().getRoadMap().numEdges() == 0 && instance.getNetwork().getRoadMap().numVertices() == 0);
     }
 
 }

@@ -5,12 +5,16 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Hugo
  */
-public class Regime {
+public class Regime implements Serializable{
 
+    private static final long serialVersionUID = 603L;
+    
     private int torque;
     private int rpm_low;
     private int rpm_high;
@@ -79,7 +83,7 @@ public class Regime {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Regime other = (Regime) obj;
+        Regime other = (Regime) obj;
         if (this.torque != other.torque) {
             return false;
         }

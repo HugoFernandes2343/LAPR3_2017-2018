@@ -6,8 +6,6 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -44,17 +42,6 @@ public class ProjectListTest {
     }
 
     /**
-     * Test of getProjects method, of class ProjectList.
-     */
-    @Test
-    public void testGetProjects() {
-        System.out.println("getProjects");
-        Set<Project> expResult = new HashSet<>();
-        Set<Project> result = instance.getProjectList();
-        assertEquals(expResult, result);//sets should be empty at the start of application
-    }
-
-    /**
      * Test of getActualProject method, of class ProjectList.
      */
     @Test
@@ -83,10 +70,7 @@ public class ProjectListTest {
     public void testAddProject() {
         System.out.println("addProject");
         Project p = null;
-        ProjectList instance = new ProjectList();
-
         assertFalse("Thid project shouldn't be added, since it is null", instance.addProject(p));
-
         p = new Project();
         p.setName("Projeto principal");
         p.setDescription("Projeto inicial para testes");
@@ -100,14 +84,12 @@ public class ProjectListTest {
     @Test
     public void testGetAllNames() {
         System.out.println("getAllNames");
-        ProjectList instance = new ProjectList();
         Project p1 = new Project();
         Project p2 = new Project();
         p1.setName("Proj1");
         p2.setName("Proj2");
         instance.addProject(p1);
         instance.addProject(p2);
-
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("Proj1");
         expResult.add("Proj2");
@@ -122,7 +104,6 @@ public class ProjectListTest {
     public void testGetProject() {
         System.out.println("getProject");
         String name = "Proj1";
-        ProjectList instance = new ProjectList();
         Project p1 = new Project();
         Project p2 = new Project();
         p1.setName("Proj1");
@@ -133,19 +114,5 @@ public class ProjectListTest {
         Project result = instance.getProject(name);
         assertEquals(expResult, result);
 
-    }
-
-    /**
-     * Test of getProjectList method, of class ProjectList.
-     */
-    @Test
-    public void testGetProjectList() {
-        System.out.println("getProjectList");
-        ProjectList instance = new ProjectList();
-        Set<Project> expResult = null;
-        Set<Project> result = instance.getProjectList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 }
