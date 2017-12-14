@@ -39,23 +39,5 @@ public class VelocityLimitList {
         return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final VelocityLimitList other = (VelocityLimitList) obj;
-        if (!(velocity_limit_list.size() == other.velocity_limit_list.size())) {
-            return false;
-        }
-        Iterator itr = velocity_limit_list.iterator();
-        Iterator itr2 = other.velocity_limit_list.iterator();
-        while (itr.hasNext()) {
-            if (!(itr.next().equals(itr2.next()))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
 }

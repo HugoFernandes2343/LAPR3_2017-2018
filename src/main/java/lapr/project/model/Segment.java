@@ -5,12 +5,15 @@
  */
 package lapr.project.model;
 
+import java.util.Objects;
+
 /**
  *
  * @author hugod
  */
 public class Segment {
-
+    private static final long serialVersionUID = 1L;
+    
     private String id;
     private double init_height;
     private double final_height;
@@ -100,6 +103,13 @@ public class Segment {
         }
         Segment other = (Segment) obj;
         return this.id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
     /**

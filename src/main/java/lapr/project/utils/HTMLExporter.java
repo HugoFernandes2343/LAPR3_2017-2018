@@ -116,7 +116,7 @@ public class HTMLExporter/*<T>*/ {
      * @return string retrieved from the buffer
      */
     String getOutput() {
-        return sw.getBuffer().toString();
+        return sw/*.getBuffer()*/.toString();
     }
     
 //    String getOutput() {

@@ -19,6 +19,7 @@ import lapr.project.controller.CreateProjectController;
 import lapr.project.model.TravelByPhysics;
 
 public class CreateProjectUI extends JPanel implements ErrorMessages {
+    private static final long serialVersionUID = 1L;
 
     private final CreateProjectController cp;
 

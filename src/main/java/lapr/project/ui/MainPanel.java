@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import lapr.project.model.Project;
 
 public class MainPanel extends JPanel {
+    private static final long serialVersionUID = 1L;
 
     public MainPanel() {
         JPanel p = new JPanel(new BorderLayout());
