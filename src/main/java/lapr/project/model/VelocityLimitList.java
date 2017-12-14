@@ -5,17 +5,18 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.Set;
 
 /**
  *
  * @author Hugo
  */
-public class VelocityLimitList {
+public class VelocityLimitList implements Serializable{
 
+    private static final long serialVersionUID = 203L;
+    
     private Set<VelocityLimit> velocity_limit_list;
 
     /**
@@ -31,13 +32,5 @@ public class VelocityLimitList {
     public Set<VelocityLimit> getVelocity_limit_list() {
         return velocity_limit_list;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.velocity_limit_list);
-        return hash;
-    }
-
 
 }

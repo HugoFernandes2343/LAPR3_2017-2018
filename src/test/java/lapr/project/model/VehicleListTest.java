@@ -38,12 +38,6 @@ public class VehicleListTest {
     public void tearDown() throws Exception {
     }
 
-       @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        System.out.print("The test is not implemented yet.");
-    }
-
     /**
      * Test of getVehicle_list method, of class VehicleList.
      */
@@ -51,10 +45,20 @@ public class VehicleListTest {
     public void testGetVehicleList() {
         System.out.println("getVehicleList");
         VehicleList instance = new VehicleList();
-        Set<Vehicle> expResult = null;
         Set<Vehicle> result = instance.getVehicleList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        assertTrue("The obtained list should be empty", result.isEmpty());
+    }
+
+    /**
+     * Test of setVehicleList method, of class VehicleList.
+     */
+    @Test
+    public void testSetVehicleList() {
+        System.out.println("setVehicleList");
+        VehicleList instance = new VehicleList();
+        instance.setVehicleList(null);
+        
+        assertTrue("The new vehicle list should be null", instance.getVehicleList() == null );
     }
 }

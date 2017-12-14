@@ -5,14 +5,17 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Hugo
  */
-public class VelocityLimit {
+public class VelocityLimit implements Serializable{
 
+    private static final long serialVersionUID = 204L;
+    
     private String segment_type;
     private int limit;
 

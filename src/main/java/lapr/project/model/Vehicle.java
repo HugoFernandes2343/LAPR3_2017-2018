@@ -5,22 +5,25 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author hugod
  */
-public class Vehicle {
+public class Vehicle implements Serializable{
 
+    private static final long serialVersionUID = 201L;
+    
     private String name;
     private String description;
     private String type;
     private int tollClass;
     private String motorization;
     private String fuel;
-    private double mass;
-    private double load;
+    private String mass;
+    private String load;
     private double drag;
     private double frontal_area;
     private double rrc;
@@ -28,7 +31,7 @@ public class Vehicle {
     private Energy energy;
     private VelocityLimitList velocity_limit_list;
 
-    public Vehicle(String name,String description, String type, int tollClass, String motorization,String fuel, double mass, double load, double drag,double frontal_area, double rrc , double wheelSize,Energy energy,VelocityLimitList velocity_limit_list) {
+    public Vehicle(String name,String description, String type, int tollClass, String motorization,String fuel, String mass, String load, double drag,double frontal_area, double rrc , double wheelSize,Energy energy,VelocityLimitList velocity_limit_list) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -79,14 +82,14 @@ public class Vehicle {
     /**
      * @return the mass
      */
-    public double getMass() {
+    public String getMass() {
         return mass;
     }
 
     /**
      * @return the load
      */
-    public double getLoad() {
+    public String getLoad() {
         return load;
     }
 

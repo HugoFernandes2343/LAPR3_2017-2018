@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +13,10 @@ import java.util.Set;
  *
  * @author hugod
  */
-public class VehicleList {
+public class VehicleList implements Serializable{
 
+    private static final long serialVersionUID = 205L;
+    
     private Set<Vehicle> vehicle_list;
 
     public VehicleList() {

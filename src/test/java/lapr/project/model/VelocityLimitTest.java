@@ -43,12 +43,10 @@ public class VelocityLimitTest {
     @Test
     public void testGetSegment_type() {
         System.out.println("getSegment_type");
-        VelocityLimit instance = null;
-        String expResult = "";
+        VelocityLimit instance = new VelocityLimit("coisa", 250);
+        String expResult = "coisa";
         String result = instance.getSegment_type();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +55,10 @@ public class VelocityLimitTest {
     @Test
     public void testGetLimit() {
         System.out.println("getLimit");
-        VelocityLimit instance = null;
-        int expResult = 0;
+        VelocityLimit instance = new VelocityLimit("coisa", 250);
+        int expResult = 250;
         int result = instance.getLimit();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -71,12 +67,16 @@ public class VelocityLimitTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        VelocityLimit instance = null;
-        int expResult = 0;
+        VelocityLimit instance = new VelocityLimit("coisa", 250);
+        VelocityLimit instance1 = new VelocityLimit("coisa", 250);
+        int expResult = instance1.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        VelocityLimit instance2 = new VelocityLimit("coisasdf", 259);
+        expResult = instance2.hashCode();
+        result = instance.hashCode();
+        assertNotEquals(expResult, result);
     }
 
     /**
@@ -85,13 +85,12 @@ public class VelocityLimitTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        VelocityLimit instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        VelocityLimit obj = new VelocityLimit("coisa", 250);
+        VelocityLimit instance = new VelocityLimit("coisa", 250);
+        assertTrue("Should be equal", obj.equals(instance));
+        
+        instance = new VelocityLimit("coisafesd", 2567);
+        assertFalse("Shouldn't be equal", obj.equals(instance));
     }
     
 }
