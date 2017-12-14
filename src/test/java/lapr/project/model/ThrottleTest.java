@@ -18,22 +18,22 @@ import static org.junit.Assert.*;
  * @author Hugo
  */
 public class ThrottleTest {
-    
+
     public ThrottleTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -44,12 +44,13 @@ public class ThrottleTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Throttle instance = null;
-        String expResult = "";
+        Regime test = new Regime(10, 20, 30, 40);
+        LinkedList<Regime> listTest = new LinkedList<>();
+        listTest.add(test);
+        Throttle instance = new Throttle("test_id", listTest);
+        String expResult = "test_id";
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -58,12 +59,13 @@ public class ThrottleTest {
     @Test
     public void testGetRegime_list() {
         System.out.println("getRegime_list");
-        Throttle instance = null;
-        LinkedList<Regime> expResult = null;
+        Regime test = new Regime(10, 20, 30, 40);
+        LinkedList<Regime> listTest = new LinkedList<>();
+        listTest.add(test);
+        Throttle instance = new Throttle("test_id", listTest);
+        LinkedList<Regime> expResult = listTest;
         LinkedList<Regime> result = instance.getRegime_list();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,12 +74,19 @@ public class ThrottleTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Throttle instance = null;
-        int expResult = 0;
+        Regime test = new Regime(10, 20, 30, 40);
+        LinkedList<Regime> listTest = new LinkedList<>();
+        listTest.add(test);
+        Throttle instance = new Throttle("test_id", listTest);
+        Throttle instance2 = new Throttle("test_id", new LinkedList<>());
+        int expResult = instance2.hashCode();
         int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("Same id/hashcode", expResult, result);
+
+        instance2 = new Throttle("test_id2", new LinkedList<>());
+        expResult = instance2.hashCode();
+        result = instance.hashCode();
+        assertEquals("Different id/hashcode", expResult, result);
     }
 
     /**
@@ -86,13 +95,25 @@ public class ThrottleTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        Throttle instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Regime test = new Regime(10, 20, 30, 40);
+        LinkedList<Regime> listTest = new LinkedList<>();
+        listTest.add(test);
+        Throttle instance = new Throttle("test_id", listTest);
+        Throttle instance2 = new Throttle("test_id", listTest);
+        boolean expResult = true;
+        boolean result = instance.equals(instance2);
+        assertEquals("Objects are equal", expResult, result);
+
+        instance = new Throttle("test_id", listTest);
+        instance2 = new Throttle("test_id2", new LinkedList<>());
+        expResult = true;
+        result = instance.equals(instance2);
+        assertEquals("Objects are different", expResult, result);
+
+        Object obj = new Object();
+        expResult = false;
+        result = instance.equals(instance2);
+        assertEquals("Not the same Objects", expResult, obj);
     }
-    
+
 }

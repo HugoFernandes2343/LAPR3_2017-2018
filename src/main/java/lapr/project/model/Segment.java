@@ -23,7 +23,7 @@ public class Segment {
     private String max_velocity;
     private String min_velocity;
 
-    public Segment(String segmentIndex, double initialHeight, double slope, String length, double windDirection, String wind_speed, String max_velocity, String min_velocity, Object toll) {
+    public Segment(String segmentIndex, double initialHeight, double slope, String length, double windDirection, String wind_speed, String max_velocity, String min_velocity) {
         this.id = segmentIndex;
         this.init_height = initialHeight;
         this.final_height = slope;

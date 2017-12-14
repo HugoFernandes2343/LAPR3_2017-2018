@@ -12,9 +12,10 @@ import java.util.Arrays;
  * @author Hugo
  */
 class TollFare {
-
+    private static final long serialVersionUID = 101L;
+    
     private String[][] toll_fare;
-
+    
     public TollFare(String[][] toll_fare) {
         this.toll_fare = toll_fare;
     }

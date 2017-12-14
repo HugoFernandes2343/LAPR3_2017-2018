@@ -13,7 +13,8 @@ import java.util.Objects;
  * @author Hugo
  */
 public class Throttle {
-
+    private static final long serialVersionUID = 100L;
+    
     private String id;
     private LinkedList<Regime> regime_list;
 

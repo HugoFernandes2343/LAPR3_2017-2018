@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.util.LinkedList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,22 +18,22 @@ import static org.junit.Assert.*;
  * @author Hugo
  */
 public class TollFareTest {
-    
+
     public TollFareTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,11 +44,9 @@ public class TollFareTest {
     @Test
     public void testSetToll_fare() {
         System.out.println("setToll_fare");
-        String[][] toll_fare = null;
-        TollFare instance = null;
+        String[][] toll_fare = new String[1][1];
+        TollFare instance = new TollFare(toll_fare);
         instance.setToll_fare(toll_fare);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,12 +55,18 @@ public class TollFareTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        TollFare instance = null;
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String[][] toll_fare = new String[1][1];
+        TollFare instance = new TollFare(toll_fare);
+        TollFare instance2 = new TollFare(toll_fare);
+        int expResult = instance.hashCode();
+        int result = instance2.hashCode();
+        
+        assertEquals("Same id/hashcode", expResult, result);
+
+        instance2 = new TollFare(new String[2][2]);
+        expResult = instance.hashCode();
+        result = instance2.hashCode();
+        assertEquals("Different id/hashcode", expResult, result);
     }
 
     /**
@@ -70,13 +75,22 @@ public class TollFareTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        TollFare instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String[][] toll_fare = new String[1][1];
+        TollFare instance = new TollFare(toll_fare);
+        TollFare instance2 = new TollFare(toll_fare);
+        boolean expResult = true;
+        boolean result = instance.equals(instance2);
+        assertEquals("Objects are equal", expResult, result);
+
+        instance2 = new TollFare(new String[2][2]);
+        expResult = true;
+        result = instance.equals(instance2);
+        assertEquals("Objects are different", expResult, result);
+
+        Object obj = new Object();
+        expResult = false;
+        result = instance.equals(instance2);
+        assertEquals("Not the same Objects", expResult, obj);
     }
-    
+
 }

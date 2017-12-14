@@ -46,12 +46,10 @@ public class SegmentTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Segment instance = null;
-        String expResult = "";
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        String expResult = "teste_id";
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -60,12 +58,10 @@ public class SegmentTest {
     @Test
     public void testGetInit_height() {
         System.out.println("getInit_height");
-        Segment instance = null;
-        double expResult = 0.0;
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        double expResult = 1;
         double result = instance.getInit_height();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -74,12 +70,11 @@ public class SegmentTest {
     @Test
     public void testGetFinal_height() {
         System.out.println("getFinal_height");
-        Segment instance = null;
-        double expResult = 0.0;
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        double expResult = 2;
         double result = instance.getFinal_height();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -88,12 +83,10 @@ public class SegmentTest {
     @Test
     public void testGetLength() {
         System.out.println("getLength");
-        Segment instance = null;
-        String expResult = "";
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        String expResult = "teste_length";
         String result = instance.getLength();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -102,12 +95,10 @@ public class SegmentTest {
     @Test
     public void testGetWind_direction() {
         System.out.println("getWind_direction");
-        Segment instance = null;
-        double expResult = 0.0;
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        double expResult = 3;
         double result = instance.getWind_direction();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -116,12 +107,10 @@ public class SegmentTest {
     @Test
     public void testGetWind_speed() {
         System.out.println("getWind_speed");
-        Segment instance = null;
-        String expResult = "";
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        String expResult = "teste_windSpeed";
         String result = instance.getWind_speed();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -130,12 +119,10 @@ public class SegmentTest {
     @Test
     public void testGetMax_velocity() {
         System.out.println("getMax_velocity");
-        Segment instance = null;
-        String expResult = "";
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        String expResult = "teste_maxVelocity";
         String result = instance.getMax_velocity();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -144,12 +131,10 @@ public class SegmentTest {
     @Test
     public void testGetMin_velocity() {
         System.out.println("getMin_velocity");
-        Segment instance = null;
-        String expResult = "";
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        String expResult = "teste_minVelocity";
         String result = instance.getMin_velocity();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -158,13 +143,17 @@ public class SegmentTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        Segment instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Segment instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        Segment instance2 = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        boolean expResult = true;
+        boolean result = instance.equals(instance2);
+        assertEquals("Equal segments", expResult, result);
+
+        instance2 = new Segment("teste_id2", 12, 22, "teste_length2", 32, "teste_windSpeed2", "teste_maxVelocity2", "teste_minVelocity2");
+        expResult = false;
+        result = instance.equals(instance2);
+        assertEquals("Diferent segments", expResult, result);
+
     }
 
     /**
@@ -173,13 +162,10 @@ public class SegmentTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Segment instance = null;
-        String expResult = "";
+        Segment instance = new Segment("teste_id2", 12, 22, "teste_length2", 32, "teste_windSpeed2", "teste_maxVelocity2", "teste_minVelocity2");;
+        String expResult = String.format("Segment id: %d", instance.getId());;
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
 
 }

@@ -12,8 +12,8 @@ import java.util.Objects;
  * @author Utilizador
  */
 public class User {
-
-//    static final long serialVersionID = '';
+    private static final long serialVersionUID = 102L;
+    
     private String username;
     private int charKey;
     private String name;

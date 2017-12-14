@@ -10,7 +10,8 @@ package lapr.project.model;
  * @author hugod
  */
 public class TravelByPhysics {
-
+    private static final long serialVersionUID = 103L;
+    
     /**
      * Attribute that keeps the project list of the system.
      */
