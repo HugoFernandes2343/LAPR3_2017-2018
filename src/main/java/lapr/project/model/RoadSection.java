@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author
  */
 public class RoadSection implements Serializable {
     

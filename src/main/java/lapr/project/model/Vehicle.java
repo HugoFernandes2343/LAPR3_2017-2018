@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author 
  */
 public class Vehicle implements Serializable{
 

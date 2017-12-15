@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  *
- * @author hugod
+ * @author 
  */
 public class VehicleList implements Serializable{
 

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class ThrottleTest {
 
@@ -86,7 +86,11 @@ public class ThrottleTest {
         instance2 = new Throttle("test_id2", new LinkedList<>());
         expResult = instance2.hashCode();
         result = instance.hashCode();
-        assertEquals("Different id/hashcode", expResult, result);
+        boolean comparison = false;
+        if(expResult == result){
+        comparison = true;
+        }        
+        assertEquals("Different id/hashcode", false, comparison);
     }
 
     /**
@@ -106,14 +110,14 @@ public class ThrottleTest {
 
         instance = new Throttle("test_id", listTest);
         instance2 = new Throttle("test_id2", new LinkedList<>());
-        expResult = true;
+        expResult = false;
         result = instance.equals(instance2);
         assertEquals("Objects are different", expResult, result);
 
         Object obj = new Object();
         expResult = false;
-        result = instance.equals(instance2);
-        assertEquals("Not the same Objects", expResult, obj);
+        result = instance.equals(obj);
+        assertEquals("Not the same Objects", expResult, result);
     }
 
 }

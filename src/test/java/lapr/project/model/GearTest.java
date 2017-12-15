@@ -14,25 +14,28 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class GearTest {
     
+    private Gear instance;
+
     public GearTest() {
+        this.instance = new Gear("test", 2.1);
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,12 +46,10 @@ public class GearTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Gear instance = null;
-        String expResult = "";
+        String expResult = "test";
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -57,12 +58,11 @@ public class GearTest {
     @Test
     public void testGetRatio() {
         System.out.println("getRatio");
-        Gear instance = null;
-        double expResult = 0.0;
+
+        double expResult = 2.1;
         double result = instance.getRatio();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -71,27 +71,35 @@ public class GearTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Gear instance = null;
-        int expResult = 0;
+        int expResult = instance.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of equals method, of class Gear.
      */
     @Test
-    public void testEquals() {
+    public void testEqualsTrueCase() {
         System.out.println("equals");
-        Object obj = null;
-        Gear instance = null;
+        Object obj = new Gear("test",2.1);
+        boolean expResult = true;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+        
+    }
+    
+     /**
+     * Test of equals method, of class Gear.
+     */
+    @Test
+    public void testEqualsFalseCase() {
+        System.out.println("equals");
+        Object obj = new Gear("test1",2.2);
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
-    
 }

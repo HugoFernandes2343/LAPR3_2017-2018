@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author hugod
+ * @author 
  */
 public class RoadTest {
 

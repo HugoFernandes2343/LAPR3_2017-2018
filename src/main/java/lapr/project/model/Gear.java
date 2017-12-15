@@ -5,13 +5,16 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
-public class Gear {
+public class Gear implements Serializable{
+    
+    private static final long serialVersionUID = 504L;
 
     private String id;
     private double ratio;
@@ -40,6 +43,10 @@ public class Gear {
         return ratio;
     }
 
+    /**
+     * Hash code fo the object gear
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -59,7 +66,7 @@ public class Gear {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Gear other = (Gear) obj;
+         Gear other = (Gear) obj;
         return this.id.equalsIgnoreCase(other.id);
 
     }

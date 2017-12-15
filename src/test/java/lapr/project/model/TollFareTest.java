@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class TollFareTest {
 
@@ -66,7 +66,11 @@ public class TollFareTest {
         instance2 = new TollFare(new String[2][2]);
         expResult = instance.hashCode();
         result = instance2.hashCode();
-        assertEquals("Different id/hashcode", expResult, result);
+        boolean comparison = false;
+        if(expResult == result){
+        comparison = true;
+        }        
+        assertEquals("Different id/hashcode", false, comparison);
     }
 
     /**
@@ -83,14 +87,14 @@ public class TollFareTest {
         assertEquals("Objects are equal", expResult, result);
 
         instance2 = new TollFare(new String[2][2]);
-        expResult = true;
+        expResult = false;
         result = instance.equals(instance2);
         assertEquals("Objects are different", expResult, result);
 
         Object obj = new Object();
         expResult = false;
         result = instance.equals(instance2);
-        assertEquals("Not the same Objects", expResult, obj);
+        assertEquals("Not the same Objects", expResult, result);
     }
 
 }

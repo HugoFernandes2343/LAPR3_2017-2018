@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class VelocityLimit implements Serializable{
 

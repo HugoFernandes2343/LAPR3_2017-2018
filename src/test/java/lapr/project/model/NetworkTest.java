@@ -15,41 +15,105 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class NetworkTest {
     
     public NetworkTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getRoadMap method, of class Network.
+     * Test of getId method, of class Network.
      */
     @Test
-    public void testGetRoadMap() {
-        System.out.println("getRoadMap");
+    public void testGetId() {
+        System.out.println("getId");
         Network instance = new Network();
-        AdjacencyMatrixGraph<Node, Road> expResult = null;
-        AdjacencyMatrixGraph<Node, Road> result = instance.getRoadMap();
+        String expResult = "TestNetwork";
+        String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
+    /**
+     * Test of getDescription method, of class Network.
+     */
+    @Test
+    public void testGetDescription() {
+        System.out.println("getDescription");
+        Network instance = new Network();
+        String expResult = "test";
+        String result = instance.getDescription();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of hashCode method, of class Network.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        Network instance = new Network();
+        Network instanceTest = new Network();
+        int expResult = instanceTest.hashCode();
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of equals method, of class Network.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = new Network();
+        Network instance = new Network();
+        boolean expResult = true;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of toString method, of class Network.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Network instance = new Network();
+        String expResult = "Network{id=TestNetwork}";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+       
+    }
+
+    /**
+     * Test of setId method, of class Network.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        String id = "";
+        Network instance = new Network();
+        instance.setId(id);
+        assertEquals(id,instance.getId());
+    }
+
 }

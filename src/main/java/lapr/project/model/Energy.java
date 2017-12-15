@@ -5,13 +5,16 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
-public class Energy {
+public class Energy implements Serializable{
+
+    private static final long serialVersionUID = 503L;
 
     private int min_rpm;
     private int max_rpm;
@@ -35,39 +38,68 @@ public class Energy {
         this.throttle_list = throttle_list;
     }
 
+    public Energy() {
+        this.min_rpm = 0;
+        this.max_rpm = 1000;
+        this.final_drive_ratio = 0;
+        this.gear_List = new LinkedList<>();
+        this.throttle_list = new LinkedList<>();
+    }
+
     /**
      * @return the min_rpm
      */
-    public int getMin_rpm() {
+    public int getMinRpm() {
         return min_rpm;
     }
 
     /**
      * @return the max_rpm
      */
-    public int getMax_rpm() {
+    public int getMaxRpm() {
         return max_rpm;
     }
 
     /**
      * @return the final_drive_ratio
      */
-    public int getFinal_drive_ratio() {
+    public int getFinalDriveRatio() {
         return final_drive_ratio;
     }
 
     /**
      * @return the gear_List
      */
-    public LinkedList<Gear> getGear_List() {
+    public LinkedList<Gear> getGearList() {
         return gear_List;
     }
 
     /**
      * @return the throttle_list
      */
-    public LinkedList<Throttle> getThrottle_list() {
+    public LinkedList<Throttle> getThrottleList() {
         return throttle_list;
+    }
+
+    /**
+     * @param min_rpm the min_rpm to set
+     */
+    public void setMinRpm(int min_rpm) {
+        this.min_rpm = min_rpm;
+    }
+
+    /**
+     * @param max_rpm the max_rpm to set
+     */
+    public void setMaxRpm(int max_rpm) {
+        this.max_rpm = max_rpm;
+    }
+
+    /**
+     * @param final_drive_ratio the final_drive_ratio to set
+     */
+    public void setFinalDriveRatio(int final_drive_ratio) {
+        this.final_drive_ratio = final_drive_ratio;
     }
 
     @Override
@@ -90,14 +122,14 @@ public class Energy {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Energy other = (Energy) obj;
+        Energy other = (Energy) obj;
         if (this.min_rpm != other.min_rpm) {
             return false;
         }
         if (this.max_rpm != other.max_rpm) {
             return false;
         }
-        return this.final_drive_ratio != other.final_drive_ratio;
+        return this.final_drive_ratio == other.final_drive_ratio;
 
     }
 

@@ -15,7 +15,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Hugo
+ * @author
  */
 public class TravelByPhysicsTest {
     
@@ -45,13 +45,11 @@ public class TravelByPhysicsTest {
     public void testGetProjectList() {
         System.out.println("getProjectList");
         TravelByPhysics instance = new TravelByPhysics();
-        ProjectList get = instance.getProjectList();
         
-        assertTrue("The obtained list should be empty", get.getProjectList().isEmpty());
-        Project p = new Project();
-        instance.getProjectList().addProject(p);
-        get = instance.getProjectList();
-        assertTrue("The obtained list should have one project", get.getProjectList().size() == 1);
+        ProjectList result = instance.getProjectList();
+        ProjectList expResult = instance.getProjectList();
+        assertEquals(result,expResult);
+        
     }
 
    

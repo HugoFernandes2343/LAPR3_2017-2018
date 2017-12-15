@@ -5,18 +5,21 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
-public class Node {
+public class Node implements Serializable{
+    
+    private static final long serialVersionUID = 505L;
     
     private String id;
     
-    public Node(){
-        
+    public Node(){ 
+        this.id = "test";
     }
 
     /**
@@ -35,8 +38,9 @@ public class Node {
     
     /**
      *
-     * @param obj
-     * @return
+     *@param obj the object to compare to the node
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
      */
     @Override
     public boolean equals(Object obj){
@@ -47,6 +51,10 @@ public class Node {
         return this.id.equalsIgnoreCase(other.id);
     }
 
+    /**
+     *Hash code fo the object node
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 5;

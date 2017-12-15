@@ -15,7 +15,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class VehicleListTest {
 

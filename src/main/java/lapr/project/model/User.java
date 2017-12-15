@@ -5,15 +5,17 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
- * @author Utilizador
+ * @author
  */
-public class User {
+public class User implements Serializable {
+
     private static final long serialVersionUID = 102L;
-    
+
     private String username;
     private int charKey;
     private String name;
@@ -64,6 +66,13 @@ public class User {
     }
 
     /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
      * @return the email
      */
     public String getEmail() {
@@ -85,7 +94,7 @@ public class User {
     public int hashCode() {
         int hash = 3;
         hash = 61 * hash + Objects.hashCode(this.username);
-        hash = 61 * hash + Objects.hashCode(this.password);
+        hash = 61 * hash + Objects.hashCode(this.getPassword());
         hash = 61 * hash + Objects.hashCode(this.email);
         return hash;
     }
@@ -93,8 +102,8 @@ public class User {
     /**
      *
      * @param obj the object to compare to the User
-     * @return the result of the comparisons made. 
-     * True if the objects are the same, otherwise, it returns false
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
      */
     @Override
     public boolean equals(Object obj) {
@@ -108,7 +117,7 @@ public class User {
         if (!this.email.equals(other.email)) {
             return false;
         }
-        return this.password.equals(other.password);
+        return this.getPassword().equals(other.getPassword());
     }
 
     /**
@@ -119,4 +128,5 @@ public class User {
     public String toString() {
         return String.format("Name: %s, Email: %s", name, email);
     }
+
 }

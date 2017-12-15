@@ -15,7 +15,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class VehicleTest {
 
@@ -203,9 +203,9 @@ public class VehicleTest {
     @Test
     public void testGetEnergyFunction() {
         Energy e = instance.getEnergy();
-        assertEquals(5, e.getMin_rpm());
-        assertEquals(10, e.getMax_rpm());
-        assertEquals(25, e.getFinal_drive_ratio());
+        assertEquals(5, e.getMinRpm());
+        assertEquals(10, e.getMaxRpm());
+        assertEquals(25, e.getFinalDriveRatio());
     }        
 
     /**

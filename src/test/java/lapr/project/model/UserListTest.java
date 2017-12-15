@@ -10,7 +10,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class UserListTest {
     

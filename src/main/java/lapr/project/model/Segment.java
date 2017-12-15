@@ -5,14 +5,15 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author 
  */
-public class Segment {
-    private static final long serialVersionUID = 1L;
+public class Segment implements Serializable{
+    private static final long serialVersionUID = 506L;
     
     private String id;
     private double init_height;
@@ -118,7 +119,7 @@ public class Segment {
      */
     @Override
     public String toString() {
-        return String.format("Segment id: %d", this.id);
+        return String.format("Segment id: %s", this.id);
     }
 
 }

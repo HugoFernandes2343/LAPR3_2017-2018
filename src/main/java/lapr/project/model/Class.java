@@ -5,14 +5,17 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
-public class Class {
+public class Class implements Serializable{
 
+    private static final long serialVersionUID = 501L;
+    
     private String id;
 
     /**
@@ -32,6 +35,7 @@ public class Class {
     }
 
     /**
+     * Hash code fo the object class
      *
      * @return
      */
@@ -53,9 +57,10 @@ public class Class {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Class other = (Class) obj;
+         Class other = (Class) obj;
 
         return this.id.equalsIgnoreCase(other.id);
     }
 
 }
+

@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class NodeTest {
     
-    public NodeTest() {
+   public NodeTest() {
     }
     
     @BeforeClass
@@ -44,11 +44,11 @@ public class NodeTest {
     public void testGetId() {
         System.out.println("getId");
         Node instance = new Node();
-        String expResult = "";
+        instance.setId("test");
+        String expResult = "test";
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -57,28 +57,43 @@ public class NodeTest {
     @Test
     public void testSetId() {
         System.out.println("setId");
-        String id = "";
+        String id = "test";
         Node instance = new Node();
         instance.setId(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+         String expResult = id;
+        String result = instance.getId();
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of equals method, of class Node.
      */
     @Test
-    public void testEquals() {
+    public void testEqualsFalseCase() {
         System.out.println("equals");
-        Object obj = null;
+        Object obj = new Node();
         Node instance = new Node();
+        instance.setId("test1");
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
+    /**
+     * Test of equals method, of class Node.
+     */
+    @Test
+    public void testEqualsTrueCase() {
+        System.out.println("equals");
+        Object obj = new Node();
+        Node instance = new Node();
+        boolean expResult = true;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+       
+    }
+    
     /**
      * Test of hashCode method, of class Node.
      */
@@ -86,11 +101,11 @@ public class NodeTest {
     public void testHashCode() {
         System.out.println("hashCode");
         Node instance = new Node();
-        int expResult = 0;
+        instance.setId("test");
+        int expResult = instance.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
     
 }

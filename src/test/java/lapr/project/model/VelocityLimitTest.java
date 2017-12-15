@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author
  */
 public class VelocityLimitTest {
     

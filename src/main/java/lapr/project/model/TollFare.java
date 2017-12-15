@@ -5,13 +5,14 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
-class TollFare {
+class TollFare implements Serializable{
     private static final long serialVersionUID = 101L;
     
     private String[][] toll_fare;
@@ -47,7 +48,7 @@ class TollFare {
         }
         final TollFare other = (TollFare) obj;
 
-        return !Arrays.deepEquals(this.toll_fare, other.toll_fare);
+        return Arrays.deepEquals(this.toll_fare, other.toll_fare);
     }
     
 }

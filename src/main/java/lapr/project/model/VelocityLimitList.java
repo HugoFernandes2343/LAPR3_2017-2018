@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class VelocityLimitList implements Serializable{
 

@@ -5,14 +5,15 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Objects;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
-public class Throttle {
+public class Throttle implements Serializable{
     private static final long serialVersionUID = 100L;
     
     private String id;
@@ -54,7 +55,7 @@ public class Throttle {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Throttle other = (Throttle) obj;
+       Throttle other = (Throttle) obj;
         return this.id.equalsIgnoreCase(other.id);
 
     }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class Regime implements Serializable{
 
@@ -93,7 +93,7 @@ public class Regime implements Serializable{
         if (this.rpm_high != other.rpm_high) {
             return false;
         }
-        return this.SFC != other.SFC;
+        return this.SFC == other.SFC;
 
     }
 

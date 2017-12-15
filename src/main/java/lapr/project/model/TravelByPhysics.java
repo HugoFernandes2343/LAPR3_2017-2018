@@ -5,11 +5,13 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  *
- * @author hugod
+ * @author 
  */
-public class TravelByPhysics {
+public class TravelByPhysics implements Serializable{
     private static final long serialVersionUID = 103L;
     
     /**

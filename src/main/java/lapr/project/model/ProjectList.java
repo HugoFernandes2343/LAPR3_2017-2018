@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  *
- * @author hugod
+ * @author 
  */
 public class ProjectList implements Serializable{
 

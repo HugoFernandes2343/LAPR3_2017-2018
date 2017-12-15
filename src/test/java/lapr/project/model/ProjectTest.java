@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class ProjectTest {
 
@@ -174,7 +174,8 @@ public class ProjectTest {
     public void testGetNetwork() {
         System.out.println("getRoadNetwork");
         Network result = instance.getNetwork();
-        assertTrue("The list returned should be empty", result.getRoadMap().numEdges() == 0 && result.getRoadMap().numVertices() == 0);
+        Network expresult = new Network();
+        assertEquals(result,expresult);
     }
 
     /**
@@ -188,7 +189,8 @@ public class ProjectTest {
         assertTrue("If we get the network it should be null", instance.getNetwork() == null);
         network = new Network();
         instance.setNetwork(network);
-        assertTrue("If we get the network should be empty", instance.getNetwork().getRoadMap().numEdges() == 0 && instance.getNetwork().getRoadMap().numVertices() == 0);
+        
+        assertEquals(network,instance.getNetwork());
     }
 
 }

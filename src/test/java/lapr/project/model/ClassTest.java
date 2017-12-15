@@ -14,25 +14,25 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Hugo
+ * @author 
  */
 public class ClassTest {
     
     public ClassTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,12 +43,10 @@ public class ClassTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Class instance = null;
-        String expResult = "";
+        Class instance = new Class("1");
+        String expResult = "1";
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,27 +55,36 @@ public class ClassTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Class instance = null;
-        int expResult = 0;
-        int result = instance.hashCode();
+        Class instanceBase = new Class("1");
+        Class instance = new Class("1");
+        int expResult = instance.hashCode();
+        int result = instanceBase.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of equals method, of class Class.
      */
     @Test
-    public void testEquals() {
+    public void testEqualsTrueCase() {
         System.out.println("equals");
-        Object obj = null;
-        Class instance = null;
+        Object obj = new Class("1");
+        Class instance = new Class("1");
+        boolean expResult = true;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of equals method, of class Class.
+     */
+    @Test
+    public void testEqualsFalseCase() {
+        System.out.println("equals");
+        Object obj = new Class("1");
+        Class instance = new Class("2");
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
 }
