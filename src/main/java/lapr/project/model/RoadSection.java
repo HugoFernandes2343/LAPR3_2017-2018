@@ -23,12 +23,16 @@ public class RoadSection implements Serializable {
     private String direction;
     private LinkedList<Segment> segment_list;
 
-    public RoadSection(String beginningJunction, String endingJunction, String road_id, String direction, LinkedList<Segment> segments) {
-        this.begin = beginningJunction;
-        this.end = endingJunction;
+    public RoadSection(String begin, String end, String road_id, String direction, LinkedList<Segment> segments) {
+        this.begin = begin;
+        this.end = end;
         this.road_id = road_id;
         this.direction = direction;
         this.segment_list = segments;
+    }
+
+    public RoadSection() {
+        
     }
 
     /**
@@ -64,6 +68,26 @@ public class RoadSection implements Serializable {
      */
     public LinkedList<Segment> getSegment_list() {
         return segment_list;
+    }
+
+    public void setBegin(String begin) {
+        this.begin = begin;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public void setRoad_id(String road_id) {
+        this.road_id = road_id;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public void setSegment_list(LinkedList<Segment> segment_list) {
+        this.segment_list = segment_list;
     }
 
     /**

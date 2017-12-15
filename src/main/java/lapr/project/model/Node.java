@@ -21,6 +21,10 @@ public class Node implements Serializable{
     public Node(){ 
         this.id = "test";
     }
+    
+    public Node(String id){
+        this.id=id;
+    }
 
     /**
      * @return the id

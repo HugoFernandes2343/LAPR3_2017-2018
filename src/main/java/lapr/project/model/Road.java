@@ -21,12 +21,31 @@ public class Road implements Serializable{
     private String id;
     private TollFare toll_fare;
 
+    /**
+     * Empty Constructor
+     */
+    public Road() {
+    }
+    
+    /**
+     * Constructor of the Road Object
+     * @param name - name of the road
+     * @param description - tipology of the road
+     * @param id - id of the road
+     */
     public Road(String name, String description,String id) {
         this.name = name;
         this.typology = description;
         this.id = id;
     }
-
+    
+    /**
+     * Complete constructor
+     * @param name - name of the road
+     * @param typology - tipology of the road
+     * @param id - id of the road
+     * @param toll_fare 
+     */
     public Road(String name, String typology, String id, TollFare toll_fare) {
         this.name = name;
         this.typology = typology;

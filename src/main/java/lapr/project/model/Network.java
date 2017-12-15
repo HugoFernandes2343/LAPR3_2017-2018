@@ -12,17 +12,17 @@ import lapr.project.utils.AdjacencyMatrixGraph;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Network implements Serializable{
-    
+public class Network implements Serializable {
+
     private static final long serialVersionUID = 502L;
 
-     private AdjacencyMatrixGraph<Node, Road> roadMap;
+    private AdjacencyMatrixGraph<Node, Road> roadMap;
     private String id;
     private String description;
     private LinkedList<Node> node_list;
-    private LinkedList<Node> road_list;
+    private LinkedList<Road> road_list;
     private LinkedList<RoadSection> section_list;
 
     public Network() {
@@ -55,7 +55,47 @@ public class Network implements Serializable{
         return description;
     }
 
-   
+    /**
+     * Defines the Description of the Network
+     *
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Adds a node to the node list if is not in there already
+     *
+     * @param text - node id to be added
+     */
+    public void addNode(String text) {
+        Node node = new Node(text);
+        if (!this.node_list.contains(node)) {
+            this.node_list.add(node);
+        }
+    }
+
+    /**
+     * Adds a road to the road_list
+     *
+     * @param road - road that will be added
+     */
+    public void addRoad(Road road) {
+        if (!this.road_list.contains(road)) {
+            this.road_list.add(road);
+        }
+    }
+    
+    /**
+     * Adds a roadSection to the section_list
+     * @param section - RoadSection
+     */
+    public void addRoadSection(RoadSection section){
+        if(!this.section_list.contains(section)){
+            this.section_list.add(section);
+        }
+    }
 
     /**
      *

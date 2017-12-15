@@ -1,54 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.LinkedList;
 
-/**
- *
- * @author 
- */
-class TollFare implements Serializable{
+public class TollFare implements Serializable{
     private static final long serialVersionUID = 101L;
     
-    private String[][] toll_fare;
+    private LinkedList<Class> toll_fare;
     
-    public TollFare(String[][] toll_fare) {
+    /**
+     * Complete Constructor
+     * @param toll_fare - toll_fare Class Linked List
+     */
+    public TollFare(LinkedList<Class> toll_fare) {
         this.toll_fare = toll_fare;
     }
-
+    
     /**
-     * @param toll_fare the toll_fare to set
+     * Empty constructor
      */
-    public void setToll_fare(String[][] toll_fare) {
+    public TollFare() {
+        this.toll_fare = new LinkedList<>();
+    }
+    
+    /**
+     * Adds a vehicle class to the toll_fare linked list 
+     * @param id - class id
+     * @param price - toll_fare class price
+     */
+    public void addClass(String id, Double price){
+        Class vehicle_class = new Class(id,price);
+        this.toll_fare.add(vehicle_class);
+    }
+    
+    /**
+     * @return toll_fare LinkedList 
+     */
+    public LinkedList<Class> getToll_fare() {
+        return toll_fare;
+    }
+    
+    /**
+     * Setter for the
+     * @param toll_fare toll_fare LinkedList
+     */
+    public void setToll_fare(LinkedList<Class> toll_fare) {
         this.toll_fare = toll_fare;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + Arrays.deepHashCode(this.toll_fare);
-        return hash;
-    }
-
-    /**
-     *
-     * @param obj the object to compare to the tollFare
-     * @return the result of the comparisons made. True if the objects are the
-     * same, otherwise, it returns false
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TollFare other = (TollFare) obj;
-
-        return Arrays.deepEquals(this.toll_fare, other.toll_fare);
-    }
+    
+    
     
 }
