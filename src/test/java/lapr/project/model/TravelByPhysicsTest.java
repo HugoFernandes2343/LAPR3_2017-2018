@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -12,13 +13,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
 /**
  *
  * @author
  */
 public class TravelByPhysicsTest {
-    
+
     public TravelByPhysicsTest() {
     }
 
@@ -45,13 +45,11 @@ public class TravelByPhysicsTest {
     public void testGetProjectList() {
         System.out.println("getProjectList");
         TravelByPhysics instance = new TravelByPhysics();
-        
+
         ProjectList result = instance.getProjectList();
-        ProjectList expResult = instance.getProjectList();
-        assertEquals(result,expResult);
-        
+        ArrayList<String> shouldBeEmpty = result.getAllNames();
+        assertTrue("Since the list was just created there should be no names ergo its empty", shouldBeEmpty.isEmpty());
+
     }
 
-   
-        
 }

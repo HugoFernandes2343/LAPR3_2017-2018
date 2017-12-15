@@ -32,7 +32,7 @@ public class MenuUI extends JFrame {
     TravelByPhysics tp;
     
     private static final int WINDOW_HEIGHT = 700;
-    private static final int WINDOW_WIDTH = 475;
+    private static final int WINDOW_WIDTH = 485;
 
     private static final String UC_IMPLEMENTATION = "Not Implemented";
 

@@ -19,7 +19,7 @@ import lapr.project.controller.CreateProjectController;
 import lapr.project.model.TravelByPhysics;
 
 public class CreateProjectUI extends JPanel implements ErrorMessages {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 105L;
 
     private final CreateProjectController cp;
 
@@ -29,15 +29,15 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
     private String descrStr;
 
     private boolean flag;
-
+    
     private final TravelByPhysics tp;
 
     private final JPanel mPanel;
     private JPanel page1;
     private JPanel page2;
 
-    private JTextPane roadsFilePath;
-    private JTextPane vehiclesFilePath;
+    private JTextArea roadsFilePath;
+    private JTextArea vehiclesFilePath;
 
     private final CardLayout layout = new CardLayout();
 
@@ -96,7 +96,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
                 if (cp.createProject(nameStr, descrStr)) {
                     layout.show(mPanel, "page2");
                 } else {
-                    JOptionPane.showMessageDialog(null, EMPTY_FIELDS, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    err_mess(EMPTY_FIELDS, MESS_ERR);
                 }
             }
         }
@@ -129,8 +129,9 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
 
         JPanel p1 = new JPanel(new GridLayout(3, 2));
         JPanel pr = new JPanel();
-        roadsFilePath = new JTextPane();
+        roadsFilePath = new JTextArea(4, 30);
         roadsFilePath.setText("Select file:");
+        roadsFilePath.setLineWrap(true);
         roadsFilePath.setEditable(false);
         pr.add(roadsFilePath);
         p1.add(pr);
@@ -138,8 +139,9 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         p1.add(createButtonRoads());
 
         JPanel pv = new JPanel();
-        vehiclesFilePath = new JTextPane();
+        vehiclesFilePath = new JTextArea(4, 30);
         vehiclesFilePath.setText("Select file:");
+        vehiclesFilePath.setLineWrap(true);
         vehiclesFilePath.setEditable(false);
         pv.add(vehiclesFilePath);
         p1.add(pv);
@@ -179,17 +181,18 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
                             MESS_CONF, dialogButton);
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
-                            JOptionPane.showMessageDialog(null, CREATE_SUCCESS, MESS_SUCC, JOptionPane.INFORMATION_MESSAGE);
+                            suc_mess(CREATE_SUCCESS, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();
                             repaint();
                         } else {
                             JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.INFORMATION_MESSAGE);
+                            err_mess(ERR_NO_FILE,MESS_ERR);
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.INFORMATION_MESSAGE);
+                    err_mess(ERR_NO_FILE, MESS_ERR);
                 }
             }
         });
@@ -214,10 +217,10 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
                     if (!(roadsFilePathStr.isEmpty()) && validateFile(roadsChooser.getSelectedFile().getAbsolutePath())) {
                         roadsFilePath.setText(roadsFilePathStr);
                     } else {
-                        JOptionPane.showMessageDialog(null, ERR_WRONG_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                        err_mess(ERR_WRONG_FILE, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    err_mess(ERR_NO_FILE, MESS_ERR);
                 }
             }
 
@@ -244,10 +247,10 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
                     if (!(vehiclesFilePathStr.isEmpty()) && validateFile(vehiclesChooser.getSelectedFile().getAbsolutePath())) {
                         vehiclesFilePath.setText(vehiclesFilePathStr);
                     } else {
-                        JOptionPane.showMessageDialog(null, ERR_WRONG_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                        err_mess(ERR_WRONG_FILE,MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    err_mess(ERR_NO_FILE, MESS_ERR);
                 }
             }
 
@@ -278,13 +281,13 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
             public void actionPerformed(ActionEvent ae) {
                 try {
                     if (cp.readInfo(roadsFilePath.getText(), vehiclesFilePath.getText())) {
-                        JOptionPane.showMessageDialog(null, IMPORT_SUCCESS, MESS_SUCC, JOptionPane.INFORMATION_MESSAGE);
+                        suc_mess(IMPORT_SUCCESS, MESS_SUCC);
                         flag = true;
                     } else {
-                        JOptionPane.showMessageDialog(null, ERR_IMPORT, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                        err_mess(ERR_IMPORT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    JOptionPane.showMessageDialog(null, ERR_IMPORT, MESS_ERR, JOptionPane.ERROR_MESSAGE);
+                    err_mess(ERR_IMPORT, MESS_ERR);
                 }
             }
         }
@@ -292,4 +295,16 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         panel.add(buttonImport);
         return panel;
     }
+
+    @Override
+    public void err_mess(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void suc_mess(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
 }

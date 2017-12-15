@@ -9,7 +9,6 @@ public interface ErrorMessages {
     static final String IMPORT_SUCCESS = "Data imported with success";
     static final String CREATE_SUCCESS = "Created with Success";
     
-    
     /**
      * Error messageS
      */
@@ -19,4 +18,6 @@ public interface ErrorMessages {
     static final String ERR_IMPORT = "Error importing file";
     static final String EMPTY_FIELDS = "Please fill in all the required fields/Name already in use";
     
+    public void err_mess(String message, String title);
+    public void suc_mess(String message, String title);
 }
