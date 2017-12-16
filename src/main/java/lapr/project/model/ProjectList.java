@@ -12,12 +12,12 @@ import java.util.Set;
 
 /**
  *
- * @author 
+ * @author
  */
-public class ProjectList implements Serializable{
+public class ProjectList implements Serializable {
 
     private static final long serialVersionUID = 602L;
-    
+
     private Set<Project> project_list;
     private Project actualProject;
 
@@ -100,5 +100,29 @@ public class ProjectList implements Serializable{
             }
         }
         return null;
+    }
+
+    /**
+     * This metho verifies if the new name for the project is available or taken
+     * and depending if it is or not it then either changes the name and
+     * description and returns true or does not change the name and the
+     * descripiton and returns false
+     *
+     * @param project , project that has the new name and description for the
+     * current actual project
+     * @return the method returns true if it is able to set the new name and
+     * description on the actual project
+     */
+    public boolean updateActualProject(Project project) {
+        ArrayList<String> names = getAllNames();
+        String newName = project.getName();
+        String newDescription = project.getDescription();
+        if (names.contains(newName)) {
+            return false;
+        } else {
+            this.actualProject.setName(newName);
+            this.actualProject.setDescription(newDescription);
+            return true;
+        }
     }
 }
