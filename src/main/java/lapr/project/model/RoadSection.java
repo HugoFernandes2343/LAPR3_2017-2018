@@ -32,7 +32,7 @@ public class RoadSection implements Serializable {
     }
 
     public RoadSection() {
-        
+        this.segment_list = new LinkedList<>();
     }
 
     /**
@@ -90,9 +90,9 @@ public class RoadSection implements Serializable {
         this.segment_list = segment_list;
     }
     
-    public void addSegment(Segment segment){
-        if(!this.segment_list.contains(segment)){
-            this.segment_list.add(segment);
+    public void addSegment(Segment seg){
+        if(!this.segment_list.contains(seg)){
+            this.segment_list.add(seg);
         }
     }
 
