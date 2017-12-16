@@ -10,12 +10,12 @@ import java.util.Objects;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Vehicle implements Serializable{
+public class Vehicle implements Serializable {
 
     private static final long serialVersionUID = 201L;
-    
+
     private String name;
     private String description;
     private String type;
@@ -33,8 +33,8 @@ public class Vehicle implements Serializable{
 
     public Vehicle() {
     }
-    
-    public Vehicle(String name,String description, String type, int tollClass, String motorization,String fuel, String mass, String load, double drag,double frontal_area, double rrc , double wheelSize,Energy energy,VelocityLimitList velocity_limit_list) {
+
+    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize, Energy energy, VelocityLimitList velocity_limit_list) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -51,8 +51,23 @@ public class Vehicle implements Serializable{
         this.velocity_limit_list = velocity_limit_list;
     }
 
-    public Vehicle(String name){
-    this.name = name;
+    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize) {
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.tollClass = tollClass;
+        this.motorization = motorization;
+        this.fuel = fuel;
+        this.mass = mass;
+        this.load = load;
+        this.drag = drag;
+        this.frontal_area = frontal_area;
+        this.rrc = rrc;
+        this.wheelSize = wheelSize;
+    }
+
+    public Vehicle(String name) {
+        this.name = name;
     }
 
     public void setName(String name) {
@@ -101,9 +116,8 @@ public class Vehicle implements Serializable{
 
     public void setVelocity_limit_list(VelocityLimitList velocity_limit_list) {
         this.velocity_limit_list = velocity_limit_list;
-    }   
-    
-    
+    }
+
     /**
      * @return the name
      */
@@ -167,7 +181,6 @@ public class Vehicle implements Serializable{
         return wheelSize;
     }
 
-    
     /**
      * @return the description
      */
@@ -217,6 +230,9 @@ public class Vehicle implements Serializable{
         return velocity_limit_list;
     }
 
+   
+
+    
     /**
      *
      * @return the integer representation of the object Vehicle
@@ -224,23 +240,71 @@ public class Vehicle implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.description);
+        hash = 97 * hash + Objects.hashCode(this.type);
+        hash = 97 * hash + this.tollClass;
+        hash = 97 * hash + Objects.hashCode(this.motorization);
+        hash = 97 * hash + Objects.hashCode(this.fuel);
+        hash = 97 * hash + Objects.hashCode(this.mass);
+        hash = 97 * hash + Objects.hashCode(this.load);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.drag) ^ (Double.doubleToLongBits(this.drag) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.frontal_area) ^ (Double.doubleToLongBits(this.frontal_area) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.rrc) ^ (Double.doubleToLongBits(this.rrc) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.wheelSize) ^ (Double.doubleToLongBits(this.wheelSize) >>> 32));
         return hash;
     }
 
     /**
      *
      * @param obj the object to compare to the Vehicle
-     * @return the result of the comparisons made. 
-     * True if the objects are the same, otherwise, it returns false
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
      */
     @Override
     public boolean equals(Object obj) {
+
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Vehicle other = (Vehicle) obj;
-        return this.name.equals(other.name);
+        final Vehicle other = (Vehicle) obj;
+        if (this.tollClass != other.tollClass) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.drag) != Double.doubleToLongBits(other.drag)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.frontal_area) != Double.doubleToLongBits(other.frontal_area)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.rrc) != Double.doubleToLongBits(other.rrc)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.wheelSize) != Double.doubleToLongBits(other.wheelSize)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.motorization, other.motorization)) {
+            return false;
+        }
+        if (!Objects.equals(this.fuel, other.fuel)) {
+            return false;
+        }
+        if (!Objects.equals(this.mass, other.mass)) {
+            return false;
+        }
+        if (!Objects.equals(this.load, other.load)) {
+            return false;
+        }
+        return true;
     }
 
     /**

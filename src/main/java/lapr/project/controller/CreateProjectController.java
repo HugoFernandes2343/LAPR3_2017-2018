@@ -69,20 +69,14 @@ public class CreateProjectController {
      */
     public boolean readInfo(String fileNetwork, String fileVehicleList) {
 
-        try {
-            Network r = FileXML.loadXmlNetwork(fileNetwork);
-            VehicleList v = FileXML.loadXmlVehicleList(fileVehicleList);
-
-            if (v == null || r == null) {
-                return false;
-            }
-
-            this.newP.setNetwork(r);
-            this.newP.setVehicleList(v);
-            return true;
-        } catch (IOException ex) {
+        Network r = FileXML.loadXmlNetwork(fileNetwork);
+        VehicleList v = FileXML.loadXmlVehicleList(fileVehicleList);
+        if (v == null || r == null) {
             return false;
         }
+        this.newP.setNetwork(r);
+        this.newP.setVehicleList(v);
+        return true;
 
     }
 

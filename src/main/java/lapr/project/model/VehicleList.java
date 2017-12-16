@@ -6,17 +6,19 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
  *
- * @author 
+ * @author
  */
-public class VehicleList implements Serializable{
+public class VehicleList implements Serializable {
 
     private static final long serialVersionUID = 205L;
-    
+
     private Set<Vehicle> vehicle_list;
 
     public VehicleList() {
@@ -37,11 +39,52 @@ public class VehicleList implements Serializable{
         this.vehicle_list = vehicle_list;
     }
 
+    public void VerifyAndAddVehicles(Set<Vehicle> newVehicles) {
+
+        Iterator<Vehicle> itr2 = newVehicles.iterator();
+       
+            while (itr2.hasNext()) {
+                Vehicle vIn = itr2.next();
+                if (!vehicle_list.contains(vIn)) {
+                    int i = incrementName(vIn, vIn.getName(), 0);
+                    vIn.setName(vIn.getName() + i);
+                    addVehicle(vIn);
+                }
+            }
+        
+
+    }
     
-    public void addVehicle(Vehicle car){
-        if(!this.vehicle_list.contains(car)){
+    public void addVehicle(Vehicle car) {
+        if (!this.vehicle_list.contains(car)) {
             this.vehicle_list.add(car);
         }
     }
+
     
+    
+    public ArrayList<String> getAllVehicleNames() {
+        Iterator<Vehicle> itr = vehicle_list.iterator();
+        ArrayList<String> names = new ArrayList<>();
+        while (itr.hasNext()) {
+            names.add(itr.next().getName());
+        }
+        return names;
+    }
+
+    private int incrementName(Vehicle v, String name, int i) {
+        ArrayList<String> names = getAllVehicleNames();
+        Vehicle temp = v;
+
+        if (names.contains(v.getName())) {
+            i++;
+            v.setName(name + i);
+
+            i = incrementName(temp, name, i);
+        }
+        return i;
+    }
+
+    
+
 }

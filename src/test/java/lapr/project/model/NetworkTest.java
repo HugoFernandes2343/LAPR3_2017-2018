@@ -88,7 +88,8 @@ public class NetworkTest {
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        
+        obj = "test";
+        assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
     }
 
     /**

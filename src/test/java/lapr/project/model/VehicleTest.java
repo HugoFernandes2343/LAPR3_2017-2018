@@ -15,12 +15,17 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author 
+ * @author
  */
 public class VehicleTest {
 
     private final Vehicle instance;
 
+    /**
+     * String name, String description, String type, int tollClass, String
+     * motorization, String fuel, String mass, String load, double drag, double
+     * frontal_area, double rrc, double wheelSize
+     */
     public VehicleTest() {
         Energy e = new Energy(5, 10, 25, new LinkedList<>(), new LinkedList<>());
         VelocityLimitList velocity_limit_list = new VelocityLimitList();
@@ -54,7 +59,7 @@ public class VehicleTest {
         assertEquals(expResult, result);
     }
 
-        /**
+    /**
      * Test of getDescription method, of class Vehicle.
      */
     @Test
@@ -75,7 +80,7 @@ public class VehicleTest {
         instance.setDescription(description);
         assertEquals(description, instance.getDescription());
     }
-    
+
     /**
      * Test of getType method, of class Vehicle.
      */
@@ -109,7 +114,7 @@ public class VehicleTest {
         assertEquals(expResult, result);
     }
 
-     /**
+    /**
      * Test of getFuel method, of class Vehicle.
      */
     @Test
@@ -119,8 +124,8 @@ public class VehicleTest {
         String result = instance.getFuel();
         assertEquals(expResult, result);
     }
-    
-     /**
+
+    /**
      * Test of setFuel method, of class Vehicle.
      */
     @Test
@@ -128,9 +133,9 @@ public class VehicleTest {
         System.out.println("setFuel");
         String fuel = "Gass";
         instance.setFuel(fuel);
-        
+
     }
-    
+
     /**
      * Test of getMass method, of class Vehicle.
      */
@@ -174,7 +179,7 @@ public class VehicleTest {
         double result = instance.getFrontal_area();
         assertEquals(expResult, result, 0.0);
     }
-    
+
     /**
      * Test of getRollingResistanceCoefficient method, of class Vehicle.
      */
@@ -206,21 +211,7 @@ public class VehicleTest {
         assertEquals(5, e.getMinRpm());
         assertEquals(10, e.getMaxRpm());
         assertEquals(25, e.getFinalDriveRatio());
-    }        
-
-    /**
-     * Test of equals method, of class Vehicle, false case.
-     */
-    @Test
-    public void testEqualsFalseCase() {
-        System.out.println("equals");
-        Object obj = 2;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
     }
-
-    
 
     /**
      * Test of toString method, of class Vehicle.
@@ -244,16 +235,239 @@ public class VehicleTest {
     }
 
     /**
+     * Test of setName method, of class Vehicle.
+     */
+    @Test
+    public void testSetName() {
+        System.out.println("setName");
+        String name = "mazda1";
+
+        instance.setName(name);
+        assertEquals(name, instance.getName());
+    }
+
+    /**
+     * Test of setType method, of class Vehicle.
+     */
+    @Test
+    public void testSetType() {
+        System.out.println("setType");
+        String type = "truck";
+
+        instance.setType(type);
+        assertEquals(type, instance.getType());
+    }
+
+    /**
+     * Test of setTollClass method, of class Vehicle.
+     */
+    @Test
+    public void testSetTollClass() {
+        System.out.println("setTollClass");
+        int tollClass = 0;
+
+        instance.setTollClass(tollClass);
+        assertEquals(tollClass, instance.getTollClass());
+    }
+
+    /**
+     * Test of setMotorization method, of class Vehicle.
+     */
+    @Test
+    public void testSetMotorization() {
+        System.out.println("setMotorization");
+        String motorization = "Eletric";
+
+        instance.setMotorization(motorization);
+        assertEquals(motorization, instance.getMotorization());
+    }
+
+    /**
+     * Test of setMass method, of class Vehicle.
+     */
+    @Test
+    public void testSetMass() {
+        System.out.println("setMass");
+        String mass = "301";
+
+        instance.setMass(mass);
+        assertEquals(mass, instance.getMass());
+    }
+
+    /**
+     * Test of setLoad method, of class Vehicle.
+     */
+    @Test
+    public void testSetLoad() {
+        System.out.println("setLoad");
+        String load = "201";
+
+        instance.setLoad(load);
+        assertEquals(load, instance.getLoad());
+    }
+
+    /**
+     * Test of setDrag method, of class Vehicle.
+     */
+    @Test
+    public void testSetDrag() {
+        System.out.println("setDrag");
+        double drag = 3.0;
+
+        instance.setDrag(drag);
+       double expResult = instance.getDrag();
+        assertEquals(drag, expResult,0.0);
+    }
+
+    /**
+     * Test of setFrontal_area method, of class Vehicle.
+     */
+    @Test
+    public void testSetFrontal_area() {
+        System.out.println("setFrontal_area");
+        double frontal_area = 72.0;
+
+        instance.setFrontal_area(frontal_area);
+         double expResult = instance.getFrontal_area();
+        assertEquals(frontal_area, expResult,0.0);
+    }
+
+    /**
+     * Test of setRrc method, of class Vehicle.
+     */
+    @Test
+    public void testSetRrc() {
+        System.out.println("setRrc");
+        double rrc = 0.5;
+
+        instance.setRrc(rrc);
+        double expResult = instance.getRrc();
+        assertEquals(rrc, expResult,0.0);
+    }
+
+    /**
+     * Test of setWheelSize method, of class Vehicle.
+     */
+    @Test
+    public void testSetWheelSize() {
+        System.out.println("setWheelSize");
+        double wheelSize = 18.0;
+
+        instance.setWheelSize(wheelSize);
+        double expResult = instance.getWheelSize();
+        assertEquals(wheelSize, expResult,0.0);
+    }
+
+    /**
+     * Test of setEnergy method, of class Vehicle.
+     */
+    @Test
+    public void testSetEnergy() {
+        System.out.println("setEnergy");
+        Energy e = new Energy(5, 10, 25, new LinkedList<>(), new LinkedList<>());
+
+        instance.setEnergy(e);
+        assertEquals(instance.getEnergy(), e);
+    }
+
+    /**
+     * Test of setVelocity_limit_list method, of class Vehicle.
+     */
+    @Test
+    public void testSetVelocity_limit_list() {
+        System.out.println("setVelocity_limit_list");
+        VelocityLimitList velocity_limit_list = null;
+
+        instance.setVelocity_limit_list(velocity_limit_list);
+        assertTrue(instance.getVelocity_limit_list() == null);
+    }
+
+    /**
+     * Test of getDrag method, of class Vehicle.
+     */
+    @Test
+    public void testGetDrag() {
+        System.out.println("getDrag");
+
+        double expResult = 12.0;
+        double result = instance.getDrag();
+        assertEquals(expResult, result,0.0);
+
+    }
+
+    /**
+     * Test of getRrc method, of class Vehicle.
+     */
+    @Test
+    public void testGetRrc() {
+        System.out.println("getRrc");
+
+        double expResult = 2.5;
+        double result = instance.getRrc();
+        assertEquals(expResult, result,0.0);
+
+    }
+
+    /**
+     * Test of getEnergy method, of class Vehicle.
+     */
+    @Test
+    public void testGetEnergy() {
+        System.out.println("getEnergy");
+
+        Energy expResult = new Energy(5, 10, 25, new LinkedList<>(), new LinkedList<>());
+        Energy result = instance.getEnergy();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
      * Test of equals method, of class Vehicle.
      */
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Vehicle obj =new Vehicle("mazda");
+        Object obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
         assertTrue("The vehicles should be equal", instance.equals(obj));
-        
-        Vehicle obj1 = new Vehicle("ndlkms");
-        assertFalse("The vehicles shouldn't be equal", instance.equals(obj1));
+
+        obj = "test";
+        assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda1", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car1", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car2", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 2, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Eletric", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gasoline", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "301.0", "4.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "5.0", 12.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 11.0, 10, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 12, 2.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 3.50, 0.30);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
+
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.50);
+        assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
     }
 
     /**
@@ -262,12 +476,12 @@ public class VehicleTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Vehicle instance2 = new Vehicle("mazda");
+        Vehicle instance2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
         int expResult = instance2.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        
-        Vehicle obj1 = new Vehicle("ndlkms");
+
+        Vehicle obj1 = new Vehicle("mazda22", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
         expResult = obj1.hashCode();
         assertNotEquals(expResult, result);
     }
