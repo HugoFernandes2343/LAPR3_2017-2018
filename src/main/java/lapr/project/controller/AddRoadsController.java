@@ -17,21 +17,15 @@ import lapr.project.utils.FileXML;
 public class AddRoadsController {
     
     /**
-     * Atribute that keeps all necessary data to the UC
-     */
-    private TravelByPhysics system;
-    
-    /**
      * The project to which the new roads will be added
      */
-    private Project projectToAdd;
+    private final Project projectToAdd;
     
     /**
      * Constructor
      * @param tb - Object with the necessary data to the UC
      */
     public AddRoadsController(TravelByPhysics tb){
-        this.system = tb;
         this.projectToAdd = tb.getProjectList().getActualProject();
     }
     
