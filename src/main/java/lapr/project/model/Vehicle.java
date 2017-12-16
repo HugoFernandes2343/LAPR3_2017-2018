@@ -32,6 +32,7 @@ public class Vehicle implements Serializable {
     private VelocityLimitList velocity_limit_list;
 
     public Vehicle() {
+        this.velocity_limit_list = new VelocityLimitList();
     }
 
     public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize, Energy energy, VelocityLimitList velocity_limit_list) {

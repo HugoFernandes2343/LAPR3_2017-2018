@@ -18,6 +18,12 @@ public class VelocityLimit implements Serializable{
     
     private String segment_type;
     private int limit;
+    
+    /**
+     * Empty constructor
+     */
+    public VelocityLimit() {
+    }
 
     /**
      *
@@ -36,6 +42,16 @@ public class VelocityLimit implements Serializable{
     public int getLimit() {
         return limit;
     }
+
+    public void setSegment_type(String segment_type) {
+        this.segment_type = segment_type;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+    
+    
 
     @Override
     public int hashCode() {

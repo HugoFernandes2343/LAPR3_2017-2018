@@ -21,6 +21,7 @@ import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.model.TollFare;
 import lapr.project.model.Vehicle;
+import lapr.project.model.VelocityLimit;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -122,63 +123,92 @@ public class FileXML implements Serializable {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setType(nodes.item(j).getTextContent());
                     }
-                    
+
                     nodes = e.getElementsByTagName("toll_class");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setTollClass(Integer.valueOf(nodes.item(j).getTextContent()));
                     }
-                    
+
                     nodes = e.getElementsByTagName("motorization");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setMotorization(nodes.item(j).getTextContent());
                     }
-                    
+
                     nodes = e.getElementsByTagName("fuel");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setFuel(nodes.item(j).getTextContent());
                     }
-                    
+
                     nodes = e.getElementsByTagName("mass");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setMass(nodes.item(j).getTextContent());
                     }
-                    
+
                     nodes = e.getElementsByTagName("load");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setLoad(nodes.item(j).getTextContent());
                     }
-                    
+
                     nodes = e.getElementsByTagName("drag");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setDrag(Double.valueOf(nodes.item(j).getTextContent()));
                     }
-                    
+
                     nodes = e.getElementsByTagName("frontal_area");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setFrontal_area(Double.valueOf(nodes.item(j).getTextContent()));
                     }
-                    
+
                     nodes = e.getElementsByTagName("rrc");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setRrc(Double.valueOf(nodes.item(j).getTextContent()));
                     }
-                    
+
                     nodes = e.getElementsByTagName("wheel_size");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         System.out.println(nodes.item(j).getTextContent());
                         car.setWheelSize(Double.valueOf(nodes.item(j).getTextContent()));
                     }
 
-                    vehicleList.addVehicle(car);
+                    nodes = e.getElementsByTagName("velocity_limit_list");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                            Element el = (Element) nodes.item(j);//velocity_limit_list
+                            NodeList nodes_limit = el.getElementsByTagName("velocity_limit");
+                            System.out.println(el.getNodeName());
+                            for (int k = 0; k < nodes_limit.getLength(); k++) {
+                                if (nodes_limit.item(k).getNodeType() == Node.ELEMENT_NODE) {
+                                    Element elem = (Element) nodes_limit.item(k);//velocity_limit
+                                    System.out.println(elem.getNodeName());
+                                    VelocityLimit limit = new VelocityLimit();
+                                    NodeList nodes_limits = elem.getElementsByTagName("segment_type");
+                                    for (int l = 0; l < nodes_limits.getLength(); l++) {
+                                        System.out.println(nodes_limits.item(l).getTextContent());
+                                        limit.setSegment_type(nodes_limits.item(l).getTextContent());
+                                    }
+                                    nodes_limits = elem.getElementsByTagName("limit");
+                                    for (int l = 0; l < nodes_limits.getLength(); l++) {
+                                        System.out.println(nodes_limits.item(l).getTextContent());
+                                        limit.setLimit(Integer.valueOf(nodes_limits.item(l).getTextContent()));
+                                    }
+                                                                        
+                                    car.getVelocity_limit_list().addVelocityLimit(limit);
+                                }
+                            }
+                        }
+                    }   
+                    
+                    vehicleList.addVehicle(car);     
                 }
+                
             }
             return vehicleList;
         } catch (Exception e) {
