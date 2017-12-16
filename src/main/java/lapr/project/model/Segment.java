@@ -24,6 +24,12 @@ public class Segment implements Serializable{
     private String max_velocity;
     private String min_velocity;
 
+    /**
+     * Empty Constructor
+     */
+    public Segment() {
+    }
+
     public Segment(String segmentIndex, double initialHeight, double slope, String length, double windDirection, String wind_speed, String max_velocity, String min_velocity) {
         this.id = segmentIndex;
         this.init_height = initialHeight;
@@ -90,6 +96,41 @@ public class Segment implements Serializable{
     public String getMin_velocity() {
         return min_velocity;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setInit_height(double init_height) {
+        this.init_height = init_height;
+    }
+
+    public void setFinal_height(double final_height) {
+        this.final_height = final_height;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public void setWind_direction(double wind_direction) {
+        this.wind_direction = wind_direction;
+    }
+
+    public void setWind_speed(String wind_speed) {
+        this.wind_speed = wind_speed;
+    }
+
+    public void setMax_velocity(String max_velocity) {
+        this.max_velocity = max_velocity;
+    }
+
+    public void setMin_velocity(String min_velocity) {
+        this.min_velocity = min_velocity;
+    }
+       
+    
+    
 
     /**
      *

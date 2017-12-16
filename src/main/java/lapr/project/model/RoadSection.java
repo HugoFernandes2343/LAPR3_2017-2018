@@ -89,6 +89,12 @@ public class RoadSection implements Serializable {
     public void setSegment_list(LinkedList<Segment> segment_list) {
         this.segment_list = segment_list;
     }
+    
+    public void addSegment(Segment segment){
+        if(!this.segment_list.contains(segment)){
+            this.segment_list.add(segment);
+        }
+    }
 
     /**
      *
