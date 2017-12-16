@@ -37,4 +37,11 @@ public class VehicleList implements Serializable{
         this.vehicle_list = vehicle_list;
     }
 
+    
+    public void addVehicle(Vehicle car){
+        if(!this.vehicle_list.contains(car)){
+            this.vehicle_list.add(car);
+        }
+    }
+    
 }

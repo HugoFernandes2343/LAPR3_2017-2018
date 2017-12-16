@@ -31,6 +31,9 @@ public class Vehicle implements Serializable{
     private Energy energy;
     private VelocityLimitList velocity_limit_list;
 
+    public Vehicle() {
+    }
+    
     public Vehicle(String name,String description, String type, int tollClass, String motorization,String fuel, String mass, String load, double drag,double frontal_area, double rrc , double wheelSize,Energy energy,VelocityLimitList velocity_limit_list) {
         this.name = name;
         this.description = description;
@@ -51,6 +54,56 @@ public class Vehicle implements Serializable{
     public Vehicle(String name){
     this.name = name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setTollClass(int tollClass) {
+        this.tollClass = tollClass;
+    }
+
+    public void setMotorization(String motorization) {
+        this.motorization = motorization;
+    }
+
+    public void setMass(String mass) {
+        this.mass = mass;
+    }
+
+    public void setLoad(String load) {
+        this.load = load;
+    }
+
+    public void setDrag(double drag) {
+        this.drag = drag;
+    }
+
+    public void setFrontal_area(double frontal_area) {
+        this.frontal_area = frontal_area;
+    }
+
+    public void setRrc(double rrc) {
+        this.rrc = rrc;
+    }
+
+    public void setWheelSize(double wheelSize) {
+        this.wheelSize = wheelSize;
+    }
+
+    public void setEnergy(Energy energy) {
+        this.energy = energy;
+    }
+
+    public void setVelocity_limit_list(VelocityLimitList velocity_limit_list) {
+        this.velocity_limit_list = velocity_limit_list;
+    }   
+    
+    
     /**
      * @return the name
      */

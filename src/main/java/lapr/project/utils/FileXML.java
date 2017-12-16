@@ -20,6 +20,7 @@ import lapr.project.model.Road;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.model.TollFare;
+import lapr.project.model.Vehicle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -93,41 +94,105 @@ public class FileXML implements Serializable {
 
     }
 
-    /**
-     * Load a vehicle list file and saves data
-     * @param name - file path
-     * @return VehicleList
-     * @throws IOException
-     */
-    public static VehicleList loadXmlVehicleList(String name) throws IOException {
-        File file_xml;
-        if(name.equalsIgnoreCase("default")){
-            file_xml = XML_FILE;
-        } else {
-            file_xml = new File(name);
+    public static VehicleList loadXmlVehicleList(String file) {
+
+        try {
+            File inputFile = new File(file);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            VehicleList vehicleList = new VehicleList();
+
+            System.out.print("Root element: ");// ROOT
+            System.out.println(doc.getDocumentElement().getNodeName());
+
+            NodeList nList = doc.getElementsByTagName("vehicle");//vehicle
+            for (int i = 0; i < nList.getLength(); i++) {
+                if (nList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element e = (Element) nList.item(i);//vehicle
+                    Vehicle car = new Vehicle();
+                    System.out.println(e.getAttribute("name"));
+                    car.setName(e.getAttribute("name"));//vehicle name
+                    System.out.println(e.getAttribute("description"));
+                    car.setDescription(e.getAttribute("description"));
+
+                    NodeList nodes = e.getElementsByTagName("type");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setType(nodes.item(j).getTextContent());
+                    }
+                    
+                    nodes = e.getElementsByTagName("toll_class");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setTollClass(Integer.valueOf(nodes.item(j).getTextContent()));
+                    }
+                    
+                    nodes = e.getElementsByTagName("motorization");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setMotorization(nodes.item(j).getTextContent());
+                    }
+                    
+                    nodes = e.getElementsByTagName("fuel");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setFuel(nodes.item(j).getTextContent());
+                    }
+                    
+                    nodes = e.getElementsByTagName("mass");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setMass(nodes.item(j).getTextContent());
+                    }
+                    
+                    nodes = e.getElementsByTagName("load");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setLoad(nodes.item(j).getTextContent());
+                    }
+                    
+                    nodes = e.getElementsByTagName("drag");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setDrag(Double.valueOf(nodes.item(j).getTextContent()));
+                    }
+                    
+                    nodes = e.getElementsByTagName("frontal_area");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setFrontal_area(Double.valueOf(nodes.item(j).getTextContent()));
+                    }
+                    
+                    nodes = e.getElementsByTagName("rrc");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setRrc(Double.valueOf(nodes.item(j).getTextContent()));
+                    }
+                    
+                    nodes = e.getElementsByTagName("wheel_size");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        System.out.println(nodes.item(j).getTextContent());
+                        car.setWheelSize(Double.valueOf(nodes.item(j).getTextContent()));
+                    }
+
+                    vehicleList.addVehicle(car);
+                }
+            }
+            return vehicleList;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        VehicleList list;
-        list = new VehicleList();
-
-        XStream xstream = new XStream(new DomDriver("UTF-8"));
-
-        try (BufferedReader in = new BufferedReader(new FileReader(file_xml))) {
-
-            list = (VehicleList) xstream.fromXML(in);
-
-        } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
-
-            JOptionPane.showMessageDialog(null,
-                    "XML Tags in file '" + file_xml + " have problems",
-                    "XML Reading Failure", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-        return list;
-
+        return null;
     }
 
-
+    /**
+     * Loads a xml file with the Road Network Data
+     * @param file - file path
+     * @return Network object with the data in the file
+     */
     public static Network loadXmlNetwork(String file) {
 
         try {
@@ -281,7 +346,7 @@ public class FileXML implements Serializable {
                                         seg = e.getElementsByTagName("min_velocity");
                                         System.out.println(seg.item(k).getTextContent());
                                         road_segment.setMin_velocity(seg.item(k).getTextContent());
-                                        
+
                                         //wind_direction
                                         seg = e.getElementsByTagName("wind_direction");
                                         System.out.println(seg.item(k).getTextContent());
@@ -290,7 +355,7 @@ public class FileXML implements Serializable {
                                         seg = e.getElementsByTagName("wind_speed");
                                         System.out.println(seg.item(k).getTextContent());
                                         road_segment.setWind_speed(seg.item(k).getTextContent());
-                                        
+
                                         section.addSegment(road_segment);
                                     }
                                 }
@@ -302,7 +367,7 @@ public class FileXML implements Serializable {
                     }
                 }
             }
-
+            return roadNetwork;
         } catch (Exception e) {
             e.printStackTrace();
         }
