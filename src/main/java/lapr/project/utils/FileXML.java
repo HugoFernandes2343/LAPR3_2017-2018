@@ -16,9 +16,13 @@ import java.io.Serializable;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import lapr.project.model.Energy;
+import lapr.project.model.Gear;
+import lapr.project.model.Regime;
 import lapr.project.model.Road;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
+import lapr.project.model.Throttle;
 import lapr.project.model.TollFare;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VelocityLimit;
@@ -95,7 +99,7 @@ public class FileXML implements Serializable {
 
     }
 
-    public static VehicleList loadXmlVehicleList(String file) {
+   public static VehicleList loadXmlVehicleList(String file) {
 
         try {
             File inputFile = new File(file);
@@ -189,26 +193,136 @@ public class FileXML implements Serializable {
                                     Element elem = (Element) nodes_limit.item(k);//velocity_limit
                                     System.out.println(elem.getNodeName());
                                     VelocityLimit limit = new VelocityLimit();
+
                                     NodeList nodes_limits = elem.getElementsByTagName("segment_type");
                                     for (int l = 0; l < nodes_limits.getLength(); l++) {
                                         System.out.println(nodes_limits.item(l).getTextContent());
                                         limit.setSegment_type(nodes_limits.item(l).getTextContent());
                                     }
+
                                     nodes_limits = elem.getElementsByTagName("limit");
                                     for (int l = 0; l < nodes_limits.getLength(); l++) {
                                         System.out.println(nodes_limits.item(l).getTextContent());
                                         limit.setLimit(Integer.valueOf(nodes_limits.item(l).getTextContent()));
                                     }
-                                                                        
+
                                     car.getVelocity_limit_list().addVelocityLimit(limit);
                                 }
                             }
                         }
-                    }   
-                    
-                    vehicleList.addVehicle(car);     
+                    }
+
+                    nodes = e.getElementsByTagName("energy");
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                            Element el = (Element) nodes.item(j);//energy
+                            Energy energy = new Energy();
+                            NodeList list = el.getElementsByTagName("min_rpm");
+                            for (int k = 0; k < list.getLength(); k++) {
+                                System.out.println(list.item(k).getTextContent());
+                                energy.setMinRpm(Integer.valueOf(list.item(k).getTextContent()));
+                            }
+
+                            list = el.getElementsByTagName("max_rpm");
+                            for (int k = 0; k < list.getLength(); k++) {
+                                System.out.println(list.item(k).getTextContent());
+                                energy.setMaxRpm(Integer.valueOf(list.item(k).getTextContent()));
+                            }
+
+                            list = el.getElementsByTagName("final_drive_ratio");
+                            for (int k = 0; k < list.getLength(); k++) {
+                                System.out.println(list.item(k).getTextContent());
+                                energy.setFinalDriveRatio(Double.valueOf(list.item(k).getTextContent()));
+                            }
+
+                            list = el.getElementsByTagName("gear_list");
+                            for (int k = 0; k < list.getLength(); k++) {
+                                if (list.item(k).getNodeType() == Node.ELEMENT_NODE) {
+                                    Element element = (Element) list.item(k);//gear_list
+                                    System.out.println(element.getNodeName());
+
+                                    NodeList gear_list = element.getElementsByTagName("gear");
+                                    for (int l = 0; l < gear_list.getLength(); l++) {
+                                        if (gear_list.item(l).getNodeType() == Node.ELEMENT_NODE) {
+                                            Element elem = (Element) gear_list.item(l);//gear
+                                            Gear gear = new Gear();
+                                            System.out.println(elem.getAttribute("id"));
+                                            gear.setId(elem.getAttribute("id"));
+                                            NodeList ratios = elem.getElementsByTagName("ratio");
+                                            for (int m = 0; m < ratios.getLength(); m++) {
+                                                System.out.println(ratios.item(m).getTextContent());
+                                                gear.setRatio(Double.valueOf(ratios.item(m).getTextContent()));
+                                            }
+
+                                            energy.addGear(gear);
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+                            nodes = e.getElementsByTagName("throttle_list");
+                            for (int q = 0; q < nodes.getLength(); q++) {
+                                if (nodes.item(q).getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eler = (Element) nodes.item(q);//throttle_list
+                                    System.out.println(eler.getNodeName());
+                                    NodeList list_elem = eler.getElementsByTagName("throttle");
+                                    for (int k = 0; k < list_elem.getLength(); k++) {
+                                        if (list_elem.item(k).getNodeType() == Node.ELEMENT_NODE) {
+                                            Element elem = (Element) list_elem.item(k);//throttle
+                                            Throttle throttle = new Throttle();
+                                            System.out.println(elem.getAttribute("id"));
+                                            throttle.setId(elem.getAttribute("id"));
+
+                                            NodeList last_list = elem.getElementsByTagName("regime");
+                                            for (int l = 0; l < last_list.getLength(); l++) {
+                                                if (last_list.item(l).getNodeType() == Node.ELEMENT_NODE) {
+                                                    Element regime_elem = (Element) last_list.item(l);//regime
+                                                    System.out.println(regime_elem.getNodeName());
+                                                    Regime regime = new Regime();
+                                                    
+                                                    NodeList regime_list = regime_elem.getElementsByTagName("torque");
+                                                    for (int m = 0; m < regime_list.getLength(); m++) {
+                                                        System.out.println(regime_list.item(m).getTextContent());
+                                                        regime.setTorque(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                    }
+                                                    
+                                                    regime_list = regime_elem.getElementsByTagName("rpm_low");
+                                                    for (int m = 0; m < regime_list.getLength(); m++) {
+                                                        System.out.println(regime_list.item(m).getTextContent());
+                                                        regime.setRpm_low(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                    }
+                                                    
+                                                    regime_list = regime_elem.getElementsByTagName("rpm_high");
+                                                    for (int m = 0; m < regime_list.getLength(); m++) {
+                                                        System.out.println(regime_list.item(m).getTextContent());
+                                                        regime.setRpm_high(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                    }
+                                                    
+                                                    regime_list = regime_elem.getElementsByTagName("SFC");
+                                                    for (int m = 0; m < regime_list.getLength(); m++) {
+                                                        System.out.println(regime_list.item(m).getTextContent());
+                                                        regime.setSFC(Double.valueOf(regime_list.item(m).getTextContent()));
+                                                    }
+                                                    
+                                                    
+                                                    throttle.getRegime_list().add(regime);
+                                                }
+                                            }
+
+                                            energy.getThrottleList().add(throttle);
+                                        }
+                                    }
+                                }
+                            }
+                            car.setEnergy(energy);
+                        }
+                    }
+
+                    vehicleList.addVehicle(car);
                 }
-                
+
             }
             return vehicleList;
         } catch (Exception e) {

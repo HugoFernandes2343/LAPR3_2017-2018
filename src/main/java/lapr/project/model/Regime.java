@@ -9,7 +9,7 @@ public class Regime implements Serializable {
     private int torque;
     private int rpm_low;
     private int rpm_high;
-    private int SFC;
+    private Double SFC;
 
     /**
      * Empty constructor
@@ -24,7 +24,7 @@ public class Regime implements Serializable {
      * @param rpm_high
      * @param SFC
      */
-    public Regime(int torque, int rpm_low, int rpm_high, int SFC) {
+    public Regime(int torque, int rpm_low, int rpm_high, Double SFC) {
         this.torque = torque;
         this.rpm_low = rpm_low;
         this.rpm_high = rpm_high;
@@ -55,7 +55,7 @@ public class Regime implements Serializable {
     /**
      * @return the SFC
      */
-    public int getSFC() {
+    public Double getSFC() {
         return SFC;
     }
 
@@ -71,7 +71,7 @@ public class Regime implements Serializable {
         this.rpm_high = rpm_high;
     }
 
-    public void setSFC(int SFC) {
+    public void setSFC(Double SFC) {
         this.SFC = SFC;
     }
     
@@ -81,7 +81,6 @@ public class Regime implements Serializable {
         hash = 89 * hash + this.torque;
         hash = 89 * hash + this.rpm_low;
         hash = 89 * hash + this.rpm_high;
-        hash = 89 * hash + this.SFC;
         return hash;
     }
 
@@ -106,7 +105,7 @@ public class Regime implements Serializable {
         if (this.rpm_high != other.rpm_high) {
             return false;
         }
-        return this.SFC == other.SFC;
+        return this.SFC.equals(other.SFC);
 
     }
 
