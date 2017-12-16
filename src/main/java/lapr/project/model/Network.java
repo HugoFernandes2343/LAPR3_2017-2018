@@ -86,13 +86,14 @@ public class Network implements Serializable {
             this.road_list.add(road);
         }
     }
-    
+
     /**
      * Adds a roadSection to the section_list
+     *
      * @param section - RoadSection
      */
-    public void addRoadSection(RoadSection section){
-        if(!this.section_list.contains(section)){
+    public void addRoadSection(RoadSection section) {
+        if (!this.section_list.contains(section)) {
             this.section_list.add(section);
         }
     }
@@ -129,4 +130,46 @@ public class Network implements Serializable {
         return "Network{" + "id=" + id + "}";
     }
 
+    /**
+     * Method that receives a Network with all the new roads to add to current
+     * project.
+     *
+     * @param roadsToAdd - network with the new roads.
+     * @return true if it is possible to add the new roads, false otherwise.
+     */
+    public boolean addNewRoadsFromNetwork(Network roadsToAdd) {
+        int flag = 0;
+        
+        if (roadsToAdd.roadMap.numEdges() == 0 && roadsToAdd.roadMap.numVertices() == 0) {
+            return false;
+        }
+        
+        for(Node n : roadsToAdd.roadMap.vertices()){
+             boolean insertVertex = roadsToAdd.roadMap.insertVertex(n);
+             if(insertVertex){
+                addNode(n.getId());
+                flag ++; 
+             }
+        }
+        
+        for (Road r : roadsToAdd.roadMap.edges()) {
+            Node[] endVertices = roadsToAdd.roadMap.endVertices(r);
+
+            if (endVertices != null) {
+                boolean insertEdge = roadsToAdd.roadMap.insertEdge(endVertices[0], endVertices[1], r);
+                
+                if(insertEdge){
+                    addRoad(r);
+                    flag ++;
+                }
+            }
+            
+        }
+
+        for (RoadSection s : roadsToAdd.section_list) {
+            addRoadSection(s);
+        }
+
+        return flag != 0;
+    }
 }
