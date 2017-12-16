@@ -32,5 +32,15 @@ public class VelocityLimitList implements Serializable{
     public Set<VelocityLimit> getVelocity_limit_list() {
         return velocity_limit_list;
     }
+    
+    /**
+     * Adds a VelocityLimit to hte list
+     * @param limit - VelocityLimit
+     */
+    public void addVelocityLimit(VelocityLimit limit){
+        if(!this.velocity_limit_list.contains(limit)){
+            this.velocity_limit_list.add(limit);
+        }
+    }
 
 }
