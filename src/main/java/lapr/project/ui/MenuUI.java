@@ -35,6 +35,8 @@ public class MenuUI extends JFrame {
 
     TravelByPhysics tp;
 
+    private static boolean ProjectIsSelected = false;
+
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 485;
 
@@ -122,7 +124,7 @@ public class MenuUI extends JFrame {
         JMenu m = new JMenu("Details");
 
         JMenuItem copy = new JMenuItem("P03: Copy Project");
-        copy.setEnabled(true);
+        copy.setEnabled(ProjectIsSelected);
         copy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -132,7 +134,7 @@ public class MenuUI extends JFrame {
         m.add(copy);
 
         JMenuItem changeName = new JMenuItem("P04: Change Project Name and Description");
-        changeName.setEnabled(true);
+        changeName.setEnabled(ProjectIsSelected);
         changeName.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -147,7 +149,7 @@ public class MenuUI extends JFrame {
         JMenu m = new JMenu("Imports");
 
         JMenuItem importVehicles = new JMenuItem("P05: Import vehicles config file");
-        importVehicles.setEnabled(true);
+        importVehicles.setEnabled(ProjectIsSelected);
         importVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -157,7 +159,7 @@ public class MenuUI extends JFrame {
         m.add(importVehicles);
 
         JMenuItem importRoads = new JMenuItem("P06: Import roads config file");
-        importRoads.setEnabled(true);
+        importRoads.setEnabled(ProjectIsSelected);
         importRoads.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -174,7 +176,7 @@ public class MenuUI extends JFrame {
         m.setMnemonic(KeyEvent.VK_S);
 
         JMenuItem bestPath = new JMenuItem("N01: Analyse best path");
-        bestPath.setEnabled(true);
+        bestPath.setEnabled(ProjectIsSelected);
         bestPath.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -187,7 +189,7 @@ public class MenuUI extends JFrame {
         m.add(save);
 
         JMenuItem compareVehicle = new JMenuItem("N20: Compare Vehicles");
-        compareVehicle.setEnabled(true);
+        compareVehicle.setEnabled(ProjectIsSelected);
         compareVehicle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -203,7 +205,7 @@ public class MenuUI extends JFrame {
         m.setMnemonic(KeyEvent.VK_D);
 
         JMenuItem saveDatabase = new JMenuItem("N05: Save Project to database");
-        saveDatabase.setEnabled(true);
+        saveDatabase.setEnabled(ProjectIsSelected);
         saveDatabase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -213,7 +215,7 @@ public class MenuUI extends JFrame {
         m.add(saveDatabase);
 
         JMenuItem saveHTML = new JMenuItem("N06: Save Project to html file");
-        saveHTML.setEnabled(true);
+        saveHTML.setEnabled(ProjectIsSelected);
         saveHTML.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -230,6 +232,10 @@ public class MenuUI extends JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void SetProject() {
+        ProjectIsSelected = true;
     }
 
     public void createNotImplementedWindow(String text) {

@@ -116,6 +116,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
                                 MESS_CONF, dialogButton);
                         if (dialogResult == 0) {
                             sp.loadActiveProject(name);
+                            MenuUI.SetProject();
                             suc_mess(SEL_SUCC, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));

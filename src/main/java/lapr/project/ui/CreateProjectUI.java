@@ -165,7 +165,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
 
         JPanel p1 = new JPanel(new GridLayout(3, 2));
         JPanel pr = new JPanel();
-        roadsFilePath = new JTextArea(4, 30);
+        roadsFilePath = new JTextArea(6, 30);
         roadsFilePath.setText("Select file:");
         roadsFilePath.setLineWrap(true);
         roadsFilePath.setEditable(false);
@@ -175,7 +175,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         p1.add(createButtonRoads());
 
         JPanel pv = new JPanel();
-        vehiclesFilePath = new JTextArea(4, 30);
+        vehiclesFilePath = new JTextArea(6, 30);
         vehiclesFilePath.setText("Select file:");
         vehiclesFilePath.setLineWrap(true);
         vehiclesFilePath.setEditable(false);
@@ -223,6 +223,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
                             suc_mess(CREATE_SUC, MESS_SUCC);
+                            MenuUI.SetProject();
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();
@@ -249,7 +250,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         JButton buttonRoads = new JButton("Choose Roads file");
         buttonRoads.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) throws NullPointerException{
+            public void actionPerformed(ActionEvent ae) throws NullPointerException {
                 JFileChooser roadsChooser = new JFileChooser("Choose file to import roads data");
                 roadsChooser.showOpenDialog(page2);
                 try {
