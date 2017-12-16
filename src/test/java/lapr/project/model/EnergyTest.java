@@ -72,8 +72,8 @@ public class EnergyTest {
     public void testGetFinalDriveRatio() {
         System.out.println("getFinal_drive_ratio");
 
-        int expResult = 0;
-        int result = instance.getFinalDriveRatio();
+        Double expResult = 0.0;
+        Double result = instance.getFinalDriveRatio();
         assertEquals(expResult, result);
 
     }
@@ -150,7 +150,7 @@ public class EnergyTest {
         instance.setMaxRpm(1001);
 
         obj = new Energy();
-        instance.setFinalDriveRatio(1);
+        instance.setFinalDriveRatio(1.0);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
     }

@@ -27,7 +27,7 @@ public class VehicleTest {
      * frontal_area, double rrc, double wheelSize
      */
     public VehicleTest() {
-        Energy e = new Energy(5, 10, 25, new LinkedList<>(), new LinkedList<>());
+        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
         VelocityLimitList velocity_limit_list = new VelocityLimitList();
         instance = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, velocity_limit_list);
     }
@@ -210,7 +210,8 @@ public class VehicleTest {
         Energy e = instance.getEnergy();
         assertEquals(5, e.getMinRpm());
         assertEquals(10, e.getMaxRpm());
-        assertEquals(25, e.getFinalDriveRatio());
+        Double value = 25.0;
+        assertEquals(value, e.getFinalDriveRatio());
     }
 
     /**
@@ -364,7 +365,7 @@ public class VehicleTest {
     @Test
     public void testSetEnergy() {
         System.out.println("setEnergy");
-        Energy e = new Energy(5, 10, 25, new LinkedList<>(), new LinkedList<>());
+        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
 
         instance.setEnergy(e);
         assertEquals(instance.getEnergy(), e);
@@ -415,7 +416,7 @@ public class VehicleTest {
     public void testGetEnergy() {
         System.out.println("getEnergy");
 
-        Energy expResult = new Energy(5, 10, 25, new LinkedList<>(), new LinkedList<>());
+        Energy expResult = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
         Energy result = instance.getEnergy();
         assertEquals(expResult, result);
 

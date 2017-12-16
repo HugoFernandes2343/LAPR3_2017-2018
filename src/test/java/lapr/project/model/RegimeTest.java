@@ -21,7 +21,7 @@ public class RegimeTest {
     private Regime instance;
 
     public RegimeTest() {
-        instance = new Regime(20, 30, 40, 50);
+        instance = new Regime(20, 30, 40, 50.0);
     }
 
     @BeforeClass
@@ -79,8 +79,8 @@ public class RegimeTest {
     @Test
     public void testGetSFC() {
         System.out.println("getSFC");
-        int expResult = 50;
-        int result = instance.getSFC();
+        Double expResult = 50.0;
+        Double result = instance.getSFC();
         assertEquals(expResult, result);
     }
 
@@ -90,7 +90,7 @@ public class RegimeTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Regime test = new Regime(20, 30, 40, 50);;
+        Regime test = new Regime(20, 30, 40, 50.0);;
         int expResult = test.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);//result of hashCode should be the same if it is the same object
@@ -102,17 +102,17 @@ public class RegimeTest {
     @Test
     public void testEqualsTrueCase() {
         System.out.println("equals");
-        Object obj = new Regime(20, 30, 40, 50);
+        Object obj = new Regime(20, 30, 40, 50.0);
         assertEquals("Should be true if they are the same object",true, instance.equals(obj));
         obj = "test";
         assertEquals("Should be false if they are not from the same class",false, instance.equals(obj));
-        obj = new Regime(2, 30, 40, 50);
+        obj = new Regime(2, 30, 40, 50.0);
         assertEquals("Should be false if they have not the same torque",false, instance.equals(obj));
-        obj = new Regime(20, 3, 40, 50);
+        obj = new Regime(20, 3, 40, 50.0);
         assertEquals("Should be false if they have not the same rpm_low",false, instance.equals(obj));
-        obj = new Regime(20, 30, 4, 50);
+        obj = new Regime(20, 30, 4, 50.0);
         assertEquals("Should be false if they have not the same rpm_high",false, instance.equals(obj));
-        obj = new Regime(20, 30, 40, 5);
+        obj = new Regime(20, 30, 40, 5.0);
         assertEquals("Should be false if they have not the same SFC",false, instance.equals(obj));
     }
 }
