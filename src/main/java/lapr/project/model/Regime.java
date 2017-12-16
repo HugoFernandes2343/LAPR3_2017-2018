@@ -1,24 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.model;
 
 import java.io.Serializable;
 
-/**
- *
- * @author 
- */
-public class Regime implements Serializable{
+public class Regime implements Serializable {
 
     private static final long serialVersionUID = 603L;
-    
+
     private int torque;
     private int rpm_low;
     private int rpm_high;
     private int SFC;
+
+    /**
+     * Empty constructor
+     */
+    public Regime() {
+    }
 
     /**
      *
@@ -62,6 +59,22 @@ public class Regime implements Serializable{
         return SFC;
     }
 
+    public void setTorque(int torque) {
+        this.torque = torque;
+    }
+
+    public void setRpm_low(int rpm_low) {
+        this.rpm_low = rpm_low;
+    }
+
+    public void setRpm_high(int rpm_high) {
+        this.rpm_high = rpm_high;
+    }
+
+    public void setSFC(int SFC) {
+        this.SFC = SFC;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

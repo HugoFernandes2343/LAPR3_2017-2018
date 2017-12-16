@@ -1,24 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
 
-/**
- *
- * @author 
- */
-public class Energy implements Serializable{
+public class Energy implements Serializable {
 
     private static final long serialVersionUID = 503L;
 
     private int min_rpm;
     private int max_rpm;
-    private int final_drive_ratio;
+    private Double final_drive_ratio;
     private LinkedList<Gear> gear_List;
     private LinkedList<Throttle> throttle_list;
 
@@ -30,7 +21,7 @@ public class Energy implements Serializable{
      * @param gear_List
      * @param throttle_list
      */
-    public Energy(int min_rpm, int max_rpm, int final_drive_ratio, LinkedList<Gear> gear_List, LinkedList<Throttle> throttle_list) {
+    public Energy(int min_rpm, int max_rpm, Double final_drive_ratio, LinkedList<Gear> gear_List, LinkedList<Throttle> throttle_list) {
         this.min_rpm = min_rpm;
         this.max_rpm = max_rpm;
         this.final_drive_ratio = final_drive_ratio;
@@ -41,7 +32,7 @@ public class Energy implements Serializable{
     public Energy() {
         this.min_rpm = 0;
         this.max_rpm = 1000;
-        this.final_drive_ratio = 0;
+        this.final_drive_ratio = 0.0;
         this.gear_List = new LinkedList<>();
         this.throttle_list = new LinkedList<>();
     }
@@ -63,7 +54,7 @@ public class Energy implements Serializable{
     /**
      * @return the final_drive_ratio
      */
-    public int getFinalDriveRatio() {
+    public Double getFinalDriveRatio() {
         return final_drive_ratio;
     }
 
@@ -98,8 +89,19 @@ public class Energy implements Serializable{
     /**
      * @param final_drive_ratio the final_drive_ratio to set
      */
-    public void setFinalDriveRatio(int final_drive_ratio) {
+    public void setFinalDriveRatio(Double final_drive_ratio) {
         this.final_drive_ratio = final_drive_ratio;
+    }
+
+    /**
+     * Adds a gear to the list
+     *
+     * @param gear - gear that needs to be added
+     */
+    public void addGear(Gear gear) {
+        if (!this.gear_List.contains(gear)) {
+            this.gear_List.add(gear);
+        }
     }
 
     @Override
@@ -107,7 +109,6 @@ public class Energy implements Serializable{
         int hash = 7;
         hash = 47 * hash + this.min_rpm;
         hash = 47 * hash + this.max_rpm;
-        hash = 47 * hash + this.final_drive_ratio;
         return hash;
     }
 
@@ -129,7 +130,7 @@ public class Energy implements Serializable{
         if (this.max_rpm != other.max_rpm) {
             return false;
         }
-        return this.final_drive_ratio == other.final_drive_ratio;
+        return this.final_drive_ratio.equals(other.final_drive_ratio);
 
     }
 

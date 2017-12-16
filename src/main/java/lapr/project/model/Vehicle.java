@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.Objects;
 
 /**
@@ -30,9 +31,11 @@ public class Vehicle implements Serializable {
     private double wheelSize;
     private Energy energy;
     private VelocityLimitList velocity_limit_list;
+  
 
     public Vehicle() {
         this.velocity_limit_list = new VelocityLimitList();
+
     }
 
     public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize, Energy energy, VelocityLimitList velocity_limit_list) {
@@ -50,6 +53,7 @@ public class Vehicle implements Serializable {
         this.wheelSize = wheelSize;
         this.energy = energy;
         this.velocity_limit_list = velocity_limit_list;
+
     }
 
     public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize) {
@@ -65,12 +69,13 @@ public class Vehicle implements Serializable {
         this.frontal_area = frontal_area;
         this.rrc = rrc;
         this.wheelSize = wheelSize;
+
     }
 
     public Vehicle(String name) {
         this.name = name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }

@@ -1,23 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- *
- * @author 
- */
-public class Gear implements Serializable{
-    
+public class Gear implements Serializable {
+
     private static final long serialVersionUID = 504L;
 
     private String id;
     private double ratio;
+
+    public Gear() {
+    }
 
     /**
      *
@@ -43,9 +37,18 @@ public class Gear implements Serializable{
         return ratio;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setRatio(double ratio) {
+        this.ratio = ratio;
+    }
+
     /**
      * Hash code fo the object gear
-     * @return 
+     *
+     * @return
      */
     @Override
     public int hashCode() {
@@ -66,7 +69,7 @@ public class Gear implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-         Gear other = (Gear) obj;
+        Gear other = (Gear) obj;
         return this.id.equalsIgnoreCase(other.id);
 
     }
