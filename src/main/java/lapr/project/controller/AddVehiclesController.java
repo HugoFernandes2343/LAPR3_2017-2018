@@ -5,11 +5,7 @@
  */
 package lapr.project.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Set;
-import lapr.project.model.Network;
 import lapr.project.model.Project;
 import lapr.project.model.ProjectList;
 import lapr.project.model.TravelByPhysics;
@@ -63,7 +59,7 @@ public class AddVehiclesController {
         if (v == null) {
             return false;
         }
-        this.project.getVehicleList().VerifyAndAddVehicles(newVehicles);
+        this.project.getVehicleList().verifyAndAddVehicles(newVehicles);
         return true;
 
     }

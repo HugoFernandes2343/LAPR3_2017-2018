@@ -5,7 +5,6 @@
  */
 package lapr.project.controller;
 
-import java.io.IOException;
 import lapr.project.model.Project;
 import lapr.project.model.Network;
 import lapr.project.model.TravelByPhysics;

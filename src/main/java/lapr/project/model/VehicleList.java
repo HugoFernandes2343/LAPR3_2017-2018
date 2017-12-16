@@ -39,30 +39,12 @@ public class VehicleList implements Serializable {
         this.vehicle_list = vehicle_list;
     }
 
-    public void VerifyAndAddVehicles(Set<Vehicle> newVehicles) {
-
-        Iterator<Vehicle> itr2 = newVehicles.iterator();
-       
-            while (itr2.hasNext()) {
-                Vehicle vIn = itr2.next();
-                if (!vehicle_list.contains(vIn)) {
-                    int i = incrementName(vIn, vIn.getName(), 0);
-                    vIn.setName(vIn.getName() + i);
-                    addVehicle(vIn);
-                }
-            }
-        
-
-    }
-    
     public void addVehicle(Vehicle car) {
         if (!this.vehicle_list.contains(car)) {
             this.vehicle_list.add(car);
         }
     }
 
-    
-    
     public ArrayList<String> getAllVehicleNames() {
         Iterator<Vehicle> itr = vehicle_list.iterator();
         ArrayList<String> names = new ArrayList<>();
@@ -72,19 +54,32 @@ public class VehicleList implements Serializable {
         return names;
     }
 
-    private int incrementName(Vehicle v, String name, int i) {
-        ArrayList<String> names = getAllVehicleNames();
-        Vehicle temp = v;
-
-        if (names.contains(v.getName())) {
-            i++;
-            v.setName(name + i);
-
-            i = incrementName(temp, name, i);
+    /**
+     * Verifies witch vehicles from the list given as parameter can be added to
+     * the VehicleList
+     *
+     * @param newVehicles the list of chicles to be added
+     */
+    public void verifyAndAddVehicles(Set<Vehicle> newVehicles) {
+        for (Vehicle vIn : newVehicles) {
+            if (!vehicle_list.contains(vIn)) {
+                int i = incrementName(vIn.getName(), 0, getAllVehicleNames());
+                if (i > 0) {
+                    vIn.setName(vIn.getName() + i);
+                }
+                addVehicle(vIn);
+            }
         }
-        return i;
     }
 
-    
-
+    private int incrementName(String name, int cont, ArrayList<String> names) {
+        System.out.println(cont);
+        System.out.println(name);
+        if (names.contains(name)) {
+            cont = cont + 1;
+            name = name + cont;
+            return incrementName(name, cont, names);
+        }
+        return cont;
+    }
 }

@@ -78,20 +78,20 @@ public class VehicleListTest {
     }
 
     /**
-     * Test of VerifyAndAddVehicles method, of class VehicleList.
-    
+     * Test of the method verifyAndAddVehicles from the class VehicleList
+     */
     @Test
     public void testVerifyAndAddVehicles() {
         System.out.println("VerifyAndAddVehicles");
         Vehicle car1 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
         Vehicle car2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30); // should not be added cause its equal to car1
         Vehicle car3 = new Vehicle("mazda", "car2", "car2", 2, "Eletric", "Gasoline", "305.0", "4.3", 12.2, 11, 2.55, 0.36); // should have name mazda1 when added
-        Vehicle car4 = new Vehicle("Subaru", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30); 
-        Vehicle car5 = new Vehicle("Subaru1", "car2", "car", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20);
-        Vehicle car6 = new Vehicle("Subaru", "car3", "car3", 3, "hybrid", "Biofuel", "303.0", "3.0", 12.3, 13, 2.53, 0.33); // should ahve name subaru2 when added
-        
+        Vehicle car4 = new Vehicle("Subaru", "car3", "car3", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        Vehicle car5 = new Vehicle("Subaru1", "car4", "car4", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20);
+        Vehicle car6 = new Vehicle("Subaru", "car5", "car5", 3, "hybrid", "Biofuel", "303.0", "3.0", 12.3, 13, 2.53, 0.33); // should have name subaru2 when added
+
         Set<Vehicle> newVehicles = new HashSet<>();
-        
+
         newVehicles.add(car1);
         newVehicles.add(car2);
         newVehicles.add(car3);
@@ -99,18 +99,16 @@ public class VehicleListTest {
         newVehicles.add(car5);
         newVehicles.add(car6);
         VehicleList instance = new VehicleList();
-        instance.VerifyAndAddVehicles(newVehicles);
-        
+        instance.verifyAndAddVehicles(newVehicles);
+
         ArrayList<String> names = instance.getAllVehicleNames();
-        for (int i = 0; i < names.size(); i++) {
-                    System.out.print(names.get(i));
-        }
-        
-        assertTrue(names.contains("mazda"));       
-        assertTrue(names.contains("mazda1"));       
-        assertTrue(names.contains("Subaru"));       
-        assertTrue(names.contains("Subaru1"));       
-        assertTrue(names.contains("Subaru2"));       
-      
-    }*/
+
+        assertEquals("Should have 5 vehicles", 5, names.size());
+        assertTrue(names.contains("mazda"));
+        assertTrue(names.contains("mazda1"));
+        assertTrue(names.contains("Subaru"));
+        assertTrue(names.contains("Subaru1"));
+        assertTrue(names.contains("Subaru2"));
+
+    }
 }
