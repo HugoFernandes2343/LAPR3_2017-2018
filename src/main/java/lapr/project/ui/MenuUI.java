@@ -5,6 +5,8 @@
  */
 package lapr.project.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -25,12 +28,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import lapr.project.model.TravelByPhysics;
 
 public class MenuUI extends JFrame {
+
     private static final long serialVersionUID = 1L;
     private JMenuBar menuBarMain;
     private JPanel mPanel;
 
     TravelByPhysics tp;
-    
+
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 485;
 
@@ -42,8 +46,9 @@ public class MenuUI extends JFrame {
         JMenuBar barraMenu = criarBarraMenu();
         setJMenuBar(barraMenu);
         mPanel = new MainPanel();
+        mPanel.setBackground(Color.GRAY);
         add(mPanel);
-        
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -55,9 +60,10 @@ public class MenuUI extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new Dimension(WINDOW_HEIGHT, WINDOW_WIDTH));
         setLocationRelativeTo(null);
+        setResizable(true);
         setVisible(true);
     }
-    
+
     private JMenuBar criarBarraMenu() {
 
         menuBarMain = new JMenuBar();
@@ -74,7 +80,7 @@ public class MenuUI extends JFrame {
     private JMenu createProjectMenu() {
         //butao de menu que abre em cascata outras opcoes
         JMenu Project = new JMenu("Project");
-        Project.setMnemonic(KeyEvent.VK_E);
+        Project.setMnemonic(KeyEvent.VK_P);
 
         //opcoes abertas pelo butao de cima
         JMenuItem createProject = new JMenuItem("P02: Create Project");
@@ -86,7 +92,6 @@ public class MenuUI extends JFrame {
                 mPanel.add(new CreateProjectUI(tp));
                 mPanel.revalidate();
                 mPanel.repaint();
-
             }
         });
         Project.add(createProject);
@@ -96,7 +101,10 @@ public class MenuUI extends JFrame {
         selectProject.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //acao do butao
+                mPanel.removeAll();
+                mPanel.add(new SelectProjectUI(tp));
+                mPanel.revalidate();
+                mPanel.repaint();
             }
         });
         Project.add(selectProject);
@@ -215,8 +223,8 @@ public class MenuUI extends JFrame {
         m.add(saveHTML);
         return m;
     }
-    
-        private void setLookAndFeel() {
+
+    private void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {

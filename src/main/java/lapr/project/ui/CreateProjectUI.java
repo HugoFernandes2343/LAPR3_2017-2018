@@ -2,11 +2,11 @@ package lapr.project.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -14,51 +14,79 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import lapr.project.controller.CreateProjectController;
 import lapr.project.model.TravelByPhysics;
 
-public class CreateProjectUI extends JPanel implements ErrorMessages {
+public class CreateProjectUI extends JPanel implements MessagesAndUtils {
+
     private static final long serialVersionUID = 105L;
 
+    /**
+     * Object of this GUI controller
+     */
     private final CreateProjectController cp;
 
-    private JTextField projectName;
+    /**
+     * Name of the project
+     */
     private String nameStr;
-    private JTextArea projectDescription;
+
+    /**
+     * Project description
+     */
     private String descrStr;
 
+    /**
+     * flag that checks wether the files have been imported, when pressing the
+     * done button
+     */
     private boolean flag;
-    
+
+    /**
+     * TravelByPhysics object
+     */
     private final TravelByPhysics tp;
 
+    /**
+     * UI components
+     */
     private final JPanel mPanel;
     private JPanel page1;
     private JPanel page2;
-
+    private JTextArea projectDescription;
+    private JTextField projectName;
     private JTextArea roadsFilePath;
     private JTextArea vehiclesFilePath;
-
     private final CardLayout layout = new CardLayout();
 
+    /**
+     * Constructor for this class
+     *
+     * @param tp
+     */
     public CreateProjectUI(TravelByPhysics tp) {
         this.tp = tp;
         cp = new CreateProjectController(tp);
         mPanel = new JPanel(layout);
-
         mPanel.add(createPageOne(), "page1");
         mPanel.add(createPageTwo(), "page2");
         layout.show(mPanel, "page1");
+        setBackground(Color.GRAY);
         add(mPanel);
     }
 
+    /**
+     * Method that creates the page one of the card layout
+     *
+     * @return
+     */
     private JPanel createPageOne() {
-        page1 = new JPanel(new GridLayout(2, 1, 20, 60));
-
+        page1 = new JPanel(new GridLayout(2, 1, 20, 20));
         JPanel fields = new JPanel(new GridLayout(2, 2, 10, 40));
+        fields.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
         JPanel nameLabel = createHeader("Project Name: ");
         fields.add(nameLabel);
-        projectName = new JTextField(20);
+        projectName = new JTextField(30);
         JPanel pName = new JPanel();
         pName.add(projectName);
         fields.add(pName);
@@ -74,10 +102,15 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         return page1;
     }
 
+    /**
+     * Method that creates the page 2 of the card layout
+     *
+     * @return
+     */
     private JPanel createPageOneButtons() {
         JPanel buttonsPageOne = new JPanel(new GridLayout(1, 2, 20, 0));
         JPanel btCancel = new JPanel();
-        btCancel.add(createCancelButton());
+        btCancel.add(new CancelButton(this));
         buttonsPageOne.add(btCancel);
 
         JPanel btNext = new JPanel();
@@ -86,6 +119,11 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         return buttonsPageOne;
     }
 
+    /**
+     * Method that creates and returns the "next" button, of the 1st page
+     *
+     * @return "next" button
+     */
     private JButton createNextButtonOne() {
         JButton nextOne = new JButton("Next");
         nextOne.addActionListener(new ActionListener() {
@@ -104,26 +142,24 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         return nextOne;
     }
 
-    private JButton createCancelButton() {
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                removeAll();
-                add(new MainPanel());
-                revalidate();
-                repaint();
-            }
-        });
-        return cancelButton;
-    }
-
+    /**
+     * Method to create headers, returns a panel with the text passed as
+     * parameter inside
+     *
+     * @param text the text to be displayed
+     * @return JPanel with text
+     */
     private JPanel createHeader(String text) {
         JPanel p = new JPanel();
         p.add(new JLabel(text));
         return p;
     }
 
+    /**
+     * Method that creates the page two of the card layout
+     *
+     * @return
+     */
     private JPanel createPageTwo() {
         page2 = new JPanel(new GridLayout(2, 1));
 
@@ -155,7 +191,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
 
         JPanel buttonsPageTwo = new JPanel(new GridLayout(1, 3, 20, 0));
         JPanel btCancel = new JPanel();
-        btCancel.add(createCancelButton());
+        btCancel.add(new CancelButton(this));
         buttonsPageTwo.add(btCancel);
 
         JPanel btDone = new JPanel();
@@ -170,6 +206,11 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         return page2;
     }
 
+    /**
+     * Method that creates and returns the "done" button
+     *
+     * @return "done" button
+     */
     private JButton createDoneBT() {
         JButton buttonDone = new JButton("Done");
         buttonDone.addActionListener(new ActionListener() {
@@ -181,14 +222,13 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
                             MESS_CONF, dialogButton);
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
-                            suc_mess(CREATE_SUCCESS, MESS_SUCC);
+                            suc_mess(CREATE_SUC, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();
                             repaint();
                         } else {
-                            JOptionPane.showMessageDialog(null, ERR_NO_FILE, MESS_ERR, JOptionPane.INFORMATION_MESSAGE);
-                            err_mess(ERR_NO_FILE,MESS_ERR);
+                            err_mess(ERR_NO_FILE, MESS_ERR);
                         }
                     }
                 } else {
@@ -200,7 +240,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
     }
 
     /**
-     * Method that creates the button to chose the event file path.
+     * Method that creates the button to chose the Roads file path.
      *
      * @return the new JButton
      */
@@ -209,7 +249,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         JButton buttonRoads = new JButton("Choose Roads file");
         buttonRoads.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent ae) throws NullPointerException{
                 JFileChooser roadsChooser = new JFileChooser("Choose file to import roads data");
                 roadsChooser.showOpenDialog(page2);
                 try {
@@ -230,7 +270,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
     }
 
     /**
-     * Method that creates the button to chose the Vehicles file.
+     * Method that creates the button to chose the Vehicles file path.
      *
      * @return the new JButton and ActionListener in a panel.
      */
@@ -247,7 +287,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
                     if (!(vehiclesFilePathStr.isEmpty()) && validateFile(vehiclesChooser.getSelectedFile().getAbsolutePath())) {
                         vehiclesFilePath.setText(vehiclesFilePathStr);
                     } else {
-                        err_mess(ERR_WRONG_FILE,MESS_ERR);
+                        err_mess(ERR_WRONG_FILE, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
                     err_mess(ERR_NO_FILE, MESS_ERR);
@@ -281,7 +321,7 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
             public void actionPerformed(ActionEvent ae) {
                 try {
                     if (cp.readInfo(roadsFilePath.getText(), vehiclesFilePath.getText())) {
-                        suc_mess(IMPORT_SUCCESS, MESS_SUCC);
+                        suc_mess(IMPORT_SUC, MESS_SUCC);
                         flag = true;
                     } else {
                         err_mess(ERR_IMPORT, MESS_ERR);
@@ -296,15 +336,26 @@ public class CreateProjectUI extends JPanel implements ErrorMessages {
         return panel;
     }
 
+    /**
+     * ErrorMessages
+     *
+     * @param message message
+     * @param title title of the error message
+     */
     @Override
     public void err_mess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Success messages
+     *
+     * @param message message
+     * @param title title of the success message
+     */
     @Override
     public void suc_mess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
-
 
 }
