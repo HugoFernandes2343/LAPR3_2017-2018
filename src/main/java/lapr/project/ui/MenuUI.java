@@ -33,7 +33,7 @@ public class MenuUI extends JFrame {
     private JMenuBar menuBarMain;
     private JPanel mPanel;
 
-    TravelByPhysics tp;
+    private TravelByPhysics tp;
 
     private static boolean ProjectIsSelected = false;
 
@@ -129,6 +129,7 @@ public class MenuUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //accao do butao
+                new CopyProjectUI(tp);
             }
         });
         m.add(copy);
