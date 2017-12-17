@@ -123,7 +123,7 @@ public class ProjectListTest {
     public void testUpdateActualProject() {
         System.out.println("updateActualProject");
         Project temp = new Project();
-        Project testUpdate = new Project();
+        Project testUpdate = new Project(temp);
         testUpdate.setDescription("test");
         testUpdate.setName("test");
         instance.addProject(temp);

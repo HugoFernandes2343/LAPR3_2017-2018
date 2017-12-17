@@ -28,6 +28,13 @@ public class Project implements Serializable{
         this.vehicle_list = new VehicleList();
     }
 
+    public Project(Project other) {
+       this.description=other.description;
+       this.name=other.name;
+       this.network=other.network;
+       this.vehicle_list=other.vehicle_list;
+    }
+
     /**
      * @return the name
      */

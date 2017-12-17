@@ -44,7 +44,7 @@ public class EditProjectController {
      */
     public void readyEdit(){
         projects = base.getProjectList();
-        project = projects.getActualProject();
+        project = new Project(projects.getActualProject());
     }
     
     /**
