@@ -97,6 +97,16 @@ public class HTMLExporter/*<T>*/ {
     }
 
     /**
+     * Add a header h1
+     *
+     * @param headerText text to add/header title
+     */
+    public HTMLExporter addHead1(String headerText) {
+        html.h1().text(headerText);
+        return this;
+    }
+
+    /**
      * Add a header h2
      *
      * @param headerText text to add/header title
@@ -107,7 +117,7 @@ public class HTMLExporter/*<T>*/ {
     }
 
     /**
-     * Add a header h4
+     * Add a header h3
      *
      * @param headerText text to add/header title
      */
