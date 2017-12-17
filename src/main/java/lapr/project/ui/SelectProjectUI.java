@@ -92,11 +92,19 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
         btSelect.add(CreateBtSelect());
 
         JPanel btCancel = new JPanel();
-        btCancel.add(new CancelButton(this));
+        btCancel.add(getCancelButton());
 
         bt.add(btSelect);
         bt.add(btCancel);
         return bt;
+    }
+    
+    private JButton getCancelButton(){
+        if(tp.getProjectList().getActualProject() == null){
+            return new CancelButton(this);
+        }else {
+            return new CancelButton(this, tp.getProjectList().getActualProject());
+        }
     }
 
     /**

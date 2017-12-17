@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import lapr.project.controller.CreateProjectController;
@@ -68,8 +69,11 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         this.tp = tp;
         cp = new CreateProjectController(tp);
         mPanel = new JPanel(layout);
+//        mPanel.add(new JScrollPane(createPageOne()), "page1");
+//        mPanel.add(new JScrollPane(createPageTwo()), "page2");
         mPanel.add(createPageOne(), "page1");
         mPanel.add(createPageTwo(), "page2");
+        mPanel.setPreferredSize(dim);
         layout.show(mPanel, "page1");
         setBackground(Color.GRAY);
         add(mPanel);
@@ -81,42 +85,61 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * @return
      */
     private JPanel createPageOne() {
-        page1 = new JPanel(new GridLayout(2, 1, 20, 20));
-        JPanel fields = new JPanel(new GridLayout(2, 2, 10, 40));
-        fields.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
+        page1 = new JPanel(new GridLayout(3, 1, 20, 20));
+//        JPanel fields = new JPanel(new GridLayout(2, 2, 10, 40));
+//        fields.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
         JPanel nameLabel = createHeader("Project Name: ");
-        fields.add(nameLabel);
+//        fields.add(nameLabel);
+        page1.add(nameLabel);
         projectName = new JTextField(30);
         JPanel pName = new JPanel();
         pName.add(projectName);
-        fields.add(pName);
+//        fields.add(pName);
+        page1.add(pName);
         JPanel descriptionLabel = createHeader("Project Description: ");
-        fields.add(descriptionLabel);
+//        fields.add(descriptionLabel);
+        page1.add(descriptionLabel);
+//        page1.setBackground(Color.blue);
         projectDescription = new JTextArea(7, 20);
-        fields.add(projectDescription);
+        projectDescription.setLineWrap(true);
+        projectDescription.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
+//        fields.add(projectDescription);
+        page1.add(new JScrollPane(projectDescription));
 
-        JPanel buttons1 = createPageOneButtons();
-        page1.add(fields, BorderLayout.CENTER);
-        page1.add(buttons1, BorderLayout.PAGE_END);
+//        JPanel buttons1 = createPageOneButtons();
+//        page1.add(fields, BorderLayout.CENTER);
+        page1.add(createPageOneButtons(1));
+        page1.add(createPageOneButtons(2));
 
         return page1;
     }
 
     /**
-     * Method that creates the page 2 of the card layout
+     * Method that creates buttons of the 1st page of the card layout
      *
      * @return
      */
-    private JPanel createPageOneButtons() {
-        JPanel buttonsPageOne = new JPanel(new GridLayout(1, 2, 20, 0));
-        JPanel btCancel = new JPanel();
-        btCancel.add(new CancelButton(this));
-        buttonsPageOne.add(btCancel);
+    private JPanel createPageOneButtons(int c) {
+        JPanel buttonsPageOne = new JPanel();
+        if (c == 1) {
+            JPanel btCancel = new JPanel();
+            btCancel.add(getCancelButton());
+            buttonsPageOne.add(btCancel);
+            return buttonsPageOne;
+        } else {
+            JPanel btNext = new JPanel();
+            btNext.add(createNextButtonOne());
+            buttonsPageOne.add(btNext);
+            return buttonsPageOne;
+        }
+    }
 
-        JPanel btNext = new JPanel();
-        btNext.add(createNextButtonOne());
-        buttonsPageOne.add(btNext);
-        return buttonsPageOne;
+    private JButton getCancelButton() {
+        if (tp.getProjectList().getActualProject() == null) {
+            return new CancelButton(this);
+        } else {
+            return new CancelButton(this, tp.getProjectList().getActualProject());
+        }
     }
 
     /**
@@ -191,7 +214,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
 
         JPanel buttonsPageTwo = new JPanel(new GridLayout(1, 3, 20, 0));
         JPanel btCancel = new JPanel();
-        btCancel.add(new CancelButton(this));
+        btCancel.add(getCancelButton());
         buttonsPageTwo.add(btCancel);
 
         JPanel btDone = new JPanel();
@@ -218,7 +241,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
             public void actionPerformed(ActionEvent ae) {
                 if (flag) {
                     int dialogButton = JOptionPane.YES_NO_OPTION;
-                    int dialogResult = JOptionPane.showConfirmDialog(null, "Project: " + nameStr + "\nDescription: " + descrStr + "\nCreate this Project?",
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Project: " + nameStr + "\nCreate this Project?",
                             MESS_CONF, dialogButton);
                     if (dialogResult == 0) {
                         if (cp.addProject()) {

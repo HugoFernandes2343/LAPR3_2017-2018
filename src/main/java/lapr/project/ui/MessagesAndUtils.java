@@ -13,6 +13,7 @@ public interface MessagesAndUtils {
     static final String IMPORT_SUC = "Data imported with success";
     static final String CREATE_SUC = "Created with Success";
     static final String SEL_SUCC = "Project Selected with Success";
+    static final String UP_SUCC = "Project updated with Success";
     
     /**
      * Error messageS
@@ -27,6 +28,6 @@ public interface MessagesAndUtils {
     static final String ERR_PROJ = "Error selecting Project";
     
     
-    public void err_mess(String message, String title);
+    public abstract void err_mess(String message, String title);
     public void suc_mess(String message, String title);
 }

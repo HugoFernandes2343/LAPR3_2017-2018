@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lapr.project.ui;
 
 import java.awt.BorderLayout;
@@ -16,7 +12,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -33,10 +28,21 @@ public class MenuUI extends JFrame {
     private JMenuBar menuBarMain;
     private JPanel mPanel;
 
-    private TravelByPhysics tp;
+    /**
+     * Menu buttons
+     */
+    private static JMenuItem copy;
+    private static JMenuItem changeName;
+    private static JMenuItem importVehicles;
+    private static JMenuItem importRoads;
+    private static JMenuItem bestPath;
+    private static JMenuItem compareVehicle;
+    private static JMenuItem saveDatabase;
+    private static JMenuItem saveHTML;
 
-    private static boolean ProjectIsSelected = false;
+    TravelByPhysics tp;
 
+//    private static boolean ProjectIsSelected = false;
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 485;
 
@@ -123,23 +129,25 @@ public class MenuUI extends JFrame {
     private JMenu createDetailsMenu() {
         JMenu m = new JMenu("Details");
 
-        JMenuItem copy = new JMenuItem("P03: Copy Project");
-        copy.setEnabled(ProjectIsSelected);
+        copy = new JMenuItem("P03: Copy Project");
+        copy.setEnabled(false);
         copy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //accao do butao
                 new CopyProjectUI(tp);
             }
         });
         m.add(copy);
 
-        JMenuItem changeName = new JMenuItem("P04: Change Project Name and Description");
-        changeName.setEnabled(ProjectIsSelected);
+        changeName = new JMenuItem("P04: Change Project Name and Description");
+        changeName.setEnabled(false);
         changeName.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //accao do butao
+                mPanel.removeAll();
+                mPanel.add(new EditProjectUI(tp));
+                mPanel.revalidate();
+                mPanel.repaint();
             }
         });
         m.add(changeName);
@@ -149,8 +157,8 @@ public class MenuUI extends JFrame {
     private JMenu createInfoMenu() {
         JMenu m = new JMenu("Imports");
 
-        JMenuItem importVehicles = new JMenuItem("P05: Import vehicles config file");
-        importVehicles.setEnabled(ProjectIsSelected);
+        importVehicles = new JMenuItem("P05: Import vehicles config file");
+        importVehicles.setEnabled(false);
         importVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -159,8 +167,8 @@ public class MenuUI extends JFrame {
         });
         m.add(importVehicles);
 
-        JMenuItem importRoads = new JMenuItem("P06: Import roads config file");
-        importRoads.setEnabled(ProjectIsSelected);
+        importRoads = new JMenuItem("P06: Import roads config file");
+        importRoads.setEnabled(false);
         importRoads.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -176,8 +184,8 @@ public class MenuUI extends JFrame {
         JMenu m = new JMenu("Statistics");
         m.setMnemonic(KeyEvent.VK_S);
 
-        JMenuItem bestPath = new JMenuItem("N01: Analyse best path");
-        bestPath.setEnabled(ProjectIsSelected);
+        bestPath = new JMenuItem("N01: Analyse best path");
+        bestPath.setEnabled(false);
         bestPath.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -189,8 +197,8 @@ public class MenuUI extends JFrame {
         JMenu save = createSaveMenu();
         m.add(save);
 
-        JMenuItem compareVehicle = new JMenuItem("N20: Compare Vehicles");
-        compareVehicle.setEnabled(ProjectIsSelected);
+        compareVehicle = new JMenuItem("N20: Compare Vehicles");
+        compareVehicle.setEnabled(false);
         compareVehicle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -205,8 +213,8 @@ public class MenuUI extends JFrame {
         JMenu m = new JMenu("Save");
         m.setMnemonic(KeyEvent.VK_D);
 
-        JMenuItem saveDatabase = new JMenuItem("N05: Save Project to database");
-        saveDatabase.setEnabled(ProjectIsSelected);
+        saveDatabase = new JMenuItem("N05: Save Project to database");
+        saveDatabase.setEnabled(false);
         saveDatabase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -215,8 +223,8 @@ public class MenuUI extends JFrame {
         });
         m.add(saveDatabase);
 
-        JMenuItem saveHTML = new JMenuItem("N06: Save Project to html file");
-        saveHTML.setEnabled(ProjectIsSelected);
+        saveHTML = new JMenuItem("N06: Save Project to html file");
+        saveHTML.setEnabled(false);
         saveHTML.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -236,7 +244,14 @@ public class MenuUI extends JFrame {
     }
 
     public static void SetProject() {
-        ProjectIsSelected = true;
+        copy.setEnabled(true);
+        changeName.setEnabled(true);
+        importVehicles.setEnabled(true);
+        importRoads.setEnabled(true);
+        bestPath.setEnabled(true);
+        compareVehicle.setEnabled(true);
+        saveDatabase.setEnabled(true);
+        saveHTML.setEnabled(true);
     }
 
     public void createNotImplementedWindow(String text) {

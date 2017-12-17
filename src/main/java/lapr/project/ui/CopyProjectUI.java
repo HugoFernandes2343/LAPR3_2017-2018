@@ -32,7 +32,7 @@ public class CopyProjectUI {
         String[] array = copyCTRL.getActiveProjectData();
 
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Project: " + array[0] + "\nDescription: " + array[1] + "\nCopy this Project?",
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Project: " + array[0]  + "\nCopy this Project?",
                 MESS_CONF, dialogButton);
         
         if(dialogResult == 0){
