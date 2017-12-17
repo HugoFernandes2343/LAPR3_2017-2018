@@ -15,7 +15,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author 
+ * @author
  */
 public class ProjectListTest {
 
@@ -114,5 +114,27 @@ public class ProjectListTest {
         Project result = instance.getProject(name);
         assertEquals(expResult, result);
 
+    }
+
+    /**
+     * Test of updateActualProject method, of class ProjectList.
+     */
+    @Test
+    public void testUpdateActualProject() {
+        System.out.println("updateActualProject");
+        Project temp = new Project();
+        Project testUpdate = new Project();
+        testUpdate.setDescription("test");
+        testUpdate.setName("test");
+        instance.addProject(temp);
+
+        assertFalse("Should be false since the new project already exists", instance.updateActualProject(temp));
+        assertTrue("Should be true if the new project does not exist in the list", instance.updateActualProject(testUpdate));
+        assertTrue("Should contain the new updated project as the actual project", instance.getActualProject().equals(testUpdate));
+
+        ArrayList<String> allNames = instance.getAllNames();
+
+        assertTrue("Should contain only one project name", allNames.size() == 1);
+        assertTrue("This should be the only project in the list", allNames.contains("test"));
     }
 }

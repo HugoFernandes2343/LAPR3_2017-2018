@@ -114,15 +114,12 @@ public class ProjectList implements Serializable {
      * description on the actual project
      */
     public boolean updateActualProject(Project project) {
-        ArrayList<String> names = getAllNames();
-        String newName = project.getName();
-        String newDescription = project.getDescription();
-        if (names.contains(newName)) {
+        if (!verifyProject(project)) {
             return false;
-        } else {
-            this.actualProject.setName(newName);
-            this.actualProject.setDescription(newDescription);
-            return true;
         }
+        this.project_list.remove(this.actualProject);
+        this.project_list.add(project);
+        this.actualProject = project;
+        return true;
     }
 }
