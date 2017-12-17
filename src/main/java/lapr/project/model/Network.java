@@ -94,7 +94,7 @@ public class Network implements Serializable {
      */
     public void addRoadSection(RoadSection section) {
         if (!this.section_list.contains(section)) {
-            this.section_list.add(section);
+            this.getSection_list().add(section);
         }
     }
 
@@ -166,10 +166,17 @@ public class Network implements Serializable {
             
         }
 
-        for (RoadSection s : roadsToAdd.section_list) {
+        for (RoadSection s : roadsToAdd.getSection_list()) {
             addRoadSection(s);
         }
 
         return flag != 0;
+    }
+
+    /**
+     * @return the section_list
+     */
+    public LinkedList<RoadSection> getSection_list() {
+        return section_list;
     }
 }

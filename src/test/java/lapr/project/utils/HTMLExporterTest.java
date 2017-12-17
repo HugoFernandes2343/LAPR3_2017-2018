@@ -5,6 +5,7 @@
  */
 package lapr.project.utils;
 
+import com.googlecode.jatl.Html;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -81,7 +82,7 @@ public class HTMLExporterTest {
     public void testGetOutput() {
         System.out.println("getOutput");
         HTMLExporter instance = new HTMLExporter();
-        instance.html.text("test");
+        instance.getHTML().text("test");
         String expResult = "test";
         String result = instance.getOutput();
         assertEquals(expResult, result);
@@ -94,7 +95,7 @@ public class HTMLExporterTest {
     public void testResetHTML() {
         System.out.println("resetHTML");
         HTMLExporter instance = new HTMLExporter();
-        instance.html.text("garbageToBeReset");
+        Html text = instance.getHTML().text("garbageToBeReset");
         String test = "garbageToBeReset";
         instance.resetHTML();
         assertNotEquals(test, instance.getOutput());

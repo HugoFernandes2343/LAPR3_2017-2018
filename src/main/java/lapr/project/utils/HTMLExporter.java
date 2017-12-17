@@ -12,59 +12,108 @@ public class HTMLExporter/*<T>*/ {
 
     StringWriter sw = new StringWriter();
 //    StringWriter writer = sw;
-    Html html;
+    private Html html;
 
     /**
      * HTML Exporter
      */
-    HTMLExporter() {
+    public HTMLExporter() {
         html = new Html(sw);
         //initializeHTML();
     }
 
     /**
-     * Initializes the html document. Adds <html> and <body> tags in this order.
+     * Initializes the html document. Adds html and body tags in this order.
      * Closing these tags further in the document requires the use of the
      * closeTags family of methods
      */
-    void initializeHTML() {
+    public HTMLExporter initializeHTML() {
         html.html();
         html.body();
+        return this;
     }
 
     /**
-     * Adds a <header> tag.
-     * @param text text to be the title
+     * Adds html tag
+     *
+     * @return
      */
-    Html addHeader(String text) {
-        return html.head().text(text);
+    public HTMLExporter addHtml() {
+        html.html();
+        return this;
     }
 
     /**
-     * Adds the <title> tag
+     * Adds body tag
+     *
+     * @return
+     */
+    public HTMLExporter addBody() {
+        html.body();
+        return this;
+    }
+
+    /**
+     * Adds a head tag.
+     *
+     * @param text text to be the title
+     * @return
+     */
+    public HTMLExporter addHead(String text) {
+        html.head().text(text);
+        return this;
+    }
+
+    /**
+     * Adds a head tag.
+     *
+     * @param text text to be the title
+     * @return
+     */
+    public HTMLExporter addHead() {
+        html.head();
+        return this;
+    }
+
+    /**
+     * Adds the title tag
+     *
      * @param text text to be the title
      */
-    Html addTitle(String text){
-        return html.title().text(text);
+    public HTMLExporter addTitle(String text) {
+        html.title().text(text);
+        return this;
     }
-    
+
     /**
-     * Add a division segment <div>
+     * Add a division segment div
      *
      * @param text Text to serve as ID for the div when in HTML, this is not
      * displayed outside of source code
      */
-    Html addDiv(String text) {
-        return html.div().text(text);
+    public HTMLExporter addDiv(String text) {
+        html.div().text(text);
+        return this;
     }
 
     /**
-     * Add a header <h2>
+     * Add a header h2
      *
      * @param headerText text to add/header title
      */
-    Html addHead2(String headerText) {
-        return html.h2().text(headerText);
+    public HTMLExporter addHead2(String headerText) {
+        html.h2().text(headerText);
+        return this;
+    }
+
+    /**
+     * Add a header h4
+     *
+     * @param headerText text to add/header title
+     */
+    public HTMLExporter addHead3(String headerText) {
+        html.h3().text(headerText);
+        return this;
     }
 
     /**
@@ -72,15 +121,17 @@ public class HTMLExporter/*<T>*/ {
      *
      * @param string Text to add in the pharagraph
      */
-    Html addParagraph(String string) {
-        return html.p().text(string);
+    public HTMLExporter addParagraph(String string) {
+        html.p().text(string);
+        return this;
     }
 
     /**
      * Closes the last opened tag
      */
-    Html closeTag() {
-        return html.end();
+    public HTMLExporter closeTag() {
+        html.end();
+        return this;
     }
 
     /**
@@ -88,49 +139,59 @@ public class HTMLExporter/*<T>*/ {
      *
      * @param i number of tags to close
      */
-    Html closeSetOfTags(int i) {
-        return html.end(i);
+    public HTMLExporter closeSetOfTags(int i) {
+        html.end(i);
+        return this;
     }
 
     /**
      * Cloes all openedTags
      */
-    Html closeAllTags() {
-        return html.endAll();
+    public HTMLExporter closeAllTags() {
+        html.endAll();
+        return this;
     }
 
     /**
      * Finishes building the file
      */
-    void endWriting() {
+    public void endWriting() {
         html.done();
     }
 
     //Add the rest of needed tags as more are needed
     //Figure out how to create the actual export , maybe string stream? after building the html
-    
     /**
      * Method to return a String representation of the actual output built by
      * JATL from the buffer
      *
      * @return string retrieved from the buffer
      */
-    String getOutput() {
-        return sw/*.getBuffer()*/.toString();
+    public String getOutput() {
+        return sw.getBuffer().toString();
     }
-    
+
 //    String getOutput() {
 //        String output = sw.getBuffer().toString();
 //        return output.substring(2, output.length()-2);
 //    }
-
     /**
      * Resets the buffer cleaning all text
      */
-    void resetHTML() {
+    public void resetHTML() {
         sw = null;
         sw = new StringWriter();
         html = null;
         html = new Html(sw);
     }
+
+    /**
+     * Getter for the html Object that allows to append data
+     *
+     * @return html Object
+     */
+    public Html getHTML() {
+        return this.html;
+    }
+
 }
