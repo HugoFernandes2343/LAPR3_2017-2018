@@ -42,11 +42,9 @@ public class MenuUI extends JFrame {
 
     TravelByPhysics tp;
 
-//    private static boolean ProjectIsSelected = false;
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 485;
 
-    private static final String UC_IMPLEMENTATION = "Not Implemented";
 
     public MenuUI(TravelByPhysics tp) {
         setLookAndFeel();
@@ -162,7 +160,7 @@ public class MenuUI extends JFrame {
         importVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //accao do butao
+                new ImportFilesUI(tp, "vehicle");
             }
         });
         m.add(importVehicles);
@@ -172,7 +170,7 @@ public class MenuUI extends JFrame {
         importRoads.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //accao do butao
+                new ImportFilesUI(tp, "roads");
             }
         });
         m.add(importRoads);
@@ -228,7 +226,7 @@ public class MenuUI extends JFrame {
         saveHTML.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //createNotImplementedWindow(UC_IMPLEMENTATION);
+                new SaveToFile(tp.getProjectList().getActualProject());
             }
         });
         m.add(saveHTML);
@@ -252,22 +250,6 @@ public class MenuUI extends JFrame {
         compareVehicle.setEnabled(true);
         saveDatabase.setEnabled(true);
         saveHTML.setEnabled(true);
-    }
-
-    public void createNotImplementedWindow(String text) {
-        JFrame info = new JFrame();
-
-        JPanel showInfo = new JPanel();
-        JLabel label = new JLabel();
-        label.setText(text);
-        label.setFont(new Font("Serif", Font.PLAIN, 25));
-        showInfo.add(label);
-        info.add(showInfo);
-
-        info.setLocationRelativeTo(null);
-        info.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        info.setMinimumSize(new Dimension(300, 300));
-        info.setVisible(true);
     }
 
 }

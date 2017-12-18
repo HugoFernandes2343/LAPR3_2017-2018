@@ -108,7 +108,7 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
      * @return "next" button
      */
     private JButton createSaveButton() {
-        JButton nextOne = new JButton("Next");
+        JButton nextOne = new JButton("Save");
         nextOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -117,6 +117,10 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
                 if (ep.alterProject(nameStr, descrStr)) {
                     if (ep.saveChanges()) {
                         suc_mess(UP_SUCC, MESS_SUCC);
+                        removeAll();
+                        add(new MainPanel(tp.getProjectList().getActualProject()));
+                        revalidate();
+                        repaint();
                     } else {
                         err_mess("Project name already exists", MESS_ERR);
                     }
