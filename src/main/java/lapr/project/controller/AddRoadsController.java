@@ -36,6 +36,7 @@ public class AddRoadsController {
      */
     public boolean addNewRoads(String fileRoadNoetwork){
         Network newR = FileXML.loadXmlNetwork(fileRoadNoetwork);
+        newR.loadMap();
         
         if(this.projectToAdd == null){
             return false;

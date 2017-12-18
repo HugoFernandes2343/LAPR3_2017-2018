@@ -18,7 +18,7 @@ public class Network implements Serializable {
 
     private static final long serialVersionUID = 502L;
 
-    private AdjacencyMatrixGraph<Node, Road> roadMap;
+    private AdjacencyMatrixGraph<Node, RoadSection> roadMap;
     private String id;
     private String description;
     private LinkedList<Node> node_list;
@@ -140,8 +140,16 @@ public class Network implements Serializable {
     public boolean addNewRoadsFromNetwork(Network roadsToAdd) {
         int flag = 0;
         
+        if(roadsToAdd == null){
+           return false; 
+        }
+        
         if (roadsToAdd.roadMap.numEdges() == 0 && roadsToAdd.roadMap.numVertices() == 0) {
             return false;
+        }
+        
+        for(Road r : roadsToAdd.road_list){
+           addRoad(r); 
         }
         
         for(Node n : roadsToAdd.roadMap.vertices()){
@@ -152,22 +160,18 @@ public class Network implements Serializable {
              }
         }
         
-        for (Road r : roadsToAdd.roadMap.edges()) {
-            Node[] endVertices = roadsToAdd.roadMap.endVertices(r);
+        for (RoadSection rs : roadsToAdd.roadMap.edges()) {
+            Node[] endVertices = roadsToAdd.roadMap.endVertices(rs);
 
             if (endVertices != null) {
-                boolean insertEdge = roadsToAdd.roadMap.insertEdge(endVertices[0], endVertices[1], r);
+                boolean insertEdge = roadsToAdd.roadMap.insertEdge(endVertices[0], endVertices[1], rs);
                 
                 if(insertEdge){
-                    addRoad(r);
+                    addRoadSection(rs);
                     flag ++;
                 }
             }
             
-        }
-
-        for (RoadSection s : roadsToAdd.getSection_list()) {
-            addRoadSection(s);
         }
 
         return flag != 0;
@@ -178,5 +182,34 @@ public class Network implements Serializable {
      */
     public LinkedList<RoadSection> getSection_list() {
         return section_list;
+    }
+    
+      public void loadMap() {
+        for (Node vertex : node_list) {
+            this.roadMap.insertVertex(vertex);
+        }
+        for (RoadSection section : section_list) {
+            Node n1 = searchNode(section.getBegin());
+            Node n2 = searchNode(section.getEnd());
+            if (n1 != null && n2 != null) {
+                this.roadMap.insertEdge(n1, n2, section);
+            }
+        }
+    }
+
+    /**
+     * Method to find the node corresponding to the given id it returns the node
+     * if it exists or null if not
+     *
+     * @param id the Node id to be searched in the node list
+     * @return
+     */
+    private Node searchNode(String id) {
+        for (Node node : node_list) {
+            if (node.getId().equals(id)) {
+                return node;
+            }
+        }
+        return null;
     }
 }
