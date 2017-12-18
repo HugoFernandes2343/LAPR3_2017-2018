@@ -58,6 +58,8 @@ public class SaveToFile extends JFrame {//Add the implementation later
      * @param p current project/network analysis
      */
     public SaveToFile(Project p) {
+        htmlSave = null;
+        csvSave = null;
         setLookAndFeel();
         temp = this;
         checkProject(p);
@@ -126,20 +128,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Needs testing to see if it can keep the listener from being deleted in case of no file selection
-                switch (chosenFormat) {
-                    case 0: {
-                        toHTML();
-                    }
-                        break;
-                    case 1:
-                        toCSV();
-                        break;
-                    case -1:
-                        JOptionPane.showMessageDialog(null, "Choose a file first!");
-                        break;
-                    default:
-                        break;
-                }
+                switchTypes();
             }
         });
 
@@ -157,6 +146,22 @@ public class SaveToFile extends JFrame {//Add the implementation later
         mainPanel.add(cancelButton);
     }
 
+    private void switchTypes() {
+        switch (chosenFormat) {
+            case 0:
+                toHTML();
+                break;
+            case 1:
+                toCSV();
+                break;
+            case -1:
+                JOptionPane.showMessageDialog(null, "Choose a file first!");
+                break;
+            default:
+                break;
+        }
+    }
+
     private void toHTML() {
         try {
             htmlSave = new SaveToHTML(thisProject);
@@ -165,10 +170,10 @@ public class SaveToFile extends JFrame {//Add the implementation later
         }
     }
 
-    private void toCSV(){
+    private void toCSV() {
         csvSave = new SaveToCSV(thisProject);
     }
-    
+
     /**
      * Custom action to determine the best course of action if a given project
      * is not selected ::NOTE:: This is still placeholder however if only used
@@ -203,7 +208,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            //Logger.getLogger(ClasseUIDONorberto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SaveToFile.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         }
     }
