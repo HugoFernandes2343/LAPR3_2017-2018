@@ -20,6 +20,7 @@ public class Project implements Serializable{
     private String description;
     private VehicleList vehicle_list;
     private Network network;
+    private NetworkAnalysis netAnal;
 
     public Project() {
         this.name = "n/a";
@@ -91,6 +92,13 @@ public class Project implements Serializable{
         this.network = network;
     }
 
+    /**
+     * Method to start the analysis on the project. Analyses the project following several criteria
+     */
+    public void doAnal(){
+        netAnal = new NetworkAnalysis();
+    }
+    
     /**
      *
      * @return the integer representation of the object Project

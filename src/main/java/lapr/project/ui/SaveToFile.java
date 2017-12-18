@@ -49,7 +49,14 @@ public class SaveToFile extends JFrame {//Add the implementation later
      */
     private static int chosenFormat = -1;
 
+    /**
+     * SaveToHTML object
+     */
     private SaveToHTML htmlSave;
+    
+    /**
+     * SaveToCSV object
+     */
     private SaveToCSV csvSave;
 
     /**
@@ -73,7 +80,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
      */
     private void setConfigurations() {
         this.setAlwaysOnTop(true);
-        this.setTitle("Export (Choose format) :");
+        this.setTitle("Export(Choose format):");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         createMainPanel();

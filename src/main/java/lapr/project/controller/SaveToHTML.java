@@ -52,7 +52,7 @@ public class SaveToHTML {
      * Empty contructor.Only creates the HTMLExporter object
      */
     public SaveToHTML() {
-        HTMLExporter htmlBuilder = new HTMLExporter();
+        Class<HTMLExporter> htmlBuilder = HTMLExporter.class;
         htmlBuilder.getClass();
     }
 
