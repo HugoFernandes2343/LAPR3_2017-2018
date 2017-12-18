@@ -22,9 +22,9 @@ public class Network implements Serializable {
     private AdjacencyMatrixGraph<Node, RoadSection> roadMap;
     private String id;
     private String description;
-    private LinkedList<Node> node_list;
-    private LinkedList<Road> road_list;
-    private LinkedList<RoadSection> section_list;
+    private List<Node> node_list;
+    private List<Road> road_list;
+    private List<RoadSection> section_list;
 
     public Network() {
         this.roadMap = new AdjacencyMatrixGraph<>();
@@ -69,34 +69,43 @@ public class Network implements Serializable {
      * Adds a node to the node list if is not in there already
      *
      * @param text - node id to be added
+     * @return - true id the node is added, false otherwise. 
      */
-    public void addNode(String text) {
+    public boolean addNode(String text) {
         Node node = new Node(text);
         if (!this.node_list.contains(node)) {
             this.node_list.add(node);
+            return true;
         }
+        return false;
     }
 
     /**
      * Adds a road to the road_list
      *
      * @param road - road that will be added
+     * @return - true id the road is added, false otherwise.
      */
-    public void addRoad(Road road) {
+    public boolean addRoad(Road road) {
         if (!this.road_list.contains(road)) {
             this.road_list.add(road);
+            return true;
         }
+        return false;
     }
 
     /**
      * Adds a roadSection to the section_list
      *
      * @param section - RoadSection
+     * @return - true id the road section is added, false otherwise. 
      */
-    public void addRoadSection(RoadSection section) {
+    public boolean addRoadSection(RoadSection section) {
         if (!this.section_list.contains(section)) {
             this.getSection_list().add(section);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -148,27 +157,29 @@ public class Network implements Serializable {
             return false;
         }
 
-        if (roadsToAdd.roadMap.numEdges() == 0 && roadsToAdd.roadMap.numVertices() == 0) {
+        if (roadsToAdd.getRoadMap().numEdges() == 0 && roadsToAdd.getRoadMap().numVertices() == 0) {
             return false;
         }
 
         for (Road r : roadsToAdd.road_list) {
-            this.addRoad(r);
+            if(this.addRoad(r)){
+                flag++;
+            }
         }
 
-        for (Node n : roadsToAdd.roadMap.vertices()) {
-            boolean insertVertex = this.roadMap.insertVertex(n);
+        for (Node n : roadsToAdd.getRoadMap().vertices()) {
+            boolean insertVertex = this.getRoadMap().insertVertex(n);
             if (insertVertex) {
                 this.addNode(n.getId());
                 flag++;
             }
         }
 
-        for (RoadSection rs : roadsToAdd.roadMap.edges()) {
-            List<Node> endVertices = roadsToAdd.roadMap.endVertices(rs);
+        for (RoadSection rs : roadsToAdd.getRoadMap().edges()) {
+            List<Node> endVertices = roadsToAdd.getRoadMap().endVertices(rs);
 
             if (endVertices != null) {
-                boolean insertEdge = this.roadMap.insertEdge(endVertices.get(0), endVertices.get(1), rs);
+                boolean insertEdge = this.getRoadMap().insertEdge(endVertices.get(0), endVertices.get(1), rs);
 
                 if (insertEdge) {
                     this.addRoadSection(rs);
@@ -184,7 +195,7 @@ public class Network implements Serializable {
     /**
      * @return the section_list
      */
-    public LinkedList<RoadSection> getSection_list() {
+    public List<RoadSection> getSection_list() {
         return section_list;
     }
 
@@ -193,13 +204,13 @@ public class Network implements Serializable {
      */
     public void loadMap() {
         for (Node vertex : node_list) {
-            this.roadMap.insertVertex(vertex);
+            this.getRoadMap().insertVertex(vertex);
         }
         for (RoadSection section : section_list) {
             Node n1 = searchNode(section.getBegin());
             Node n2 = searchNode(section.getEnd());
             if (n1 != null && n2 != null) {
-                this.roadMap.insertEdge(n1, n2, section);
+                this.getRoadMap().insertEdge(n1, n2, section);
             }
         }
     }
@@ -218,5 +229,12 @@ public class Network implements Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * @return the roadMap
+     */
+    public AdjacencyMatrixGraph<Node, RoadSection> getRoadMap() {
+        return roadMap;
     }
 }

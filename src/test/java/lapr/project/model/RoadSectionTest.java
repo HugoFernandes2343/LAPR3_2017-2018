@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -92,8 +93,8 @@ public class RoadSectionTest {
     @Test
     public void testGetSegment_list() {
         System.out.println("getSegment_list");
-        LinkedList<Segment> expResult = new LinkedList<>();
-        LinkedList<Segment> result = instance.getSegment_list();
+        List<Segment> expResult = new LinkedList<>();
+        List<Segment> result = instance.getSegment_list();
         assertEquals(expResult.size(), result.size());
     }
 

@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,7 @@ public class RoadSection implements Serializable {
     private String end;
     private String road_id;
     private String direction;
-    private LinkedList<Segment> segment_list;
+    private List<Segment> segment_list;
 
     public RoadSection(String begin, String end, String road_id, String direction, LinkedList<Segment> segments) {
         this.begin = begin;
@@ -66,7 +67,7 @@ public class RoadSection implements Serializable {
     /**
      * @return the segment_list
      */
-    public LinkedList<Segment> getSegment_list() {
+    public List<Segment> getSegment_list() {
         return segment_list;
     }
 
