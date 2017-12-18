@@ -8,22 +8,23 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Class implements Serializable{
+public class Class implements Serializable {
 
     private static final long serialVersionUID = 501L;
-    
+
     private String id;
-    
+
     private Double price;
-    
+
     /**
      * Empty constructor
      */
     public Class() {
     }
-    
+
     /**
      * Complete constructor
+     *
      * @param id - id of the class
      * @param price - toll price
      */
@@ -31,7 +32,7 @@ public class Class implements Serializable{
         this.id = id;
         this.price = price;
     }
-    
+
     /**
      * @return price
      */
@@ -54,24 +55,25 @@ public class Class implements Serializable{
     public String getId() {
         return id;
     }
-    
+
     /**
      * Setter for the class id
+     *
      * @param id - new id of the class
      */
     public void setId(String id) {
         this.id = id;
     }
-    
+
     /**
      * Settercfor the price
+     *
      * @param price - toll price
      */
     public void setPrice(Double price) {
         this.price = price;
     }
-    
-    
+
     /**
      * Hash code fo the object class
      *
@@ -91,14 +93,18 @@ public class Class implements Serializable{
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
         if (getClass() != obj.getClass()) {
             return false;
         }
-         Class other = (Class) obj;
+        Class other = (Class) obj;
 
         return this.id.equalsIgnoreCase(other.id);
     }
 
 }
+
 

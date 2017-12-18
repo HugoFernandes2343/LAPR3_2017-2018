@@ -144,14 +144,17 @@ public class SegmentTest {
     public void testEquals() {
         System.out.println("equals");
         instance = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
-        Segment instance2 = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+        Object obj = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
         boolean expResult = true;
-        boolean result = instance.equals(instance2);
+        boolean result = instance.equals(obj);
         assertEquals("Equal segments", expResult, result);
 
-        instance2 = new Segment("teste_id2", 12, 22, "teste_length2", 32, "teste_windSpeed2", "teste_maxVelocity2", "teste_minVelocity2");
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
+
+        obj = new Segment("teste_id2", 12, 22, "teste_length2", 32, "teste_windSpeed2", "teste_maxVelocity2", "teste_minVelocity2");
         expResult = false;
-        result = instance.equals(instance2);
+        result = instance.equals(obj);
         assertEquals("Diferent segments", expResult, result);
 
     }

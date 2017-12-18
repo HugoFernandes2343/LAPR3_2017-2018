@@ -10,12 +10,12 @@ import java.util.Objects;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Project implements Serializable{
+public class Project implements Serializable {
 
     private static final long serialVersionUID = 601L;
-    
+
     private String name;
     private String description;
     private VehicleList vehicle_list;
@@ -30,10 +30,10 @@ public class Project implements Serializable{
     }
 
     public Project(Project other) {
-       this.description=other.description;
-       this.name=other.name;
-       this.network=other.network;
-       this.vehicle_list=other.vehicle_list;
+        this.description = other.description;
+        this.name = other.name;
+        this.network = other.network;
+        this.vehicle_list = other.vehicle_list;
     }
 
     /**
@@ -94,19 +94,21 @@ public class Project implements Serializable{
 
     /**
      * Returns the analysis
-     * @return 
+     *
+     * @return
      */
-    public NetworkAnalysis getNetworkAnalysis(){
+    public NetworkAnalysis getNetworkAnalysis() {
         return this.netAnal;
     }
-    
+
     /**
-     * Method to start the analysis on the project. Analyses the project following several criteria
+     * Method to start the analysis on the project. Analyses the project
+     * following several criteria
      */
-    public void doAnal(){
+    public void doAnal() {
         this.netAnal = new NetworkAnalysis();
     }
-    
+
     /**
      *
      * @return the integer representation of the object Project
@@ -126,6 +128,9 @@ public class Project implements Serializable{
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }

@@ -14,10 +14,10 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class ClassTest {
-    
+
     public ClassTest() {
     }
 
@@ -86,5 +86,7 @@ public class ClassTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
     }
 }

@@ -6,7 +6,6 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.Objects;
 
 /**
@@ -31,7 +30,6 @@ public class Vehicle implements Serializable {
     private double wheelSize;
     private Energy energy;
     private VelocityLimitList velocity_limit_list;
-  
 
     public Vehicle() {
         this.velocity_limit_list = new VelocityLimitList();
@@ -75,7 +73,7 @@ public class Vehicle implements Serializable {
     public Vehicle(String name) {
         this.name = name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
@@ -236,9 +234,6 @@ public class Vehicle implements Serializable {
         return velocity_limit_list;
     }
 
-   
-
-    
     /**
      *
      * @return the integer representation of the object Vehicle
@@ -269,6 +264,9 @@ public class Vehicle implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
         if (getClass() != obj.getClass()) {
             return false;

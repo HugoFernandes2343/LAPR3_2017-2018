@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class RoadTest {
 
@@ -92,6 +92,8 @@ public class RoadTest {
         System.out.println("equals");
         Object obj = new Road("A23", "Autoestrada", "A01");
         assertEquals("Should be the same object", true, instance.equals(obj));
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
         obj = "test";
         assertEquals("Should be false if the objects are not from the same class", false, instance.equals(obj));
         obj = new Road("A23", "Autoestrada", "A02");

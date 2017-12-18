@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author 
+ * @author
  */
 public class ProjectTest {
 
@@ -146,6 +146,20 @@ public class ProjectTest {
     }
 
     /**
+     * Test of equals method, of class Project false case not the same class.
+     */
+    @Test
+    public void testEqualsFalseCaseNull() {
+        System.out.println("equals");
+        Object obj = null;
+        boolean expResult = false;
+        boolean result = instance.equals(obj);
+
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
+
+    }
+
+    /**
      * Test of equals method, of class Project false case.
      */
     @Test
@@ -175,7 +189,7 @@ public class ProjectTest {
         System.out.println("getRoadNetwork");
         Network result = instance.getNetwork();
         Network expresult = new Network();
-        assertEquals(result,expresult);
+        assertEquals(result, expresult);
     }
 
     /**
@@ -189,8 +203,8 @@ public class ProjectTest {
         assertTrue("If we get the network it should be null", instance.getNetwork() == null);
         network = new Network();
         instance.setNetwork(network);
-        
-        assertEquals(network,instance.getNetwork());
+
+        assertEquals(network, instance.getNetwork());
     }
 
 }

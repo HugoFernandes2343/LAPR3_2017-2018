@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author 
+ * @author
  */
 public class UserTest {
 
@@ -163,8 +163,8 @@ public class UserTest {
         User instance = new User("hdany", 2, "hugo", "qwerty", "1161155@isep.ipp.pt");
         instance.setPassword(password);
         String result = instance.getPassword();
-        assertEquals(result,password);
-        
+        assertEquals(result, password);
+
     }
 
     /**
@@ -175,16 +175,18 @@ public class UserTest {
         System.out.println("equals");
         Object obj = new User("hdany", 2, "hugo", "qwerty", "1161155@isep.ipp.pt");
         User instance = new User("hdany", 2, "hugo", "qwerty", "1161155@isep.ipp.pt");
-        assertEquals("Should be true if they are the same object",true, instance.equals(obj));
+        assertEquals("Should be true if they are the same object", true, instance.equals(obj));
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
         obj = "test";
-         assertEquals("Should be false if they are not from the same class",false, instance.equals(obj));
-         obj = new User("hdany2", 2, "hugo", "qwerty", "1161155@isep.ipp.pt");
-        assertEquals("Should be false if they have not the same username",false, instance.equals(obj));
+        assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
+        obj = new User("hdany2", 2, "hugo", "qwerty", "1161155@isep.ipp.pt");
+        assertEquals("Should be false if they have not the same username", false, instance.equals(obj));
         obj = new User("hdany", 2, "hugo", "qwerty", "2161155@isep.ipp.pt");
-        assertEquals("Should be false if they have not the same email",false, instance.equals(obj));
+        assertEquals("Should be false if they have not the same email", false, instance.equals(obj));
         obj = new User("hdany", 2, "hugo", "azerty", "1161155@isep.ipp.pt");
-        assertEquals("Should be false if they have not the same password",false, instance.equals(obj));
-        
+        assertEquals("Should be false if they have not the same password", false, instance.equals(obj));
+
     }
 
     /**
@@ -197,5 +199,5 @@ public class UserTest {
         String expResult = "qwerty";
         String result = instance.getPassword();
         assertEquals(expResult, result);
-        }
+    }
 }

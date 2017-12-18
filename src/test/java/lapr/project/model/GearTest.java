@@ -14,10 +14,10 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class GearTest {
-    
+
     private Gear instance;
 
     public GearTest() {
@@ -74,7 +74,7 @@ public class GearTest {
         int expResult = instance.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -83,23 +83,25 @@ public class GearTest {
     @Test
     public void testEqualsTrueCase() {
         System.out.println("equals");
-        Object obj = new Gear("test",2.1);
+        Object obj = new Gear("test", 2.1);
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        
+
     }
-    
-     /**
+
+    /**
      * Test of equals method, of class Gear.
      */
     @Test
     public void testEqualsFalseCase() {
         System.out.println("equals");
-        Object obj = new Gear("test1",2.2);
+        Object obj = new Gear("test1", 2.2);
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
+
     }
 }

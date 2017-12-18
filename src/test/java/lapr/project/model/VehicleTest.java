@@ -316,8 +316,8 @@ public class VehicleTest {
         double drag = 3.0;
 
         instance.setDrag(drag);
-       double expResult = instance.getDrag();
-        assertEquals(drag, expResult,0.0);
+        double expResult = instance.getDrag();
+        assertEquals(drag, expResult, 0.0);
     }
 
     /**
@@ -329,8 +329,8 @@ public class VehicleTest {
         double frontal_area = 72.0;
 
         instance.setFrontal_area(frontal_area);
-         double expResult = instance.getFrontal_area();
-        assertEquals(frontal_area, expResult,0.0);
+        double expResult = instance.getFrontal_area();
+        assertEquals(frontal_area, expResult, 0.0);
     }
 
     /**
@@ -343,7 +343,7 @@ public class VehicleTest {
 
         instance.setRrc(rrc);
         double expResult = instance.getRrc();
-        assertEquals(rrc, expResult,0.0);
+        assertEquals(rrc, expResult, 0.0);
     }
 
     /**
@@ -356,7 +356,7 @@ public class VehicleTest {
 
         instance.setWheelSize(wheelSize);
         double expResult = instance.getWheelSize();
-        assertEquals(wheelSize, expResult,0.0);
+        assertEquals(wheelSize, expResult, 0.0);
     }
 
     /**
@@ -392,7 +392,7 @@ public class VehicleTest {
 
         double expResult = 12.0;
         double result = instance.getDrag();
-        assertEquals(expResult, result,0.0);
+        assertEquals(expResult, result, 0.0);
 
     }
 
@@ -405,7 +405,7 @@ public class VehicleTest {
 
         double expResult = 2.5;
         double result = instance.getRrc();
-        assertEquals(expResult, result,0.0);
+        assertEquals(expResult, result, 0.0);
 
     }
 
@@ -430,6 +430,9 @@ public class VehicleTest {
         System.out.println("equals");
         Object obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
         assertTrue("The vehicles should be equal", instance.equals(obj));
+
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
 
         obj = "test";
         assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));

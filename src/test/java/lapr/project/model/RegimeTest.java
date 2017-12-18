@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class RegimeTest {
 
@@ -100,19 +100,21 @@ public class RegimeTest {
      * Test of equals method, of class Regime, true case.
      */
     @Test
-    public void testEqualsTrueCase() {
+    public void testEquals() {
         System.out.println("equals");
         Object obj = new Regime(20, 30, 40, 50.0);
-        assertEquals("Should be true if they are the same object",true, instance.equals(obj));
+        assertEquals("Should be true if they are the same object", true, instance.equals(obj));
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
         obj = "test";
-        assertEquals("Should be false if they are not from the same class",false, instance.equals(obj));
+        assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
         obj = new Regime(2, 30, 40, 50.0);
-        assertEquals("Should be false if they have not the same torque",false, instance.equals(obj));
+        assertEquals("Should be false if they have not the same torque", false, instance.equals(obj));
         obj = new Regime(20, 3, 40, 50.0);
-        assertEquals("Should be false if they have not the same rpm_low",false, instance.equals(obj));
+        assertEquals("Should be false if they have not the same rpm_low", false, instance.equals(obj));
         obj = new Regime(20, 30, 4, 50.0);
-        assertEquals("Should be false if they have not the same rpm_high",false, instance.equals(obj));
+        assertEquals("Should be false if they have not the same rpm_high", false, instance.equals(obj));
         obj = new Regime(20, 30, 40, 5.0);
-        assertEquals("Should be false if they have not the same SFC",false, instance.equals(obj));
+        assertEquals("Should be false if they have not the same SFC", false, instance.equals(obj));
     }
 }

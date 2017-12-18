@@ -120,6 +120,9 @@ public class Energy implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }
@@ -135,3 +138,4 @@ public class Energy implements Serializable {
     }
 
 }
+

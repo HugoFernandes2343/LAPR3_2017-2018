@@ -5,7 +5,6 @@
  */
 package lapr.project.model;
 
-import lapr.project.utils.AdjacencyMatrixGraph;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,10 +14,10 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class NetworkTest {
-    
+
     public NetworkTest() {
     }
 
@@ -60,7 +59,7 @@ public class NetworkTest {
         String expResult = "test";
         String result = instance.getDescription();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -74,7 +73,7 @@ public class NetworkTest {
         int expResult = instanceTest.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -88,6 +87,8 @@ public class NetworkTest {
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
         obj = "test";
         assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
     }
@@ -102,7 +103,7 @@ public class NetworkTest {
         String expResult = "Network{id=TestNetwork}";
         String result = instance.toString();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -114,7 +115,7 @@ public class NetworkTest {
         String id = "";
         Network instance = new Network();
         instance.setId(id);
-        assertEquals(id,instance.getId());
+        assertEquals(id, instance.getId());
     }
 
 }

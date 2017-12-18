@@ -74,7 +74,7 @@ public class Regime implements Serializable {
     public void setSFC(Double SFC) {
         this.SFC = SFC;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -92,6 +92,9 @@ public class Regime implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }

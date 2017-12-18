@@ -10,20 +10,20 @@ import java.util.Objects;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Node implements Serializable{
-    
+public class Node implements Serializable {
+
     private static final long serialVersionUID = 505L;
-    
+
     private String id;
-    
-    public Node(){ 
+
+    public Node() {
         this.id = "test";
     }
-    
-    public Node(String id){
-        this.id=id;
+
+    public Node(String id) {
+        this.id = id;
     }
 
     /**
@@ -39,16 +39,19 @@ public class Node implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-    
+
     /**
      *
-     *@param obj the object to compare to the node
+     * @param obj the object to compare to the node
      * @return the result of the comparisons made. True if the objects are the
      * same, otherwise, it returns false
      */
     @Override
-    public boolean equals(Object obj){
-        if(!(obj instanceof Node)){
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Node)) {
             return false;
         }
         Node other = (Node) obj;
@@ -56,7 +59,8 @@ public class Node implements Serializable{
     }
 
     /**
-     *Hash code fo the object node
+     * Hash code fo the object node
+     *
      * @return
      */
     @Override

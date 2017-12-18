@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class RoadSectionTest {
 
@@ -119,6 +119,8 @@ public class RoadSectionTest {
         LinkedList<Segment> segment_list = new LinkedList<>();
         Object obj = new RoadSection("begin", "end", "A01", "positive", segment_list);
         assertEquals("Should be the same if the objects are the same", true, instance.equals(obj));
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
         obj = "test";
         assertEquals("Should not be the same if the objects are from different classes", false, instance.equals(obj));
         obj = new RoadSection("test", "end", "A01", "positive", segment_list);

@@ -14,25 +14,25 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class NodeTest {
-    
-   public NodeTest() {
+
+    public NodeTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,7 +48,7 @@ public class NodeTest {
         String expResult = "test";
         String result = instance.getId();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -60,7 +60,7 @@ public class NodeTest {
         String id = "test";
         Node instance = new Node();
         instance.setId(id);
-         String expResult = id;
+        String expResult = id;
         String result = instance.getId();
         assertEquals(expResult, result);
     }
@@ -77,7 +77,9 @@ public class NodeTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-       
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
+
     }
 
     /**
@@ -91,9 +93,9 @@ public class NodeTest {
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-       
+
     }
-    
+
     /**
      * Test of hashCode method, of class Node.
      */
@@ -105,7 +107,7 @@ public class NodeTest {
         int expResult = instance.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-       
+
     }
-    
+
 }

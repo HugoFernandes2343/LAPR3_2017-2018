@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author
  */
 public class RoadSection implements Serializable {
-    
+
     private static final long serialVersionUID = 600L;
 
     private String begin;
@@ -89,9 +89,9 @@ public class RoadSection implements Serializable {
     public void setSegment_list(LinkedList<Segment> segment_list) {
         this.segment_list = segment_list;
     }
-    
-    public void addSegment(Segment seg){
-        if(!this.segment_list.contains(seg)){
+
+    public void addSegment(Segment seg) {
+        if (!this.segment_list.contains(seg)) {
             this.segment_list.add(seg);
         }
     }
@@ -116,6 +116,9 @@ public class RoadSection implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }

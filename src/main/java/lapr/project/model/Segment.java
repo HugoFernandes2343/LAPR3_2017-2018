@@ -10,11 +10,12 @@ import java.util.Objects;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Segment implements Serializable{
+public class Segment implements Serializable {
+
     private static final long serialVersionUID = 506L;
-    
+
     private String id;
     private double init_height;
     private double final_height;
@@ -128,9 +129,6 @@ public class Segment implements Serializable{
     public void setMin_velocity(String min_velocity) {
         this.min_velocity = min_velocity;
     }
-       
-    
-    
 
     /**
      *
@@ -140,6 +138,9 @@ public class Segment implements Serializable{
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }

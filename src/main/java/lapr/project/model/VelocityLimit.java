@@ -10,15 +10,15 @@ import java.util.Objects;
 
 /**
  *
- * @author 
+ * @author
  */
-public class VelocityLimit implements Serializable{
+public class VelocityLimit implements Serializable {
 
     private static final long serialVersionUID = 204L;
-    
+
     private String segment_type;
     private int limit;
-    
+
     /**
      * Empty constructor
      */
@@ -50,8 +50,6 @@ public class VelocityLimit implements Serializable{
     public void setLimit(int limit) {
         this.limit = limit;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -68,6 +66,9 @@ public class VelocityLimit implements Serializable{
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }
@@ -76,8 +77,7 @@ public class VelocityLimit implements Serializable{
             return false;
         }
         return this.segment_type.equalsIgnoreCase(other.segment_type);
-            
-        
+
     }
 
 }

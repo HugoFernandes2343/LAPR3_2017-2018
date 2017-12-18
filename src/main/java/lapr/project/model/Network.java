@@ -107,6 +107,9 @@ public class Network implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }
@@ -140,39 +143,39 @@ public class Network implements Serializable {
      */
     public boolean addNewRoadsFromNetwork(Network roadsToAdd) {
         int flag = 0;
-        
-        if(roadsToAdd == null){
-           return false; 
+
+        if (roadsToAdd == null) {
+            return false;
         }
-        
+
         if (roadsToAdd.roadMap.numEdges() == 0 && roadsToAdd.roadMap.numVertices() == 0) {
             return false;
         }
-        
-        for(Road r : roadsToAdd.road_list){
-           this.addRoad(r); 
+
+        for (Road r : roadsToAdd.road_list) {
+            this.addRoad(r);
         }
-        
-        for(Node n : roadsToAdd.roadMap.vertices()){
-             boolean insertVertex = this.roadMap.insertVertex(n);
-             if(insertVertex){
+
+        for (Node n : roadsToAdd.roadMap.vertices()) {
+            boolean insertVertex = this.roadMap.insertVertex(n);
+            if (insertVertex) {
                 this.addNode(n.getId());
-                flag ++; 
-             }
+                flag++;
+            }
         }
-        
+
         for (RoadSection rs : roadsToAdd.roadMap.edges()) {
             List<Node> endVertices = roadsToAdd.roadMap.endVertices(rs);
 
             if (endVertices != null) {
                 boolean insertEdge = this.roadMap.insertEdge(endVertices.get(0), endVertices.get(1), rs);
-                
-                if(insertEdge){
+
+                if (insertEdge) {
                     this.addRoadSection(rs);
-                    flag ++;
+                    flag++;
                 }
             }
-            
+
         }
 
         return flag != 0;

@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author
  */
 public class VelocityLimitTest {
-    
+
     public VelocityLimitTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -88,9 +88,12 @@ public class VelocityLimitTest {
         VelocityLimit obj = new VelocityLimit("coisa", 250);
         VelocityLimit instance = new VelocityLimit("coisa", 250);
         assertTrue("Should be equal", obj.equals(instance));
-        
+
         instance = new VelocityLimit("coisafesd", 2567);
         assertFalse("Shouldn't be equal", obj.equals(instance));
+
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
     }
-    
+
 }

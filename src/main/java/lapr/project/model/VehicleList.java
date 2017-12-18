@@ -76,8 +76,6 @@ public class VehicleList implements Serializable {
     }
 
     private int incrementName(String name, int cont, ArrayList<String> names) {
-        System.out.println(cont);
-        System.out.println(name);
         if (names.contains(name)) {
             cont = cont + 1;
             name = name + cont;

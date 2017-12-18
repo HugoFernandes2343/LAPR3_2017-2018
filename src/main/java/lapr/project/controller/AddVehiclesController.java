@@ -42,10 +42,7 @@ public class AddVehiclesController {
     public boolean getActiveProjectData() {
         this.projects = base.getProjectList();
         this.project = projects.getActualProject();
-        if (project == null) {
-            return false;
-        }
-        return true;
+        return project != null;
     }
 
     /**
@@ -57,10 +54,6 @@ public class AddVehiclesController {
     public boolean AddVehicles(String filename) {
         VehicleList v = FileXML.loadXmlVehicleList(filename);
         Set<Vehicle> newVehicles = v.getVehicleList();
-        if (v == null) {
-            return false;
-        }
-
         return this.project.getVehicleList().verifyAndAddVehicles(newVehicles) > 0;
 
     }

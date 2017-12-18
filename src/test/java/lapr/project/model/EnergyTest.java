@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class EnergyTest {
 
@@ -124,7 +124,7 @@ public class EnergyTest {
         int expResult = temp.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -135,6 +135,9 @@ public class EnergyTest {
         System.out.println("equals");
         Object obj = new Energy();
         assertEquals("Should be true if they are the same object", true, instance.equals(obj));
+
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
 
         obj = "test";
         assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));

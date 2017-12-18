@@ -10,12 +10,12 @@ import java.util.Objects;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Road implements Serializable{
+public class Road implements Serializable {
 
     private static final long serialVersionUID = 604L;
-    
+
     private String name;
     private String typology;
     private String id;
@@ -26,25 +26,27 @@ public class Road implements Serializable{
      */
     public Road() {
     }
-    
+
     /**
      * Constructor of the Road Object
+     *
      * @param name - name of the road
      * @param description - tipology of the road
      * @param id - id of the road
      */
-    public Road(String name, String description,String id) {
+    public Road(String name, String description, String id) {
         this.name = name;
         this.typology = description;
         this.id = id;
     }
-    
+
     /**
      * Complete constructor
+     *
      * @param name - name of the road
      * @param typology - tipology of the road
      * @param id - id of the road
-     * @param toll_fare 
+     * @param toll_fare
      */
     public Road(String name, String typology, String id, TollFare toll_fare) {
         this.name = name;
@@ -52,7 +54,7 @@ public class Road implements Serializable{
         this.id = id;
         this.toll_fare = toll_fare;
     }
-    
+
     /**
      * @return the name
      */
@@ -80,15 +82,18 @@ public class Road implements Serializable{
     public void setTypology(String typology) {
         this.typology = typology;
     }
-    
+
     /**
      *
      * @param obj the object to compare to the Road
-     * @return the result of the comparisons made. 
-     * True if the objects are the same, otherwise, it returns false
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }
@@ -113,7 +118,7 @@ public class Road implements Serializable{
      */
     @Override
     public String toString() {
-        return String.format("Road name: %s, id: %s", name,id);
+        return String.format("Road name: %s, id: %s", name, id);
     }
 
     /**
