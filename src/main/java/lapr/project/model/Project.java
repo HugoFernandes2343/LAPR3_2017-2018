@@ -93,10 +93,18 @@ public class Project implements Serializable{
     }
 
     /**
+     * Returns the analysis
+     * @return 
+     */
+    public NetworkAnalysis getNetworkAnalysis(){
+        return this.netAnal;
+    }
+    
+    /**
      * Method to start the analysis on the project. Analyses the project following several criteria
      */
     public void doAnal(){
-        netAnal = new NetworkAnalysis();
+        this.netAnal = new NetworkAnalysis();
     }
     
     /**

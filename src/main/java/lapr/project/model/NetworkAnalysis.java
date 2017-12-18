@@ -12,7 +12,7 @@ package lapr.project.model;
 public class NetworkAnalysis {
     
     public NetworkAnalysis(){
-        
+        throw new UnsupportedOperationException();
     }
     
     //algorithms treatment. algs might be here as methods or in utils package as classes
