@@ -511,6 +511,7 @@ public class FileXML implements Serializable {
                     }
                 }
             }
+            roadNetwork.loadMap();
             return roadNetwork;
         } catch (Exception e) {
             e.printStackTrace();

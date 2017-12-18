@@ -183,8 +183,11 @@ public class Network implements Serializable {
     public LinkedList<RoadSection> getSection_list() {
         return section_list;
     }
-    
-      public void loadMap() {
+
+    /**
+     * Loads a list a inserts roads in the Road Matrix
+     */
+    public void loadMap() {
         for (Node vertex : node_list) {
             this.roadMap.insertVertex(vertex);
         }
