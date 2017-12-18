@@ -1,12 +1,9 @@
 package lapr.project.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -76,7 +73,7 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
      * @param text the text to be displayed
      * @return JPanel with text
      */
-    private JPanel createHeader(String text) {
+    private static JPanel createHeader(String text) {
         JPanel p = new JPanel();
         p.add(new JLabel(text));
         return p;
@@ -116,16 +113,16 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
                 String descrStr = projectDescription.getText();
                 if (ep.alterProject(nameStr, descrStr)) {
                     if (ep.saveChanges()) {
-                        suc_mess(UP_SUCC, MESS_SUCC);
+                        sucMess(UP_SUCC, MESS_SUCC);
                         removeAll();
                         add(new MainPanel(tp.getProjectList().getActualProject()));
                         revalidate();
                         repaint();
                     } else {
-                        err_mess("Project name already exists", MESS_ERR);
+                        errMess("Project name already exists", MESS_ERR);
                     }
                 } else {
-                    err_mess("Fields are empty", MESS_ERR);
+                    errMess("Fields are empty", MESS_ERR);
                 }
             }
         }
@@ -140,7 +137,7 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
      * @param title title of the error message
      */
     @Override
-    public void err_mess(String message, String title) {
+    public void errMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -151,7 +148,7 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
      * @param title title of the success message
      */
     @Override
-    public void suc_mess(String message, String title) {
+    public void sucMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

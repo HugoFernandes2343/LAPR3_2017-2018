@@ -81,10 +81,10 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
                 vehiclesC.getActiveProjectData();
                 chooser.showOpenDialog(rootPane);
                 if (vehiclesC.AddVehicles(chooser.getSelectedFile().getAbsolutePath())) {
-                    suc_mess(IMPORT_SUC, MESS_SUCC);
+                    sucMess(IMPORT_SUC, MESS_SUCC);
                     dispose();
                 } else {
-                    err_mess(ERR_IMPORT, MESS_ERR);
+                    errMess(ERR_IMPORT, MESS_ERR);
                 }
             }
         });
@@ -102,10 +102,10 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
             public void actionPerformed(ActionEvent ae) {
                 chooser.showOpenDialog(rootPane);
                 if (roadsC.addNewRoads(chooser.getSelectedFile().getAbsolutePath())) {
-                    suc_mess(IMPORT_SUC, MESS_SUCC);
+                    sucMess(IMPORT_SUC, MESS_SUCC);
                     dispose();
                 } else {
-                    err_mess(ERR_IMPORT, MESS_ERR);
+                    errMess(ERR_IMPORT, MESS_ERR);
                 }
             }
         });
@@ -159,7 +159,7 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
      * @param title title of the error message
      */
     @Override
-    public void err_mess(String message, String title) {
+    public void errMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -170,7 +170,7 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
      * @param title title of the success message
      */
     @Override
-    public void suc_mess(String message, String title) {
+    public void sucMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

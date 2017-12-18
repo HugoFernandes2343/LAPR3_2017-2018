@@ -69,8 +69,6 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         this.tp = tp;
         cp = new CreateProjectController(tp);
         mPanel = new JPanel(layout);
-//        mPanel.add(new JScrollPane(createPageOne()), "page1");
-//        mPanel.add(new JScrollPane(createPageTwo()), "page2");
         mPanel.add(createPageOne(), "page1");
         mPanel.add(createPageTwo(), "page2");
         mPanel.setPreferredSize(dim);
@@ -157,7 +155,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                 if (cp.createProject(nameStr, descrStr)) {
                     layout.show(mPanel, "page2");
                 } else {
-                    err_mess(EMPTY_FIELDS, MESS_ERR);
+                    errMess(EMPTY_FIELDS, MESS_ERR);
                 }
             }
         }
@@ -245,18 +243,18 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                             MESS_CONF, dialogButton);
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
-                            suc_mess(CREATE_SUC, MESS_SUCC);
-                            MenuUI.SetProject();
+                            sucMess(CREATE_SUC, MESS_SUCC);
+                            MenuUI.setProject();
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();
                             repaint();
                         } else {
-                            err_mess(ERR_NO_FILE, MESS_ERR);
+                            errMess(ERR_NO_FILE, MESS_ERR);
                         }
                     }
                 } else {
-                    err_mess(ERR_NO_FILE, MESS_ERR);
+                    errMess(ERR_NO_FILE, MESS_ERR);
                 }
             }
         });
@@ -273,7 +271,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         JButton buttonRoads = new JButton("Choose Roads file");
         buttonRoads.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) throws NullPointerException {
+            public void actionPerformed(ActionEvent ae) {
                 JFileChooser roadsChooser = new JFileChooser("Choose file to import roads data");
                 roadsChooser.showOpenDialog(page2);
                 try {
@@ -281,10 +279,10 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     if (!(roadsFilePathStr.isEmpty()) && validateFile(roadsChooser.getSelectedFile().getAbsolutePath())) {
                         roadsFilePath.setText(roadsFilePathStr);
                     } else {
-                        err_mess(ERR_WRONG_FILE, MESS_ERR);
+                        errMess(ERR_WRONG_FILE, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    err_mess(ERR_NO_FILE, MESS_ERR);
+                    errMess(ERR_NO_FILE, MESS_ERR);
                 }
             }
 
@@ -311,10 +309,10 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     if (!(vehiclesFilePathStr.isEmpty()) && validateFile(vehiclesChooser.getSelectedFile().getAbsolutePath())) {
                         vehiclesFilePath.setText(vehiclesFilePathStr);
                     } else {
-                        err_mess(ERR_WRONG_FILE, MESS_ERR);
+                        errMess(ERR_WRONG_FILE, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    err_mess(ERR_NO_FILE, MESS_ERR);
+                    errMess(ERR_NO_FILE, MESS_ERR);
                 }
             }
 
@@ -345,13 +343,13 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
             public void actionPerformed(ActionEvent ae) {
                 try {
                     if (cp.readInfo(roadsFilePath.getText(), vehiclesFilePath.getText())) {
-                        suc_mess(IMPORT_SUC, MESS_SUCC);
+                        sucMess(IMPORT_SUC, MESS_SUCC);
                         flag = true;
                     } else {
-                        err_mess(ERR_IMPORT, MESS_ERR);
+                        errMess(ERR_IMPORT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    err_mess(ERR_IMPORT, MESS_ERR);
+                    errMess(ERR_IMPORT, MESS_ERR);
                 }
             }
         }
@@ -367,7 +365,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * @param title title of the error message
      */
     @Override
-    public void err_mess(String message, String title) {
+    public void errMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -378,7 +376,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * @param title title of the success message
      */
     @Override
-    public void suc_mess(String message, String title) {
+    public void sucMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 

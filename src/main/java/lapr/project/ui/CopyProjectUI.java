@@ -5,7 +5,7 @@ import lapr.project.controller.CopyProjectController;
 import lapr.project.model.TravelByPhysics;
 import static lapr.project.ui.MessagesAndUtils.MESS_CONF;
 
-public class CopyProjectUI {
+public class CopyProjectUI implements MessagesAndUtils{
 
     /**
      * CopyController
@@ -24,7 +24,7 @@ public class CopyProjectUI {
      */
     public CopyProjectUI(TravelByPhysics tp) {
         this.tp = tp;
-        copyCTRL = new CopyProjectController(tp);
+        copyCTRL = new CopyProjectController(this.tp);
         exec();
     }
 
@@ -37,10 +37,10 @@ public class CopyProjectUI {
         
         if(dialogResult == 0){
             if(copyCTRL.copyProject()){
-                suc_mess("Operation Sucessfully completed","Project Copy Done");
+                sucMess("Operation Sucessfully completed","Project Copy Done");
             }
         } else {
-            err_mess("Operation canceled by User","Project Copy Canceled");
+            errMess("Operation canceled by User","Project Copy Canceled");
         }
         
 
@@ -52,7 +52,8 @@ public class CopyProjectUI {
      * @param message message
      * @param title title of the error message
      */
-    public void err_mess(String message, String title) {
+    @Override
+    public void errMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -62,7 +63,8 @@ public class CopyProjectUI {
      * @param message message
      * @param title title of the success message
      */
-    public void suc_mess(String message, String title) {
+    @Override
+    public void sucMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 

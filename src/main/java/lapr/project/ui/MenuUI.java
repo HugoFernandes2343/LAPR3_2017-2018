@@ -50,7 +50,7 @@ public class MenuUI extends JFrame {
     public MenuUI(TravelByPhysics tp) {
         setLookAndFeel();
         this.tp = tp;
-        JMenuBar barraMenu = criarBarraMenu();
+        JMenuBar barraMenu = criarMenuBar();
         setJMenuBar(barraMenu);
         mPanel = new MainPanel();
         mPanel.setBackground(Color.GRAY);
@@ -75,7 +75,7 @@ public class MenuUI extends JFrame {
      * creates the menu bar
      * @return the menu bar
      */
-    private JMenuBar criarBarraMenu() {
+    private JMenuBar criarMenuBar() {
 
         menuBarMain = new JMenuBar();
 
@@ -272,7 +272,7 @@ public class MenuUI extends JFrame {
     /**
      * Enables the buttons after selecting a project
      */
-    public static void SetProject() {
+    public static void setProject() {
         copy.setEnabled(true);
         changeName.setEnabled(true);
         importVehicles.setEnabled(true);

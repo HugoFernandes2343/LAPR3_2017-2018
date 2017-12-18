@@ -50,7 +50,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
             List<String> eventsList = sp.getProjects();
             projectList.setListData(eventsList.toArray(new String[0]));
         } catch (NullPointerException ex) {
-            err_mess(NO_PROJ, MESS_ERR);
+            errMess(NO_PROJ, MESS_ERR);
             removeAll();
             add(new MainPanel());
             revalidate();
@@ -132,18 +132,18 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
                                 MESS_CONF, dialogButton);
                         if (dialogResult == 0) {
                             sp.loadActiveProject(name);
-                            MenuUI.SetProject();
-                            suc_mess(SEL_SUCC, MESS_SUCC);
+                            MenuUI.setProject();
+                            sucMess(SEL_SUCC, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();
                             repaint();
                         }
                     }else {
-                        err_mess(ERR_NO_PROJECT, MESS_ERR);
+                        errMess(ERR_NO_PROJECT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                    err_mess(ERR_PROJ, MESS_ERR);
+                    errMess(ERR_PROJ, MESS_ERR);
                 }
             }
         });
@@ -169,7 +169,6 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
                 if (renderer instanceof JLabel) {
                     ((JLabel) renderer).setText(((String) value));
                 }
@@ -193,7 +192,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
      * @param title title of the error message
      */
     @Override
-    public void err_mess(String message, String title) {
+    public void errMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -203,7 +202,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
      * @param title title of the success message
      */
     @Override
-    public void suc_mess(String message, String title) {
+    public void sucMess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 

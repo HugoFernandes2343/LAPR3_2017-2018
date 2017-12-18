@@ -28,6 +28,6 @@ public interface MessagesAndUtils {
     static final String ERR_PROJ = "Error selecting Project";
     
     
-    public abstract void err_mess(String message, String title);
-    public void suc_mess(String message, String title);
+    public abstract void errMess(String message, String title);
+    public void sucMess(String message, String title);
 }
