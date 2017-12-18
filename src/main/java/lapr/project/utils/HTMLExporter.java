@@ -6,12 +6,10 @@ import java.io.StringWriter;
 /**
  *
  * @author Utilizador
- * @param <T>
  */
-public class HTMLExporter/*<T>*/ {
+public class HTMLExporter {
 
     StringWriter sw = new StringWriter();
-//    StringWriter writer = sw;
     private Html html;
 
     /**
@@ -19,7 +17,6 @@ public class HTMLExporter/*<T>*/ {
      */
     public HTMLExporter() {
         html = new Html(sw);
-        //initializeHTML();
     }
 
     /**
@@ -88,11 +85,11 @@ public class HTMLExporter/*<T>*/ {
     /**
      * Add a division segment div
      *
-     * @param text Text to serve as ID for the div when in HTML, this is not
+     * @param dixText Text to serve as ID for the div when in HTML, this is not
      * displayed outside of source code
      */
-    public HTMLExporter addDiv(String text) {
-        html.div().text(text);
+    public HTMLExporter addDiv(String dixText) {
+        html.div().text(dixText);
         return this;
     }
 
@@ -123,6 +120,26 @@ public class HTMLExporter/*<T>*/ {
      */
     public HTMLExporter addHead3(String headerText) {
         html.h3().text(headerText);
+        return this;
+    }
+
+    /**
+     * Add a header h4
+     *
+     * @param headerText text to add/header title
+     */
+    public HTMLExporter addHead4(String headerText) {
+        html.h4().text(headerText);
+        return this;
+    }
+
+    /**
+     * Add a header h5
+     *
+     * @param headerText text to add/header title
+     */
+    public HTMLExporter addHead5(String headerText) {
+        html.h5().text(headerText);
         return this;
     }
 
@@ -169,8 +186,6 @@ public class HTMLExporter/*<T>*/ {
         html.done();
     }
 
-    //Add the rest of needed tags as more are needed
-    //Figure out how to create the actual export , maybe string stream? after building the html
     /**
      * Method to return a String representation of the actual output built by
      * JATL from the buffer
@@ -181,10 +196,6 @@ public class HTMLExporter/*<T>*/ {
         return sw.getBuffer().toString();
     }
 
-//    String getOutput() {
-//        String output = sw.getBuffer().toString();
-//        return output.substring(2, output.length()-2);
-//    }
     /**
      * Resets the buffer cleaning all text
      */

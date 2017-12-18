@@ -53,6 +53,7 @@ public class SaveToHTML {
      */
     public SaveToHTML() {
         HTMLExporter htmlBuilder = new HTMLExporter();
+        htmlBuilder.getClass();
     }
 
     /**
@@ -78,7 +79,7 @@ public class SaveToHTML {
         htmlBuilder.addHtml().addTitle(p.getName()).closeTag()
                 .addHead()
                 .addHead1(p.getName()).closeTag()
-                .addParagraph(p.getDescription()).closeTag()
+                .addParagraph("-"+p.getDescription()).closeTag()
                 //add analysis name
                 //travel time
                 //number
@@ -88,22 +89,24 @@ public class SaveToHTML {
         /**
          * Body
          */
-        htmlBuilder.addBody();
+        htmlBuilder.addBody().addDiv("")
+                .addHead2("------------ROADS------------").closeTag();
         for (int i = 0; i < p.getNetwork().getSection_list().size(); i++) {
             RoadSection temp = p.getNetwork().getSection_list().get(i);
             htmlBuilder.addDiv("")
-                        .addHead2("Road "+temp.getRoad_id()).closeTag();
+                        .addHead3("Road "+temp.getRoad_id()).closeTag();
             for (Segment seg : temp.getSegment_list()) {
-                htmlBuilder.addDiv("")
-                        .addHead3("     Segment "+seg.getId()).closeTag()
-                        .addParagraph("     Length : " + seg.getLength()).closeTag()
-                        .addParagraph("     Wind Speed : "+seg.getWind_speed()).closeTag()
-                        .addParagraph("     Minimal Velocity : "+seg.getMin_velocity()).closeTag()
-                        .addParagraph("     Maximum Velocity : "+seg.getMax_velocity()).closeTag()
-                        .addParagraph("     Initial Height : "+seg.getInit_height()).closeTag()
-                        .addParagraph("     Final Height : "+seg.getFinal_height()).closeTag()
-                        .addParagraph("     Wind Direction : "+seg.getWind_direction()).closeTag()
-                        /*Add the rest of data*/;
+                htmlBuilder.addDiv("").addHead4("-----------------SEGMENTS-----------------").closeTag()
+                        .addHead4("Segment "+seg.getId()).closeTag()
+                        .addParagraph("--Length : " + seg.getLength()).closeTag()
+                        .addParagraph("--Wind Speed : "+seg.getWind_speed()).closeTag()
+                        .addParagraph("--Minimal Velocity : "+seg.getMin_velocity()).closeTag()
+                        .addParagraph("--Maximum Velocity : "+seg.getMax_velocity()).closeTag()
+                        .addParagraph("--Initial Height : "+seg.getInit_height()).closeTag()
+                        .addParagraph("--Final Height : "+seg.getFinal_height()).closeTag()
+                        .addParagraph("--Wind Direction : "+seg.getWind_direction()).closeTag()
+                        /*Add the rest of data*/
+                        .addParagraph("_______________________________________").closeTag();
             }
             
         }

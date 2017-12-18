@@ -37,19 +37,10 @@ public class SaveToFile extends JFrame {//Add the implementation later
     private Project thisProject;
 
     /**
-     * Default Height
-     */
-    private static final int WINDOW_HEIGHT = 700;
-    /**
-     * Default Width
-     */
-    private static final int WINDOW_WIDTH = 475;
-
-    /**
      * Serves the purpose of allowing the actionListeners to access the contents
      * of this Frame
      */
-    private JFrame temp;
+    private final JFrame temp;
 
     /**
      * Flag de escolha de formato de output
@@ -57,6 +48,9 @@ public class SaveToFile extends JFrame {//Add the implementation later
      * Valores: 0 - HTML 1- CSV
      */
     private static int chosenFormat = -1;
+
+    private SaveToHTML htmlSave;
+    private SaveToCSV csvSave;
 
     /**
      * SaveToFile contructor
@@ -114,7 +108,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (jHtmlButton.isSelected()) {
-                    chosenFormat = 0;
+                    setChosenFormat(0);
                 }
             }
         });
@@ -123,7 +117,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (jCsvButton.isSelected()) {
-                    chosenFormat = 0;
+                    setChosenFormat(1);
                 }
             }
         });
@@ -134,15 +128,11 @@ public class SaveToFile extends JFrame {//Add the implementation later
                 //Needs testing to see if it can keep the listener from being deleted in case of no file selection
                 switch (chosenFormat) {
                     case 0: {
-                        try {
-                            SaveToHTML htmlSave = new SaveToHTML(thisProject);
-                        } catch (IOException ex) {
-                            Logger.getLogger(SaveToFile.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        toHTML();
                     }
-                    break;
+                        break;
                     case 1:
-                        SaveToCSV csvSave = new SaveToCSV(thisProject);
+                        toCSV();
                         break;
                     case -1:
                         JOptionPane.showMessageDialog(null, "Choose a file first!");
@@ -167,6 +157,18 @@ public class SaveToFile extends JFrame {//Add the implementation later
         mainPanel.add(cancelButton);
     }
 
+    private void toHTML() {
+        try {
+            htmlSave = new SaveToHTML(thisProject);
+        } catch (IOException ex) {
+            Logger.getLogger(SaveToFile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void toCSV(){
+        csvSave = new SaveToCSV(thisProject);
+    }
+    
     /**
      * Custom action to determine the best course of action if a given project
      * is not selected ::NOTE:: This is still placeholder however if only used
@@ -185,14 +187,24 @@ public class SaveToFile extends JFrame {//Add the implementation later
     }
 
     /**
+     * Set the specified number flag for the chosen format
+     *
+     * @param n
+     */
+    private static void setChosenFormat(int n) {
+        chosenFormat = n;
+    }
+
+    /**
      * Sets the desired Look and Feel of the window
      */
-    private void setLookAndFeel() {
+    private static void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            //Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ClasseUIDONorberto.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
     }
 }
