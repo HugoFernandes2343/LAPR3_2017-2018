@@ -16,6 +16,9 @@ public class MainPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Empty constructor, 
+     */
     public MainPanel() {
         JPanel p = new JPanel(new BorderLayout());
         p.setPreferredSize(dim);
@@ -26,6 +29,10 @@ public class MainPanel extends JPanel {
         add(p);
     }
 
+    /**
+     * panel with the project information
+     * @param pr 
+     */
     public MainPanel(Project pr) {
         JPanel p = new JPanel(new GridLayout(3, 2, 40, 40));
         p.setPreferredSize(dim);

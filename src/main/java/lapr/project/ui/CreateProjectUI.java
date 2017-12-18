@@ -86,28 +86,24 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      */
     private JPanel createPageOne() {
         page1 = new JPanel(new GridLayout(3, 1, 20, 20));
-//        JPanel fields = new JPanel(new GridLayout(2, 2, 10, 40));
-//        fields.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
+
         JPanel nameLabel = createHeader("Project Name: ");
-//        fields.add(nameLabel);
+
         page1.add(nameLabel);
-        projectName = new JTextField(30);
+        projectName = new JTextField(20);
         JPanel pName = new JPanel();
         pName.add(projectName);
-//        fields.add(pName);
+
         page1.add(pName);
         JPanel descriptionLabel = createHeader("Project Description: ");
-//        fields.add(descriptionLabel);
+
         page1.add(descriptionLabel);
-//        page1.setBackground(Color.blue);
+
         projectDescription = new JTextArea(7, 20);
         projectDescription.setLineWrap(true);
         projectDescription.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
-//        fields.add(projectDescription);
         page1.add(new JScrollPane(projectDescription));
 
-//        JPanel buttons1 = createPageOneButtons();
-//        page1.add(fields, BorderLayout.CENTER);
         page1.add(createPageOneButtons(1));
         page1.add(createPageOneButtons(2));
 
@@ -134,6 +130,10 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         }
     }
 
+    /**
+     * Creates the cancel button for this page
+     * @return the cancel button
+     */
     private JButton getCancelButton() {
         if (tp.getProjectList().getActualProject() == null) {
             return new CancelButton(this);

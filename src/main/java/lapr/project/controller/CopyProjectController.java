@@ -42,6 +42,7 @@ public class CopyProjectController {
         Project copy = new Project();
         String name = this.active.getName() + "-copy";
         name=checkName(name,0);
+        copy.setName(name);
         copy.setDescription(this.active.getDescription());
         copy.setNetwork(this.active.getNetwork());
         copy.setVehicleList(this.active.getVehicleList());

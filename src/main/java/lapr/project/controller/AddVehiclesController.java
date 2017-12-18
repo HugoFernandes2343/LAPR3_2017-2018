@@ -33,7 +33,8 @@ public class AddVehiclesController {
     }
 
     /**
-     * returns true if there is a active project to import returns false if there isnt
+     * returns true if there is a active project to import returns false if
+     * there isnt
      *
      * @return Array of data with the name in the first position and the
      * description in the second
@@ -59,8 +60,8 @@ public class AddVehiclesController {
         if (v == null) {
             return false;
         }
-        this.project.getVehicleList().verifyAndAddVehicles(newVehicles);
-        return true;
+
+        return this.project.getVehicleList().verifyAndAddVehicles(newVehicles) > 0;
 
     }
 

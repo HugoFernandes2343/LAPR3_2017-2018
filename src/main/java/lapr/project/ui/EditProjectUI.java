@@ -133,11 +133,23 @@ public class EditProjectUI extends JPanel implements MessagesAndUtils {
         return nextOne;
     }
 
+    /**
+     * ErrorMessages
+     *
+     * @param message message
+     * @param title title of the error message
+     */
     @Override
     public void err_mess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Success messages
+     *
+     * @param message message
+     * @param title title of the success message
+     */
     @Override
     public void suc_mess(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);

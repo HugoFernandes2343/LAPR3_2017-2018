@@ -99,7 +99,7 @@ public class VehicleListTest {
         newVehicles.add(car5);
         newVehicles.add(car6);
         VehicleList instance = new VehicleList();
-        instance.verifyAndAddVehicles(newVehicles);
+        assertTrue("Should have added five new vehivles",instance.verifyAndAddVehicles(newVehicles)==5);
 
         ArrayList<String> names = instance.getAllVehicleNames();
 

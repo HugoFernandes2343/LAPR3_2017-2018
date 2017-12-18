@@ -60,7 +60,8 @@ public class VehicleList implements Serializable {
      *
      * @param newVehicles the list of chicles to be added
      */
-    public void verifyAndAddVehicles(Set<Vehicle> newVehicles) {
+    public int verifyAndAddVehicles(Set<Vehicle> newVehicles) {
+        int cont = 0;
         for (Vehicle vIn : newVehicles) {
             if (!vehicle_list.contains(vIn)) {
                 int i = incrementName(vIn.getName(), 0, getAllVehicleNames());
@@ -68,8 +69,10 @@ public class VehicleList implements Serializable {
                     vIn.setName(vIn.getName() + i);
                 }
                 addVehicle(vIn);
+                cont++;
             }
         }
+        return cont;
     }
 
     private int incrementName(String name, int cont, ArrayList<String> names) {

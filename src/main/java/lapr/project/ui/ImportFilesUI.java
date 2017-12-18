@@ -3,9 +3,6 @@ package lapr.project.ui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -16,20 +13,27 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import lapr.project.controller.AddRoadsController;
 import lapr.project.controller.AddVehiclesController;
-import lapr.project.controller.SaveToCSV;
-import lapr.project.controller.SaveToHTML;
 import lapr.project.model.TravelByPhysics;
 
 public class ImportFilesUI extends JFrame implements MessagesAndUtils {
 
     private static final long serialVersionUID = 110L;
 
-    String type = "";
-    TravelByPhysics tp;
-    AddRoadsController roadsC;
-    AddVehiclesController vehiclesC;
-    JFileChooser chooser;
+    /**
+     * type of file to be imported (vehicles or roads)
+     */
+    private String type = "";
+    
+    private TravelByPhysics tp;
+    private AddRoadsController roadsC;
+    private AddVehiclesController vehiclesC;
+    private JFileChooser chooser;
 
+    /**
+     * 
+     * @param tp
+     * @param type 
+     */
     public ImportFilesUI(TravelByPhysics tp, String type) {
         this.tp = tp;
         this.type = type;
@@ -54,22 +58,27 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
             vehiclesC = new AddVehiclesController(tp);
             chooser = new JFileChooser("Choose .xml file to import vehicles data");
             this.setTitle("Import Vehicles:");
-            mainPanel.add(CreateImpVehicles());
+            mainPanel.add(createImpVehicles());
         } else {
             roadsC = new AddRoadsController(tp);
             chooser = new JFileChooser("Choose .xml file to import roads data");
             this.setTitle("Import Roads:");
-            mainPanel.add(CreateImpRoads());
+            mainPanel.add(createImpRoads());
         }
-        mainPanel.add(CreateCancelBt());
+        mainPanel.add(createCancelBt());
         this.add(mainPanel);
     }
 
-    private JButton CreateImpVehicles() {
+    /**
+     * Creates the import Vehicles button
+     * @return the button created
+     */
+    private JButton createImpVehicles() {
         JButton importVehicles = new JButton("Import...");
         importVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                vehiclesC.getActiveProjectData();
                 chooser.showOpenDialog(rootPane);
                 if (vehiclesC.AddVehicles(chooser.getSelectedFile().getAbsolutePath())) {
                     suc_mess(IMPORT_SUC, MESS_SUCC);
@@ -82,7 +91,11 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
         return importVehicles;
     }
 
-    private JButton CreateImpRoads() {
+    /**
+     * Creates the import the roads button
+     * @return the button created
+     */
+    private JButton createImpRoads() {
         JButton importRoads = new JButton("Import...");
         importRoads.addActionListener(new ActionListener() {
             @Override
@@ -99,7 +112,11 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
         return importRoads;
     }
 
-    private JButton CreateCancelBt() {
+    /**
+     * Creates the cancel button
+     * @return the cancel button
+     */
+    private JButton createCancelBt() {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new ActionListener() {
             @Override

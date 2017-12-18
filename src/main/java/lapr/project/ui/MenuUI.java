@@ -1,10 +1,8 @@
 
 package lapr.project.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,7 +11,6 @@ import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -46,6 +43,10 @@ public class MenuUI extends JFrame {
     private static final int WINDOW_WIDTH = 485;
 
 
+    /**
+     * constructor of the class
+     * @param tp travel by physics object
+     */
     public MenuUI(TravelByPhysics tp) {
         setLookAndFeel();
         this.tp = tp;
@@ -70,6 +71,10 @@ public class MenuUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * creates the menu bar
+     * @return the menu bar
+     */
     private JMenuBar criarBarraMenu() {
 
         menuBarMain = new JMenuBar();
@@ -83,12 +88,16 @@ public class MenuUI extends JFrame {
         return menuBarMain;
     }
 
+    /**
+     * Creates the content of the project button on the menu bar
+     * @return the menu created
+     */
     private JMenu createProjectMenu() {
-        //butao de menu que abre em cascata outras opcoes
+        
         JMenu Project = new JMenu("Project");
         Project.setMnemonic(KeyEvent.VK_P);
 
-        //opcoes abertas pelo butao de cima
+
         JMenuItem createProject = new JMenuItem("P02: Create Project");
         createProject.setEnabled(true);
         createProject.addActionListener(new ActionListener() {
@@ -124,6 +133,10 @@ public class MenuUI extends JFrame {
         return Project;
     }
 
+    /**
+     * creates the content of the details menu 
+     * @return the created menu
+     */
     private JMenu createDetailsMenu() {
         JMenu m = new JMenu("Details");
 
@@ -152,6 +165,10 @@ public class MenuUI extends JFrame {
         return m;
     }
 
+    /**
+     * creates the content of the info menu
+     * @return the created menu
+     */
     private JMenu createInfoMenu() {
         JMenu m = new JMenu("Imports");
 
@@ -178,6 +195,10 @@ public class MenuUI extends JFrame {
         return m;
     }
 
+    /**
+     * Creates the content of the Statistics menu
+     * @return the menu created
+     */
     private JMenu createStatisticsMenu() {
         JMenu m = new JMenu("Statistics");
         m.setMnemonic(KeyEvent.VK_S);
@@ -207,6 +228,10 @@ public class MenuUI extends JFrame {
         return m;
     }
 
+    /**
+     * creates the content of the save menu
+     * @return the menu created
+     */
     private JMenu createSaveMenu() {
         JMenu m = new JMenu("Save");
         m.setMnemonic(KeyEvent.VK_D);
@@ -221,7 +246,7 @@ public class MenuUI extends JFrame {
         });
         m.add(saveDatabase);
 
-        saveHTML = new JMenuItem("N06: Save Project to html file");
+        saveHTML = new JMenuItem("N06: Save Project to file");
         saveHTML.setEnabled(false);
         saveHTML.addActionListener(new ActionListener() {
             @Override
@@ -233,14 +258,20 @@ public class MenuUI extends JFrame {
         return m;
     }
 
-    private void setLookAndFeel() {
+    /**
+     * sets the windows look and feel
+     */
+    private static void setLookAndFeel()  {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Enables the buttons after selecting a project
+     */
     public static void SetProject() {
         copy.setEnabled(true);
         changeName.setEnabled(true);

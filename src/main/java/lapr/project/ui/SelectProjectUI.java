@@ -31,6 +31,10 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
     private final JList<String> projectList;
     private String name = "";
 
+    /**
+     * constructor
+     * @param tp 
+     */
     public SelectProjectUI(TravelByPhysics tp) {
         this.tp = tp;
         sp = new SelectProjectController(this.tp);
@@ -89,7 +93,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
         JPanel bt = new JPanel(new GridLayout(2, 1));
 
         JPanel btSelect = new JPanel();
-        btSelect.add(CreateBtSelect());
+        btSelect.add(createBtSelect());
 
         JPanel btCancel = new JPanel();
         btCancel.add(getCancelButton());
@@ -99,6 +103,10 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
         return bt;
     }
     
+    /**
+     * creates the cancel button for this uc
+     * @return the cancel button
+     */
     private JButton getCancelButton(){
         if(tp.getProjectList().getActualProject() == null){
             return new CancelButton(this);
@@ -111,7 +119,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
      * Method that creates the select button
      * @return a panel with the select button
      */
-    private JPanel CreateBtSelect() {
+    private JPanel createBtSelect() {
         JPanel btS = new JPanel();
         JButton nuttonSelect = new JButton("Select");
         nuttonSelect.addActionListener(new ActionListener() {
