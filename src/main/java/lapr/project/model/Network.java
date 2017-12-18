@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import lapr.project.utils.AdjacencyMatrixGraph;
 
@@ -149,25 +150,25 @@ public class Network implements Serializable {
         }
         
         for(Road r : roadsToAdd.road_list){
-           addRoad(r); 
+           this.addRoad(r); 
         }
         
         for(Node n : roadsToAdd.roadMap.vertices()){
-             boolean insertVertex = roadsToAdd.roadMap.insertVertex(n);
+             boolean insertVertex = this.roadMap.insertVertex(n);
              if(insertVertex){
-                addNode(n.getId());
+                this.addNode(n.getId());
                 flag ++; 
              }
         }
         
         for (RoadSection rs : roadsToAdd.roadMap.edges()) {
-            Node[] endVertices = roadsToAdd.roadMap.endVertices(rs);
+            List<Node> endVertices = roadsToAdd.roadMap.endVertices(rs);
 
             if (endVertices != null) {
-                boolean insertEdge = roadsToAdd.roadMap.insertEdge(endVertices[0], endVertices[1], rs);
+                boolean insertEdge = this.roadMap.insertEdge(endVertices.get(0), endVertices.get(1), rs);
                 
                 if(insertEdge){
-                    addRoadSection(rs);
+                    this.addRoadSection(rs);
                     flag ++;
                 }
             }

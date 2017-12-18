@@ -5,6 +5,8 @@
  */
 package lapr.project.utils;
 
+import java.util.List;
+
 /**
  *
  * @author DEI-ESINF
@@ -74,7 +76,7 @@ public interface BasicGraph<V,E> {
    * @param the edge
    * @return array of two vertices or null if edge does not exist in the graph. 
    */
-  V[] endVertices(E edge);
+  List<V> endVertices(E edge);
 
   /** Inserts a new vertex with the given element. 
    * @param the vertex contents

@@ -7,6 +7,7 @@ package lapr.project.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -271,15 +272,14 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return array of two vertices or null if edge does not exist in the
      * graph.
      */
-    public V[] endVertices(E edge) {
+    public List<V> endVertices(E edge) {
         for (int i = 0; i < numVertices - 1; i++) {
             for (int j = i + 1; j < numVertices; j++) {
                 if (edgeMatrix[i][j] != null) {
                     if (edgeMatrix[i][j].equals(edge)) {
-                        @SuppressWarnings("unchecked")
-                        V[] result = (V[]) new Object[2];
-                        result[0] = vertices.get(i);
-                        result[1] = vertices.get(j);
+                        List<V> result = new ArrayList<>();
+                        result.add(vertices.get(i));
+                        result.add(vertices.get(j));
                         return result;
                     }
                 }
