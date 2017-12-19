@@ -33,7 +33,8 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * constructor
-     * @param tp 
+     *
+     * @param tp
      */
     public SelectProjectUI(TravelByPhysics tp) {
         this.tp = tp;
@@ -64,6 +65,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * Method that creates and returns the main page inside a panel
+     *
      * @return Panel with all the components
      */
     private JPanel createPage() {
@@ -87,6 +89,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * Method that creates and returns all the page's buttons
+     *
      * @return a panel with all the buttons for the page
      */
     private JPanel createPageButtons() {
@@ -102,21 +105,23 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
         bt.add(btCancel);
         return bt;
     }
-    
+
     /**
      * creates the cancel button for this uc
+     *
      * @return the cancel button
      */
-    private JButton getCancelButton(){
-        if(tp.getProjectList().getActualProject() == null){
+    private JButton getCancelButton() {
+        if (tp.getProjectList().getActualProject() == null) {
             return new CancelButton(this);
-        }else {
+        } else {
             return new CancelButton(this, tp.getProjectList().getActualProject());
         }
     }
 
     /**
      * Method that creates the select button
+     *
      * @return a panel with the select button
      */
     private JPanel createBtSelect() {
@@ -132,14 +137,13 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
                                 MESS_CONF, dialogButton);
                         if (dialogResult == 0) {
                             sp.loadActiveProject(name);
-                            MenuUI.setProject();
                             sucMess(SEL_SUCC, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();
                             repaint();
                         }
-                    }else {
+                    } else {
                         errMess(ERR_NO_PROJECT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
@@ -153,6 +157,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * Method that creates the JList and returns it inside a Jpanel
+     *
      * @return a panel with the jlist inside
      */
     private JPanel createProjectList() {
@@ -188,6 +193,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * ErrorMessages
+     *
      * @param message message
      * @param title title of the error message
      */
@@ -198,6 +204,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * Success messages
+     *
      * @param message message
      * @param title title of the success message
      */

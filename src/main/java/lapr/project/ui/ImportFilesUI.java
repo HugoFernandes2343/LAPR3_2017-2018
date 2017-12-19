@@ -3,6 +3,8 @@ package lapr.project.ui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -54,7 +56,7 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
         JPanel mainPanel = new JPanel(new FlowLayout());
         mainPanel.add(createHeader("Select file to be Imported: "));
 
-        if (type.equalsIgnoreCase("vehicle")) {
+        if ("vehicle".equalsIgnoreCase(type)) {
             vehiclesC = new AddVehiclesController(tp);
             chooser = new JFileChooser("Choose .xml file to import vehicles data");
             this.setTitle("Import Vehicles:");
@@ -134,7 +136,7 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
      * @param text the text to be displayed
      * @return JPanel with text
      */
-    private JPanel createHeader(String text) {
+    private static JPanel createHeader(String text) {
         JPanel p = new JPanel();
         p.add(new JLabel(text));
         return p;
@@ -143,12 +145,12 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
     /**
      * Sets the desired Look and Feel of the window
      */
-    private void setLookAndFeel() {
+    private static void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            //Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(ImportFilesUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

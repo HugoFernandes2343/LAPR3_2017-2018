@@ -244,7 +244,6 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
                             sucMess(CREATE_SUC, MESS_SUCC);
-                            MenuUI.setProject();
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             revalidate();

@@ -58,7 +58,7 @@ public class ThrottleTest {
      * Test of getRegimeList method, of class Throttle.
      */
     @Test
-    public void testGetRegime_list() {
+    public void testGetRegimeList() {
         System.out.println("getRegime_list");
         Regime test = new Regime(10, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();

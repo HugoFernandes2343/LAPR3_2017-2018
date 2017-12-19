@@ -1,4 +1,3 @@
-
 package lapr.project.ui;
 
 import java.awt.Color;
@@ -22,35 +21,35 @@ import lapr.project.model.TravelByPhysics;
 public class MenuUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static JMenuBar menuBarMain;
-    private static JPanel mPanel;
+    private JMenuBar menuBarMain;
+    private JPanel mPanel;
 
     /**
      * Menu buttons
      */
-    private static JMenuItem copy;
-    private static JMenuItem changeName;
-    private static JMenuItem importVehicles;
-    private static JMenuItem importRoads;
-    private static JMenuItem bestPath;
-    private static JMenuItem compareVehicle;
-    private static JMenuItem saveDatabase;
-    private static JMenuItem saveHTML;
+    private JMenuItem copy;
+    private JMenuItem changeName;
+    private JMenuItem importVehicles;
+    private JMenuItem importRoads;
+    private JMenuItem bestPath;
+    private JMenuItem compareVehicle;
+    private JMenuItem saveDatabase;
+    private JMenuItem saveHTML;
 
-   private static TravelByPhysics tp;
+    private final TravelByPhysics tp;
 
-    private static final int WINDOW_HEIGHT = 700;
-    private static final int WINDOW_WIDTH = 485;
-
+    private final int WINDOW_HEIGHT = 700;
+    private final int WINDOW_WIDTH = 485;
 
     /**
      * constructor of the class
+     *
      * @param tp travel by physics object
      */
     public MenuUI(TravelByPhysics tp) {
         setLookAndFeel();
-        setTravelByPhysics(tp);
-        JMenuBar barraMenu = criarMenuBar();
+        this.tp = tp;
+        JMenuBar barraMenu = createMenuBar();
         setJMenuBar(barraMenu);
         mPanel = new MainPanel();
         mPanel.setBackground(Color.GRAY);
@@ -70,14 +69,13 @@ public class MenuUI extends JFrame {
         setResizable(true);
         setVisible(true);
     }
-    private void setTravelByPhysics(TravelByPhysics travel){
-        tp = travel;
-    }
+
     /**
      * creates the menu bar
+     *
      * @return the menu bar
      */
-    private JMenuBar criarMenuBar() {
+    private JMenuBar createMenuBar() {
 
         menuBarMain = new JMenuBar();
 
@@ -92,13 +90,13 @@ public class MenuUI extends JFrame {
 
     /**
      * Creates the content of the project button on the menu bar
+     *
      * @return the menu created
      */
     private JMenu createProjectMenu() {
-        
+
         JMenu project = new JMenu("Project");
         project.setMnemonic(KeyEvent.VK_P);
-
 
         JMenuItem createProject = new JMenuItem("P02: Create Project");
         createProject.setEnabled(true);
@@ -107,6 +105,9 @@ public class MenuUI extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 mPanel.removeAll();
                 mPanel.add(new CreateProjectUI(tp));
+                if (tp.getProjectList().getActualProject() == null) {
+                    setProject();
+                }
                 mPanel.revalidate();
                 mPanel.repaint();
             }
@@ -120,6 +121,9 @@ public class MenuUI extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 mPanel.removeAll();
                 mPanel.add(new SelectProjectUI(tp));
+                if (tp.getProjectList().getActualProject() == null) {
+                    setProject();
+                }
                 mPanel.revalidate();
                 mPanel.repaint();
             }
@@ -136,10 +140,11 @@ public class MenuUI extends JFrame {
     }
 
     /**
-     * creates the content of the details menu 
+     * creates the content of the details menu
+     *
      * @return the created menu
      */
-    private static JMenu createDetailsMenu() {
+    private JMenu createDetailsMenu() {
         JMenu m = new JMenu("Details");
 
         copy = new JMenuItem("P03: Copy Project");
@@ -169,6 +174,7 @@ public class MenuUI extends JFrame {
 
     /**
      * creates the content of the info menu
+     *
      * @return the created menu
      */
     private JMenu createInfoMenu() {
@@ -199,6 +205,7 @@ public class MenuUI extends JFrame {
 
     /**
      * Creates the content of the Statistics menu
+     *
      * @return the menu created
      */
     private JMenu createStatisticsMenu() {
@@ -232,6 +239,7 @@ public class MenuUI extends JFrame {
 
     /**
      * creates the content of the save menu
+     *
      * @return the menu created
      */
     private JMenu createSaveMenu() {
@@ -263,7 +271,7 @@ public class MenuUI extends JFrame {
     /**
      * sets the windows look and feel
      */
-    private static void setLookAndFeel()  {
+    private void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -274,7 +282,7 @@ public class MenuUI extends JFrame {
     /**
      * Enables the buttons after selecting a project
      */
-    public static void setProject() {
+    public void setProject() {
         copy.setEnabled(true);
         changeName.setEnabled(true);
         importVehicles.setEnabled(true);
