@@ -6,6 +6,8 @@ import lapr.project.model.Network;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.model.VehicleList;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -318,7 +320,8 @@ public class FileXML implements Serializable {
             }
             return vehicleList;
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(FileXML.class.getName()).log(Level.INFO, e.getMessage());
+           
         }
 
         return null;
@@ -499,7 +502,7 @@ public class FileXML implements Serializable {
             roadNetwork.loadMap();
             return roadNetwork;
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(FileXML.class.getName()).log(Level.INFO, e.getMessage());
         }
 
         return null;
