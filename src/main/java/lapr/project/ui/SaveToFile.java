@@ -19,8 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import lapr.project.controller.SaveToCSV;
-import lapr.project.controller.SaveToHTML;
+import lapr.project.dataLayer.SaveToCSV;
+import lapr.project.dataLayer.SaveToHTML;
 import lapr.project.model.Project;
 
 /**

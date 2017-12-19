@@ -1,4 +1,4 @@
-package lapr.project.data_layer;
+package lapr.project.dataLayer;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
