@@ -1,9 +1,12 @@
-package demojdbc;
+package lapr.project.utils;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import lapr.project.ui.SaveToFile;
 import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -83,6 +86,7 @@ public class DataHandler {
             } catch (SQLException ex) {
                 message.append(ex.getMessage());
                 message.append("\n");
+                Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             rSet = null;
         }
@@ -93,6 +97,7 @@ public class DataHandler {
             } catch (SQLException ex) {
                 message.append(ex.getMessage());
                 message.append("\n");
+                Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             callStmt = null;
         }
@@ -103,6 +108,7 @@ public class DataHandler {
             } catch (SQLException ex) {
                 message.append(ex.getMessage());
                 message.append("\n");
+                Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = null;
         }
@@ -128,16 +134,16 @@ public class DataHandler {
          */
         callStmt = connection.prepareCall("{ ? = call getSailor(?) }");
 
-        // Regista o tipo de dados SQL para interpretar o resultado obtido. 
+        /** Regista o tipo de dados SQL para interpretar o resultado obtido.*/
         callStmt.registerOutParameter(1, OracleTypes.CURSOR);
 
-        // Especifica o parâmetro de entrada da função "getSailor".
+        /** Especifica o parâmetro de entrada da função "getSailor".*/
         callStmt.setInt(2, sid);
 
-        // Executa a invocação da função "getSailor".
+        /** Executa a invocação da função "getSailor".*/
         callStmt.execute();
 
-        // Guarda o cursor retornado num objeto "ResultSet".
+        /** Guarda o cursor retornado num objeto "ResultSet".*/
         rSet = (ResultSet) callStmt.getObject(1);
 
         return rSet;
@@ -158,7 +164,8 @@ public class DataHandler {
          * Objeto "callStmt" para invocar a função "boatsColor" armazenada na BD.
          *
          * FUNCTION boatsColor(color VARCHAR) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR
+         * END pkgSailors
          */
         callStmt = connection.prepareCall("{ ? = call boatsColor(?) }");
 
@@ -191,7 +198,8 @@ public class DataHandler {
          *  na BD.
          *
          *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
-         *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR
+         *  END pkgSailors
          */
         callStmt = connection.prepareCall("{ call addSailor(?,?,?,?) }");
 
@@ -218,7 +226,8 @@ public class DataHandler {
          *  armazenado na BD.
          *
          *  PROCEDURE removeSailor(sid NUMBER)
-         *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR
+         *  END pkgSailors
          */
         callStmt = connection.prepareCall("{ call removeSailor(?) }");
 

@@ -106,7 +106,7 @@ public class SaveToHTML {
                         .addParagraph("--Final Height : "+seg.getFinalHeight()).closeTag()
                         .addParagraph("--Wind Direction : "+seg.getWindDirection()).closeTag()
                         /*Add the rest of data*/
-                        .addParagraph("__________________________________").closeTag();
+                        .addParagraph("---------------------------------------------------").closeTag();
             }
             
         }
