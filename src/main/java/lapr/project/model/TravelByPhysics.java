@@ -17,25 +17,25 @@ public class TravelByPhysics implements Serializable{
     /**
      * Attribute that keeps the project list of the system.
      */
-    private ProjectList project_list;
+    private ProjectList projectList;
 
     /**
      * Attribute that keeps the users list of the system.
      */
-    private UserList user_list;
+    private UserList userList;
 
     /**
      * Constructor of this class
      */
     public TravelByPhysics() {
-        this.project_list = new ProjectList();
-        this.user_list = new UserList();
+        this.projectList = new ProjectList();
+        this.userList = new UserList();
     }
 
     /**
      * @return the project_list
      */
     public ProjectList getProjectList() {
-        return project_list;
+        return projectList;
     }
 }

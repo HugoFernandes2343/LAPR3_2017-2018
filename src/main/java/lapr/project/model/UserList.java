@@ -17,9 +17,9 @@ public class UserList implements Serializable{
     
     private static final long serialVersionUID = 202L;
     
-    private Set<User> user_list;
+    private Set<User> userList;
     
     public UserList(){
-    this.user_list = new HashSet<>();
+    this.userList = new HashSet<>();
     }
 }

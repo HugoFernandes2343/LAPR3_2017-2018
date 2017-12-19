@@ -10,13 +10,13 @@ public class Throttle implements Serializable {
     private static final long serialVersionUID = 100L;
 
     private String id;
-    private List<Regime> regime_list = new LinkedList<>();
+    private List<Regime> regimeList = new LinkedList<>();
 
     /**
      * Empty constructor
      */
     public Throttle() {
-        this.regime_list = new LinkedList<>();
+        this.regimeList = new LinkedList<>();
     }
 
     /**
@@ -27,7 +27,7 @@ public class Throttle implements Serializable {
      */
     public Throttle(String id, List<Regime> regimeList) {
         this.id = id;
-        this.regime_list = regimeList;
+        this.regimeList = regimeList;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Throttle implements Serializable {
      * @return the regime_list list of regiments for this Throttle
      */
     public List<Regime> getRegimeList() {
-        return regime_list;
+        return regimeList;
     }
 
     /**
