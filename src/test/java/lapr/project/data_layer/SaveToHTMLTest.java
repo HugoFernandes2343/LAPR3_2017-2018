@@ -13,7 +13,6 @@ import lapr.project.model.Project;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.utils.HTMLExporter;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
