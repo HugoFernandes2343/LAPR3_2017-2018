@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -237,4 +238,24 @@ public class Network implements Serializable {
     public AdjacencyMatrixGraph<Node, RoadSection> getRoadMap() {
         return roadMap;
     }
+    
+    /**
+     * @return NodeList 
+     */
+    public List<Node> getNodeList() {
+        return nodeList;
+    }
+    
+    /**
+     * @return a List of all nodes ids
+     */
+    public List<String> getNodesByName(){
+        List<String> names = new ArrayList<>();
+        for(Node n : this.nodeList){
+            names.add(n.getId());
+        }
+        return names;
+    }
+    
+    
 }
