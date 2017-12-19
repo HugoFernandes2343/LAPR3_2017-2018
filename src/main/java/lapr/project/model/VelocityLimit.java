@@ -16,7 +16,7 @@ public class VelocityLimit implements Serializable {
 
     private static final long serialVersionUID = 204L;
 
-    private String segment_type;
+    private String segmentType;
     private int limit;
 
     /**
@@ -32,7 +32,7 @@ public class VelocityLimit implements Serializable {
      * @param limit velocity limit in this segment type
      */
     public VelocityLimit(String segment_type, int limit) {
-        this.segment_type = segment_type;
+        this.segmentType = segment_type;
         this.limit = limit;
     }
 
@@ -40,7 +40,7 @@ public class VelocityLimit implements Serializable {
      * @return segment type of the limit
      */
     public String getSegmentType() {
-        return segment_type;
+        return segmentType;
     }
 
     /**
@@ -56,7 +56,7 @@ public class VelocityLimit implements Serializable {
      * @param segment_type type of segment to be set
      */
     public void setSegmentType(String segment_type) {
-        this.segment_type = segment_type;
+        this.segmentType = segment_type;
     }
 
     /**
@@ -76,7 +76,7 @@ public class VelocityLimit implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.segment_type);
+        hash = 83 * hash + Objects.hashCode(this.segmentType);
         hash = 83 * hash + this.limit;
         return hash;
     }
@@ -100,7 +100,7 @@ public class VelocityLimit implements Serializable {
         if (this.limit != other.limit) {
             return false;
         }
-        return this.segment_type.equalsIgnoreCase(other.segment_type);
+        return this.segmentType.equalsIgnoreCase(other.segmentType);
 
     }
 

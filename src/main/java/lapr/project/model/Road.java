@@ -19,7 +19,7 @@ public class Road implements Serializable {
     private String name;
     private String typology;
     private String id;
-    private TollFare toll_fare;
+    private TollFare tollFare;
 
     /**
      * Empty Constructor
@@ -52,7 +52,7 @@ public class Road implements Serializable {
         this.name = name;
         this.typology = typology;
         this.id = id;
-        this.toll_fare = tollFare;
+        this.tollFare = tollFare;
     }
 
     /**
@@ -104,17 +104,17 @@ public class Road implements Serializable {
     }
 
     /**
-     * @return the toll_fare toll fare object of the road
+     * @return the tollFare toll fare object of the road
      */
     public TollFare getTollFare() {
-        return toll_fare;
+        return tollFare;
     }
 
     /**
-     * @param tollFare the toll_fare to set
+     * @param tollFare the tollFare to set
      */
     public void setTollFare(TollFare tollFare) {
-        this.toll_fare = tollFare;
+        this.tollFare = tollFare;
     }
 
     /**

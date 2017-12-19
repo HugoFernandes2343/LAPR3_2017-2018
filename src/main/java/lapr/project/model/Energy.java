@@ -8,11 +8,11 @@ public class Energy implements Serializable {
 
     private static final long serialVersionUID = 503L;
 
-    private int min_rpm;
-    private int max_rpm;
-    private Double final_drive_ratio;
-    private List<Gear> gear_List = new LinkedList<>();
-    private List<Throttle> throttle_list = new LinkedList<>();
+    private int minRpm;
+    private int maxRpm;
+    private Double finalDriveRatio;
+    private List<Gear> gearList = new LinkedList<>();
+    private List<Throttle> throttleList = new LinkedList<>();
 
     /**
      * Full constructor of the energy objects
@@ -23,78 +23,78 @@ public class Energy implements Serializable {
      * @param throttleList list of throttle caracteristics
      */
     public Energy(int minRpm, int maxRpm, Double finalDriveRatio, List<Gear> gearList, List<Throttle> throttleList) {
-        this.min_rpm = minRpm;
-        this.max_rpm = maxRpm;
-        this.final_drive_ratio = finalDriveRatio;
-        this.gear_List = gearList;
-        this.throttle_list = throttleList;
+        this.minRpm = minRpm;
+        this.maxRpm = maxRpm;
+        this.finalDriveRatio = finalDriveRatio;
+        this.gearList = gearList;
+        this.throttleList = throttleList;
     }
 
     /**
      * Empty constructor
      */
     public Energy() {
-        this.min_rpm = 0;
-        this.max_rpm = 1000;
-        this.final_drive_ratio = 0.0;
-        this.gear_List = new LinkedList<>();
-        this.throttle_list = new LinkedList<>();
+        this.minRpm = 0;
+        this.maxRpm = 1000;
+        this.finalDriveRatio = 0.0;
+        this.gearList = new LinkedList<>();
+        this.throttleList = new LinkedList<>();
     }
 
     /**
-     * @return the min_rpm
+     * @return the minRpm
      */
     public int getMinRpm() {
-        return min_rpm;
+        return minRpm;
     }
 
     /**
-     * @return the max_rpm
+     * @return the maxRpm
      */
     public int getMaxRpm() {
-        return max_rpm;
+        return maxRpm;
     }
 
     /**
-     * @return the final_drive_ratio
+     * @return the finalDriveRatio
      */
     public Double getFinalDriveRatio() {
-        return final_drive_ratio;
+        return finalDriveRatio;
     }
 
     /**
-     * @return the gear_List
+     * @return the gearList
      */
     public List<Gear> getGearList() {
-        return gear_List;
+        return gearList;
     }
 
     /**
-     * @return the throttle_list
+     * @return the throttleList
      */
     public List<Throttle> getThrottleList() {
-        return throttle_list;
+        return throttleList;
     }
 
     /**
-     * @param minRpm the min_rpm to set
+     * @param minRpm the minRpm to set
      */
     public void setMinRpm(int minRpm) {
-        this.min_rpm = minRpm;
+        this.minRpm = minRpm;
     }
 
     /**
-     * @param maxRpm the max_rpm to set
+     * @param maxRpm the maxRpm to set
      */
     public void setMaxRpm(int maxRpm) {
-        this.max_rpm = maxRpm;
+        this.maxRpm = maxRpm;
     }
 
     /**
-     * @param finalDriveRatio the final_drive_ratio to set
+     * @param finalDriveRatio the finalDriveRatio to set
      */
     public void setFinalDriveRatio(Double finalDriveRatio) {
-        this.final_drive_ratio = finalDriveRatio;
+        this.finalDriveRatio = finalDriveRatio;
     }
 
     /**
@@ -103,16 +103,16 @@ public class Energy implements Serializable {
      * @param gear - gear that needs to be added
      */
     public void addGear(Gear gear) {
-        if (!this.gear_List.contains(gear)) {
-            this.gear_List.add(gear);
+        if (!this.gearList.contains(gear)) {
+            this.gearList.add(gear);
         }
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + this.min_rpm;
-        hash = 47 * hash + this.max_rpm;
+        hash = 47 * hash + this.minRpm;
+        hash = 47 * hash + this.maxRpm;
         return hash;
     }
 
@@ -131,13 +131,13 @@ public class Energy implements Serializable {
             return false;
         }
         Energy other = (Energy) obj;
-        if (this.min_rpm != other.min_rpm) {
+        if (this.minRpm != other.minRpm) {
             return false;
         }
-        if (this.max_rpm != other.max_rpm) {
+        if (this.maxRpm != other.maxRpm) {
             return false;
         }
-        return this.final_drive_ratio.equals(other.final_drive_ratio);
+        return this.finalDriveRatio.equals(other.finalDriveRatio);
 
     }
 

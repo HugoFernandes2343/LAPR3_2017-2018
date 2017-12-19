@@ -20,24 +20,24 @@ public class VehicleList implements Serializable {
 
     private static final long serialVersionUID = 205L;
 
-    private Set<Vehicle> vehicle_list;
+    private Set<Vehicle> vehicleList;
 
     public VehicleList() {
-        this.vehicle_list = new HashSet<>();
+        this.vehicleList = new HashSet<>();
     }
 
     /**
      * @return the vehicle_list
      */
     public Set<Vehicle> getVehicleList() {
-        return vehicle_list;
+        return vehicleList;
     }
 
     /**
      * @param vehicleList the vehicle_list to set
      */
     public void setVehicleList(Set<Vehicle> vehicleList) {
-        this.vehicle_list = vehicleList;
+        this.vehicleList = vehicleList;
     }
 
     /**
@@ -46,8 +46,8 @@ public class VehicleList implements Serializable {
      * @param car
      */
     public void addVehicle(Vehicle car) {
-        if (!this.vehicle_list.contains(car)) {
-            this.vehicle_list.add(car);
+        if (!this.vehicleList.contains(car)) {
+            this.vehicleList.add(car);
         }
     }
 
@@ -57,7 +57,7 @@ public class VehicleList implements Serializable {
      * @return List of strings with the names of the vehicles
      */
     public List<String> getAllVehicleNames() {
-        Iterator<Vehicle> itr = vehicle_list.iterator();
+        Iterator<Vehicle> itr = vehicleList.iterator();
         ArrayList<String> names = new ArrayList<>();
         while (itr.hasNext()) {
             names.add(itr.next().getName());
@@ -75,7 +75,7 @@ public class VehicleList implements Serializable {
     public int verifyAndAddVehicles(Set<Vehicle> newVehicles) {
         int cont = 0;
         for (Vehicle vIn : newVehicles) {
-            if (!vehicle_list.contains(vIn)) {
+            if (!vehicleList.contains(vIn)) {
                 int i = incrementName(vIn.getName(), 0, getAllVehicleNames());
                 if (i > 0) {
                     vIn.setName(vIn.getName() + i);

@@ -19,11 +19,11 @@ public class ProjectList implements Serializable {
 
     private static final long serialVersionUID = 602L;
 
-    private Set<Project> project_list;
+    private Set<Project> projectList;
     private Project actualProject;
 
     public ProjectList() {
-        this.project_list = new HashSet<>();
+        this.projectList = new HashSet<>();
         this.actualProject = null;
     }
 
@@ -53,7 +53,7 @@ public class ProjectList implements Serializable {
         }
 
         if (verifyProject(p)) {
-            this.project_list.add(p);
+            this.projectList.add(p);
             this.actualProject = p;
             return true;
         }
@@ -68,7 +68,7 @@ public class ProjectList implements Serializable {
      * @return true if the project doesn't exists, false otherwise
      */
     private boolean verifyProject(Project p) {
-        for (Project p1 : this.project_list) {
+        for (Project p1 : this.projectList) {
             if (p1.equals(p)) {
                 return false;
             }
@@ -77,13 +77,13 @@ public class ProjectList implements Serializable {
     }
 
     /**
-     * Method that returns all names of the project_list
+     * Method that returns all names of the projectList
      *
      * @return List of names
      */
     public List<String> getAllNames() {
         List<String> allNames = new ArrayList<>();
-        for (Project p : project_list) {
+        for (Project p : projectList) {
             allNames.add(p.getName());
         }
         return allNames;
@@ -95,7 +95,7 @@ public class ProjectList implements Serializable {
      * @return project with said name
      */
     public Project getProject(String name) {
-        for (Project p : project_list) {
+        for (Project p : projectList) {
             if (p.getName().equalsIgnoreCase(name)) {
                 return p;
             }
@@ -118,8 +118,8 @@ public class ProjectList implements Serializable {
         if (!verifyProject(project)) {
             return false;
         }
-        this.project_list.remove(this.actualProject);
-        this.project_list.add(project);
+        this.projectList.remove(this.actualProject);
+        this.projectList.add(project);
         this.actualProject = project;
         return true;
     }

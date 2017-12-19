@@ -20,9 +20,9 @@ public class RoadSection implements Serializable {
 
     private String begin;
     private String end;
-    private String road_id;
+    private String roadId;
     private String direction;
-    private List<Segment> segment_list = new LinkedList<>();
+    private List<Segment> segmentList = new LinkedList<>();
 
     /**
      * Full constructor of the RoadSection object
@@ -35,16 +35,16 @@ public class RoadSection implements Serializable {
     public RoadSection(String begin, String end, String roadId, String direction, List<Segment> segments) {
         this.begin = begin;
         this.end = end;
-        this.road_id = roadId;
+        this.roadId = roadId;
         this.direction = direction;
-        this.segment_list = segments;
+        this.segmentList = segments;
     }
 
     /**
      * Empty constructor of the RoadSection object
      */
     public RoadSection() {
-        this.segment_list = new LinkedList<>();
+        this.segmentList = new LinkedList<>();
     }
 
     /** 
@@ -62,10 +62,10 @@ public class RoadSection implements Serializable {
     }
 
     /**
-     * @return the road_id id of the road that contains the section
+     * @return the roadId id of the road that contains the section
      */
     public String getRoadId() {
-        return road_id;
+        return roadId;
     }
 
     /**
@@ -76,10 +76,10 @@ public class RoadSection implements Serializable {
     }
 
     /**
-     * @return the segment_list list of segments that are contained in the section
+     * @return the segmentList list of segments that are contained in the section
      */
     public List<Segment> getSegmentList() {
-        return segment_list;
+        return segmentList;
     }
 
     /**
@@ -106,7 +106,7 @@ public class RoadSection implements Serializable {
      * @param roadId id to be set as the road id 
      */
     public void setRoadId(String roadId) {
-        this.road_id = roadId;
+        this.roadId = roadId;
     }
 
     /**
@@ -124,7 +124,7 @@ public class RoadSection implements Serializable {
      * @param segmentList list to be set as list of segments on this section
      */
     public void setSegmentList(List<Segment> segmentList) {
-        this.segment_list = segmentList;
+        this.segmentList = segmentList;
     }
 
     /**
@@ -133,8 +133,8 @@ public class RoadSection implements Serializable {
      * @param seg segment to be added
      */
     public void addSegment(Segment seg) {
-        if (!this.segment_list.contains(seg)) {
-            this.segment_list.add(seg);
+        if (!this.segmentList.contains(seg)) {
+            this.segmentList.add(seg);
         }
     }
 

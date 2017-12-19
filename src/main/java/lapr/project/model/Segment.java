@@ -17,13 +17,13 @@ public class Segment implements Serializable {
     private static final long serialVersionUID = 506L;
 
     private String id;
-    private double init_height;
-    private double final_height;
+    private double initHeight;
+    private double finalHeight;
     private String length;
-    private double wind_direction;
-    private String wind_speed;
-    private String max_velocity;
-    private String min_velocity;
+    private double windDirection;
+    private String windSpeed;
+    private String maxVelocity;
+    private String minVelocity;
 
     /**
      * Empty Constructor
@@ -44,13 +44,13 @@ public class Segment implements Serializable {
      */
     public Segment(String segmentIndex, double initialHeight, double finalHeight, String length, double windDirection, String windSpeed, String maxVelocity, String minVelocity) {
         this.id = segmentIndex;
-        this.init_height = initialHeight;
-        this.final_height = finalHeight;
+        this.initHeight = initialHeight;
+        this.finalHeight = finalHeight;
         this.length = length;
-        this.wind_direction = windDirection;
-        this.wind_speed = windSpeed;
-        this.max_velocity = maxVelocity;
-        this.min_velocity = minVelocity;
+        this.windDirection = windDirection;
+        this.windSpeed = windSpeed;
+        this.maxVelocity = maxVelocity;
+        this.minVelocity = minVelocity;
     }
 
     /**
@@ -64,14 +64,14 @@ public class Segment implements Serializable {
      * @return the init_height initial height of the segment
      */
     public double getInitHeight() {
-        return init_height;
+        return initHeight;
     }
 
     /**
      * @return the final_height final height of the segment
      */
     public double getFinalHeight() {
-        return final_height;
+        return finalHeight;
     }
 
     /**
@@ -85,28 +85,28 @@ public class Segment implements Serializable {
      * @return the wind_direction direction in which the wind is blowing
      */
     public double getWindDirection() {
-        return wind_direction;
+        return windDirection;
     }
 
     /**
      * @return the wind_speed speed of the wind that blows in this segment
      */
     public String getWindSpeed() {
-        return wind_speed;
+        return windSpeed;
     }
 
     /**
      * @return the maximumVelocity maximum allowed velocity in the segment
      */
     public String getMaxVelocity() {
-        return max_velocity;
+        return maxVelocity;
     }
 
     /**
      * @return the minimumVelocity minimum allowed velocity in the segment
      */
     public String getMinVelocity() {
-        return min_velocity;
+        return minVelocity;
     }
 
     /**
@@ -124,7 +124,7 @@ public class Segment implements Serializable {
      * @param initHeight inital height of the segment
      */
     public void setInitHeight(double initHeight) {
-        this.init_height = initHeight;
+        this.initHeight = initHeight;
     }
 
     /**
@@ -133,7 +133,7 @@ public class Segment implements Serializable {
      * @param finalHeight final height  of the segment
      */
     public void setFinalHeight(double finalHeight) {
-        this.final_height = finalHeight;
+        this.finalHeight = finalHeight;
     }
 
     /**
@@ -151,7 +151,7 @@ public class Segment implements Serializable {
      * @param windDirection direction to set on the segment
      */
     public void setWindDirection(double windDirection) {
-        this.wind_direction = windDirection;
+        this.windDirection = windDirection;
     }
 
     /**
@@ -160,7 +160,7 @@ public class Segment implements Serializable {
      * @param windSpeed speed of the blowing wind to set on the segment
      */
     public void setWindSpeed(String windSpeed) {
-        this.wind_speed = windSpeed;
+        this.windSpeed = windSpeed;
     }
 
     /**
@@ -169,7 +169,7 @@ public class Segment implements Serializable {
      * @param maxVelocity maximum velocity to be set as the segment's max
      */
     public void setMaxVelocity(String maxVelocity) {
-        this.max_velocity = maxVelocity;
+        this.maxVelocity = maxVelocity;
     }
 
     /**
@@ -178,7 +178,7 @@ public class Segment implements Serializable {
      * @param minVelocity minimum velocity to be set as the segment's min
      */
     public void setMinVelocity(String minVelocity) {
-        this.min_velocity = minVelocity;
+        this.minVelocity = minVelocity;
     }
 
     /**

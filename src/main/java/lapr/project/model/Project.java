@@ -18,7 +18,7 @@ public class Project implements Serializable {
 
     private String name;
     private String description;
-    private VehicleList vehicle_list;
+    private VehicleList vehicleList;
     private Network network;
     private NetworkAnalysis netAnal;
 
@@ -26,14 +26,14 @@ public class Project implements Serializable {
         this.name = "n/a";
         this.description = "n/a";
         this.network = new Network();
-        this.vehicle_list = new VehicleList();
+        this.vehicleList = new VehicleList();
     }
 
     public Project(Project other) {
         this.description = other.description;
         this.name = other.name;
         this.network = other.network;
-        this.vehicle_list = other.vehicle_list;
+        this.vehicleList = other.vehicleList;
     }
 
     /**
@@ -68,14 +68,14 @@ public class Project implements Serializable {
      * @return the VehicleList
      */
     public VehicleList getVehicleList() {
-        return vehicle_list;
+        return vehicleList;
     }
 
     /**
      * @param vehicleList the VehicleList to set
      */
     public void setVehicleList(VehicleList vehicleList) {
-        this.vehicle_list = vehicleList;
+        this.vehicleList = vehicleList;
     }
 
     /**

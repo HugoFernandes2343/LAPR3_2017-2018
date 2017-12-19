@@ -25,18 +25,18 @@ public class Vehicle implements Serializable {
     private String mass;
     private String load;
     private double drag;
-    private double frontal_area;
+    private double frontalArea;
     private double rrc;
     private double wheelSize;
     private Energy energy;
-    private VelocityLimitList velocity_limit_list;
+    private VelocityLimitList velocityLimitList;
 
     /**
      * Empty constructor for the vehicle object
      *
      */
     public Vehicle() {
-        this.velocity_limit_list = new VelocityLimitList();
+        this.velocityLimitList = new VelocityLimitList();
 
     }
 
@@ -69,11 +69,11 @@ public class Vehicle implements Serializable {
         this.mass = mass;
         this.load = load;
         this.drag = drag;
-        this.frontal_area = frontalArea;
+        this.frontalArea = frontalArea;
         this.rrc = rrc;
         this.wheelSize = wheelSize;
         this.energy = energy;
-        this.velocity_limit_list = velocityLimitList;
+        this.velocityLimitList = velocityLimitList;
 
     }
 
@@ -104,7 +104,7 @@ public class Vehicle implements Serializable {
         this.mass = mass;
         this.load = load;
         this.drag = drag;
-        this.frontal_area = frontalArea;
+        this.frontalArea = frontalArea;
         this.rrc = rrc;
         this.wheelSize = wheelSize;
 
@@ -197,7 +197,7 @@ public class Vehicle implements Serializable {
      * @param frontalArea frontal area to be given to the vehicle
      */
     public void setFrontalArea(double frontalArea) {
-        this.frontal_area = frontalArea;
+        this.frontalArea = frontalArea;
     }
 
     /**
@@ -243,7 +243,7 @@ public class Vehicle implements Serializable {
      * vehicle
      */
     public void setVelocityLimitList(VelocityLimitList velocityLimitList) {
-        this.velocity_limit_list = velocityLimitList;
+        this.velocityLimitList = velocityLimitList;
     }
 
     /**
@@ -327,7 +327,7 @@ public class Vehicle implements Serializable {
      * @return the frontal_area frontal area of the vehicle
      */
     public double getFrontalArea() {
-        return frontal_area;
+        return frontalArea;
     }
 
     /**
@@ -341,7 +341,7 @@ public class Vehicle implements Serializable {
      * @return the velocity_limit_list velocity limit list type object of the vehicle
      */
     public VelocityLimitList getVelocityLimitList() {
-        return velocity_limit_list;
+        return velocityLimitList;
     }
 
     /**
@@ -360,7 +360,7 @@ public class Vehicle implements Serializable {
         hash = 97 * hash + Objects.hashCode(this.mass);
         hash = 97 * hash + Objects.hashCode(this.load);
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.drag) ^ (Double.doubleToLongBits(this.drag) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.frontal_area) ^ (Double.doubleToLongBits(this.frontal_area) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.frontalArea) ^ (Double.doubleToLongBits(this.frontalArea) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.rrc) ^ (Double.doubleToLongBits(this.rrc) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.wheelSize) ^ (Double.doubleToLongBits(this.wheelSize) >>> 32));
         return hash;
@@ -388,7 +388,7 @@ public class Vehicle implements Serializable {
         if (Double.doubleToLongBits(this.drag) != Double.doubleToLongBits(other.drag)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.frontal_area) != Double.doubleToLongBits(other.frontal_area)) {
+        if (Double.doubleToLongBits(this.frontalArea) != Double.doubleToLongBits(other.frontalArea)) {
             return false;
         }
         if (Double.doubleToLongBits(this.rrc) != Double.doubleToLongBits(other.rrc)) {

@@ -22,17 +22,17 @@ public class Network implements Serializable {
     private AdjacencyMatrixGraph<Node, RoadSection> roadMap;
     private String id;
     private String description;
-    private List<Node> node_list;
-    private List<Road> road_list;
-    private List<RoadSection> section_list;
+    private List<Node> nodeList;
+    private List<Road> roadList;
+    private List<RoadSection> sectionList;
 
     public Network() {
         this.roadMap = new AdjacencyMatrixGraph<>();
         this.id = "TestNetwork";
         this.description = "test";
-        this.node_list = new LinkedList<>();
-        this.road_list = new LinkedList<>();
-        this.section_list = new LinkedList<>();
+        this.nodeList = new LinkedList<>();
+        this.roadList = new LinkedList<>();
+        this.sectionList = new LinkedList<>();
     }
 
     /**
@@ -73,35 +73,35 @@ public class Network implements Serializable {
      */
     public boolean addNode(String text) {
         Node node = new Node(text);
-        if (!this.node_list.contains(node)) {
-            this.node_list.add(node);
+        if (!this.nodeList.contains(node)) {
+            this.nodeList.add(node);
             return true;
         }
         return false;
     }
 
     /**
-     * Adds a road to the road_list
+     * Adds a road to the roadList
      *
      * @param road - road that will be added
      * @return - true id the road is added, false otherwise.
      */
     public boolean addRoad(Road road) {
-        if (!this.road_list.contains(road)) {
-            this.road_list.add(road);
+        if (!this.roadList.contains(road)) {
+            this.roadList.add(road);
             return true;
         }
         return false;
     }
 
     /**
-     * Adds a roadSection to the section_list
+     * Adds a roadSection to the sectionList
      *
      * @param section - RoadSection
      * @return - true id the road section is added, false otherwise. 
      */
     public boolean addRoadSection(RoadSection section) {
-        if (!this.section_list.contains(section)) {
+        if (!this.sectionList.contains(section)) {
             this.getSectionList().add(section);
             return true;
         }
@@ -161,7 +161,7 @@ public class Network implements Serializable {
             return false;
         }
 
-        for (Road r : roadsToAdd.road_list) {
+        for (Road r : roadsToAdd.roadList) {
             if(this.addRoad(r)){
                 flag++;
             }
@@ -193,20 +193,20 @@ public class Network implements Serializable {
     }
 
     /**
-     * @return the section_list
+     * @return the sectionList
      */
     public List<RoadSection> getSectionList() {
-        return section_list;
+        return sectionList;
     }
 
     /**
      * Loads a list a inserts roads in the Road Matrix
      */
     public void loadMap() {
-        for (Node vertex : node_list) {
+        for (Node vertex : nodeList) {
             this.getRoadMap().insertVertex(vertex);
         }
-        for (RoadSection section : section_list) {
+        for (RoadSection section : sectionList) {
             Node n1 = searchNode(section.getBegin());
             Node n2 = searchNode(section.getEnd());
             if (n1 != null && n2 != null) {
@@ -223,7 +223,7 @@ public class Network implements Serializable {
      * @return
      */
     private Node searchNode(String id) {
-        for (Node node : node_list) {
+        for (Node node : nodeList) {
             if (node.getId().equals(id)) {
                 return node;
             }

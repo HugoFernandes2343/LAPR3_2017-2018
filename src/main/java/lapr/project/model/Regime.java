@@ -7,8 +7,8 @@ public class Regime implements Serializable {
     private static final long serialVersionUID = 603L;
 
     private int torque;
-    private int rpm_low;
-    private int rpm_high;
+    private int rpmLow;
+    private int rpmHigh;
     private Double SFC;
 
     /**
@@ -27,8 +27,8 @@ public class Regime implements Serializable {
      */
     public Regime(int torque, int rpmLow, int rpmHigh, Double SFC) {
         this.torque = torque;
-        this.rpm_low = rpmLow;
-        this.rpm_high = rpmHigh;
+        this.rpmLow = rpmLow;
+        this.rpmHigh = rpmHigh;
         this.SFC = SFC;
     }
 
@@ -40,17 +40,17 @@ public class Regime implements Serializable {
     }
 
     /**
-     * @return the rpm_low low rpm value of the regime
+     * @return the rpmLow low rpm value of the regime
      */
     public int getRpmLow() {
-        return rpm_low;
+        return rpmLow;
     }
 
     /**
-     * @return the rpm_high high rpm value of the regime
+     * @return the rpmHigh high rpm value of the regime
      */
     public int getRpmHigh() {
-        return rpm_high;
+        return rpmHigh;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Regime implements Serializable {
      * @param rpmLow value to be set as low rpm
      */
     public void setRpmLow(int rpmLow) {
-        this.rpm_low = rpmLow;
+        this.rpmLow = rpmLow;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Regime implements Serializable {
      * @param rpmHigh value to be set as high rpm
      */
     public void setRpmHigh(int rpmHigh) {
-        this.rpm_high = rpmHigh;
+        this.rpmHigh = rpmHigh;
     }
 
     /**
@@ -105,8 +105,8 @@ public class Regime implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 89 * hash + this.torque;
-        hash = 89 * hash + this.rpm_low;
-        hash = 89 * hash + this.rpm_high;
+        hash = 89 * hash + this.rpmLow;
+        hash = 89 * hash + this.rpmHigh;
         return hash;
     }
 
@@ -129,10 +129,10 @@ public class Regime implements Serializable {
         if (this.torque != other.torque) {
             return false;
         }
-        if (this.rpm_low != other.rpm_low) {
+        if (this.rpmLow != other.rpmLow) {
             return false;
         }
-        if (this.rpm_high != other.rpm_high) {
+        if (this.rpmHigh != other.rpmHigh) {
             return false;
         }
         return this.SFC.equals(other.SFC);
