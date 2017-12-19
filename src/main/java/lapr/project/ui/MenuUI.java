@@ -38,8 +38,8 @@ public class MenuUI extends JFrame {
 
     private final TravelByPhysics tp;
 
-    private final int WINDOW_HEIGHT = 700;
-    private final int WINDOW_WIDTH = 485;
+    private static final int WINDOW_HEIGHT = 700;
+    private static final int WINDOW_WIDTH = 485;
 
     /**
      * constructor of the class
@@ -271,7 +271,7 @@ public class MenuUI extends JFrame {
     /**
      * sets the windows look and feel
      */
-    private void setLookAndFeel() {
+    private static void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {

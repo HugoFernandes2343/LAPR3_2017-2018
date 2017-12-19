@@ -18,6 +18,10 @@ import javax.swing.JTextField;
 import lapr.project.controller.CreateProjectController;
 import lapr.project.model.TravelByPhysics;
 
+/**
+ *
+ * @author 
+ */
 public class CreateProjectUI extends JPanel implements MessagesAndUtils {
 
     private static final long serialVersionUID = 105L;

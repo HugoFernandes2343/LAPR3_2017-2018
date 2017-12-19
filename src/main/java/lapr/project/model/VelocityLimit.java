@@ -28,11 +28,11 @@ public class VelocityLimit implements Serializable {
     /**
      * Full constructor for the Velocity limit type objects
      *
-     * @param segment_type type of the segment
+     * @param segmentType type of the segment
      * @param limit velocity limit in this segment type
      */
-    public VelocityLimit(String segment_type, int limit) {
-        this.segmentType = segment_type;
+    public VelocityLimit(String segmentType, int limit) {
+        this.segmentType = segmentType;
         this.limit = limit;
     }
 
@@ -53,10 +53,10 @@ public class VelocityLimit implements Serializable {
     /**
      * Set method of the segment type variable
      *
-     * @param segment_type type of segment to be set
+     * @param segmentType type of segment to be set
      */
-    public void setSegmentType(String segment_type) {
-        this.segmentType = segment_type;
+    public void setSegmentType(String segmentType) {
+        this.segmentType = segmentType;
     }
 
     /**

@@ -78,39 +78,6 @@ public class Vehicle implements Serializable {
     }
 
     /**
-     * Constructor of vehicle that lacks the energy and velocity limit list
-     * objects
-     *
-     * @param name name to be given to the vehicle
-     * @param description description given to the vehicle
-     * @param type type of vehicle
-     * @param tollClass class of the vehicle
-     * @param motorization type of motorization of the vehicle
-     * @param fuel type of fuel used by the vehicle
-     * @param mass total mass of the vehicle
-     * @param load load capacity of the vehicle
-     * @param drag drag coeficient of the vehicle
-     * @param frontalArea frontal area of the vehicle
-     * @param rrc rrc of the vehicle
-     * @param wheelSize wheelSize of the vehicle
-     */
-    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontalArea, double rrc, double wheelSize) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.tollClass = tollClass;
-        this.motorization = motorization;
-        this.fuel = fuel;
-        this.mass = mass;
-        this.load = load;
-        this.drag = drag;
-        this.frontalArea = frontalArea;
-        this.rrc = rrc;
-        this.wheelSize = wheelSize;
-
-    }
-
-    /**
      * Constructor that only recives the vehicle name
      *
      * @param name name of the vehicle being created
@@ -130,7 +97,7 @@ public class Vehicle implements Serializable {
 
     /**
      * Set of the description variable to the vehicle
-     * 
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -220,7 +187,7 @@ public class Vehicle implements Serializable {
 
     /**
      * Set of the fuel variable to the vehicle
-     * 
+     *
      * @param fuel the fuel to set
      */
     public void setFuel(String fuel) {
@@ -338,7 +305,8 @@ public class Vehicle implements Serializable {
     }
 
     /**
-     * @return the velocity_limit_list velocity limit list type object of the vehicle
+     * @return the velocity_limit_list velocity limit list type object of the
+     * vehicle
      */
     public VelocityLimitList getVelocityLimitList() {
         return velocityLimitList;
@@ -346,6 +314,7 @@ public class Vehicle implements Serializable {
 
     /**
      * Hashcode method of the vehicle
+     *
      * @return the integer representation of the object Vehicle
      */
     @Override
@@ -415,14 +384,13 @@ public class Vehicle implements Serializable {
         if (!Objects.equals(this.mass, other.mass)) {
             return false;
         }
-        if (!Objects.equals(this.load, other.load)) {
-            return false;
-        }
-        return true;
+
+        return Objects.equals(this.load, other.load);
     }
 
     /**
      * To string method of the vehicle class
+     *
      * @return the String representation of the Vehicle
      */
     @Override

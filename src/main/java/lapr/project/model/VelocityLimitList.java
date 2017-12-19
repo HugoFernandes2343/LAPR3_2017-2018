@@ -17,20 +17,20 @@ public class VelocityLimitList implements Serializable{
 
     private static final long serialVersionUID = 203L;
     
-    private Set<VelocityLimit> velocityLimitList;
+    private Set<VelocityLimit> ListVelocityLimits;
 
     /**
      * Empty constructor
      */
     public VelocityLimitList() {
-        this.velocityLimitList = new HashSet<>();
+        this.ListVelocityLimits = new HashSet<>();
     }
 
     /**
      * @return the velocity_limit_list 
      */
     public Set<VelocityLimit> getVelocityLimitList() {
-        return velocityLimitList;
+        return ListVelocityLimits;
     }
     
     /**
@@ -38,8 +38,8 @@ public class VelocityLimitList implements Serializable{
      * @param limit - VelocityLimit
      */
     public void addVelocityLimit(VelocityLimit limit){
-        if(!this.velocityLimitList.contains(limit)){
-            this.velocityLimitList.add(limit);
+        if(!this.ListVelocityLimits.contains(limit)){
+            this.ListVelocityLimits.add(limit);
         }
     }
 

@@ -20,6 +20,10 @@ import org.junit.BeforeClass;
 public class VehicleTest {
 
     private final Vehicle instance;
+    private final Vehicle instance2;
+    private final Vehicle instance3;
+    private final Energy e;
+    private final VelocityLimitList vl;
 
     /**
      * String name, String description, String type, int tollClass, String
@@ -27,9 +31,11 @@ public class VehicleTest {
      * frontal_area, double rrc, double wheelSize
      */
     public VehicleTest() {
-        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
-        VelocityLimitList velocity_limit_list = new VelocityLimitList();
-        instance = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, velocity_limit_list);
+        this.e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
+        this.vl = new VelocityLimitList();
+        instance = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        instance2 = new Vehicle("subaru");
+        instance3 = new Vehicle();
     }
 
     @BeforeClass
@@ -428,7 +434,7 @@ public class VehicleTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        Object obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertTrue("The vehicles should be equal", instance.equals(obj));
 
         obj = null;
@@ -437,40 +443,40 @@ public class VehicleTest {
         obj = "test";
         assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda1", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda1", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car1", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car1", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car2", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car2", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 2, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 2, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Eletric", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Eletric", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gasoline", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gasoline", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "301.0", "4.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "301.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "5.0", 12.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "5.0", 12.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 11.0, 10, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 11.0, 10, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 12, 2.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 12, 2.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 3.50, 0.30);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 3.50, 0.30,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
 
-        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.50);
+        obj = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.50,e,vl);
         assertEquals("Should be false if they have not the same min", false, instance.equals(obj));
     }
 
@@ -480,12 +486,12 @@ public class VehicleTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Vehicle instance2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        Vehicle instance2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         int expResult = instance2.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
 
-        Vehicle obj1 = new Vehicle("mazda22", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
+        Vehicle obj1 = new Vehicle("mazda22", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
         expResult = obj1.hashCode();
         assertNotEquals(expResult, result);
     }

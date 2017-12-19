@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import org.junit.After;
@@ -71,7 +72,9 @@ public class VehicleListTest {
     @Test
     public void testAddVehicle() {
         System.out.println("addVehicle");
-        Vehicle car = new Vehicle("mazda44", "c7ar", "ca2r", 7, "Colmbustion", "Gyas", "300.3", "4.5", 18.0, 17, 2.40, 0.50);
+        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
+        VelocityLimitList vl = new VelocityLimitList();
+        Vehicle car = new Vehicle("mazda44", "c7ar", "ca2r", 7, "Colmbustion", "Gyas", "300.3", "4.5", 18.0, 17, 2.40, 0.50, e, vl);
         VehicleList instance = new VehicleList();
         instance.addVehicle(car);
         assertTrue("The vehicle shoudl exist in the list", instance.getVehicleList().contains(car));
@@ -84,12 +87,14 @@ public class VehicleListTest {
     @Test
     public void testVerifyAndAddVehicles() {
         System.out.println("VerifyAndAddVehicles");
-        Vehicle car1 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
-        Vehicle car2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30); // should not be added cause its equal to car1
-        Vehicle car3 = new Vehicle("mazda", "car2", "car2", 2, "Eletric", "Gasoline", "305.0", "4.3", 12.2, 11, 2.55, 0.36); // should have name mazda1 when added
-        Vehicle car4 = new Vehicle("Subaru", "car3", "car3", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30);
-        Vehicle car5 = new Vehicle("Subaru1", "car4", "car4", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20);
-        Vehicle car6 = new Vehicle("Subaru", "car5", "car5", 3, "hybrid", "Biofuel", "303.0", "3.0", 12.3, 13, 2.53, 0.33); // should have name subaru2 when added
+        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
+        VelocityLimitList vl = new VelocityLimitList();
+        Vehicle car1 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        Vehicle car2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl); // should not be added cause its equal to car1
+        Vehicle car3 = new Vehicle("mazda", "car2", "car2", 2, "Eletric", "Gasoline", "305.0", "4.3", 12.2, 11, 2.55, 0.36, e, vl); // should have name mazda1 when added
+        Vehicle car4 = new Vehicle("Subaru", "car3", "car3", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        Vehicle car5 = new Vehicle("Subaru1", "car4", "car4", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20, e, vl);
+        Vehicle car6 = new Vehicle("Subaru", "car5", "car5", 3, "hybrid", "Biofuel", "303.0", "3.0", 12.3, 13, 2.53, 0.33, e, vl); // should have name subaru2 when added
 
         Set<Vehicle> newVehicles = new HashSet<>();
 
@@ -100,7 +105,7 @@ public class VehicleListTest {
         newVehicles.add(car5);
         newVehicles.add(car6);
         VehicleList instance = new VehicleList();
-        assertTrue("Should have added five new vehivles",instance.verifyAndAddVehicles(newVehicles)==5);
+        assertTrue("Should have added five new vehivles", instance.verifyAndAddVehicles(newVehicles) == 5);
 
         List<String> names = instance.getAllVehicleNames();
 

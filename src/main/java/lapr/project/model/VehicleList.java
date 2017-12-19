@@ -20,24 +20,24 @@ public class VehicleList implements Serializable {
 
     private static final long serialVersionUID = 205L;
 
-    private Set<Vehicle> vehicleList;
+    private Set<Vehicle> listVehicles;
 
     public VehicleList() {
-        this.vehicleList = new HashSet<>();
+        this.listVehicles = new HashSet<>();
     }
 
     /**
      * @return the vehicle_list
      */
     public Set<Vehicle> getVehicleList() {
-        return vehicleList;
+        return listVehicles;
     }
 
     /**
      * @param vehicleList the vehicle_list to set
      */
     public void setVehicleList(Set<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
+        this.listVehicles = vehicleList;
     }
 
     /**
@@ -46,8 +46,8 @@ public class VehicleList implements Serializable {
      * @param car
      */
     public void addVehicle(Vehicle car) {
-        if (!this.vehicleList.contains(car)) {
-            this.vehicleList.add(car);
+        if (!this.listVehicles.contains(car)) {
+            this.listVehicles.add(car);
         }
     }
 
@@ -57,7 +57,7 @@ public class VehicleList implements Serializable {
      * @return List of strings with the names of the vehicles
      */
     public List<String> getAllVehicleNames() {
-        Iterator<Vehicle> itr = vehicleList.iterator();
+        Iterator<Vehicle> itr = listVehicles.iterator();
         ArrayList<String> names = new ArrayList<>();
         while (itr.hasNext()) {
             names.add(itr.next().getName());
@@ -75,7 +75,7 @@ public class VehicleList implements Serializable {
     public int verifyAndAddVehicles(Set<Vehicle> newVehicles) {
         int cont = 0;
         for (Vehicle vIn : newVehicles) {
-            if (!vehicleList.contains(vIn)) {
+            if (!listVehicles.contains(vIn)) {
                 int i = incrementName(vIn.getName(), 0, getAllVehicleNames());
                 if (i > 0) {
                     vIn.setName(vIn.getName() + i);
@@ -87,11 +87,13 @@ public class VehicleList implements Serializable {
         return cont;
     }
 
-    private int incrementName(String name, int cont, List<String> names) {
-        if (names.contains(name)) {
-            cont = cont + 1;
-            name = name + cont;
-            return incrementName(name, cont, names);
+    private static int incrementName(String name, int cont, List<String> names) {
+        int count = cont;
+        String changedName = name;
+        if (names.contains(changedName)) {
+            count = count + 1;
+            changedName = changedName + count;
+            return incrementName(changedName, count, names);
         }
         return cont;
     }

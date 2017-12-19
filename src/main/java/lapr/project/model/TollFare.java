@@ -8,21 +8,21 @@ import java.util.List;
 public class TollFare implements Serializable{
     private static final long serialVersionUID = 101L;
     
-    private List<Class> tollFare = new LinkedList<>();
+    private List<Class> listClasses = new LinkedList<>();
     
     /**
      * Complete Constructor
-     * @param tollFare - tollFare Class Linked List
+     * @param classes - listClasses Classes Linked List
      */
-    public TollFare(List<Class> tollFare) {
-        this.tollFare = tollFare;
+    public TollFare(List<Class> classes) {
+        this.listClasses = classes;
     }
     
     /**
      * Empty constructor
      */
     public TollFare() {
-        this.tollFare = new LinkedList<>();
+        this.listClasses = new LinkedList<>();
     }
     
     /**
@@ -32,22 +32,22 @@ public class TollFare implements Serializable{
      */
     public void addClass(String id, Double price){
         Class vehicle_class = new Class(id,price);
-        this.tollFare.add(vehicle_class);
+        this.listClasses.add(vehicle_class);
     }
     
     /**
-     * @return toll_fare LinkedList 
+     * @return listClasses of the tollFare 
      */
     public List<Class> getTollFare() {
-        return tollFare;
+        return listClasses;
     }
     
     /**
      * Setter for the
-     * @param tollFare toll_fare LinkedList
+     * @param classes listClasses of the tollFare 
      */
-    public void setTollFare(List<Class> tollFare) {
-        this.tollFare = tollFare;
+    public void setTollFare(List<Class> classes) {
+        this.listClasses = classes;
     }
     
     

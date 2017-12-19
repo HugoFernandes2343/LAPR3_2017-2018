@@ -20,7 +20,6 @@ import lapr.project.utils.FileXML;
 public class AddVehiclesController {
 
     private TravelByPhysics base;
-    private ProjectList projects;
     private Project project;
 
     /**
@@ -40,7 +39,7 @@ public class AddVehiclesController {
      * description in the second
      */
     public boolean getActiveProjectData() {
-        this.projects = base.getProjectList();
+        ProjectList projects = base.getProjectList();
         this.project = projects.getActualProject();
         return project != null;
     }

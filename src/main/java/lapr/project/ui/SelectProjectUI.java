@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -51,6 +53,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
             List<String> eventsList = sp.getProjects();
             projectList.setListData(eventsList.toArray(new String[0]));
         } catch (NullPointerException ex) {
+            Logger.getLogger(SelectProjectUI.class.getName()).log(Level.INFO, ex.getMessage());
             errMess(NO_PROJ, MESS_ERR);
             removeAll();
             add(new MainPanel());
@@ -147,6 +150,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
                         errMess(ERR_NO_PROJECT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
+                     Logger.getLogger(SelectProjectUI.class.getName()).log(Level.INFO, ex.getMessage());
                     errMess(ERR_PROJ, MESS_ERR);
                 }
             }

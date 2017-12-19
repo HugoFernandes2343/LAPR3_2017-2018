@@ -53,7 +53,8 @@ public class ThrottleTest {
         String result = instance.getId();
         assertEquals(expResult, result);
     }
-
+//david.santos.maia@gmail.com
+    //pass: ficaproano
     /**
      * Test of getRegimeList method, of class Throttle.
      */

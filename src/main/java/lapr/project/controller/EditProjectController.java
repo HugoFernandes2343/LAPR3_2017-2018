@@ -53,7 +53,7 @@ public class EditProjectController {
      * @param description , description inserted by the user to substitute in the project object
      */
     public boolean alterProject(String name,String description){
-        if(name.equalsIgnoreCase("")||description.equalsIgnoreCase("")){
+        if("".equalsIgnoreCase(name)||"".equalsIgnoreCase(description)){
             return false;
         }
         project.setName(name);
