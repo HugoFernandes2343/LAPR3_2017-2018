@@ -56,11 +56,16 @@ public class CopyProjectController {
      * @return A copy name that is not in use
      */
     private String checkName(String name, int i) {
+        int x = i;
+        StringBuilder bld = new StringBuilder();
         for (String n : travel.getProjectList().getAllNames()) {
             if(n.equals(name)){
-                i++;
-                name+=i;
-                return checkName(name, i);
+                x++;
+                String number = Integer.toString(x);
+                bld.append(name);
+                bld.append(number);
+                String nameChanged = bld.toString();
+                return checkName(nameChanged, x);
             }
         }
         return name;

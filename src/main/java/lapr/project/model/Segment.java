@@ -18,7 +18,7 @@ public class Segment implements Serializable {
 
     private String id;
     private double init_height;
-    private double final_height;//IMPORTANT POSSIBLE MISTAKE 
+    private double final_height;
     private String length;
     private double wind_direction;
     private String wind_speed;
@@ -35,17 +35,17 @@ public class Segment implements Serializable {
      * Full Constructor of segment objects
      * @param segmentIndex Index of a segment object
      * @param initialHeight initial height of a segment
-     * @param slope angle of the slope ( ASK TEAM IF ITS SUPOSED TO E FINAL_HEIGHT)
+     * @param finalHeight angle of the slope 
      * @param length length of the segment
      * @param windDirection direction of the wind ( discuss with team)
      * @param windSpeed speed of the wind that is blowing in said segment
      * @param maxVelocity maximum velocity allowed in the segment
      * @param minVelocity minimum velocity allowed in the segment
      */
-    public Segment(String segmentIndex, double initialHeight, double slope, String length, double windDirection, String windSpeed, String maxVelocity, String minVelocity) {
+    public Segment(String segmentIndex, double initialHeight, double finalHeight, String length, double windDirection, String windSpeed, String maxVelocity, String minVelocity) {
         this.id = segmentIndex;
         this.init_height = initialHeight;
-        this.final_height = slope;
+        this.final_height = finalHeight;
         this.length = length;
         this.wind_direction = windDirection;
         this.wind_speed = windSpeed;

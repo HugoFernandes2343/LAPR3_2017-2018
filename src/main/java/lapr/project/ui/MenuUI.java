@@ -22,8 +22,8 @@ import lapr.project.model.TravelByPhysics;
 public class MenuUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private JMenuBar menuBarMain;
-    private JPanel mPanel;
+    private static JMenuBar menuBarMain;
+    private static JPanel mPanel;
 
     /**
      * Menu buttons
@@ -37,7 +37,7 @@ public class MenuUI extends JFrame {
     private static JMenuItem saveDatabase;
     private static JMenuItem saveHTML;
 
-    TravelByPhysics tp;
+   private static TravelByPhysics tp;
 
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 485;
@@ -49,7 +49,7 @@ public class MenuUI extends JFrame {
      */
     public MenuUI(TravelByPhysics tp) {
         setLookAndFeel();
-        this.tp = tp;
+        setTravelByPhysics(tp);
         JMenuBar barraMenu = criarMenuBar();
         setJMenuBar(barraMenu);
         mPanel = new MainPanel();
@@ -70,7 +70,9 @@ public class MenuUI extends JFrame {
         setResizable(true);
         setVisible(true);
     }
-
+    private void setTravelByPhysics(TravelByPhysics travel){
+        tp = travel;
+    }
     /**
      * creates the menu bar
      * @return the menu bar
@@ -137,7 +139,7 @@ public class MenuUI extends JFrame {
      * creates the content of the details menu 
      * @return the created menu
      */
-    private JMenu createDetailsMenu() {
+    private static JMenu createDetailsMenu() {
         JMenu m = new JMenu("Details");
 
         copy = new JMenuItem("P03: Copy Project");
