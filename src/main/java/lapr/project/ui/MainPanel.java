@@ -52,6 +52,7 @@ public class MainPanel extends JPanel {
         
         JTextArea descTxt = new JTextArea(pr.getDescription());
         descTxt.setLineWrap(true);
+        descTxt.setWrapStyleWord(true);
         descTxt.setEditable(false);
 
         p.add(pName);

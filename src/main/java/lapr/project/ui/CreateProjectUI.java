@@ -103,6 +103,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
 
         projectDescription = new JTextArea(7, 20);
         projectDescription.setLineWrap(true);
+        projectDescription.setWrapStyleWord(true);
         projectDescription.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 40));
         page1.add(new JScrollPane(projectDescription));
 
@@ -174,7 +175,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * @param text the text to be displayed
      * @return JPanel with text
      */
-    private JPanel createHeader(String text) {
+    private static JPanel createHeader(String text) {
         JPanel p = new JPanel();
         p.add(new JLabel(text));
         return p;
@@ -329,7 +330,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      *
      * @return true if it is, false otherwise.
      */
-    private boolean validateFile(String path) {
+    private static boolean validateFile(String path) {
         return path.endsWith(".xml");
     }
 

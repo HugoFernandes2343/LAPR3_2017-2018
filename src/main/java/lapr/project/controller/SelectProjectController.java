@@ -25,7 +25,7 @@ public class SelectProjectController {
      * @return Returns all the names of all the projects in the list
      */
     public List<String> getProjects(){
-        List<String> allNames = new ArrayList<>();
+        List<String> allNames;
         this.projects =  base.getProjectList();
         allNames = projects.getAllNames();
         return allNames;
