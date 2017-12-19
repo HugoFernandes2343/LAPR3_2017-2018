@@ -38,14 +38,14 @@ public class VelocityLimitTest {
     }
 
     /**
-     * Test of getSegment_type method, of class VelocityLimit.
+     * Test of getSegmentType method, of class VelocityLimit.
      */
     @Test
     public void testGetSegment_type() {
         System.out.println("getSegment_type");
         VelocityLimit instance = new VelocityLimit("coisa", 250);
         String expResult = "coisa";
-        String result = instance.getSegment_type();
+        String result = instance.getSegmentType();
         assertEquals(expResult, result);
     }
 

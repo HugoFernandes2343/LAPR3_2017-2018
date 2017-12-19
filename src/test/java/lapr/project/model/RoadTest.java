@@ -146,25 +146,25 @@ public class RoadTest {
     }
 
     /**
-     * Test of getToll_fare method, of class Road.
+     * Test of getTollFare method, of class Road.
      */
     @Test
     public void testGetToll_fare() {
         System.out.println("getToll_fare");
         TollFare expResult = null;
-        TollFare result = instance.getToll_fare();
+        TollFare result = instance.getTollFare();
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of setToll_fare method, of class Road.
+     * Test of setTollFare method, of class Road.
      */
     @Test
     public void testSetToll_fare() {
         System.out.println("setToll_fare");
         TollFare toll_fare = null;
-        instance.setToll_fare(toll_fare);
-        assertEquals(toll_fare, instance.getToll_fare());
+        instance.setTollFare(toll_fare);
+        assertEquals(toll_fare, instance.getTollFare());
     }
 
 }

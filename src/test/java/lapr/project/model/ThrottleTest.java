@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,7 +55,7 @@ public class ThrottleTest {
     }
 
     /**
-     * Test of getRegime_list method, of class Throttle.
+     * Test of getRegimeList method, of class Throttle.
      */
     @Test
     public void testGetRegime_list() {
@@ -64,7 +65,7 @@ public class ThrottleTest {
         listTest.add(test);
         Throttle instance = new Throttle("test_id", listTest);
         LinkedList<Regime> expResult = listTest;
-        LinkedList<Regime> result = instance.getRegime_list();
+        List<Regime> result = instance.getRegimeList();
         assertEquals(expResult, result);
     }
 

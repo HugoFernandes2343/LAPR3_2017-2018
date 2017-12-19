@@ -80,7 +80,7 @@ public class ImportFilesUI extends JFrame implements MessagesAndUtils {
             public void actionPerformed(ActionEvent ae) {
                 vehiclesC.getActiveProjectData();
                 chooser.showOpenDialog(rootPane);
-                if (vehiclesC.AddVehicles(chooser.getSelectedFile().getAbsolutePath())) {
+                if (vehiclesC.addVehicles(chooser.getSelectedFile().getAbsolutePath())) {
                     sucMess(IMPORT_SUC, MESS_SUCC);
                     dispose();
                 } else {

@@ -168,7 +168,7 @@ public class FileXML implements Serializable {
                     nodes = e.getElementsByTagName("frontal_area");
                     for (int j = 0; j < nodes.getLength(); j++) {
 
-                        car.setFrontal_area(Double.valueOf(nodes.item(j).getTextContent()));
+                        car.setFrontalArea(Double.valueOf(nodes.item(j).getTextContent()));
                     }
 
                     nodes = e.getElementsByTagName("rrc");
@@ -197,7 +197,7 @@ public class FileXML implements Serializable {
                                     NodeList nodes_limits = elem.getElementsByTagName("segment_type");
                                     for (int l = 0; l < nodes_limits.getLength(); l++) {
                                             
-                                        limit.setSegment_type(nodes_limits.item(l).getTextContent());
+                                        limit.setSegmentType(nodes_limits.item(l).getTextContent());
                                     }
 
                                     nodes_limits = elem.getElementsByTagName("limit");
@@ -205,7 +205,7 @@ public class FileXML implements Serializable {
                                         limit.setLimit(Integer.valueOf(nodes_limits.item(l).getTextContent()));
                                     }
 
-                                    car.getVelocity_limit_list().addVelocityLimit(limit);
+                                    car.getVelocityLimitList().addVelocityLimit(limit);
                                 }
                             }
                         }
@@ -286,12 +286,12 @@ public class FileXML implements Serializable {
 
                                                     regime_list = regime_elem.getElementsByTagName("rpm_low");
                                                     for (int m = 0; m < regime_list.getLength(); m++) {
-                                                        regime.setRpm_low(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                        regime.setRpmLow(Integer.valueOf(regime_list.item(m).getTextContent()));
                                                     }
 
                                                     regime_list = regime_elem.getElementsByTagName("rpm_high");
                                                     for (int m = 0; m < regime_list.getLength(); m++) {
-                                                        regime.setRpm_high(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                        regime.setRpmHigh(Integer.valueOf(regime_list.item(m).getTextContent()));
                                                     }
 
                                                     regime_list = regime_elem.getElementsByTagName("SFC");
@@ -299,7 +299,7 @@ public class FileXML implements Serializable {
                                                         regime.setSFC(Double.valueOf(regime_list.item(m).getTextContent()));
                                                     }
 
-                                                    throttle.getRegime_list().add(regime);
+                                                    throttle.getRegimeList().add(regime);
                                                 }
                                             }
 
@@ -402,7 +402,7 @@ public class FileXML implements Serializable {
                             
                                     toll_fare.addClass(vehicle_class.getAttribute("id"), Double.valueOf(toll_list.item(k).getTextContent()));
                                 }
-                                road.setToll_fare(toll_fare);//road toll_fare
+                                road.setTollFare(toll_fare);//road toll_fare
                             }
                         }
 
@@ -430,7 +430,7 @@ public class FileXML implements Serializable {
                         NodeList list = e.getElementsByTagName("road_id");
                         for (int j = 0; j < list.getLength(); j++) {
                    
-                            section.setRoad_id(list.item(j).getTextContent());
+                            section.setRoadId(list.item(j).getTextContent());
                         }
 
                         list = e.getElementsByTagName("direction");
@@ -455,12 +455,12 @@ public class FileXML implements Serializable {
                                         //init_height
                                         NodeList seg = e.getElementsByTagName("init_height");
                                         
-                                        road_segment.setInit_height(Double.valueOf(seg.item(k).getTextContent()));
+                                        road_segment.setInitHeight(Double.valueOf(seg.item(k).getTextContent()));
 
                                         //final_height
                                         seg = e.getElementsByTagName("final_height");
                                         
-                                        road_segment.setFinal_height(Double.valueOf(seg.item(k).getTextContent()));
+                                        road_segment.setFinalHeight(Double.valueOf(seg.item(k).getTextContent()));
 
                                         //length
                                         seg = e.getElementsByTagName("length");
@@ -469,21 +469,21 @@ public class FileXML implements Serializable {
                                         //max_velocity
                                         seg = e.getElementsByTagName("max_velocity");
                                         
-                                        road_segment.setMax_velocity(seg.item(k).getTextContent());
+                                        road_segment.setMaxVelocity(seg.item(k).getTextContent());
 
                                         //min_velocity
                                         seg = e.getElementsByTagName("min_velocity");
                                         
-                                        road_segment.setMin_velocity(seg.item(k).getTextContent());
+                                        road_segment.setMinVelocity(seg.item(k).getTextContent());
 
                                         //wind_direction
                                         seg = e.getElementsByTagName("wind_direction");
                                         
-                                        road_segment.setWind_direction(Double.valueOf(seg.item(k).getTextContent()));
+                                        road_segment.setWindDirection(Double.valueOf(seg.item(k).getTextContent()));
                                         //wind_speed
                                         seg = e.getElementsByTagName("wind_speed");
                                         
-                                        road_segment.setWind_speed(seg.item(k).getTextContent());
+                                        road_segment.setWindSpeed(seg.item(k).getTextContent());
 
                                         section.addSegment(road_segment);
                                     }

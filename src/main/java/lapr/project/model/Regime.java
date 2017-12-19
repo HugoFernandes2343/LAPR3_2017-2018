@@ -18,63 +18,89 @@ public class Regime implements Serializable {
     }
 
     /**
+     * Full Constructor for the regime object
      *
-     * @param torque
-     * @param rpm_low
-     * @param rpm_high
-     * @param SFC
+     * @param torque value of torque to create the
+     * @param rpmLow value of the low rpms
+     * @param rpmHigh value of the high rpms
+     * @param SFC value of the SFC
      */
-    public Regime(int torque, int rpm_low, int rpm_high, Double SFC) {
+    public Regime(int torque, int rpmLow, int rpmHigh, Double SFC) {
         this.torque = torque;
-        this.rpm_low = rpm_low;
-        this.rpm_high = rpm_high;
+        this.rpm_low = rpmLow;
+        this.rpm_high = rpmHigh;
         this.SFC = SFC;
     }
 
     /**
-     * @return the torque
+     * @return the torque torque of the regime
      */
     public int getTorque() {
         return torque;
     }
 
     /**
-     * @return the rpm_low
+     * @return the rpm_low low rpm value of the regime
      */
-    public int getRpm_low() {
+    public int getRpmLow() {
         return rpm_low;
     }
 
     /**
-     * @return the rpm_high
+     * @return the rpm_high high rpm value of the regime
      */
-    public int getRpm_high() {
+    public int getRpmHigh() {
         return rpm_high;
     }
 
     /**
-     * @return the SFC
+     * @return the SFC SFC value of the regime
      */
     public Double getSFC() {
         return SFC;
     }
 
+    /**
+     * Set method for the torque variable
+     *
+     * @param torque value to be set as torque
+     */
     public void setTorque(int torque) {
         this.torque = torque;
     }
 
-    public void setRpm_low(int rpm_low) {
-        this.rpm_low = rpm_low;
+    /**
+     * Set method for the rpm low variable
+     *
+     * @param rpmLow value to be set as low rpm
+     */
+    public void setRpmLow(int rpmLow) {
+        this.rpm_low = rpmLow;
     }
 
-    public void setRpm_high(int rpm_high) {
-        this.rpm_high = rpm_high;
+    /**
+     * Set method for the rpm high variable
+     *
+     * @param rpmHigh value to be set as high rpm
+     */
+    public void setRpmHigh(int rpmHigh) {
+        this.rpm_high = rpmHigh;
     }
 
+    /**
+     * Set method for the Sfc variable
+     *
+     * @param SFC value to be set as sfc
+     */
     public void setSFC(Double SFC) {
         this.SFC = SFC;
     }
 
+    /**
+     * HashCode method for the regime type objects
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -85,6 +111,7 @@ public class Regime implements Serializable {
     }
 
     /**
+     * Equals method for the regime type objects
      *
      * @param obj the object to compare to the regime
      * @return the result of the comparisons made. True if the objects are the

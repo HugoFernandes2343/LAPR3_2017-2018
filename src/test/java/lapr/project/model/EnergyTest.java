@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -91,7 +92,7 @@ public class EnergyTest {
         expResult.add(new Gear("1", 01));
         expResult.add(new Gear("2", 02));
         expResult.add(new Gear("3", 03));
-        LinkedList<Gear> result = instance.getGearList();
+        List<Gear> result = instance.getGearList();
         assertEquals(expResult, result);
 
     }
@@ -110,7 +111,7 @@ public class EnergyTest {
         expResult.add(new Throttle("25", regime_list));
         expResult.add(new Throttle("50", regime_list));
         expResult.add(new Throttle("100", regime_list));
-        LinkedList<Throttle> result = instance.getThrottleList();
+        List<Throttle> result = instance.getThrottleList();
         assertEquals(expResult, result);
     }
 

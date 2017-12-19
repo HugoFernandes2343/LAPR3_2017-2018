@@ -31,12 +31,35 @@ public class Vehicle implements Serializable {
     private Energy energy;
     private VelocityLimitList velocity_limit_list;
 
+    /**
+     * Empty constructor for the vehicle object
+     *
+     */
     public Vehicle() {
         this.velocity_limit_list = new VelocityLimitList();
 
     }
 
-    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize, Energy energy, VelocityLimitList velocity_limit_list) {
+    /**
+     * Complete constructor of the vehicle type object
+     *
+     * @param name name to be given to the vehicle
+     * @param description description given to the vehicle
+     * @param type type of vehicle
+     * @param tollClass class of the vehicle
+     * @param motorization type of motorization of the vehicle
+     * @param fuel type of fuel used by the vehicle
+     * @param mass total mass of the vehicle
+     * @param load load capacity of the vehicle
+     * @param drag drag coeficient of the vehicle
+     * @param frontalArea frontal area of the vehicle
+     * @param rrc rrc of the vehicle
+     * @param wheelSize wheelSize of the vehicle
+     * @param energy energy object to be given to the vehicle
+     * @param velocityLimitList velocity limit list object to be given to the
+     * vehicle
+     */
+    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontalArea, double rrc, double wheelSize, Energy energy, VelocityLimitList velocityLimitList) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -46,15 +69,32 @@ public class Vehicle implements Serializable {
         this.mass = mass;
         this.load = load;
         this.drag = drag;
-        this.frontal_area = frontal_area;
+        this.frontal_area = frontalArea;
         this.rrc = rrc;
         this.wheelSize = wheelSize;
         this.energy = energy;
-        this.velocity_limit_list = velocity_limit_list;
+        this.velocity_limit_list = velocityLimitList;
 
     }
 
-    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontal_area, double rrc, double wheelSize) {
+    /**
+     * Constructor of vehicle that lacks the energy and velocity limit list
+     * objects
+     *
+     * @param name name to be given to the vehicle
+     * @param description description given to the vehicle
+     * @param type type of vehicle
+     * @param tollClass class of the vehicle
+     * @param motorization type of motorization of the vehicle
+     * @param fuel type of fuel used by the vehicle
+     * @param mass total mass of the vehicle
+     * @param load load capacity of the vehicle
+     * @param drag drag coeficient of the vehicle
+     * @param frontalArea frontal area of the vehicle
+     * @param rrc rrc of the vehicle
+     * @param wheelSize wheelSize of the vehicle
+     */
+    public Vehicle(String name, String description, String type, int tollClass, String motorization, String fuel, String mass, String load, double drag, double frontalArea, double rrc, double wheelSize) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -64,135 +104,33 @@ public class Vehicle implements Serializable {
         this.mass = mass;
         this.load = load;
         this.drag = drag;
-        this.frontal_area = frontal_area;
+        this.frontal_area = frontalArea;
         this.rrc = rrc;
         this.wheelSize = wheelSize;
 
     }
 
+    /**
+     * Constructor that only recives the vehicle name
+     *
+     * @param name name of the vehicle being created
+     */
     public Vehicle(String name) {
         this.name = name;
     }
 
+    /**
+     * Set of the name variable to the vehicle
+     *
+     * @param name name to be set onto the vehicle
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setTollClass(int tollClass) {
-        this.tollClass = tollClass;
-    }
-
-    public void setMotorization(String motorization) {
-        this.motorization = motorization;
-    }
-
-    public void setMass(String mass) {
-        this.mass = mass;
-    }
-
-    public void setLoad(String load) {
-        this.load = load;
-    }
-
-    public void setDrag(double drag) {
-        this.drag = drag;
-    }
-
-    public void setFrontal_area(double frontal_area) {
-        this.frontal_area = frontal_area;
-    }
-
-    public void setRrc(double rrc) {
-        this.rrc = rrc;
-    }
-
-    public void setWheelSize(double wheelSize) {
-        this.wheelSize = wheelSize;
-    }
-
-    public void setEnergy(Energy energy) {
-        this.energy = energy;
-    }
-
-    public void setVelocity_limit_list(VelocityLimitList velocity_limit_list) {
-        this.velocity_limit_list = velocity_limit_list;
-    }
-
     /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @return the tollClass
-     */
-    public int getTollClass() {
-        return tollClass;
-    }
-
-    /**
-     * @return the motorization
-     */
-    public String getMotorization() {
-        return motorization;
-    }
-
-    /**
-     * @return the mass
-     */
-    public String getMass() {
-        return mass;
-    }
-
-    /**
-     * @return the load
-     */
-    public String getLoad() {
-        return load;
-    }
-
-    /**
-     * @return the drag
-     */
-    public double getDrag() {
-        return drag;
-    }
-
-    /**
-     * @return the rrc
-     */
-    public double getRrc() {
-        return rrc;
-    }
-
-    /**
-     * @return the wheelSize
-     */
-    public double getWheelSize() {
-        return wheelSize;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
+     * Set of the description variable to the vehicle
+     * 
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -200,13 +138,89 @@ public class Vehicle implements Serializable {
     }
 
     /**
-     * @return the fuel
+     * Set of the type variable to the vehicle
+     *
+     * @param type type to be given to vehicle
      */
-    public String getFuel() {
-        return fuel;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
+     * Set of the tollClass variable to the vehicle
+     *
+     * @param tollClass tollClass to be given to the vehicle
+     */
+    public void setTollClass(int tollClass) {
+        this.tollClass = tollClass;
+    }
+
+    /**
+     * Set of the motorization variable to the vehicle
+     *
+     * @param motorization motorization to be given to the vehicle
+     */
+    public void setMotorization(String motorization) {
+        this.motorization = motorization;
+    }
+
+    /**
+     * Set of the mass variable to the vehicle
+     *
+     * @param mass mass to be given to the vehicle
+     */
+    public void setMass(String mass) {
+        this.mass = mass;
+    }
+
+    /**
+     * Set of the load variable to the vehicle
+     *
+     * @param load load to be given to the vehicle
+     */
+    public void setLoad(String load) {
+        this.load = load;
+    }
+
+    /**
+     * Set of the drag variable to the vehicle
+     *
+     * @param drag drag to be given to the vehicle
+     */
+    public void setDrag(double drag) {
+        this.drag = drag;
+    }
+
+    /**
+     * Set of the frontal area variable to the vehicle
+     *
+     * @param frontalArea frontal area to be given to the vehicle
+     */
+    public void setFrontalArea(double frontalArea) {
+        this.frontal_area = frontalArea;
+    }
+
+    /**
+     * Set of the rrc variable to the vehicle
+     *
+     * @param rrc rrc to be given to the vehicle
+     */
+    public void setRrc(double rrc) {
+        this.rrc = rrc;
+    }
+
+    /**
+     * Set of the wheelSize variable to the vehicle
+     *
+     * @param wheelSize wheelSize to be set to the vehicle
+     */
+    public void setWheelSize(double wheelSize) {
+        this.wheelSize = wheelSize;
+    }
+
+    /**
+     * Set of the fuel variable to the vehicle
+     * 
      * @param fuel the fuel to set
      */
     public void setFuel(String fuel) {
@@ -214,28 +228,124 @@ public class Vehicle implements Serializable {
     }
 
     /**
-     * @return the frontal_area
+     * Set of the energy object to the vehicle
+     *
+     * @param energy energy object ot be given to the vehicle
      */
-    public double getFrontal_area() {
+    public void setEnergy(Energy energy) {
+        this.energy = energy;
+    }
+
+    /**
+     * Set of the velocity limit list object variable to the vehicle
+     *
+     * @param velocityLimitList object of type velocity limit list to the
+     * vehicle
+     */
+    public void setVelocityLimitList(VelocityLimitList velocityLimitList) {
+        this.velocity_limit_list = velocityLimitList;
+    }
+
+    /**
+     * @return the name name of the vehicle
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return the type type of the vehicle
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @return the tollClass tollClass of the vehicle
+     */
+    public int getTollClass() {
+        return tollClass;
+    }
+
+    /**
+     * @return the motorization motorization of the vehicle
+     */
+    public String getMotorization() {
+        return motorization;
+    }
+
+    /**
+     * @return the mass mass of the vehicle
+     */
+    public String getMass() {
+        return mass;
+    }
+
+    /**
+     * @return the load load of the vehicle
+     */
+    public String getLoad() {
+        return load;
+    }
+
+    /**
+     * @return the drag drag coeficicient of the vehicle
+     */
+    public double getDrag() {
+        return drag;
+    }
+
+    /**
+     * @return the rrc rrc of the vehicle
+     */
+    public double getRrc() {
+        return rrc;
+    }
+
+    /**
+     * @return the wheelSize wheel size of the vehicle
+     */
+    public double getWheelSize() {
+        return wheelSize;
+    }
+
+    /**
+     * @return the description description of the vehicle
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return the fuel fuel of the vehicle
+     */
+    public String getFuel() {
+        return fuel;
+    }
+
+    /**
+     * @return the frontal_area frontal area of the vehicle
+     */
+    public double getFrontalArea() {
         return frontal_area;
     }
 
     /**
-     * @return the energy
+     * @return the energy energy object of the vehicle
      */
     public Energy getEnergy() {
         return energy;
     }
 
     /**
-     * @return the velocity_limit_list
+     * @return the velocity_limit_list velocity limit list type object of the vehicle
      */
-    public VelocityLimitList getVelocity_limit_list() {
+    public VelocityLimitList getVelocityLimitList() {
         return velocity_limit_list;
     }
 
     /**
-     *
+     * Hashcode method of the vehicle
      * @return the integer representation of the object Vehicle
      */
     @Override
@@ -312,7 +422,7 @@ public class Vehicle implements Serializable {
     }
 
     /**
-     *
+     * To string method of the vehicle class
      * @return the String representation of the Vehicle
      */
     @Override

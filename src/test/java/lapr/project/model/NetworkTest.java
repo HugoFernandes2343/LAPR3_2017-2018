@@ -227,13 +227,13 @@ public class NetworkTest {
      * Test of getSection_list method, of class Network.
      */
     @Test
-    public void testGetSection_list() {
+    public void testGetSectionList() {
         System.out.println("getSection_list");
         Network instance = new Network();
 
-        assertTrue("The list should be empty", instance.getSection_list().isEmpty());
-        instance.getSection_list().add(new RoadSection());
-        assertFalse("The list shouldn't be empty now", instance.getSection_list().isEmpty());
+        assertTrue("The list should be empty", instance.getSectionList().isEmpty());
+        instance.getSectionList().add(new RoadSection());
+        assertFalse("The list shouldn't be empty now", instance.getSectionList().isEmpty());
     }
 
     /**

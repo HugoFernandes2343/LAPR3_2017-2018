@@ -66,13 +66,13 @@ public class RoadSectionTest {
     }
 
     /**
-     * Test of getRoad_id method, of class RoadSection.
+     * Test of getRoadId method, of class RoadSection.
      */
     @Test
     public void testGetRoad_id() {
         System.out.println("getRoad_id");
         String expResult = "A01";
-        String result = instance.getRoad_id();
+        String result = instance.getRoadId();
         assertEquals(expResult, result);
     }
 
@@ -88,13 +88,13 @@ public class RoadSectionTest {
     }
 
     /**
-     * Test of getSegment_list method, of class RoadSection.
+     * Test of getSegmentList method, of class RoadSection.
      */
     @Test
     public void testGetSegment_list() {
         System.out.println("getSegment_list");
         List<Segment> expResult = new LinkedList<>();
-        List<Segment> result = instance.getSegment_list();
+        List<Segment> result = instance.getSegmentList();
         assertEquals(expResult.size(), result.size());
     }
 

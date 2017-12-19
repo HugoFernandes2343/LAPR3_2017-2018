@@ -94,8 +94,8 @@ public class MenuUI extends JFrame {
      */
     private JMenu createProjectMenu() {
         
-        JMenu Project = new JMenu("Project");
-        Project.setMnemonic(KeyEvent.VK_P);
+        JMenu project = new JMenu("Project");
+        project.setMnemonic(KeyEvent.VK_P);
 
 
         JMenuItem createProject = new JMenuItem("P02: Create Project");
@@ -109,7 +109,7 @@ public class MenuUI extends JFrame {
                 mPanel.repaint();
             }
         });
-        Project.add(createProject);
+        project.add(createProject);
 
         JMenuItem selectProject = new JMenuItem("P01: Select Project.");
         selectProject.setEnabled(true);
@@ -122,15 +122,15 @@ public class MenuUI extends JFrame {
                 mPanel.repaint();
             }
         });
-        Project.add(selectProject);
+        project.add(selectProject);
 
         JMenu projectDetails = createDetailsMenu();
-        Project.add(projectDetails);
+        project.add(projectDetails);
 
         JMenu importInfo = createInfoMenu();
-        Project.add(importInfo);
+        project.add(importInfo);
 
-        return Project;
+        return project;
     }
 
     /**

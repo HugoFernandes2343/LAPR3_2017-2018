@@ -72,10 +72,10 @@ public class Project implements Serializable {
     }
 
     /**
-     * @param vehicle_list the VehicleList to set
+     * @param vehicleList the VehicleList to set
      */
-    public void setVehicleList(VehicleList vehicle_list) {
-        this.vehicle_list = vehicle_list;
+    public void setVehicleList(VehicleList vehicleList) {
+        this.vehicle_list = vehicleList;
     }
 
     /**

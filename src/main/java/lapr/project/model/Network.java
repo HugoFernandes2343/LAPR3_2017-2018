@@ -102,7 +102,7 @@ public class Network implements Serializable {
      */
     public boolean addRoadSection(RoadSection section) {
         if (!this.section_list.contains(section)) {
-            this.getSection_list().add(section);
+            this.getSectionList().add(section);
             return true;
         }
         return false;
@@ -195,7 +195,7 @@ public class Network implements Serializable {
     /**
      * @return the section_list
      */
-    public List<RoadSection> getSection_list() {
+    public List<RoadSection> getSectionList() {
         return section_list;
     }
 

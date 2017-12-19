@@ -91,20 +91,20 @@ public class SaveToHTML {
          */
         htmlBuilder.addBody().addDiv("")
                 .addHead2("------------ROADS------------").closeTag();
-        for (int i = 0; i < p.getNetwork().getSection_list().size(); i++) {
-            RoadSection temp = p.getNetwork().getSection_list().get(i);
+        for (int i = 0; i < p.getNetwork().getSectionList().size(); i++) {
+            RoadSection temp = p.getNetwork().getSectionList().get(i);
             htmlBuilder.addDiv("")
-                        .addHead3("Road "+temp.getRoad_id()).closeTag();
-            for (Segment seg : temp.getSegment_list()) {
+                        .addHead3("Road "+temp.getRoadId()).closeTag();
+            for (Segment seg : temp.getSegmentList()) {
                 htmlBuilder.addDiv("").addHead4("-----------------SEGMENTS-----------------").closeTag()
                         .addHead4("Segment "+seg.getId()).closeTag()
                         .addParagraph("--Length : " + seg.getLength()).closeTag()
-                        .addParagraph("--Wind Speed : "+seg.getWind_speed()).closeTag()
-                        .addParagraph("--Minimal Velocity : "+seg.getMin_velocity()).closeTag()
-                        .addParagraph("--Maximum Velocity : "+seg.getMax_velocity()).closeTag()
-                        .addParagraph("--Initial Height : "+seg.getInit_height()).closeTag()
-                        .addParagraph("--Final Height : "+seg.getFinal_height()).closeTag()
-                        .addParagraph("--Wind Direction : "+seg.getWind_direction()).closeTag()
+                        .addParagraph("--Wind Speed : "+seg.getWindSpeed()).closeTag()
+                        .addParagraph("--Minimal Velocity : "+seg.getMinVelocity()).closeTag()
+                        .addParagraph("--Maximum Velocity : "+seg.getMaxVelocity()).closeTag()
+                        .addParagraph("--Initial Height : "+seg.getInitHeight()).closeTag()
+                        .addParagraph("--Final Height : "+seg.getFinalHeight()).closeTag()
+                        .addParagraph("--Wind Direction : "+seg.getWindDirection()).closeTag()
                         /*Add the rest of data*/
                         .addParagraph("__________________________________").closeTag();
             }

@@ -51,7 +51,7 @@ public class AddVehiclesController {
      * @param filename name of the xml file to be read from
      * @return
      */
-    public boolean AddVehicles(String filename) {
+    public boolean addVehicles(String filename) {
         VehicleList v = FileXML.loadXmlVehicleList(filename);
         Set<Vehicle> newVehicles = v.getVehicleList();
         return this.project.getVehicleList().verifyAndAddVehicles(newVehicles) > 0;

@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.Project;
 import lapr.project.model.ProjectList;
 import lapr.project.model.TravelByPhysics;
@@ -23,8 +24,8 @@ public class SelectProjectController {
      * Method that returns a list of names to show to the user
      * @return Returns all the names of all the projects in the list
      */
-    public ArrayList<String> getProjects(){
-        ArrayList<String> allNames = new ArrayList<>();
+    public List<String> getProjects(){
+        List<String> allNames = new ArrayList<>();
         this.projects =  base.getProjectList();
         allNames = projects.getAllNames();
         return allNames;

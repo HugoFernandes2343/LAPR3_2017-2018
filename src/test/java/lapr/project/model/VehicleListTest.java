@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -101,7 +102,7 @@ public class VehicleListTest {
         VehicleList instance = new VehicleList();
         assertTrue("Should have added five new vehivles",instance.verifyAndAddVehicles(newVehicles)==5);
 
-        ArrayList<String> names = instance.getAllVehicleNames();
+        List<String> names = instance.getAllVehicleNames();
 
         assertEquals("Should have 5 vehicles", 5, names.size());
         assertTrue(names.contains("mazda"));

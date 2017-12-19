@@ -8,6 +8,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -80,8 +81,8 @@ public class ProjectList implements Serializable {
      *
      * @return List of names
      */
-    public ArrayList<String> getAllNames() {
-        ArrayList<String> allNames = new ArrayList<>();
+    public List<String> getAllNames() {
+        List<String> allNames = new ArrayList<>();
         for (Project p : project_list) {
             allNames.add(p.getName());
         }

@@ -170,13 +170,13 @@ public class VehicleTest {
     }
 
     /**
-     * Test of getFrontal_area method, of class Vehicle.
+     * Test of getFrontalArea method, of class Vehicle.
      */
     @Test
     public void testGetFrontal_area() {
         System.out.println("getFrontal_area");
         double expResult = 10;
-        double result = instance.getFrontal_area();
+        double result = instance.getFrontalArea();
         assertEquals(expResult, result, 0.0);
     }
 
@@ -226,13 +226,13 @@ public class VehicleTest {
     }
 
     /**
-     * Test of getVelocity_limit_list method, of class Vehicle.
+     * Test of getVelocityLimitList method, of class Vehicle.
      */
     @Test
     public void testGetVelocity_limit_list() {
         System.out.println("getVelocity_limit_list");
-        VelocityLimitList result = instance.getVelocity_limit_list();
-        assertTrue("The velocity limit list should be empty", result.getVelocity_limit_list().isEmpty());
+        VelocityLimitList result = instance.getVelocityLimitList();
+        assertTrue("The velocity limit list should be empty", result.getVelocityLimitList().isEmpty());
     }
 
     /**
@@ -321,15 +321,15 @@ public class VehicleTest {
     }
 
     /**
-     * Test of setFrontal_area method, of class Vehicle.
+     * Test of setFrontalArea method, of class Vehicle.
      */
     @Test
     public void testSetFrontal_area() {
         System.out.println("setFrontal_area");
         double frontal_area = 72.0;
 
-        instance.setFrontal_area(frontal_area);
-        double expResult = instance.getFrontal_area();
+        instance.setFrontalArea(frontal_area);
+        double expResult = instance.getFrontalArea();
         assertEquals(frontal_area, expResult, 0.0);
     }
 
@@ -372,15 +372,15 @@ public class VehicleTest {
     }
 
     /**
-     * Test of setVelocity_limit_list method, of class Vehicle.
+     * Test of setVelocityLimitList method, of class Vehicle.
      */
     @Test
     public void testSetVelocity_limit_list() {
         System.out.println("setVelocity_limit_list");
         VelocityLimitList velocity_limit_list = null;
 
-        instance.setVelocity_limit_list(velocity_limit_list);
-        assertTrue(instance.getVelocity_limit_list() == null);
+        instance.setVelocityLimitList(velocity_limit_list);
+        assertTrue(instance.getVelocityLimitList() == null);
     }
 
     /**

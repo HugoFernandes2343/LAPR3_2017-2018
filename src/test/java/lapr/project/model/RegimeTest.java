@@ -52,24 +52,24 @@ public class RegimeTest {
     }
 
     /**
-     * Test of getRpm_low method, of class Regime.
+     * Test of getRpmLow method, of class Regime.
      */
     @Test
     public void testGetRpm_low() {
         System.out.println("getRpm_low");
         int expResult = 30;
-        int result = instance.getRpm_low();
+        int result = instance.getRpmLow();
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of getRpm_high method, of class Regime.
+     * Test of getRpmHigh method, of class Regime.
      */
     @Test
     public void testGetRpm_high() {
         System.out.println("getRpm_high");
         int expResult = 40;
-        int result = instance.getRpm_high();
+        int result = instance.getRpmHigh();
         assertEquals(expResult, result);
     }
 

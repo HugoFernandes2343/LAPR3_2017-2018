@@ -66,27 +66,58 @@ public class ClassTest {
      * Test of equals method, of class Class.
      */
     @Test
-    public void testEqualsTrueCase() {
+    public void testEquals() {
         System.out.println("equals");
         Object obj = new Class("1");
         Class instance = new Class("1");
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of equals method, of class Class.
-     */
-    @Test
-    public void testEqualsFalseCase() {
-        System.out.println("equals");
-        Object obj = new Class("1");
-        Class instance = new Class("2");
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
+        
+        obj = new Class("2");
+        expResult = false;
+        result = instance.equals(obj);
         assertEquals(expResult, result);
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
     }
+
+    /**
+     * Test of getPrice method, of class Class.
+     */
+    @Test
+    public void testGetPrice() {
+        System.out.println("getPrice");
+        Class instance = new Class("1",2.5);
+        Double expResult = 2.5;
+        Double result = instance.getPrice();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of setId method, of class Class.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        String id = "2";
+        Class instance = new Class();
+        instance.setId(id);
+        assertEquals(id,instance.getId());
+    }
+
+    /**
+     * Test of setPrice method, of class Class.
+     */
+    @Test
+    public void testSetPrice() {
+        System.out.println("setPrice");
+        Double price = 2.5;
+        Class instance = new Class();
+        instance.setPrice(price);
+        assertEquals(price,instance.getPrice());
+    }
+
+   
 }

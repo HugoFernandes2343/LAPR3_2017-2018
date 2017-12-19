@@ -43,12 +43,12 @@ public class SaveToHTMLTest {
         Segment segTest = new Segment();
         segTest.setId("1");
         segTest.setLength("100");
-        segTest.setFinal_height(100);
-        segTest.setInit_height(20);
-        segTest.setMax_velocity("60");
-        segTest.setMin_velocity("20");
-        segTest.setWind_direction(3);
-        segTest.setWind_speed("30");
+        segTest.setFinalHeight(100);
+        segTest.setInitHeight(20);
+        segTest.setMaxVelocity("60");
+        segTest.setMinVelocity("20");
+        segTest.setWindDirection(3);
+        segTest.setWindSpeed("30");
 
         RoadSection sectionListTest = new RoadSection("BeginTest", "EndTest", "TestID", "NORTH", new LinkedList<>());
         sectionListTest.addSegment(segTest);

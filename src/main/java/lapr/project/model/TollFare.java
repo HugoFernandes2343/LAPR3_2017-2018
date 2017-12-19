@@ -3,18 +3,19 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 public class TollFare implements Serializable{
     private static final long serialVersionUID = 101L;
     
-    private LinkedList<Class> toll_fare;
+    private List<Class> toll_fare = new LinkedList<>();
     
     /**
      * Complete Constructor
-     * @param toll_fare - toll_fare Class Linked List
+     * @param tollFare - tollFare Class Linked List
      */
-    public TollFare(LinkedList<Class> toll_fare) {
-        this.toll_fare = toll_fare;
+    public TollFare(List<Class> tollFare) {
+        this.toll_fare = tollFare;
     }
     
     /**
@@ -37,16 +38,16 @@ public class TollFare implements Serializable{
     /**
      * @return toll_fare LinkedList 
      */
-    public LinkedList<Class> getToll_fare() {
+    public List<Class> getTollFare() {
         return toll_fare;
     }
     
     /**
      * Setter for the
-     * @param toll_fare toll_fare LinkedList
+     * @param tollFare toll_fare LinkedList
      */
-    public void setToll_fare(LinkedList<Class> toll_fare) {
-        this.toll_fare = toll_fare;
+    public void setTollFare(List<Class> tollFare) {
+        this.toll_fare = tollFare;
     }
     
     

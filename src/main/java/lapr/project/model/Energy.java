@@ -2,6 +2,7 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Energy implements Serializable {
 
@@ -10,25 +11,28 @@ public class Energy implements Serializable {
     private int min_rpm;
     private int max_rpm;
     private Double final_drive_ratio;
-    private LinkedList<Gear> gear_List;
-    private LinkedList<Throttle> throttle_list;
+    private List<Gear> gear_List = new LinkedList<>();
+    private List<Throttle> throttle_list = new LinkedList<>();
 
     /**
-     *
-     * @param min_rpm
-     * @param max_rpm
-     * @param final_drive_ratio
-     * @param gear_List
-     * @param throttle_list
+     * Full constructor of the energy objects
+     * @param minRpm minimum rpm value 
+     * @param maxRpm maximum rpm value 
+     * @param finalDriveRatio final drive ratio value
+     * @param gearList list of gears present on the vehicle the engery object belongs to
+     * @param throttleList list of throttle caracteristics
      */
-    public Energy(int min_rpm, int max_rpm, Double final_drive_ratio, LinkedList<Gear> gear_List, LinkedList<Throttle> throttle_list) {
-        this.min_rpm = min_rpm;
-        this.max_rpm = max_rpm;
-        this.final_drive_ratio = final_drive_ratio;
-        this.gear_List = gear_List;
-        this.throttle_list = throttle_list;
+    public Energy(int minRpm, int maxRpm, Double finalDriveRatio, List<Gear> gearList, List<Throttle> throttleList) {
+        this.min_rpm = minRpm;
+        this.max_rpm = maxRpm;
+        this.final_drive_ratio = finalDriveRatio;
+        this.gear_List = gearList;
+        this.throttle_list = throttleList;
     }
 
+    /**
+     * Empty constructor
+     */
     public Energy() {
         this.min_rpm = 0;
         this.max_rpm = 1000;
@@ -61,36 +65,36 @@ public class Energy implements Serializable {
     /**
      * @return the gear_List
      */
-    public LinkedList<Gear> getGearList() {
+    public List<Gear> getGearList() {
         return gear_List;
     }
 
     /**
      * @return the throttle_list
      */
-    public LinkedList<Throttle> getThrottleList() {
+    public List<Throttle> getThrottleList() {
         return throttle_list;
     }
 
     /**
-     * @param min_rpm the min_rpm to set
+     * @param minRpm the min_rpm to set
      */
-    public void setMinRpm(int min_rpm) {
-        this.min_rpm = min_rpm;
+    public void setMinRpm(int minRpm) {
+        this.min_rpm = minRpm;
     }
 
     /**
-     * @param max_rpm the max_rpm to set
+     * @param maxRpm the max_rpm to set
      */
-    public void setMaxRpm(int max_rpm) {
-        this.max_rpm = max_rpm;
+    public void setMaxRpm(int maxRpm) {
+        this.max_rpm = maxRpm;
     }
 
     /**
-     * @param final_drive_ratio the final_drive_ratio to set
+     * @param finalDriveRatio the final_drive_ratio to set
      */
-    public void setFinalDriveRatio(Double final_drive_ratio) {
-        this.final_drive_ratio = final_drive_ratio;
+    public void setFinalDriveRatio(Double finalDriveRatio) {
+        this.final_drive_ratio = finalDriveRatio;
     }
 
     /**

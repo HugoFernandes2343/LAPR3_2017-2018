@@ -26,31 +26,53 @@ public class VelocityLimit implements Serializable {
     }
 
     /**
+     * Full constructor for the Velocity limit type objects
      *
-     * @param segment_type
-     * @param limit
+     * @param segment_type type of the segment
+     * @param limit velocity limit in this segment type
      */
     public VelocityLimit(String segment_type, int limit) {
         this.segment_type = segment_type;
         this.limit = limit;
     }
 
-    public String getSegment_type() {
+    /**
+     * @return segment type of the limit
+     */
+    public String getSegmentType() {
         return segment_type;
     }
 
+    /**
+     * @return velocity limit in this type of segment
+     */
     public int getLimit() {
         return limit;
     }
 
-    public void setSegment_type(String segment_type) {
+    /**
+     * Set method of the segment type variable
+     *
+     * @param segment_type type of segment to be set
+     */
+    public void setSegmentType(String segment_type) {
         this.segment_type = segment_type;
     }
 
+    /**
+     * Set method of the velocity limit variable
+     *
+     * @param limit limit to be set
+     */
     public void setLimit(int limit) {
         this.limit = limit;
     }
 
+    /**
+     * HashCode method of the velocity limit type objects
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -60,6 +82,8 @@ public class VelocityLimit implements Serializable {
     }
 
     /**
+     * Equals method of the velocity limit type objects
+     *
      * @param obj the object to compare to the velocityLimit
      * @return the result of the comparisons made. True if the objects are the
      * same, otherwise, it returns false

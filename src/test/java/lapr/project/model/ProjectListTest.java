@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -93,7 +94,7 @@ public class ProjectListTest {
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("Proj1");
         expResult.add("Proj2");
-        ArrayList<String> result = instance.getAllNames();
+        List<String> result = instance.getAllNames();
         assertEquals(expResult, result);
     }
 
@@ -132,7 +133,7 @@ public class ProjectListTest {
         assertTrue("Should be true if the new project does not exist in the list", instance.updateActualProject(testUpdate));
         assertTrue("Should contain the new updated project as the actual project", instance.getActualProject().equals(testUpdate));
 
-        ArrayList<String> allNames = instance.getAllNames();
+        List<String> allNames = instance.getAllNames();
 
         assertTrue("Should contain only one project name", allNames.size() == 1);
         assertTrue("This should be the only project in the list", allNames.contains("test"));

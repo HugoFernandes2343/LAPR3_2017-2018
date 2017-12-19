@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,19 +34,29 @@ public class VehicleList implements Serializable {
     }
 
     /**
-     * @param vehicle_list the vehicle_list to set
+     * @param vehicleList the vehicle_list to set
      */
-    public void setVehicleList(Set<Vehicle> vehicle_list) {
-        this.vehicle_list = vehicle_list;
+    public void setVehicleList(Set<Vehicle> vehicleList) {
+        this.vehicle_list = vehicleList;
     }
 
+    /**
+     * Method that adds a vehicle to the list
+     * 
+     * @param car
+     */
     public void addVehicle(Vehicle car) {
         if (!this.vehicle_list.contains(car)) {
             this.vehicle_list.add(car);
         }
     }
 
-    public ArrayList<String> getAllVehicleNames() {
+    /**
+     *  Method that returns a list with all the vehicle names present in the list
+     * 
+     * @return List of strings with the names of the vehicles
+     */
+    public List<String> getAllVehicleNames() {
         Iterator<Vehicle> itr = vehicle_list.iterator();
         ArrayList<String> names = new ArrayList<>();
         while (itr.hasNext()) {
@@ -59,6 +70,7 @@ public class VehicleList implements Serializable {
      * the VehicleList
      *
      * @param newVehicles the list of chicles to be added
+     * @return 
      */
     public int verifyAndAddVehicles(Set<Vehicle> newVehicles) {
         int cont = 0;
@@ -75,7 +87,7 @@ public class VehicleList implements Serializable {
         return cont;
     }
 
-    private int incrementName(String name, int cont, ArrayList<String> names) {
+    private int incrementName(String name, int cont, List<String> names) {
         if (names.contains(name)) {
             cont = cont + 1;
             name = name + cont;

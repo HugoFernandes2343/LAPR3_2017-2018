@@ -2,6 +2,7 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Throttle implements Serializable {
@@ -9,7 +10,7 @@ public class Throttle implements Serializable {
     private static final long serialVersionUID = 100L;
 
     private String id;
-    private LinkedList<Regime> regime_list;
+    private List<Regime> regime_list = new LinkedList<>();
 
     /**
      * Empty constructor
@@ -18,9 +19,15 @@ public class Throttle implements Serializable {
         this.regime_list = new LinkedList<>();
     }
 
-    public Throttle(String id, LinkedList<Regime> regime_list) {
+    /**
+     * Full constructor of the throttle type object
+     * 
+     * @param id id of the throttle object
+     * @param regimeList List of regiments that will be placed in this object
+     */
+    public Throttle(String id, List<Regime> regimeList) {
         this.id = id;
-        this.regime_list = regime_list;
+        this.regime_list = regimeList;
     }
 
     /**
@@ -33,27 +40,34 @@ public class Throttle implements Serializable {
     }
 
     /**
-     * @return the id
+     * @return the id id of the throttle 
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return the regime_list
+     * @return the regime_list list of regiments for this Throttle
      */
-    public LinkedList<Regime> getRegime_list() {
+    public List<Regime> getRegimeList() {
         return regime_list;
     }
 
+    /**
+     * HashCode method for throttle type objects
+     * 
+     * @return hash
+     */
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash =6;
         hash = 19 * hash + Objects.hashCode(this.getId());
         return hash;
     }
 
     /**
+     * Equals method for throttle type objects
+     * 
      * @param obj the object to compare to the throttle
      * @return the result of the comparisons made. True if the objects are the
      * same, otherwise, it returns false
@@ -63,7 +77,7 @@ public class Throttle implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Throttle)) {
             return false;
         }
         Throttle other = (Throttle) obj;
