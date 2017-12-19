@@ -53,17 +53,17 @@ public class FileXML implements Serializable {
      * @throws IOException - Exception of Input/Output
      */
     public static void saveXml(TravelByPhysics travel, String name) throws IOException {
-        File file_xml;
+        File fileXml;
         if (name.equalsIgnoreCase("default")) {
-            file_xml = XML_FILE;
+            fileXml = XML_FILE;
         } else {
-            file_xml = new File(name);
+            fileXml = new File(name);
         }
 
         XStream xstream = new XStream(new DomDriver("UTF-8"));// Solves portuguese special caracters problem
 
         String xml = xstream.toXML(travel);
-        try (PrintWriter out = new PrintWriter(new FileWriter(file_xml))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(fileXml))) {
             out.println(xml);
         }
 
@@ -77,11 +77,11 @@ public class FileXML implements Serializable {
      * @throws IOException - Exception of Input/Output
      */
     public static TravelByPhysics loadXml(String name) throws IOException {
-        File file_xml;
+        File fileXml;
         if (name.equalsIgnoreCase("default")) {
-            file_xml = XML_FILE;
+            fileXml = XML_FILE;
         } else {
-            file_xml = new File(name);
+            fileXml = new File(name);
         }
 
         TravelByPhysics travel;
@@ -89,14 +89,14 @@ public class FileXML implements Serializable {
 
         XStream xstream = new XStream(new DomDriver("UTF-8"));
 
-        try (BufferedReader in = new BufferedReader(new FileReader(file_xml))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(fileXml))) {
 
             travel = (TravelByPhysics) xstream.fromXML(in);
 
         } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
 
             JOptionPane.showMessageDialog(null,
-                    "XML Tags in file '" + file_xml + "have problems",
+                    "XML Tags in file '" + fileXml + "have problems",
                     "XML Reading Failure", JOptionPane.ERROR_MESSAGE);
 
             return null;
@@ -189,22 +189,22 @@ public class FileXML implements Serializable {
                     for (int j = 0; j < nodes.getLength(); j++) {
                         if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
                             Element el = (Element) nodes.item(j);//velocity_limit_list
-                            NodeList nodes_limit = el.getElementsByTagName("velocity_limit");
-                            for (int k = 0; k < nodes_limit.getLength(); k++) {
-                                if (nodes_limit.item(k).getNodeType() == Node.ELEMENT_NODE) {
-                                    Element elem = (Element) nodes_limit.item(k);//velocity_limit
+                            NodeList nodesLimit = el.getElementsByTagName("velocity_limit");
+                            for (int k = 0; k < nodesLimit.getLength(); k++) {
+                                if (nodesLimit.item(k).getNodeType() == Node.ELEMENT_NODE) {
+                                    Element elem = (Element) nodesLimit.item(k);//velocity_limit
                                     
                                     VelocityLimit limit = new VelocityLimit();
 
-                                    NodeList nodes_limits = elem.getElementsByTagName("segment_type");
-                                    for (int l = 0; l < nodes_limits.getLength(); l++) {
+                                    NodeList nodesLimits = elem.getElementsByTagName("segment_type");
+                                    for (int l = 0; l < nodesLimits.getLength(); l++) {
                                             
-                                        limit.setSegmentType(nodes_limits.item(l).getTextContent());
+                                        limit.setSegmentType(nodesLimits.item(l).getTextContent());
                                     }
 
-                                    nodes_limits = elem.getElementsByTagName("limit");
-                                    for (int l = 0; l < nodes_limits.getLength(); l++) {
-                                        limit.setLimit(Integer.valueOf(nodes_limits.item(l).getTextContent()));
+                                    nodesLimits = elem.getElementsByTagName("limit");
+                                    for (int l = 0; l < nodesLimits.getLength(); l++) {
+                                        limit.setLimit(Integer.valueOf(nodesLimits.item(l).getTextContent()));
                                     }
 
                                     car.getVelocityLimitList().addVelocityLimit(limit);
@@ -241,10 +241,10 @@ public class FileXML implements Serializable {
                                 if (list.item(k).getNodeType() == Node.ELEMENT_NODE) {
                                     Element element = (Element) list.item(k);//gear_list
                                 
-                                    NodeList gear_list = element.getElementsByTagName("gear");
-                                    for (int l = 0; l < gear_list.getLength(); l++) {
-                                        if (gear_list.item(l).getNodeType() == Node.ELEMENT_NODE) {
-                                            Element elem = (Element) gear_list.item(l);//gear
+                                    NodeList gearList = element.getElementsByTagName("gear");
+                                    for (int l = 0; l < gearList.getLength(); l++) {
+                                        if (gearList.item(l).getNodeType() == Node.ELEMENT_NODE) {
+                                            Element elem = (Element) gearList.item(l);//gear
                                             Gear gear = new Gear();
                                             gear.setId(elem.getAttribute("id"));
                                             NodeList ratios = elem.getElementsByTagName("ratio");
@@ -266,39 +266,39 @@ public class FileXML implements Serializable {
                                 if (nodes.item(q).getNodeType() == Node.ELEMENT_NODE) {
                                     Element eler = (Element) nodes.item(q);//throttle_list
                                 
-                                    NodeList list_elem = eler.getElementsByTagName("throttle");
-                                    for (int k = 0; k < list_elem.getLength(); k++) {
-                                        if (list_elem.item(k).getNodeType() == Node.ELEMENT_NODE) {
-                                            Element elem = (Element) list_elem.item(k);//throttle
+                                    NodeList listElem = eler.getElementsByTagName("throttle");
+                                    for (int k = 0; k < listElem.getLength(); k++) {
+                                        if (listElem.item(k).getNodeType() == Node.ELEMENT_NODE) {
+                                            Element elem = (Element) listElem.item(k);//throttle
                                             Throttle throttle = new Throttle();
                                 
                                             throttle.setId(elem.getAttribute("id"));
 
-                                            NodeList last_list = elem.getElementsByTagName("regime");
-                                            for (int l = 0; l < last_list.getLength(); l++) {
-                                                if (last_list.item(l).getNodeType() == Node.ELEMENT_NODE) {
-                                                    Element regime_elem = (Element) last_list.item(l);//regime
+                                            NodeList lastList = elem.getElementsByTagName("regime");
+                                            for (int l = 0; l < lastList.getLength(); l++) {
+                                                if (lastList.item(l).getNodeType() == Node.ELEMENT_NODE) {
+                                                    Element regimeElem = (Element) lastList.item(l);//regime
                                                     
                                                     Regime regime = new Regime();
 
-                                                    NodeList regime_list = regime_elem.getElementsByTagName("torque");
-                                                    for (int m = 0; m < regime_list.getLength(); m++) {
-                                                        regime.setTorque(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                    NodeList regimeList = regimeElem.getElementsByTagName("torque");
+                                                    for (int m = 0; m < regimeList.getLength(); m++) {
+                                                        regime.setTorque(Integer.valueOf(regimeList.item(m).getTextContent()));
                                                     }
 
-                                                    regime_list = regime_elem.getElementsByTagName("rpm_low");
-                                                    for (int m = 0; m < regime_list.getLength(); m++) {
-                                                        regime.setRpmLow(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                    regimeList = regimeElem.getElementsByTagName("rpm_low");
+                                                    for (int m = 0; m < regimeList.getLength(); m++) {
+                                                        regime.setRpmLow(Integer.valueOf(regimeList.item(m).getTextContent()));
                                                     }
 
-                                                    regime_list = regime_elem.getElementsByTagName("rpm_high");
-                                                    for (int m = 0; m < regime_list.getLength(); m++) {
-                                                        regime.setRpmHigh(Integer.valueOf(regime_list.item(m).getTextContent()));
+                                                    regimeList = regimeElem.getElementsByTagName("rpm_high");
+                                                    for (int m = 0; m < regimeList.getLength(); m++) {
+                                                        regime.setRpmHigh(Integer.valueOf(regimeList.item(m).getTextContent()));
                                                     }
 
-                                                    regime_list = regime_elem.getElementsByTagName("SFC");
-                                                    for (int m = 0; m < regime_list.getLength(); m++) {
-                                                        regime.setSFC(Double.valueOf(regime_list.item(m).getTextContent()));
+                                                    regimeList = regimeElem.getElementsByTagName("SFC");
+                                                    for (int m = 0; m < regimeList.getLength(); m++) {
+                                                        regime.setSFC(Double.valueOf(regimeList.item(m).getTextContent()));
                                                     }
 
                                                     throttle.getRegimeList().add(regime);
@@ -398,14 +398,14 @@ public class FileXML implements Serializable {
                         for (int j = 0; j < list.getLength(); j++) {
                             if (list.item(j).getNodeType() == Node.ELEMENT_NODE) {
                                 Element toll = (Element) list.item(j);
-                                TollFare toll_fare = new TollFare();
-                                NodeList toll_list = toll.getElementsByTagName("class");
-                                for (int k = 0; k < toll_list.getLength(); k++) {
-                                    Element vehicle_class = (Element) toll_list.item(k);
+                                TollFare tollFare = new TollFare();
+                                NodeList tollList = toll.getElementsByTagName("class");
+                                for (int k = 0; k < tollList.getLength(); k++) {
+                                    Element vehicle_class = (Element) tollList.item(k);
                             
-                                    toll_fare.addClass(vehicle_class.getAttribute("id"), Double.valueOf(toll_list.item(k).getTextContent()));
+                                    tollFare.addClass(vehicle_class.getAttribute("id"), Double.valueOf(tollList.item(k).getTextContent()));
                                 }
-                                road.setTollFare(toll_fare);//road toll_fare
+                                road.setTollFare(tollFare);//road toll_fare
                             }
                         }
 
@@ -451,44 +451,44 @@ public class FileXML implements Serializable {
                                 for (int k = 0; k < seglist.getLength(); k++) {
                                     if (seglist.item(k).getNodeType() == Node.ELEMENT_NODE) {
                                         Element segment = (Element) seglist.item(k);
-                                        Segment road_segment = new Segment();
+                                        Segment roadSegment = new Segment();
                                         
-                                        road_segment.setId(segment.getAttribute("id"));
+                                        roadSegment.setId(segment.getAttribute("id"));
 
                                         //init_height
                                         NodeList seg = e.getElementsByTagName("init_height");
                                         
-                                        road_segment.setInitHeight(Double.valueOf(seg.item(k).getTextContent()));
+                                        roadSegment.setInitHeight(Double.valueOf(seg.item(k).getTextContent()));
 
                                         //final_height
                                         seg = e.getElementsByTagName("final_height");
                                         
-                                        road_segment.setFinalHeight(Double.valueOf(seg.item(k).getTextContent()));
+                                        roadSegment.setFinalHeight(Double.valueOf(seg.item(k).getTextContent()));
 
                                         //length
                                         seg = e.getElementsByTagName("length");
                                         
-                                        road_segment.setLength(seg.item(k).getTextContent());
+                                        roadSegment.setLength(seg.item(k).getTextContent());
                                         //max_velocity
                                         seg = e.getElementsByTagName("max_velocity");
                                         
-                                        road_segment.setMaxVelocity(seg.item(k).getTextContent());
+                                        roadSegment.setMaxVelocity(seg.item(k).getTextContent());
 
                                         //min_velocity
                                         seg = e.getElementsByTagName("min_velocity");
                                         
-                                        road_segment.setMinVelocity(seg.item(k).getTextContent());
+                                        roadSegment.setMinVelocity(seg.item(k).getTextContent());
 
                                         //wind_direction
                                         seg = e.getElementsByTagName("wind_direction");
                                         
-                                        road_segment.setWindDirection(Double.valueOf(seg.item(k).getTextContent()));
+                                        roadSegment.setWindDirection(Double.valueOf(seg.item(k).getTextContent()));
                                         //wind_speed
                                         seg = e.getElementsByTagName("wind_speed");
                                         
-                                        road_segment.setWindSpeed(seg.item(k).getTextContent());
+                                        roadSegment.setWindSpeed(seg.item(k).getTextContent());
 
-                                        section.addSegment(road_segment);
+                                        section.addSegment(roadSegment);
                                     }
                                 }
 
