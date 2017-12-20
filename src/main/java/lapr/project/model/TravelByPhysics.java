@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.model;
 
 import java.io.Serializable;
@@ -29,7 +24,7 @@ public class TravelByPhysics implements Serializable{
     /**
      * Attribute that keeps the algorithms list
      */
-    private List<Algorithm> AlgorithmsList;
+    private List<Algorithm> algorithmsList;
 
     /**
      * Constructor of this class
@@ -37,7 +32,7 @@ public class TravelByPhysics implements Serializable{
     public TravelByPhysics() {
         this.projectList = new ProjectList();
         this.userList = new UserList();
-        this.AlgorithmsList = new ArrayList<>();
+        this.algorithmsList = new ArrayList<>();
     }
 
     /**
@@ -51,7 +46,7 @@ public class TravelByPhysics implements Serializable{
      * @return the algorithmsList
      */
     public List<Algorithm> getAlgorithmsList() {
-        return AlgorithmsList;
+        return algorithmsList;
     }
     
     /**
@@ -59,7 +54,7 @@ public class TravelByPhysics implements Serializable{
      */
     public List<String> getAlgorithmsByName(){
         List<String> names = new ArrayList<>();
-        for(Algorithm a : this.AlgorithmsList){
+        for(Algorithm a : this.algorithmsList){
             names.add(a.getName());
         }
         return names;
