@@ -406,7 +406,6 @@ public class FileXML implements Serializable {
                                 NodeList tollList = toll.getElementsByTagName("class");
                                 for (int k = 0; k < tollList.getLength(); k++) {
                                     Element vehicle_class = (Element) tollList.item(k);
-                            
                                     tollFare.addClass(vehicle_class.getAttribute("id"), Double.valueOf(tollList.item(k).getTextContent()));
                                 }
                                 road.setTollFare(tollFare);//road toll_fare

@@ -16,6 +16,7 @@ public class Road implements Serializable {
      * Empty Constructor
      */
     public Road() {
+        this.tollFare=new TollFare();
     }
 
     /**

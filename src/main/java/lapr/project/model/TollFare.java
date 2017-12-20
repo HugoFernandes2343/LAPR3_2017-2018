@@ -31,14 +31,14 @@ public class TollFare implements Serializable{
      * @param price - toll_fare class price
      */
     public void addClass(String id, Double price){
-        Class vehicle_class = new Class(id,price);
-        this.listClasses.add(vehicle_class);
+        Class vehicleClass = new Class(id,price);
+        this.listClasses.add(vehicleClass);
     }
     
     /**
      * @return listClasses of the tollFare 
      */
-    public List<Class> getTollFare() {
+    public List<Class> getListClasses() {
         return listClasses;
     }
     
@@ -46,7 +46,7 @@ public class TollFare implements Serializable{
      * Setter for the
      * @param classes listClasses of the tollFare 
      */
-    public void setTollFare(List<Class> classes) {
+    public void setListClasses(List<Class> classes) {
         this.listClasses = classes;
     }
     
