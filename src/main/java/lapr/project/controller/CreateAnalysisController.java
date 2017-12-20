@@ -6,10 +6,13 @@
 package lapr.project.controller;
 
 import java.util.List;
+import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
 import lapr.project.model.TravelByPhysics;
+import lapr.project.model.Vehicle;
 import lapr.project.model.VehicleList;
+import lapr.project.utils.Algorithm;
 
 /**
  *
@@ -17,25 +20,83 @@ import lapr.project.model.VehicleList;
  */
 public class CreateAnalysisController {
     
-    private Project actualproject;
+    /**
+     * The project to make the analisys.
+     */
+    private final Project actualproject;
     
-    private TravelByPhysics tb ;
+    /**
+     * The system base.
+     */
+    private final TravelByPhysics tb;
     
+    /**
+     * Algorithm list
+     */
+    private List<Algorithm> algorithmList;
     
-//    public CreateAnalysisController(TravelByPhysics tb){
-//        this.tb = tb;
-//        this.actualproject = this.tb.getProjectList().getActualProject();
-//    }
-//    
-//    public List<Algorithm> getAlgorithmList(){
-//       return this.tb.getAlgorithmList();
-//    }
-//    
-//    public VehicleList getVehicleList(){
-//        return this.actualproject.getVehicleList();
-//    }
-//    
-//    public List<Node> getNodeList(){
-//        return this.actualproject.getNetwork().getRoadMap();
-//    }
+    /**
+     * Results of the analysis.
+     */
+    private NetworkAnalysis result;
+    
+    /**
+     * Constructor.
+     * @param tb - system base.
+     */
+    public CreateAnalysisController(TravelByPhysics tb){
+        this.tb = tb;
+        this.actualproject = this.tb.getProjectList().getActualProject();
+    }
+    
+    public List<String> getAlgorithmList(){
+       this.algorithmList = this.tb.getAlgorithmsList();
+       return this.tb.getAlgorithmsByName();
+    }
+    
+    public List<String> getVehicleList(){
+        return this.actualproject.getVehicleList().getAllVehicleNames();
+    }
+    
+    public List<String> getNodeList(){
+        return this.actualproject.getNetwork().getNodesByName();
+    }
+    
+    public boolean runAlgorithm(String algorithm, String vehicle, String begin, String end, String name){
+        Algorithm a = findAlgorithm(algorithm);
+        if(a == null){
+            return false;
+        }
+        Vehicle v = this.actualproject.getVehicleList().getVehicleByName(vehicle);
+        if(v == null){
+            return false;
+        }
+        
+        Node beginN = this.actualproject.getNetwork().searchNode(begin);
+        Node endN = this.actualproject.getNetwork().searchNode(end);
+        if(beginN == null || endN == null){
+            return false;
+        }
+        
+        this.result = a.runAlgorithm(actualproject, beginN, endN, v, name);
+        return true;
+    }
+
+    /**
+     * Method that finds the algorithm to use
+     * @param algorithm Algorithm to use
+     * @return null if doesn´t find the algorithm.
+     */
+    private Algorithm findAlgorithm(String algorithm) {
+        for(Algorithm a : this.algorithmList){
+            if(a.toString().equals(algorithm)){
+                return a;
+            }
+        }
+        return null;
+    }
+    
+    public NetworkAnalysis getAnalysis(){
+        return this.result;
+    }
 }
