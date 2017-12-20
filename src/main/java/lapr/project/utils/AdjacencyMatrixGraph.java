@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.utils;
 
 import java.util.ArrayList;
@@ -12,7 +7,9 @@ import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author DEI-ESINF
+ * @param <V>
+ * @param <E>
  */
 public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
 
@@ -84,10 +81,12 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
 
     /**
      * Constructs a graph with an initial capacity.
+     *
+     * @param initialSize
      */
     @SuppressWarnings("unchecked")
     public AdjacencyMatrixGraph(int initialSize) {
-        vertices = new ArrayList<V>(initialSize);
+        vertices = new ArrayList<>(initialSize);
 
         edgeMatrix = (E[][]) new Object[initialSize][initialSize];
     }
@@ -97,6 +96,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      *
      * @return number of vertices of the graph
      */
+    @Override
     public int numVertices() {
         return numVertices;
     }
@@ -106,6 +106,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      *
      * @return number of edges of the graph
      */
+    @Override
     public int numEdges() {
         return numEdges;
     }
@@ -113,7 +114,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
     /**
      * Checks if a vertex exist
      *
-     * @param V vertex
+     * @param vertex
      * @return true if exists
      */
     public boolean checkVertex(V vertex) {
@@ -126,6 +127,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return an iterable collection of vertices
      */
     @SuppressWarnings("unchecked")
+    @Override
     public Iterable<V> vertices() {
         return (Iterable<V>) vertices.clone();
     }
@@ -135,8 +137,9 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      *
      * @return an iterable collection of all edges
      */
+    @Override
     public Iterable<E> edges() {
-        ArrayList<E> edges = new ArrayList<E>();
+        List<E> edges = new ArrayList<>();
 
         // graph is undirected, so only return a single copy of edge
         // graph could actually only keep one copy of the edge but algorithms
@@ -156,9 +159,10 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * Returns the number of edges leaving vertex, -1 if vertex doesn't exist
      * This is the same result returned by inDegree
      *
-     * @param V vertex
+     * @param vertex
      * @return number of edges leaving vertex v,
      */
+    @Override
     public int outDegree(V vertex) {
         int index = toIndex(vertex);
         if (index == -1) {
@@ -182,6 +186,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @param vertex
      * @return number of edges reaching vertex v
      */
+    @Override
     public int inDegree(V vertex) {
         return outDegree(vertex);
     }
@@ -194,18 +199,18 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * not exist in the graph
      */
     public Iterable<V> directConnections(V vertex) {
-        ArrayList<V> vizinhos = new ArrayList<>();
-        int posicao = this.toIndex(vertex);
-        if (posicao == -1) {
+        int pos = this.toIndex(vertex);
+        if (pos == -1) {
             return null;
-        } else {
-            for (int i = 0; i < edgeMatrix.length; i++) {
-                if (edgeMatrix[posicao][i] != null) {
-                    vizinhos.add(vertices.get(i));
-                }
-            }
-            return vizinhos;
         }
+
+        List<V> directConnections = new ArrayList<>();
+        for (int i = 0; i < this.edgeMatrix.length; i++) {
+            if (this.edgeMatrix[pos][i] != null) {
+                directConnections.add(this.vertices.get(i));
+            }
+        }
+        return directConnections;
     }
 
     /**
@@ -216,19 +221,20 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return collection of edges leaving vertex, null if vertex does not exist
      * in the graph
      */
+    @Override
     public Iterable<E> outgoingEdges(V vertex) {
-        ArrayList<E> edgesOnVertex = new ArrayList<>();
-        int posicao = this.toIndex(vertex);
-        if (posicao == -1) {
+        int pos = this.toIndex(vertex);
+        if (pos == -1) {
             return null;
-        } else {
-            for (int i = 0; i < edgeMatrix.length; i++) {
-                if (edgeMatrix[posicao][i] != null) {
-                    edgesOnVertex.add(edgeMatrix[posicao][i]);
-                }
-            }
-            return edgesOnVertex;
         }
+
+        List<E> outgoingEdges = new ArrayList<>();
+        for (int i = 0; i < this.edgeMatrix[pos].length; i++) {
+            if (this.edgeMatrix[pos][i] != null) {
+                outgoingEdges.add(this.edgeMatrix[pos][i]);
+            }
+        }
+        return outgoingEdges;
     }
 
     /**
@@ -239,6 +245,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return collection of edges reaching vertex, null if vertex does not
      * exist in the graph
      */
+    @Override
     public Iterable<E> incomingEdges(V vertex) {
         return outgoingEdges(vertex);
     }
@@ -251,6 +258,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return the edge or null if source and dest are not adjacent or do not
      * exist in the graph.
      */
+    @Override
     public E getEdge(V vertexA, V vertexB) {
         int indexA = toIndex(vertexA);
         if (indexA == -1) {
@@ -272,16 +280,15 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return array of two vertices or null if edge does not exist in the
      * graph.
      */
+    @Override
     public List<V> endVertices(E edge) {
         for (int i = 0; i < numVertices - 1; i++) {
             for (int j = i + 1; j < numVertices; j++) {
-                if (edgeMatrix[i][j] != null) {
-                    if (edgeMatrix[i][j].equals(edge)) {
-                        List<V> result = new ArrayList<>();
-                        result.add(vertices.get(i));
-                        result.add(vertices.get(j));
-                        return result;
-                    }
+                if (edgeMatrix[i][j] != null && edgeMatrix[i][j].equals(edge)) {
+                    List<V> result = new ArrayList<>();
+                    result.add(vertices.get(i));
+                    result.add(vertices.get(j));
+                    return result;
                 }
             }
         }
@@ -295,6 +302,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @param newVertex (vertex contents)
      * @return false if vertex exists in the graph
      */
+    @Override
     public boolean insertVertex(V newVertex) {
         int index = toIndex(newVertex);
         if (index != -1) {
@@ -322,6 +330,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         numEdges++;
     }
 
+    @Override
     public boolean insertEdge(V vertexA, V vertexB, E newEdge) {
 
         if (vertexA.equals(vertexB)) {
@@ -343,7 +352,6 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         }
 
         insertEdge(indexA, indexB, newEdge);
-
         return true;
     }
 
@@ -353,6 +361,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @param vertex vertex
      * @return false if vertex does not exist in the graph
      */
+    @Override
     public boolean removeVertex(V vertex) {
         int index = toIndex(vertex);
         if (index == -1) {
@@ -411,6 +420,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         return edge;
     }
 
+    @Override
     public E removeEdge(V vertexA, V vertexB) {
         int indexA = toIndex(vertexA);
         if (indexA == -1) {
@@ -428,7 +438,10 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
     /**
      * Returns a string representation of the graph. Matrix only represents
      * existence of Edge
+     *
+     * @return
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
@@ -479,8 +492,10 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return the new cloned graph
      */
     @SuppressWarnings("unchecked")
+    @Override
     public AdjacencyMatrixGraph<V, E> clone() {
-        AdjacencyMatrixGraph<V, E> newObject = new AdjacencyMatrixGraph<V, E>();
+
+        AdjacencyMatrixGraph<V, E> newObject = new AdjacencyMatrixGraph<>();
 
         newObject.vertices = (ArrayList<V>) vertices.clone();
 
@@ -500,9 +515,10 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
     /**
      * Implementation of equals
      *
-     * @param the other graph to test for equality
+     * @param oth
      * @return true if both objects represent the same graph
      */
+    @Override
     public boolean equals(Object oth) {
 
         if (oth == null) {
@@ -538,11 +554,10 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + this.numVertices;
-        hash = 41 * hash + this.numEdges;
-        hash = 41 * hash + Objects.hashCode(this.vertices);
-        hash = 41 * hash + Arrays.deepHashCode(this.edgeMatrix);
+        int hash = 7;
+        hash = 11 * hash + this.numVertices;
+        hash = 11 * hash + this.numEdges;
+        hash = 11 * hash + Objects.hashCode(this.vertices);
         return hash;
     }
 

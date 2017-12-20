@@ -1,6 +1,5 @@
 package lapr.project.utils;
 
-
 import java.util.LinkedList;
 
 /**
@@ -8,6 +7,13 @@ import java.util.LinkedList;
  * @author DEI-ESINF
  */
 public class EdgeAsDoubleGraphAlgorithms {
+
+    /**
+     * Private constructor to hide implicit one.
+     */
+    private EdgeAsDoubleGraphAlgorithms() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Determine the shortest path to all vertices from a vertex using
@@ -25,11 +31,9 @@ public class EdgeAsDoubleGraphAlgorithms {
         while (sourceIdx != -1) {
             knownVertices[sourceIdx] = true;
             for (int i = 0; i < graph.numVertices; i++) {
-                if (graph.privateGet(sourceIdx, i) != null) {
-                    if (!knownVertices[i] && minDist[i] > (minDist[sourceIdx] + graph.privateGet(sourceIdx, i))) {
-                        minDist[i] = minDist[sourceIdx] + graph.privateGet(sourceIdx, i);
-                        verticesIndex[i] = sourceIdx;
-                    }
+                if (graph.privateGet(sourceIdx, i) != null && !knownVertices[i] && minDist[i] > (minDist[sourceIdx] + graph.privateGet(sourceIdx, i))) {
+                    minDist[i] = minDist[sourceIdx] + graph.privateGet(sourceIdx, i);
+                    verticesIndex[i] = sourceIdx;
                 }
             }
             Double min = Double.MAX_VALUE;
@@ -54,31 +58,29 @@ public class EdgeAsDoubleGraphAlgorithms {
      * @return minimum distance, -1 if vertices not in graph or no path
      *
      */
-     public static <V> double shortestPath(AdjacencyMatrixGraph<V, Double> graph, V source, V dest, LinkedList<V> path) {
-        int srcIndex = graph.toIndex(source);
-        int dstIndex = graph.toIndex(dest);
-
-        if (srcIndex == -1) {
+    public static <V> double shortestPath(AdjacencyMatrixGraph<V, Double> graph, V source, V dest, LinkedList<V> path) {
+        int sourceIdx = graph.toIndex(source);
+        if (sourceIdx == -1) {
             return -1;
         }
-        if (dstIndex == -1) {
+        int destIdx = graph.toIndex(dest);
+        if (destIdx == -1) {
             return -1;
         }
-
         path.clear();
-        int[] vertIndex = new int[graph.numVertices];
-        double[] minDist = new double[graph.numVertices];
         boolean[] knownVertices = new boolean[graph.numVertices];
-
+        int[] verticesIndex = new int[graph.numVertices];
+        double[] minDist = new double[graph.numVertices];
         for (int i = 0; i < graph.numVertices; i++) {
             minDist[i] = Double.MAX_VALUE;
-            vertIndex[i] = -1;
+            verticesIndex[i] = -1;
         }
-        shortestPath(graph, srcIndex, knownVertices, vertIndex, minDist);
-        if (knownVertices[dstIndex] == false) {
+
+        shortestPath(graph, sourceIdx, knownVertices, verticesIndex, minDist);
+        if (knownVertices[destIdx] == false) {
             return -1;
         }
-        recreatePath(graph, srcIndex, dstIndex, vertIndex, path);
+        recreatePath(graph, sourceIdx, destIdx, verticesIndex, path);
         LinkedList<V> stack = new LinkedList<>();
         while (!path.isEmpty()) {
             stack.push(path.remove());
@@ -86,7 +88,7 @@ public class EdgeAsDoubleGraphAlgorithms {
         while (!stack.isEmpty()) {
             path.add(stack.pop());
         }
-        return minDist[dstIndex];
+        return minDist[destIdx];
     }
 
     /**
@@ -112,7 +114,6 @@ public class EdgeAsDoubleGraphAlgorithms {
      * Creates new graph with minimum distances between all pairs uses the
      * Floyd-Warshall algorithm
      *
-     * @param <V>
      * @param graph Graph object
      * @return the new graph
      */
@@ -136,5 +137,4 @@ public class EdgeAsDoubleGraphAlgorithms {
         }
         return newGraph;
     }
-
 }

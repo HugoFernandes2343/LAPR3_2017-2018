@@ -1,8 +1,7 @@
 package lapr.project.utils;
 
 import java.util.LinkedList;
-import java.util.Iterator;
-import java.util.Queue;
+import java.util.List;
 
 /**
  * Implementation of graph algorithms for a (undirected) graph structure
@@ -15,36 +14,36 @@ import java.util.Queue;
  */
 public class GraphAlgorithms {
 
-    private static <T> LinkedList<T> reverse(LinkedList<T> list) {
-        LinkedList<T> reversed = new LinkedList<T>();
-        Iterator<T> it = list.iterator();
-        while (it.hasNext()) {
-            reversed.push(it.next());
-        }
-        return reversed;
+    /**
+     * Private constructor to hide implicit one.
+     */
+    private GraphAlgorithms() {
+        throw new IllegalStateException("Utility class");
     }
 
     /**
      * Performs depth-first search of the graph starting at vertex. Calls
      * package recursive version of the method.
      *
+     * @param <V>
+     * @param <E>
      * @param graph Graph object
      * @param vertex Vertex of graph that will be the source of the search
      * @return queue of vertices found by search (including vertex), null if
      * vertex does not exist
      *
      */
-    public static <V, E> LinkedList<V> DFS(AdjacencyMatrixGraph<V, E> graph, V vertex) {
+    public static <V, E> List<V> depthFirstSearch(AdjacencyMatrixGraph<V, E> graph, V vertex) {
 
         int index = graph.toIndex(vertex);
         if (index == -1) {
             return null;
         }
 
-        LinkedList<V> resultQueue = new LinkedList<V>();
+        List<V> resultQueue = new LinkedList<>();
         resultQueue.add(vertex);
         boolean[] knownVertices = new boolean[graph.numVertices];
-        DFS(graph, index, knownVertices, resultQueue);
+        GraphAlgorithms.depthFirstSearch(graph, index, knownVertices, resultQueue);
         return resultQueue;
     }
 
@@ -59,80 +58,77 @@ public class GraphAlgorithms {
      * @param verticesQueue queue of vertices found by search
      *
      */
-    static <V, E> void DFS(AdjacencyMatrixGraph<V, E> graph, int index, boolean[] knownVertices, LinkedList<V> verticesQueue) {
+    static <V, E> void depthFirstSearch(AdjacencyMatrixGraph<V, E> graph, int index, boolean[] knownVertices, List<V> verticesQueue) {
         knownVertices[index] = true;
         for (int i = 0; i < graph.numVertices; i++) {
-            if (graph.edgeMatrix[index][i] != null && knownVertices[i] == false) {
+            if (graph.edgeMatrix[index][i] != null && !knownVertices[i]) {
                 verticesQueue.add(graph.vertices.get(i));
-                DFS(graph, i, knownVertices, verticesQueue);
+                GraphAlgorithms.depthFirstSearch(graph, i, knownVertices, verticesQueue);
             }
         }
     }
 
     /**
+     * Performs breath-first search of the graph starting at vertex. The method
+     * adds discovered vertices (including vertex) to the queue of vertices
      *
+     * @param <V>
+     * @param <E>
      * @param graph Graph object
      * @param vertex Vertex of graph that will be the source of the search
      * @return queue of vertices found by search (including vertex), null if
      * vertex does not exist
      *
      */
-    public static <V, E> LinkedList<V> BFS(AdjacencyMatrixGraph<V, E> graph, V vertex) {
-
-        if (!graph.checkVertex(vertex)) {      //se ele não existir retorna null
+    public static <V, E> List<V> breadthFirstSearch(AdjacencyMatrixGraph<V, E> graph, V vertex) {
+        if (!graph.checkVertex(vertex)) {
             return null;
-        } else {
-            LinkedList<V> qbfs = new LinkedList<>();               // lista a retornar
-            Queue<V> qaux = new LinkedList<>();               // auxiliar para guardar os vértices ainda não visitados
-
-            qbfs.add(vertex);                                // adiciono porque é a origem. Adiciono sempre ao fim que assim eles ficam na ordem
-            qaux.add(vertex);
-
-            while (!qaux.isEmpty()) {
-                V temp = qaux.peek();               //guardo temporariamente o Vértice
-                qaux.remove();
-
-                if (!qbfs.contains(temp)) {
-                    qbfs.add(temp);
-                }
-
-                for (V it : graph.directConnections(temp)) {
-                    if (!(qbfs.contains(it)) && !(qaux.contains(it))) {
-                       qaux.add(it);
-                    }
-
-                }
-
-            }
-            return qbfs;
         }
 
+        LinkedList<V> qbfs = new LinkedList<>();
+        LinkedList<V> qaux = new LinkedList<>();
+
+        qbfs.add(vertex);
+        qaux.add(vertex);
+
+        while (!qaux.isEmpty()) {
+            V temp = qaux.peek();
+            qaux.removeFirst();
+
+            for (V vertexes : graph.directConnections(temp)) {
+                if (!qbfs.contains(vertexes)) {
+                    qbfs.add(vertexes);
+                    qaux.add(vertexes);
+                }
+            }
+        }
+        return qbfs;
     }
 
     /**
-     *
      * All paths between two vertices Calls recursive version of the method.
      *
+     * @param <V>
+     * @param <E>
      * @param graph Graph object
      * @param source Source vertex of path
      * @param dest Destination vertex of path
-     * @param path LinkedList with paths (queues)
+     * @param paths
      * @return false if vertices not in the graph
      *
      */
-    public static <V, E> boolean allPaths(AdjacencyMatrixGraph<V, E> graph, V source, V dest, LinkedList<LinkedList<V>> paths) {
-
-        if (graph.checkVertex(source) && graph.checkVertex(dest)) {
-
-            paths.clear();
-            boolean[] knownVertices = new boolean[graph.numVertices];
-            LinkedList<V> auxStack = new LinkedList<>();
-
-            GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(source), graph.vertices.indexOf(dest), knownVertices, auxStack, paths);
-
-            return paths.size() > 0;
+    public static <V, E> boolean allPaths(AdjacencyMatrixGraph<V, E> graph, V source, V dest, List<List<V>> paths) {
+        if (!graph.checkVertex(source) || !graph.checkVertex(dest)) { //vamos verificar a existencia dos vertices
+            return false;
         }
-        return false;
+
+        paths.clear();
+        boolean[] knownVertices = new boolean[graph.numVertices];//criar o array fixo de indices
+        LinkedList<V> auxStack = new LinkedList<>();//criar a stack auxiliar
+
+        GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(source), graph.vertices.indexOf(dest), knownVertices, auxStack, paths);
+
+        return !paths.isEmpty();
     }
 
     /**
@@ -148,49 +144,52 @@ public class GraphAlgorithms {
      * @param path LinkedList with paths (queues)
      *
      */
-    public static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
-        if (sourceIdx == destIdx) {
-            auxStack.add(graph.vertices.get(sourceIdx));
-            paths.add(auxStack);
+    static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, List<List<V>> paths) {
+        if (sourceIdx == destIdx) {//see if the source its the destination
+            auxStack.add(graph.vertices.get(sourceIdx));//add the source to the stack
+            paths.add(auxStack);//add the discovered path from the stack to the paths list
         } else {
             knownVertices[sourceIdx] = true;
-            auxStack.add(graph.vertices.get(sourceIdx));
+            auxStack.add(graph.vertices.get(sourceIdx));//add the vertex to the stack
 
-            for (V adjVert : graph.directConnections(graph.vertices.get(sourceIdx))) {
+            for (V adjacentVertex : graph.directConnections(graph.vertices.get(sourceIdx))) {//for each vertex that is adjacent to the source
 
-                if (knownVertices[graph.toIndex(adjVert)] == false) {
-                    GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(adjVert), destIdx, knownVertices, auxStack, paths);
+                if (!knownVertices[graph.toIndex(adjacentVertex)]) {//check the array to see if the index has been visited
+                    GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(adjacentVertex), destIdx, knownVertices, auxStack, paths);//recursively calls allPaths with the new sourceIdx as the adjacentVertex
+
                 }
             }
         }
         knownVertices[sourceIdx] = false;
-        auxStack.remove();
+        auxStack.remove(); //pop the last vertex means it's the first one that went in, so the first on the list
+
     }
 
     /**
-     * transitive closure uses the Floyd-Warshall algorithm
+     * Transforms a graph into its transitive closure uses the Floyd-Warshall
+     * algorithm
      *
+     * @param <V>
+     * @param <E>
      * @param graph Graph object
      * @param dummyEdge object to insert in the newly created edges
      * @return the new graph
      */
     public static <V, E> AdjacencyMatrixGraph<V, E> transitiveClosure(AdjacencyMatrixGraph<V, E> graph, E dummyEdge) {
-
-        AdjacencyMatrixGraph<V, E> newGraph = graph.clone();
-        int tamV = newGraph.numVertices;
-
-        for (int i = 0; i < tamV; i++) {
-            for (int j = 0; j < tamV; j++) {
-                if (i != j && newGraph.getEdge(newGraph.vertices.get(i), newGraph.vertices.get(j)) != null) {
-                    for (int k = 0; k < tamV; k++) {
-                        if (k != j && k != i && newGraph.getEdge(newGraph.vertices.get(k), newGraph.vertices.get(j)) != null) {
-                            newGraph.insertEdge(newGraph.vertices.get(i), newGraph.vertices.get(j), dummyEdge);
+        AdjacencyMatrixGraph<V, E> newMatrix = graph.clone();
+        for (int i = 0; i < graph.numVertices; i++) {
+            for (int j = 0; j < graph.numVertices; j++) {
+                if (i != j && graph.getEdge(graph.vertices.get(j), graph.vertices.get(i)) != null) {
+                    for (int k = 0; k < graph.numVertices; k++) {
+                        if (i != k && j != k && graph.getEdge(graph.vertices.get(i), graph.vertices.get(k)) != null) {
+                            newMatrix.insertEdge(graph.vertices.get(j), graph.vertices.get(k), dummyEdge);
                         }
                     }
+
                 }
             }
         }
-        return newGraph;
+        return newMatrix;
     }
 
 }
