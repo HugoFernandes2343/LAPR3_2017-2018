@@ -15,27 +15,27 @@ import org.junit.BeforeClass;
  * @author hugod
  */
 public class NetworkAnalysisTest {
-    
+
     private final NetworkAnalysis instance;
-    
+
     public NetworkAnalysisTest() {
-        instance = new NetworkAnalysis();
+        instance = null;
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
 }

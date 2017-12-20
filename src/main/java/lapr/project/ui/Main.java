@@ -1,8 +1,6 @@
 package lapr.project.ui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import lapr.project.model.CalculatorExample;
+
 import lapr.project.model.TravelByPhysics;
 
 /**
@@ -10,15 +8,11 @@ import lapr.project.model.TravelByPhysics;
  */
 class Main {
 
-    /**
-     * Logger class.
-     */
-    private static final Logger LOGGER = Logger.getLogger("MainLog");
 
     /**
      * Private constructor to hide implicit public one.
      */
-    private Main() {
+    public Main() {
 
     }
 
@@ -29,9 +23,5 @@ class Main {
      */
     public static void main(String[] args) {
         new MenuUI(new TravelByPhysics());
-        CalculatorExample calculatorExample = new CalculatorExample();
-        int value = calculatorExample.sum(3, 5);
-        LOGGER.log(Level.INFO, String.valueOf(value));
-
     }
 }

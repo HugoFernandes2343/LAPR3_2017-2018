@@ -65,7 +65,7 @@ public class Network implements Serializable {
      * Adds a node to the node list if is not in there already
      *
      * @param text - node id to be added
-     * @return - true id the node is added, false otherwise. 
+     * @return - true id the node is added, false otherwise.
      */
     public boolean addNode(String text) {
         Node node = new Node(text);
@@ -94,7 +94,7 @@ public class Network implements Serializable {
      * Adds a roadSection to the sectionList
      *
      * @param section - RoadSection
-     * @return - true id the road section is added, false otherwise. 
+     * @return - true id the road section is added, false otherwise.
      */
     public boolean addRoadSection(RoadSection section) {
         if (!this.sectionList.contains(section)) {
@@ -158,7 +158,7 @@ public class Network implements Serializable {
         }
 
         for (Road r : roadsToAdd.roadList) {
-            if(this.addRoad(r)){
+            if (this.addRoad(r)) {
                 flag++;
             }
         }
@@ -218,7 +218,7 @@ public class Network implements Serializable {
      * @param id the Node id to be searched in the node list
      * @return
      */
-    private Node searchNode(String id) {
+    public Node searchNode(String id) {
         for (Node node : nodeList) {
             if (node.getId().equals(id)) {
                 return node;
@@ -233,24 +233,37 @@ public class Network implements Serializable {
     public AdjacencyMatrixGraph<Node, RoadSection> getRoadMap() {
         return roadMap;
     }
-    
+
     /**
-     * @return NodeList 
+     * @return NodeList
      */
     public List<Node> getNodeList() {
         return nodeList;
     }
-    
+
     /**
      * @return a List of all nodes ids
      */
-    public List<String> getNodesByName(){
+    public List<String> getNodesByName() {
         List<String> names = new ArrayList<>();
-        for(Node n : this.nodeList){
+        for (Node n : this.nodeList) {
             names.add(n.getId());
         }
         return names;
     }
-    
-    
+
+    /**
+     *
+     * @param roadId the roadId to be searched
+     * @return the road matching the id
+     */
+    public Road getRoad(String roadId) {
+        for (Road r : roadList) {
+            if (r.getId().equalsIgnoreCase(roadId)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
 }

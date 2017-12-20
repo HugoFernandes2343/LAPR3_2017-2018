@@ -206,32 +206,4 @@ public class ProjectTest {
 
         assertEquals(network, instance.getNetwork());
     }
-
-    /**
-     * Test of getNetworkAnalysis method, of class Project.
-     */
-    @Test
-    public void testGetNetworkAnalysis() {
-        System.out.println("getNetworkAnalysis");
-        instance = new Project();
-        instance.doAnal();
-        NetworkAnalysis expResult = new NetworkAnalysis();
-        NetworkAnalysis result = instance.getNetworkAnalysis();
-        assertTrue(result.getClass()== expResult.getClass());
-        
-    }
-
-    /**
-     * Test of doAnal method, of class Project.
-     */
-    @Test
-    public void testDoAnal() {
-        System.out.println("doAnal");
-        instance = new Project();
-        instance.doAnal();
-        NetworkAnalysis expResult =new NetworkAnalysis();
-        assertTrue(instance.getNetworkAnalysis().getClass() == expResult.getClass());
-    }
-
-
 }

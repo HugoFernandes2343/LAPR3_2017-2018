@@ -97,14 +97,6 @@ public class Project implements Serializable {
     }
 
     /**
-     * Method to start the analysis on the project. Analyses the project
-     * following several criteria
-     */
-    public void doAnal() {
-        this.netAnal = new NetworkAnalysis();
-    }
-
-    /**
      *
      * @return the integer representation of the object Project
      */

@@ -203,7 +203,7 @@ public class Vehicle implements Serializable {
     public void setVelocityLimitList(VelocityLimitList velocityLimitList) {
         this.velocityLimitList = velocityLimitList;
     }
-        
+
     /**
      * @return the name name of the vehicle
      */
@@ -377,6 +377,15 @@ public class Vehicle implements Serializable {
         }
 
         return Objects.equals(this.load, other.load);
+    }
+
+    /**
+     *
+     * @param type the type of road that will be used as search criteria
+     * @return the max velocity for specific type
+     */
+    public double getVelocityLimit(String type) {
+        return velocityLimitList.getVelocityLimit(type);
     }
 
     /**
