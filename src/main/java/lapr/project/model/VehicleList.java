@@ -92,4 +92,19 @@ public class VehicleList implements Serializable {
         }
         return cont;
     }
+    
+    /**
+     * Return a Vehicle Object if it finds it by the name
+     * @param name - Vehicle name
+     * @return Vehicle object if found, null otherwise 
+     */
+    public Vehicle getVehicleByName(String name){
+        for(Vehicle v : this.listVehicles){
+            if(v.getName().equals(name)){
+                return v;
+            }
+        }
+        return null;
+    }
+    
 }
