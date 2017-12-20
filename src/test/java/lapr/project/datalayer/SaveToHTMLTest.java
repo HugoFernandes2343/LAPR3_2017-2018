@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lapr.project.dataLayer;
+package lapr.project.datalayer;
 
-import lapr.project.dataLayer.SaveToHTML;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;

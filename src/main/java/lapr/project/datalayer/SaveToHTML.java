@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lapr.project.dataLayer;
+package lapr.project.datalayer;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -74,7 +74,7 @@ public class SaveToHTML {
      */
     private void buildHTML(HTMLExporter htmlBuilder) {
         /**
-         * Head
+         * Head Summary
          */
         htmlBuilder.addHtml().addTitle(p.getName()).closeTag()
                 .addHead()
@@ -87,7 +87,7 @@ public class SaveToHTML {
                 .closeTag();//closeHead
 
         /**
-         * Body
+         * Body Info for all Segments
          */
         htmlBuilder.addBody().addDiv("")
                 .addHead2("------------ROADS------------").closeTag();

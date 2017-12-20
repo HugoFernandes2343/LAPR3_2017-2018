@@ -1,4 +1,4 @@
-package lapr.project.dataLayer;
+package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -10,47 +10,46 @@ import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
- * Exemplo de classe cujas instâncias manipulam dados de BD Oracle.
+ * Handles data between this Project and the database
  */
 public class DataHandler {
 
     /**
-     * O URL da BD.
+     * Database URL
      */
     private String jdbcUrl;
 
     /**
-     * O nome de utilizador da BD.
+     * User's name
      */
     private String username;
 
     /**
-     * A password de utilizador da BD.
+     * User's password
      */
     private String password;
 
     /**
-     * A ligação à BD.
+     * Object connection that helps to create a statment to the database
      */
     private Connection connection;
 
     /**
-     * A invocação de "stored procedures".
+     * "Stored Procedures" are called using this object
      */
     private CallableStatement callStmt;
 
     /**
-     * Conjunto de resultados retornados por "stored procedures".
+     * Return values from the "Stored Procedures" are stored in this object
      */
     private ResultSet rSet;
 
     /**
-     * Constrói uma instância de "DataHandler" recebendo, por parâmetro, o URL
-     * da BD e as credenciais do utilizador.
+     * Creates an instance of the DataHandler recieving the URL,username and password
      *
-     * @param jdbcUrl o URL da BD.
-     * @param username o nome do utilizador.
-     * @param password a password do utilizador.
+     * @param jdbcUrl database URL.
+     * @param username User's name.
+     * @param password User's password.
      */
     public DataHandler(String jdbcUrl, String username, String password) {
         this.jdbcUrl = jdbcUrl;
@@ -62,7 +61,7 @@ public class DataHandler {
     }
 
     /**
-     * Estabelece a ligação à BD.
+     * Creates/Opens a connection to the database
      */
     public void openConnection() throws SQLException {
         OracleDataSource ds = new OracleDataSource();
@@ -71,9 +70,9 @@ public class DataHandler {
     }
 
     /**
-     * Fecha os objetos "ResultSet", "CallableStatement" e "Connection", e
-     * retorna uma mensagem de erro se alguma dessas operações não for bem
-     * sucedida. Caso contrário retorna uma "string" vazia.
+     * Closes the objects "ResultSet", "CallableStatement" and "Connection", and
+     * returns an error message if something does not work as intended. 
+     * Else returns an empty string.
      */
     public String closeAll() {
 

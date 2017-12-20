@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lapr.project.dataLayer;
+package lapr.project.datalayer;
 
-import java.io.File;
 import lapr.project.model.Project;
 
 /**
@@ -16,13 +15,13 @@ public class SaveToCSV {
 
     /**
      * File location
+     *
+     * private File fileLocation;
      */
-    private File fileLocation;
-    
-    private Project p;
+    protected final Project p;
 
     public SaveToCSV(Project p) {
-        
+        this.p = p;
     }
 
 }

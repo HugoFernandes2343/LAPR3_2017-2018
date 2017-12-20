@@ -19,8 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import lapr.project.dataLayer.SaveToCSV;
-import lapr.project.dataLayer.SaveToHTML;
+import lapr.project.datalayer.SaveToCSV;
+import lapr.project.datalayer.SaveToHTML;
 import lapr.project.model.Project;
 
 /**
@@ -52,12 +52,12 @@ public class SaveToFile extends JFrame {//Add the implementation later
     /**
      * SaveToHTML object
      */
-    private SaveToHTML htmlSave;
+    protected SaveToHTML htmlSave;
     
     /**
      * SaveToCSV object
      */
-    private SaveToCSV csvSave;
+    protected SaveToCSV csvSave;
 
     /**
      * SaveToFile contructor
