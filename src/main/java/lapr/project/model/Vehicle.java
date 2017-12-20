@@ -19,6 +19,7 @@ public class Vehicle implements Serializable {
     private double frontalArea;
     private double rrc;
     private double wheelSize;
+    private double err;
     private Energy energy;
     private VelocityLimitList velocityLimitList;
 
@@ -203,7 +204,16 @@ public class Vehicle implements Serializable {
     public void setVelocityLimitList(VelocityLimitList velocityLimitList) {
         this.velocityLimitList = velocityLimitList;
     }
-
+    
+    /**
+     * Set of the Energy Regeneration Ratio
+     *
+     * @param err the Energy Regeneration Ratio to set
+     */
+    public void setErr(double err) {
+        this.err = err;
+    }
+    
     /**
      * @return the name name of the vehicle
      */
