@@ -6,7 +6,8 @@ public class Regime implements Serializable {
 
     private static final long serialVersionUID = 603L;
 
-    private int torque;
+    private int torqueHigh;
+    private int torqueLow;
     private int rpmLow;
     private int rpmHigh;
     private Double SFC;
@@ -20,23 +21,24 @@ public class Regime implements Serializable {
     /**
      * Full Constructor for the regime object
      *
-     * @param torque value of torque to create the
+     * @param torque value of torqueHigh to create the
      * @param rpmLow value of the low rpms
      * @param rpmHigh value of the high rpms
      * @param SFC value of the SFC
      */
-    public Regime(int torque, int rpmLow, int rpmHigh, Double SFC) {
-        this.torque = torque;
+    public Regime(int torqueHigh, int torqueLow, int rpmLow, int rpmHigh, Double SFC) {
+        this.torqueHigh = torqueHigh;
+        this.torqueLow=torqueLow;
         this.rpmLow = rpmLow;
         this.rpmHigh = rpmHigh;
         this.SFC = SFC;
     }
 
     /**
-     * @return the torque torque of the regime
+     * @return the torqueHigh torqueHigh of the regime
      */
-    public int getTorque() {
-        return torque;
+    public int getTorqueHigh() {
+        return torqueHigh;
     }
 
     /**
@@ -61,13 +63,24 @@ public class Regime implements Serializable {
     }
 
     /**
-     * Set method for the torque variable
+     * Set method for the torqueHigh variable
      *
-     * @param torque value to be set as torque
+     * @param torqueHigh value to be set as torqueHigh
      */
-    public void setTorque(int torque) {
-        this.torque = torque;
+    public void setTorqueHigh(int torqueHigh) {
+        this.torqueHigh = torqueHigh;
     }
+    
+    /**
+     * Set method for the torqueLow variable
+     *
+     * @param torqueLow value to be set as torqueLow
+     */
+    public void setTorqueLow(int torqueLow) {
+        this.torqueLow = torqueLow;
+    }
+    
+    
 
     /**
      * Set method for the rpm low variable
@@ -104,7 +117,7 @@ public class Regime implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.torque;
+        hash = 89 * hash + this.torqueHigh;
         hash = 89 * hash + this.rpmLow;
         hash = 89 * hash + this.rpmHigh;
         return hash;
@@ -126,7 +139,7 @@ public class Regime implements Serializable {
             return false;
         }
         Regime other = (Regime) obj;
-        if (this.torque != other.torque) {
+        if (this.torqueHigh != other.torqueHigh) {
             return false;
         }
         if (this.rpmLow != other.rpmLow) {

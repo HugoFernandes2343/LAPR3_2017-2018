@@ -283,10 +283,15 @@ public class FileXML implements Serializable {
                                                     Element regimeElem = (Element) lastList.item(l);//regime
                                                     
                                                     Regime regime = new Regime();
-
-                                                    NodeList regimeList = regimeElem.getElementsByTagName("torque");
+                                                    
+                                                    NodeList regimeList = regimeElem.getElementsByTagName("torque_low");
                                                     for (int m = 0; m < regimeList.getLength(); m++) {
-                                                        regime.setTorque(Integer.valueOf(regimeList.item(m).getTextContent()));
+                                                        regime.setTorqueLow(Integer.valueOf(regimeList.item(m).getTextContent()));
+                                                    }
+                                                    
+                                                    regimeList = regimeElem.getElementsByTagName("torque_high");
+                                                    for (int m = 0; m < regimeList.getLength(); m++) {
+                                                        regime.setTorqueHigh(Integer.valueOf(regimeList.item(m).getTextContent()));
                                                     }
 
                                                     regimeList = regimeElem.getElementsByTagName("rpm_low");

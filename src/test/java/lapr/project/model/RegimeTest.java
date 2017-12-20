@@ -22,7 +22,7 @@ public class RegimeTest {
     private final Regime instanceEmpty;
 
     public RegimeTest() {
-        instance = new Regime(20, 30, 40, 50.0);
+        instance = new Regime(20,10, 30, 40, 50.0);
         instanceEmpty = new Regime();
     }
 
@@ -46,10 +46,10 @@ public class RegimeTest {
      * Test of getTorque method, of class Regime.
      */
     @Test
-    public void testGetTorque() {
+    public void testGetTorqueHigh() {
         System.out.println("getTorque");
         int expResult = 20;
-        int result = instance.getTorque();
+        int result = instance.getTorqueHigh();
         assertEquals(expResult, result);
     }
 
@@ -92,7 +92,7 @@ public class RegimeTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Regime test = new Regime(20, 30, 40, 50.0);
+        Regime test = new Regime(20, 10, 30, 40, 50.0);
         int expResult = test.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);//result of hashCode should be the same if it is the same object
@@ -104,19 +104,19 @@ public class RegimeTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = new Regime(20, 30, 40, 50.0);
+        Object obj = new Regime(20, 10, 30, 40, 50.0);
         assertEquals("Should be true if they are the same object", true, instance.equals(obj));
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
         obj = "test";
         assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
-        obj = new Regime(2, 30, 40, 50.0);
+        obj = new Regime(2, 1, 30, 40, 50.0);
         assertEquals("Should be false if they have not the same torque", false, instance.equals(obj));
-        obj = new Regime(20, 3, 40, 50.0);
+        obj = new Regime(20, 10, 3, 40, 50.0);
         assertEquals("Should be false if they have not the same rpm_low", false, instance.equals(obj));
-        obj = new Regime(20, 30, 4, 50.0);
+        obj = new Regime(20, 10, 30, 4, 50.0);
         assertEquals("Should be false if they have not the same rpm_high", false, instance.equals(obj));
-        obj = new Regime(20, 30, 40, 5.0);
+        obj = new Regime(20, 10, 30, 40, 5.0);
         assertEquals("Should be false if they have not the same SFC", false, instance.equals(obj));
     }
 
@@ -150,8 +150,8 @@ public class RegimeTest {
     public void testSetTorque() {
         System.out.println("setTorque");
         int torque = 10;
-        instance.setTorque(torque);
-        assertEquals(torque,instance.getTorque());
+        instance.setTorqueHigh(torque);
+        assertEquals(torque,instance.getTorqueHigh());
        
     }
 

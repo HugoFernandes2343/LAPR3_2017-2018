@@ -48,7 +48,7 @@ public class ThrottleTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Regime test = new Regime(10, 20, 30, 40.0);
+        Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
         Throttle instance = new Throttle("test_id", listTest);
@@ -64,7 +64,7 @@ public class ThrottleTest {
     @Test
     public void testGetRegimeList() {
         System.out.println("getRegime_list");
-        Regime test = new Regime(10, 20, 30, 40.0);
+        Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
         Throttle instance = new Throttle("test_id", listTest);
@@ -79,7 +79,7 @@ public class ThrottleTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Regime test = new Regime(10, 20, 30, 40.0);
+        Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
         Throttle instance = new Throttle("test_id", listTest);
@@ -104,7 +104,7 @@ public class ThrottleTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Regime test = new Regime(10, 20, 30, 40.0);
+        Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
         Throttle instance = new Throttle("test_id", listTest);
