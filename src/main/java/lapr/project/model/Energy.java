@@ -11,6 +11,7 @@ public class Energy implements Serializable {
     private int minRpm;
     private int maxRpm;
     private Double finalDriveRatio;
+    private double err;
     private List<Gear> gearList = new LinkedList<>();
     private List<Throttle> throttleList = new LinkedList<>();
 
@@ -95,6 +96,13 @@ public class Energy implements Serializable {
      */
     public void setFinalDriveRatio(Double finalDriveRatio) {
         this.finalDriveRatio = finalDriveRatio;
+    }
+    
+    /**
+     * @param err the Energy Regeneration Ratio
+     */
+    public void setErr(double err) {
+        this.err = err;
     }
 
     /**

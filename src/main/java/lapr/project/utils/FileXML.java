@@ -238,6 +238,13 @@ public class FileXML implements Serializable {
                                 
                                 energy.setFinalDriveRatio(Double.valueOf(list.item(k).getTextContent()));
                             }
+                            
+                            list = el.getElementsByTagName("energy_regeneration_ratio");
+                            for (int k = 0; k < list.getLength(); k++) {
+                                
+                                energy.setErr(Double.valueOf(list.item(k).getTextContent()));
+                            }
+                            
 
                             list = el.getElementsByTagName("gear_list");
                             for (int k = 0; k < list.getLength(); k++) {
