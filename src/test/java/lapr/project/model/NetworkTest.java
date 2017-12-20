@@ -138,6 +138,14 @@ public class NetworkTest {
         roadsToAdd = new Network();
         assertFalse("If we pass a new network is empty it should be false", instance.addNewRoadsFromNetwork(roadsToAdd));
 
+        Network otherTest = new Network();
+        Network test = new Network();
+        otherTest.addNode("1");
+        otherTest.addNode("2");
+        otherTest.loadMap();
+
+        assertTrue("If we pass a new network with only vertexes it should be true", test.addNewRoadsFromNetwork(otherTest));
+        
         Road r1 = new Road("A1", "Highway", "Tests");
         Road r2 = new Road("A1", "Highway", "Tests1");
         Road r3 = new Road("A1", "Highway", "Tests2");
@@ -163,7 +171,6 @@ public class NetworkTest {
         assertFalse("Since there is already rs1 it should be false", instance.addNewRoadsFromNetwork(roadsToAdd));
 
         RoadSection rs2 = new RoadSection("3", "4", "Tests", "South", new LinkedList<>());
-        networkAdd.addRoadSection(rs1);
         networkAdd.addNode("3");
         networkAdd.addNode("4");
         networkAdd.addRoad(r2);
@@ -253,6 +260,7 @@ public class NetworkTest {
         Node n1 = new Node("1");
         Node n2 = new Node("2");
         RoadSection rs1 = new RoadSection("1", "2", "Tests", "South", new LinkedList<>());
+        RoadSection rs2 = new RoadSection("1", "6", "Tests", "South", new LinkedList<>());
         instance.loadMap();
         assertTrue("Since none of the elementes where put in the matrix it should be null", instance.getRoadMap().endVertices(rs1) == null);
         instance.addRoad(r1);
@@ -313,6 +321,8 @@ public class NetworkTest {
         }
         List<String> result = instance.getNodesByName();
         assertEquals(expResult, result);
-
+        for(int i = 0; i < expResult.size(); i++){
+           assertTrue("All nodes should be equal", expResult.get(i).equals(result.get(i)));
+        } 
+        }
     }
-}
