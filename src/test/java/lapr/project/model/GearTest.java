@@ -19,9 +19,11 @@ import static org.junit.Assert.*;
 public class GearTest {
 
     private Gear instance;
+    private Gear instanceEmpty;
 
     public GearTest() {
-        this.instance = new Gear("test", 2.1);
+        instance = new Gear("test", 2.1);
+        instanceEmpty = new Gear();
     }
 
     @BeforeClass
@@ -102,6 +104,32 @@ public class GearTest {
         assertEquals(expResult, result);
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
+        obj = "test";
+        assertEquals("Should be false because obj is string", false, instance.equals(obj));
 
     }
+
+    /**
+     * Test of setId method, of class Gear.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        String id = "2";
+        instance.setId(id);
+        assertEquals(id,instance.getId());
+
+    }
+
+    /**
+     * Test of setRatio method, of class Gear.
+     */
+    @Test
+    public void testSetRatio() {
+        System.out.println("setRatio");
+        double ratio = 2.2;
+        instance.setRatio(ratio);
+        assertEquals(ratio, instance.getRatio(),0.0);
+    }
+
 }

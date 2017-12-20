@@ -42,11 +42,29 @@ public class VelocityLimitListTest {
      * Test of getVelocityLimitList method, of class VelocityLimitList.
      */
     @Test
-    public void testGetVelocity_limit_list() {
+    public void testGetVelocityLimitList() {
         System.out.println("getVelocity_limit_list");
         VelocityLimitList instance = new VelocityLimitList();
         Set<VelocityLimit> result = instance.getVelocityLimitList();
         assertTrue("The obtained list should be empty", result.isEmpty());
+    }
+
+    /**
+     * Test of addVelocityLimit method, of class VelocityLimitList.
+     */
+    @Test
+    public void testAddVelocityLimit() {
+        System.out.println("addVelocityLimit");
+        VelocityLimit limit = new VelocityLimit("coisa", 250);
+        VelocityLimitList instance = new VelocityLimitList();
+        instance.addVelocityLimit(limit);
+        assertTrue(instance.getVelocityLimitList().contains(limit));
+        
+        VelocityLimitList instance2 = new VelocityLimitList();
+        instance2.getVelocityLimitList().add(limit);
+        instance2.addVelocityLimit(limit);
+        assertTrue(instance2.getVelocityLimitList().contains(limit));
+       
     }
     
 }

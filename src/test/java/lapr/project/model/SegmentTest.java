@@ -142,6 +142,9 @@ public class SegmentTest {
         boolean result = instance.equals(obj);
         assertEquals("Equal segments", expResult, result);
 
+        obj = "test";
+        assertEquals("Should be false because obj is a string", false, instance.equals(obj));
+        
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
 

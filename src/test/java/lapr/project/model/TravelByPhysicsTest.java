@@ -48,7 +48,6 @@ public class TravelByPhysicsTest {
     @Test
     public void testGetProjectList() {
         System.out.println("getProjectList");
-        TravelByPhysics instance = new TravelByPhysics();
 
         ProjectList result = instance.getProjectList();
         List<String> shouldBeEmpty = result.getAllNames();
@@ -62,7 +61,7 @@ public class TravelByPhysicsTest {
     @Test
     public void testGetAlgorithmsList() {
         System.out.println("getAlgorithmsList");
-        TravelByPhysics instance = new TravelByPhysics();
+
         List<Algorithm> expResult = new ArrayList<>();
         List<Algorithm> result = instance.getAlgorithmsList();
         assertEquals(expResult, result);
@@ -75,8 +74,22 @@ public class TravelByPhysicsTest {
     @Test
     public void testGetAlgorithmsByName() {
         System.out.println("getAlgorithmsByName");
-        TravelByPhysics instance = new TravelByPhysics();
+        List<Algorithm> algList = instance.getAlgorithmsList();
+        Algorithm a1 = new Algorithm();
+        Algorithm a2 = new Algorithm();
+        Algorithm a3 = new Algorithm();
+        Algorithm a4 = new Algorithm();
+        algList.add(a1);
+        algList.add(a2);
+        algList.add(a3);
+        algList.add(a4);
+        
         List<String> expResult = new ArrayList<>();
+        expResult.add(a1.getName());
+        expResult.add(a2.getName());
+        expResult.add(a3.getName());
+        expResult.add(a4.getName());
+
         List<String> result = instance.getAlgorithmsByName();
         assertEquals(expResult, result);
     }
