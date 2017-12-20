@@ -3,6 +3,8 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.utils.Algorithm;
+import lapr.project.utils.ShortestTravellTimeAlgorithm;
 
 /**
  *
@@ -32,7 +34,9 @@ public class TravelByPhysics implements Serializable{
     public TravelByPhysics() {
         this.projectList = new ProjectList();
         this.userList = new UserList();
+        Algorithm a = new ShortestTravellTimeAlgorithm();
         this.algorithmsList = new ArrayList<>();
+        this.algorithmsList.add(a);
     }
 
     /**
@@ -55,7 +59,7 @@ public class TravelByPhysics implements Serializable{
     public List<String> getAlgorithmsByName(){
         List<String> names = new ArrayList<>();
         for(Algorithm a : this.algorithmsList){
-            names.add(a.getName());
+            names.add(a.toString());
         }
         return names;
     }

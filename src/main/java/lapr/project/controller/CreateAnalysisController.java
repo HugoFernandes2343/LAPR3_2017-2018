@@ -11,7 +11,6 @@ import lapr.project.model.Node;
 import lapr.project.model.Project;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.model.Vehicle;
-import lapr.project.model.VehicleList;
 import lapr.project.utils.Algorithm;
 
 /**
