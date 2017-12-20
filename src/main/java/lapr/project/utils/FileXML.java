@@ -18,6 +18,7 @@ import java.io.Serializable;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import lapr.project.model.Energy;
 import lapr.project.model.Gear;
 import lapr.project.model.Regime;
@@ -28,10 +29,12 @@ import lapr.project.model.Throttle;
 import lapr.project.model.TollFare;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VelocityLimit;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class FileXML implements Serializable {
 
@@ -94,7 +97,7 @@ public class FileXML implements Serializable {
             travel = (TravelByPhysics) xstream.fromXML(in);
 
         } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
-
+            Logger.getLogger(FileXML.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(null,
                     "XML Tags in file '" + fileXml + "have problems",
                     "XML Reading Failure", JOptionPane.ERROR_MESSAGE);
@@ -319,8 +322,9 @@ public class FileXML implements Serializable {
 
             }
             return vehicleList;
-        } catch (Exception e) {
-            Logger.getLogger(FileXML.class.getName()).log(Level.INFO, e.getMessage());
+        } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException e) {
+            Logger.getLogger(FileXML.class.getName()).log(Level.SEVERE, null, e);
+
            
         }
 
@@ -501,8 +505,8 @@ public class FileXML implements Serializable {
             }
             roadNetwork.loadMap();
             return roadNetwork;
-        } catch (Exception e) {
-            Logger.getLogger(FileXML.class.getName()).log(Level.INFO, e.getMessage());
+        } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException e) {
+            Logger.getLogger(FileXML.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return null;

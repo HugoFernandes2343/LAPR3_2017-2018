@@ -53,7 +53,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
             List<String> eventsList = sp.getProjects();
             projectList.setListData(eventsList.toArray(new String[0]));
         } catch (NullPointerException ex) {
-            Logger.getLogger(SelectProjectUI.class.getName()).log(Level.INFO, ex.getMessage());
+            Logger.getLogger(SelectProjectUI.class.getName()).log(Level.SEVERE, null, ex);
             errMess(NO_PROJ, MESS_ERR);
             removeAll();
             add(new MainPanel());
@@ -150,7 +150,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
                         errMess(ERR_NO_PROJECT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
-                     Logger.getLogger(SelectProjectUI.class.getName()).log(Level.INFO, ex.getMessage());
+                    Logger.getLogger(SelectProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_PROJ, MESS_ERR);
                 }
             }

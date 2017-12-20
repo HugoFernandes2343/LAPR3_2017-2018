@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -286,6 +288,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                         errMess(ERR_WRONG_FILE, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
+                    Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_NO_FILE, MESS_ERR);
                 }
             }
@@ -316,6 +319,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                         errMess(ERR_WRONG_FILE, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
+                    Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_NO_FILE, MESS_ERR);
                 }
             }
@@ -353,6 +357,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                         errMess(ERR_IMPORT, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
+                    Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_IMPORT, MESS_ERR);
                 }
             }
