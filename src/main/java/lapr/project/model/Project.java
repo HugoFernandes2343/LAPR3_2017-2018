@@ -96,6 +96,10 @@ public class Project implements Serializable {
         return this.netAnal;
     }
 
+    public void setNetworkAnalysis(NetworkAnalysis net){
+        this.netAnal=net;
+    }
+    
     /**
      *
      * @return the integer representation of the object Project

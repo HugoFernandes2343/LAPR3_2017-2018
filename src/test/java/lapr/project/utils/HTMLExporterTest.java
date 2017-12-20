@@ -27,55 +27,6 @@ public class HTMLExporterTest {
     }
 
     /**
-     * Test of addDiv method, of class HTMLExporter.
-     */
-    @Test
-    public void testAddDiv() {
-        System.out.println("addDiv");
-        ht = "\n"
-                + "<div>teste\n"
-                + "</div>";
-        HTMLExporter instance = new HTMLExporter();
-        instance.addDiv("teste");
-        instance.closeTag();
-        instance.endWriting();
-        assertEquals(ht, instance.getOutput());
-    }
-
-    /**
-     * Test of addHead2 method, of class HTMLExporter.
-     */
-    @Test
-    public void testAddHead2() {
-        System.out.println("addHead2");
-        ht="\n"
-                +"<h2>HeaderText\n"
-                + "</h2>";
-        String headerText = "HeaderText";
-        HTMLExporter instance = new HTMLExporter();
-        instance.addHead2(headerText);
-        instance.closeTag();
-        instance.endWriting();
-        assertEquals(ht,instance.getOutput());
-    }
-
-    /**
-     * Test of addParagraph method, of class HTMLExporter.
-     */
-    @Test
-    public void testAddParagraph() {
-        System.out.println("addParagraph");
-        ht = "\n"
-                + "<p>teste\n"
-                + "</p>";
-        HTMLExporter instance = new HTMLExporter();
-        instance.addParagraph("teste");
-        instance.closeTag();
-        instance.endWriting();
-        assertEquals(ht, instance.getOutput());
-    }
-
-    /**
      * Test of getOutput method, of class HTMLExporter.
      */
     @Test

@@ -29,7 +29,7 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         LinkedList<Double> velocityPerSegment = new LinkedList<>();
         LinkedList<Node> path = new LinkedList<>();
         double travellTime, tollCost, distance;
-        NetworkAnalysis analysis = new ShortestTravellTimeAnalysis(begin, end, vehicle, name, ALGORITHM);
+        NetworkAnalysis analysis = new ShortestTravellTimeAnalysis(begin, end, vehicle, name);
         AdjacencyMatrixGraph<Node, Double> timeMap = createEdgeAsDoubleGraph(project, vehicle);
         travellTime = EdgeAsDoubleGraphAlgorithms.shortestPath(timeMap, begin, end, path);
         LinkedList<RoadSection> bestPath = getConvertedPath(project.getNetwork().getRoadMap(), path);

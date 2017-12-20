@@ -5,6 +5,7 @@
  */
 package lapr.project.datalayer;
 
+import com.googlecode.jatl.Html;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class SaveToHTML {
     public SaveToHTML(Project p) throws IOException {
         HTMLExporter htmlBuilder = new HTMLExporter();
         this.p = p;
-        buildHTML(htmlBuilder);
+        buildHTML(htmlBuilder.getHTML());
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showSaveDialog(fileChooser);
         File file = fileChooser.getSelectedFile();
@@ -62,56 +63,78 @@ public class SaveToHTML {
      * @param htmlBuilder
      * @return
      */
-    public HTMLExporter startHTML(HTMLExporter htmlBuilder) {
-        buildHTML(htmlBuilder);
-        return htmlBuilder;
+    public Html startHTML(Html html) {
+        buildHTML(html);
+        return html;
     }
 
-    /**
-     * Builds the html file according to specifications
-     *
-     * @param htmlBuilder
-     */
-    private void buildHTML(HTMLExporter htmlBuilder) {
-        /**
-         * Head Summary
-         */
-        htmlBuilder.addHtml().addTitle(p.getName()).closeTag()
-                .addHead()
-                .addHead1(p.getName()).closeTag()
-                .addParagraph("-"+p.getDescription()).closeTag()
-                //add analysis name
-                //travel time
-                //number
-                //CLOSE THE TAGS UNTIL HEAD END
-                .closeTag();//closeHead
+    private void buildHTML(Html html) {
 
+        html.html()
+                .style().text("body {"
+                        + " background-color: #503f75 "
+                        + "}"
+                        + "p {"
+                        + "color: white"
+                        + "}"
+                        + "h1 {"
+                        + "color: white"
+                        + "}"
+                        + "h2 {"
+                        + "color: white"
+                        + "}"
+                        + "h3 {"
+                        + "color: white"
+                        + "}"
+                        + "h4 {"
+                        + "color: white"
+                        + "}").end(2)
+                .title().text(p.getName()).end()
+                /**
+                 * Head
+                 */
+                .head().font().face("Calibri").end()
+                .center().h1().text(p.getName()).end(2)
+                .p().text(p.getDescription()).end()
+                /*Analysis*/
+                .center().h2().text("Analysis by "+p.getNetworkAnalysis().getType()).end(2)
+                .p().text(""+p.getNetworkAnalysis().getId()).br()
+                .text(p.getNetworkAnalysis().getName()).br()
+                .text(""+p.getNetworkAnalysis().getTravellTime()).end()
+                .end();
         /**
-         * Body Info for all Segments
+         * End Head
          */
-        htmlBuilder.addBody().addDiv("")
-                .addHead2("------------ROADS------------").closeTag();
+        /**
+         * Begin Body
+         */
+        html.body().font().face("Calibri Regular").end()
+                .div()
+                .center().h2().text("ROADS").end(2);
         for (int i = 0; i < p.getNetwork().getSectionList().size(); i++) {
             RoadSection temp = p.getNetwork().getSectionList().get(i);
-            htmlBuilder.addDiv("")
-                        .addHead3("Road "+temp.getRoadId()).closeTag();
+            html.div()/*.center()*/.h3().text("Road " + temp.getRoadId()).end()
+                    .div().center().h4().text("SEGMENTS").end(2);
             for (Segment seg : temp.getSegmentList()) {
-                htmlBuilder.addDiv("").addHead4("-----------------SEGMENTS-----------------").closeTag()
-                        .addHead4("Segment "+seg.getId()).closeTag()
-                        .addParagraph("--Length : " + seg.getLength()).closeTag()
-                        .addParagraph("--Wind Speed : "+seg.getWindSpeed()).closeTag()
-                        .addParagraph("--Minimal Velocity : "+seg.getMinVelocity()).closeTag()
-                        .addParagraph("--Maximum Velocity : "+seg.getMaxVelocity()).closeTag()
-                        .addParagraph("--Initial Height : "+seg.getInitHeight()).closeTag()
-                        .addParagraph("--Final Height : "+seg.getFinalHeight()).closeTag()
-                        .addParagraph("--Wind Direction : "+seg.getWindDirection()).closeTag()
-                        /*Add the rest of data*/
-                        .addParagraph("---------------------------------------------------").closeTag();
+                html.h4().text("Segment " + seg.getId()).end()
+                        .p().text("Length : " + seg.getLength()).end()
+                        .p().text("Wind Speed : " + seg.getWindSpeed()).end()
+                        .p().text("Minimal Velocity : " + seg.getMinVelocity()).end()
+                        .p().text("Maximum Velocity : " + seg.getMaxVelocity()).end()
+                        .p().text("Initial Height : " + seg.getInitHeight()).end()
+                        .p().text("Final Height : " + seg.getFinalHeight()).end()
+                        .p().text("Wind Direction : " + seg.getWindDirection()).end()
+                        /*Add as needed*/
+                        .center().h3().text("**").end(2);
             }
-            
+            html.end();
         }
-        htmlBuilder.closeAllTags()
-                .endWriting();
+        html.end();
+
+        html.div()
+                .center().p().text("ISEP").br().text("2017-2018").br().text("LAPR3 Group042").end(2);
+        html.endAll();
+        html.done();
     }
 
     /**
@@ -132,7 +155,7 @@ public class SaveToHTML {
      * @param outputData
      * @throws IOException
      */
-    public void output(HTMLExporter outputData,File fileLocation) throws IOException {
+    protected void output(HTMLExporter outputData, File fileLocation) throws IOException {
         try (PrintWriter out = new PrintWriter(new FileWriter(fileLocation))) {
             out.println(outputData.getOutput());
         }
@@ -140,9 +163,10 @@ public class SaveToHTML {
 
     /**
      * Sets the Project
-     * @param p 
+     *
+     * @param p
      */
-    public void setProject(Project p) {
+    protected void setProject(Project p) {
         this.p = p;
     }
 

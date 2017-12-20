@@ -38,6 +38,10 @@ public abstract class NetworkAnalysis {
         flag++;
     }
 
+    public NetworkAnalysis(String type){
+        this.type=type;
+    }
+    
     /**
      * @return the id
      */

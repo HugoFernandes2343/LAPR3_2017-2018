@@ -53,7 +53,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
      * SaveToHTML object
      */
     protected SaveToHTML htmlSave;
-    
+
     /**
      * SaveToCSV object
      */
@@ -79,10 +79,10 @@ public class SaveToFile extends JFrame {//Add the implementation later
      * Create the current frame configuration for visualization
      */
     private void setConfigurations() {
-        this.setAlwaysOnTop(true);
         this.setTitle("Export(Choose format):");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.setAlwaysOnTop(true);
         createMainPanel();
         this.pack();
         this.setVisible(true);
@@ -135,6 +135,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Needs testing to see if it can keep the listener from being deleted in case of no file selection
+                temp.dispose();
                 switchTypes();
             }
         });

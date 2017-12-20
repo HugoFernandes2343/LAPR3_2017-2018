@@ -12,6 +12,7 @@ import lapr.project.model.Network;
 import lapr.project.model.Project;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
+import lapr.project.model.ShortestTravellTimeAnalysis;
 import lapr.project.utils.HTMLExporter;
 import org.junit.Test;
 
@@ -53,18 +54,21 @@ public class SaveToHTMLTest {
         sectionListTest.addSegment(segTest);
         netTest.addRoadSection(sectionListTest);
         test.setNetwork(netTest);
+        
+        ShortestTravellTimeAnalysis analysis = new ShortestTravellTimeAnalysis();
+        test.setNetworkAnalysis(analysis);
+        save = new SaveToHTML();
+        save.setProject(test);
     }
 
     public SaveToHTMLTest() {
         setUp();
-        save = new SaveToHTML();
-        save.setProject(test);
     }
 
     @Test
     public void testStartHTML() throws IOException {
         HTMLExporter exp = new HTMLExporter();
-        save.startHTML(exp);
+        save.startHTML(exp.getHTML());
         save.output(exp, new File("htmlTest.html"));
     }
 

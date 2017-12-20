@@ -128,7 +128,7 @@ public class DataHandler {
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
          *
          * FUNCTION getSailor(sid NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR END pkgSailors
          */
         callStmt = connection.prepareCall("{ ? = call getSailor(?) }");
 
