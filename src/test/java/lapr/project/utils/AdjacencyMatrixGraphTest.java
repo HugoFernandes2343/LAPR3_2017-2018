@@ -363,7 +363,7 @@ public class AdjacencyMatrixGraphTest {
         
         List<String> endVertices = instance.endVertices("Edge 6");
         
-        assertTrue("endVertices should be null", endVertices == null);
+        assertTrue("endVertices should be empty", endVertices.isEmpty());
         
         endVertices = instance.endVertices("Edge 5");
         

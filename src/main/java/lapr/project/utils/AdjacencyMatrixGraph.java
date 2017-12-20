@@ -282,17 +282,17 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      */
     @Override
     public List<V> endVertices(E edge) {
+         List<V> result = new ArrayList<>();
         for (int i = 0; i < numVertices - 1; i++) {
             for (int j = i + 1; j < numVertices; j++) {
                 if (edgeMatrix[i][j] != null && edgeMatrix[i][j].equals(edge)) {
-                    List<V> result = new ArrayList<>();
                     result.add(vertices.get(i));
                     result.add(vertices.get(j));
                     return result;
                 }
             }
         }
-        return null;
+        return result;
     }
 
     /**

@@ -174,7 +174,7 @@ public class Network implements Serializable {
         for (RoadSection rs : roadsToAdd.getRoadMap().edges()) {
             List<Node> endVertices = roadsToAdd.getRoadMap().endVertices(rs);
 
-            if (endVertices != null) {
+            if (!endVertices.isEmpty()) {
                 boolean insertEdge = this.getRoadMap().insertEdge(endVertices.get(0), endVertices.get(1), rs);
 
                 if (insertEdge) {

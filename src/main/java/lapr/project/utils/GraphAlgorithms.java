@@ -12,7 +12,7 @@ import java.util.List;
  * @author DEI-ESINF
  *
  */
-public class GraphAlgorithms {
+public final class GraphAlgorithms {
 
     /**
      * Private constructor to hide implicit one.
@@ -34,13 +34,12 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> List<V> depthFirstSearch(AdjacencyMatrixGraph<V, E> graph, V vertex) {
-
+        List<V> resultQueue = new LinkedList<>();
         int index = graph.toIndex(vertex);
         if (index == -1) {
-            return null;
+            return resultQueue;
         }
 
-        List<V> resultQueue = new LinkedList<>();
         resultQueue.add(vertex);
         boolean[] knownVertices = new boolean[graph.numVertices];
         GraphAlgorithms.depthFirstSearch(graph, index, knownVertices, resultQueue);
@@ -81,12 +80,12 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> List<V> breadthFirstSearch(AdjacencyMatrixGraph<V, E> graph, V vertex) {
-        if (!graph.checkVertex(vertex)) {
-            return null;
-        }
-
         LinkedList<V> qbfs = new LinkedList<>();
         LinkedList<V> qaux = new LinkedList<>();
+        if (!graph.checkVertex(vertex)) {
+            return qbfs;
+        }
+
 
         qbfs.add(vertex);
         qaux.add(vertex);

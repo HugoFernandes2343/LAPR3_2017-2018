@@ -70,8 +70,8 @@ public class GraphAlgorithmsTest {
         System.out.println("Test of DFS");
 
         List<String> path;
-
-        assertTrue("Should be null if vertex does not exist", GraphAlgorithms.depthFirstSearch(completeMap, "LX") == null);
+        path = GraphAlgorithms.depthFirstSearch(completeMap, "LX");
+        assertTrue("Should return an empty list if vertex does not exist", path.isEmpty());
 
         path = GraphAlgorithms.depthFirstSearch(incompleteMap, "Faro");
 
@@ -116,8 +116,8 @@ public class GraphAlgorithmsTest {
         System.out.println("Test of BFS");
 
         List<String> path;
-
-        assertTrue("Should be null if vertex does not exist", GraphAlgorithms.breadthFirstSearch(completeMap, "LX") == null);
+        path = GraphAlgorithms.breadthFirstSearch(completeMap, "LX");
+        assertTrue("Should return an empty list if vertex does not exist", path.isEmpty());
 
         path = GraphAlgorithms.breadthFirstSearch(incompleteMap, "Faro");
 

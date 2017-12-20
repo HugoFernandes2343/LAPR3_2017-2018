@@ -262,7 +262,10 @@ public class NetworkTest {
         RoadSection rs1 = new RoadSection("1", "2", "Tests", "South", new LinkedList<>());
         RoadSection rs2 = new RoadSection("1", "6", "Tests", "South", new LinkedList<>());
         instance.loadMap();
-        assertTrue("Since none of the elementes where put in the matrix it should be null", instance.getRoadMap().endVertices(rs1) == null);
+        
+        
+        List<Node> nodes = instance.getRoadMap().endVertices(rs1);
+        assertTrue("Since none of the elementes where put in the matrix it should return an empty list", nodes.isEmpty());
         instance.addRoad(r1);
         instance.addRoad(r2);
         instance.addRoad(r3);
@@ -276,7 +279,7 @@ public class NetworkTest {
         instance.addRoadSection(rs1);
         instance.loadMap();
 
-        List<Node> nodes = instance.getRoadMap().endVertices(rs1);
+        nodes = instance.getRoadMap().endVertices(rs1);
         assertTrue("One of the vertices should be n1", nodes.get(0).equals(n1));
         assertTrue("One of the vertices should be n2", nodes.get(1).equals(n2));
     }

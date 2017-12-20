@@ -6,7 +6,7 @@ import java.util.LinkedList;
  *
  * @author DEI-ESINF
  */
-public class EdgeAsDoubleGraphAlgorithms {
+public final class EdgeAsDoubleGraphAlgorithms {
 
     /**
      * Private constructor to hide implicit one.
