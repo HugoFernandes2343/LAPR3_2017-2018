@@ -16,11 +16,15 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 
+ * @author
  */
 public class TollFareTest {
 
+    private final TollFare instance;
+
     public TollFareTest() {
+        List<Class> listClasses = new LinkedList<>();
+        instance = new TollFare(listClasses);
     }
 
     @BeforeClass
@@ -40,7 +44,6 @@ public class TollFareTest {
     }
 
     //All tests were deleted due to model update on 15/12/2017
-
     /**
      * Test of addClass method, of class TollFare.
      */
@@ -49,11 +52,11 @@ public class TollFareTest {
         System.out.println("addClass");
         String id = "1";
         Double price = 1.2;
-        Class c1 = new Class("1",1.2);
-        TollFare instance = new TollFare();
+        Class c1 = new Class("1", 1.2);
+       
         instance.addClass(id, price);
         assertTrue(instance.getTollFare().contains(c1));
-        
+
     }
 
     /**
@@ -62,11 +65,11 @@ public class TollFareTest {
     @Test
     public void testGetTollFare() {
         System.out.println("getTollFare");
-        TollFare instance = new TollFare();
+        
         List<Class> expResult = new LinkedList<>();
         List<Class> result = instance.getTollFare();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -76,7 +79,7 @@ public class TollFareTest {
     public void testSetTollFare() {
         System.out.println("setTollFare");
         List<Class> tollFare = null;
-        TollFare instance = new TollFare();
+        
         instance.setTollFare(tollFare);
         assertTrue(instance.getTollFare() == null);
     }

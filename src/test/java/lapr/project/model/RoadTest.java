@@ -18,10 +18,13 @@ import static org.junit.Assert.*;
  */
 public class RoadTest {
 
-    private Road instance;
+    private final Road instance;
+    private final Road instance2;
 
     public RoadTest() {
         instance = new Road("A23", "Autoestrada", "A01");
+        TollFare tf = new TollFare();
+        instance2 = new Road("A23", "Autoestrada", "A01",tf);
     }
 
     @BeforeClass
@@ -165,6 +168,30 @@ public class RoadTest {
         TollFare toll_fare = null;
         instance.setTollFare(toll_fare);
         assertEquals(toll_fare, instance.getTollFare());
+    }
+
+    /**
+     * Test of getTollFare method, of class Road.
+     */
+    @Test
+    public void testGetTollFare() {
+        System.out.println("getTollFare");
+       
+        TollFare tollFare = new TollFare();
+        TollFare result = instance2.getTollFare();
+        assertTrue( result.getClass()== tollFare.getClass());
+        
+    }
+
+    /**
+     * Test of setTollFare method, of class Road.
+     */
+    @Test
+    public void testSetTollFare() {
+        System.out.println("setTollFare");
+        TollFare tollFare = new TollFare();
+        instance2.setTollFare(tollFare);
+        assertTrue(instance2.getTollFare().getClass()== tollFare.getClass());
     }
 
 }

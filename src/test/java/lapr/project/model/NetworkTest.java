@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import lapr.project.utils.AdjacencyMatrixGraph;
@@ -21,7 +22,10 @@ import static org.junit.Assert.*;
  */
 public class NetworkTest {
 
+    private final Network instance;
+
     public NetworkTest() {
+        instance = new Network();
     }
 
     @BeforeClass
@@ -46,7 +50,7 @@ public class NetworkTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Network instance = new Network();
+
         String expResult = "TestNetwork";
         String result = instance.getId();
         assertEquals(expResult, result);
@@ -58,7 +62,7 @@ public class NetworkTest {
     @Test
     public void testGetDescription() {
         System.out.println("getDescription");
-        Network instance = new Network();
+
         String expResult = "test";
         String result = instance.getDescription();
         assertEquals(expResult, result);
@@ -71,7 +75,7 @@ public class NetworkTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Network instance = new Network();
+
         Network instanceTest = new Network();
         int expResult = instanceTest.hashCode();
         int result = instance.hashCode();
@@ -86,7 +90,7 @@ public class NetworkTest {
     public void testEquals() {
         System.out.println("equals");
         Object obj = new Network();
-        Network instance = new Network();
+
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
@@ -102,7 +106,7 @@ public class NetworkTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Network instance = new Network();
+
         String expResult = "Network{id=TestNetwork}";
         String result = instance.toString();
         assertEquals(expResult, result);
@@ -116,7 +120,7 @@ public class NetworkTest {
     public void testSetId() {
         System.out.println("setId");
         String id = "";
-        Network instance = new Network();
+
         instance.setId(id);
         assertEquals(id, instance.getId());
     }
@@ -125,10 +129,9 @@ public class NetworkTest {
      * Test of addNewRoadsFromNetwork method, of class Network.
      */
     @Test
-    public void testAddNewRoadsFromNetwork() {
+    public void testAddNewRoadsFromNetwork() { // LOOK THESE TESTS OVER WITH TEAM
         System.out.println("addNewRoadsFromNetwork");
         Network roadsToAdd = null;
-        Network instance = new Network();
 
         assertFalse("If we pass a new network null it should be false", instance.addNewRoadsFromNetwork(roadsToAdd));
 
@@ -158,7 +161,7 @@ public class NetworkTest {
         instance.addRoadSection(rs1);
         instance.loadMap();
         assertFalse("Since there is already rs1 it should be false", instance.addNewRoadsFromNetwork(roadsToAdd));
-        
+
         RoadSection rs2 = new RoadSection("3", "4", "Tests", "South", new LinkedList<>());
         networkAdd.addRoadSection(rs1);
         networkAdd.addNode("3");
@@ -179,7 +182,7 @@ public class NetworkTest {
     public void testSetDescription() {
         System.out.println("setDescription");
         String description = "Tests";
-        Network instance = new Network();
+
         instance.setDescription(description);
         assertTrue("The new description should be 'Tests'", instance.getDescription().equals("Tests"));
     }
@@ -191,7 +194,7 @@ public class NetworkTest {
     public void testAddNode() {
         System.out.println("addNode");
         String text = "Tests";
-        Network instance = new Network();
+
         assertTrue("This node should be added", instance.addNode(text));
         assertFalse("This node shouldn't be added", instance.addNode(text));
     }
@@ -204,7 +207,7 @@ public class NetworkTest {
         System.out.println("addRoad");
         Road road = new Road();
         road.setId("Tests");
-        Network instance = new Network();
+
         assertTrue("This road should be added", instance.addRoad(road));
         assertFalse("This road shouldn't be added", instance.addRoad(road));
     }
@@ -218,7 +221,7 @@ public class NetworkTest {
         RoadSection section = new RoadSection();
         section.setBegin("Tests1");
         section.setEnd("Tests2");
-        Network instance = new Network();
+
         assertTrue("This road section should be added", instance.addRoadSection(section));
         assertFalse("This road section shouldn't be added", instance.addRoadSection(section));
     }
@@ -229,7 +232,6 @@ public class NetworkTest {
     @Test
     public void testGetSectionList() {
         System.out.println("getSection_list");
-        Network instance = new Network();
 
         assertTrue("The list should be empty", instance.getSectionList().isEmpty());
         instance.getSectionList().add(new RoadSection());
@@ -240,9 +242,9 @@ public class NetworkTest {
      * Test of loadMap method, of class Network.
      */
     @Test
-    public void testLoadMap() {
+    public void testLoadMap() { // LOOK THESE TESTS OVER WITH TEAM
         System.out.println("loadMap");
-        Network instance = new Network();
+
         Road r1 = new Road("A1", "Highway", "Tests");
         Road r2 = new Road("A1", "Highway", "Tests1");
         Road r3 = new Road("A1", "Highway", "Tests2");
@@ -277,9 +279,40 @@ public class NetworkTest {
     @Test
     public void testGetRoadMap() {
         System.out.println("getRoadMap");
-        Network instance = new Network();
+
         AdjacencyMatrixGraph<Node, RoadSection> result = instance.getRoadMap();
         assertTrue("The matrix should be empty", result.numEdges() == 0 && result.numVertices() == 00);
+
+    }
+
+    /**
+     * Test of getNodeList method, of class Network.
+     */
+    @Test
+    public void testGetNodeList() {
+        System.out.println("getNodeList");
+
+        List<Node> expResult = new LinkedList<>();
+        List<Node> result = instance.getNodeList();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getNodesByName method, of class Network.
+     */
+    @Test
+    public void testGetNodesByName() {
+        System.out.println("getNodesByName");
+
+        List<Node> nodes = new Network().getNodeList();
+        List<String> expResult = new LinkedList<>();
+        Iterator<Node> itr = nodes.iterator();
+        while (itr.hasNext()) {
+            expResult.add(itr.next().getId());
+        }
+        List<String> result = instance.getNodesByName();
+        assertEquals(expResult, result);
 
     }
 }

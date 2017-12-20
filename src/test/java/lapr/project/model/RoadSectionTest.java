@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  */
 public class RoadSectionTest {
 
-    private RoadSection instance;
+    private final RoadSection instance;
 
     public RoadSectionTest() {
         LinkedList<Segment> segment_list = new LinkedList<>();
@@ -128,6 +128,115 @@ public class RoadSectionTest {
         assertEquals("Should be the same if the RoadSections begin are different", false, instance.equals(obj));
         obj = new RoadSection("begin", "test", "A01", "positive", segment_list);
         assertEquals("Should be the same if the RoadSections end are different", false, instance.equals(obj));
+    }
+
+    /**
+     * Test of getRoadId method, of class RoadSection.
+     */
+    @Test
+    public void testGetRoadId() {
+        System.out.println("getRoadId");
+        String expResult = "A01";
+        String result = instance.getRoadId();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getSegmentList method, of class RoadSection.
+     */
+    @Test
+    public void testGetSegmentList() {
+        System.out.println("getSegmentList");
+
+        List<Segment> expResult = new LinkedList<>();
+        List<Segment> result = instance.getSegmentList();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of setBegin method, of class RoadSection.
+     */
+    @Test
+    public void testSetBegin() {
+        System.out.println("setBegin");
+        String begin = "testBegin";
+
+        instance.setBegin(begin);
+        assertEquals(begin, instance.getBegin());
+
+    }
+
+    /**
+     * Test of setEnd method, of class RoadSection.
+     */
+    @Test
+    public void testSetEnd() {
+        System.out.println("setEnd");
+        String end = "testEnd";
+
+        instance.setEnd(end);
+        assertEquals(end, instance.getEnd());
+    }
+
+    /**
+     * Test of setRoadId method, of class RoadSection.
+     */
+    @Test
+    public void testSetRoadId() {
+        System.out.println("setRoadId");
+        String roadId = "testId";
+
+        instance.setRoadId(roadId);
+        assertEquals(roadId, instance.getRoadId());
+    }
+
+    /**
+     * Test of setDirection method, of class RoadSection.
+     */
+    @Test
+    public void testSetDirection() {
+        System.out.println("setDirection");
+        String direction = "testDirection";
+
+        instance.setDirection(direction);
+        assertEquals(direction, instance.getDirection());
+    }
+
+    /**
+     * Test of setSegmentList method, of class RoadSection.
+     */
+    @Test
+    public void testSetSegmentList() {
+        System.out.println("setSegmentList");
+        List<Segment> segmentList = new LinkedList<>();
+
+        instance.setSegmentList(segmentList);
+        assertTrue(instance.getSegmentList().isEmpty());
+
+    }
+
+    /**
+     * Test of addSegment method, of class RoadSection.
+     */
+    @Test
+    public void testAddSegment() {
+        System.out.println("addSegment");
+        Segment seg = new Segment("teste_id", 1, 2, "teste_length", 3, "teste_windSpeed", "teste_maxVelocity", "teste_minVelocity");
+
+        instance.addSegment(seg);
+        assertTrue((instance.getSegmentList().contains(seg)));
+
+        LinkedList<Segment> segment_list = new LinkedList<>();
+
+        RoadSection instance2 = new RoadSection("begin", "end", "A01", "positive", segment_list);
+        List<Segment> listSeg = instance2.getSegmentList();
+        listSeg.add(seg);
+        assertTrue(listSeg.contains(seg));
+
+        instance2.addSegment(seg);
+        assertTrue(listSeg.contains(seg));
     }
 
 }

@@ -19,8 +19,11 @@ import static org.junit.Assert.*;
  * @author
  */
 public class ThrottleTest {
+    
+    private final Throttle instanceEmpty;
 
     public ThrottleTest() {
+        instanceEmpty = new Throttle();
     }
 
     @BeforeClass
@@ -123,6 +126,18 @@ public class ThrottleTest {
 
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
+    }
+
+    /**
+     * Test of setId method, of class Throttle.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        String id = "test_id";
+        Throttle instance = new Throttle();
+        instance.setId(id);
+        assertEquals(id,instance.getId());
     }
 
 }

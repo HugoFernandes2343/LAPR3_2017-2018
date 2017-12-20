@@ -159,4 +159,62 @@ public class EnergyTest {
 
     }
 
+    /**
+     * Test of setMinRpm method, of class Energy.
+     */
+    @Test
+    public void testSetMinRpm() {
+        System.out.println("setMinRpm");
+        int minRpm = 3;
+        instance = new Energy();
+        instance.setMinRpm(minRpm);
+        assertTrue(instance.getMinRpm() == 3);
+    }
+
+    /**
+     * Test of setMaxRpm method, of class Energy.
+     */
+    @Test
+    public void testSetMaxRpm() {
+        System.out.println("setMaxRpm");
+        int maxRpm = 7000;
+        instance = new Energy();
+        instance.setMaxRpm(maxRpm);
+        assertTrue(instance.getMaxRpm() == 7000);
+    }
+
+    /**
+     * Test of setFinalDriveRatio method, of class Energy.
+     */
+    @Test
+    public void testSetFinalDriveRatio() {
+        System.out.println("setFinalDriveRatio");
+        Double finalDriveRatio = 1.0;
+        instance = new Energy();
+        instance.setFinalDriveRatio(finalDriveRatio);
+        assertTrue(instance.getFinalDriveRatio() == 1.0);
+        
+    }
+
+    /**
+     * Test of addGear method, of class Energy.
+     */
+    @Test
+    public void testAddGear() {
+        System.out.println("addGear");
+        Gear gear = new Gear("1",1.5);
+        instance = new Energy();
+        instance.addGear(gear);
+        List<Gear> listGears = instance.getGearList();
+        assertTrue(listGears.contains(gear));
+        
+        Energy instance2 = new Energy();
+        List<Gear> listGears2 = instance2.getGearList();
+        listGears2.add(gear);
+        assertTrue(listGears2.contains(gear));
+        
+        instance2.addGear(gear);
+        assertTrue(listGears2.contains(gear));
+    }
+
 }

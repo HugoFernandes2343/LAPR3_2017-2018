@@ -18,7 +18,12 @@ import static org.junit.Assert.*;
  */
 public class VelocityLimitTest {
 
+    private VelocityLimit instance;
+    private final VelocityLimit instanceEmpty;
+
     public VelocityLimitTest() {
+        instance = new VelocityLimit("coisa", 250);
+        instanceEmpty = new VelocityLimit();
     }
 
     @BeforeClass
@@ -43,7 +48,6 @@ public class VelocityLimitTest {
     @Test
     public void testGetSegment_type() {
         System.out.println("getSegment_type");
-        VelocityLimit instance = new VelocityLimit("coisa", 250);
         String expResult = "coisa";
         String result = instance.getSegmentType();
         assertEquals(expResult, result);
@@ -55,7 +59,7 @@ public class VelocityLimitTest {
     @Test
     public void testGetLimit() {
         System.out.println("getLimit");
-        VelocityLimit instance = new VelocityLimit("coisa", 250);
+
         int expResult = 250;
         int result = instance.getLimit();
         assertEquals(expResult, result);
@@ -67,7 +71,6 @@ public class VelocityLimitTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        VelocityLimit instance = new VelocityLimit("coisa", 250);
         VelocityLimit instance1 = new VelocityLimit("coisa", 250);
         int expResult = instance1.hashCode();
         int result = instance.hashCode();
@@ -85,15 +88,51 @@ public class VelocityLimitTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        VelocityLimit obj = new VelocityLimit("coisa", 250);
-        VelocityLimit instance = new VelocityLimit("coisa", 250);
+        Object obj = new VelocityLimit("coisa", 250);
         assertTrue("Should be equal", obj.equals(instance));
 
         instance = new VelocityLimit("coisafesd", 2567);
         assertFalse("Shouldn't be equal", obj.equals(instance));
 
+        obj = "test";
+        assertEquals("Should be false because obj is a string", false, instance.equals(obj));
+        
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
+    }
+
+    /**
+     * Test of getSegmentType method, of class VelocityLimit.
+     */
+    @Test
+    public void testGetSegmentType() {
+        System.out.println("getSegmentType");
+        String expResult = "coisa";
+        String result = instance.getSegmentType();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setSegmentType method, of class VelocityLimit.
+     */
+    @Test
+    public void testSetSegmentType() {
+        System.out.println("setSegmentType");
+        String segmentType = "Cena";
+        instance.setSegmentType(segmentType);
+        assertEquals(segmentType, instance.getSegmentType());
+    }
+
+    /**
+     * Test of setLimit method, of class VelocityLimit.
+     */
+    @Test
+    public void testSetLimit() {
+        System.out.println("setLimit");
+        int limit = 230;
+
+        instance.setLimit(limit);
+        assertEquals(limit, instance.getLimit());
     }
 
 }

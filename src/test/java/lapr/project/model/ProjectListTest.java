@@ -20,7 +20,7 @@ import org.junit.BeforeClass;
  */
 public class ProjectListTest {
 
-    private ProjectList instance;
+    private final ProjectList instance;
 
     public ProjectListTest() {
         instance = new ProjectList();
@@ -114,6 +114,9 @@ public class ProjectListTest {
         Project expResult = p1;
         Project result = instance.getProject(name);
         assertEquals(expResult, result);
+        String name2 = "Proj3";
+        Project result2 = instance.getProject(name2);
+        assertTrue("should be null because there is no such project name",result2 ==null);
 
     }
 

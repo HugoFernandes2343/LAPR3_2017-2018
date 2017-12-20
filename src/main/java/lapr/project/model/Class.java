@@ -34,18 +34,18 @@ public class Class implements Serializable {
     }
 
     /**
-     * @return price
-     */
-    public Double getPrice() {
-        return price;
-    }
-
-    /**
      *
      * @param id id given to the class
      */
     public Class(String id) {
         this.id = id;
+    }
+
+    /**
+     * @return price
+     */
+    public Double getPrice() {
+        return price;
     }
 
     /**
@@ -106,5 +106,3 @@ public class Class implements Serializable {
     }
 
 }
-
-

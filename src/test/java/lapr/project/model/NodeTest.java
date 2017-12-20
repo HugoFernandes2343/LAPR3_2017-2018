@@ -18,7 +18,12 @@ import static org.junit.Assert.*;
  */
 public class NodeTest {
 
+    private final Node instance;
+    private final Node instanceEmpty;
+
     public NodeTest() {
+        instance = new Node("test");
+        instanceEmpty = new Node();
     }
 
     @BeforeClass
@@ -43,7 +48,6 @@ public class NodeTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Node instance = new Node();
         instance.setId("test");
         String expResult = "test";
         String result = instance.getId();
@@ -58,7 +62,6 @@ public class NodeTest {
     public void testSetId() {
         System.out.println("setId");
         String id = "test";
-        Node instance = new Node();
         instance.setId(id);
         String expResult = id;
         String result = instance.getId();
@@ -72,11 +75,12 @@ public class NodeTest {
     public void testEqualsFalseCase() {
         System.out.println("equals");
         Object obj = new Node();
-        Node instance = new Node();
         instance.setId("test1");
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
+        obj = "test";
+        assertEquals("Should be false because obj is a string", false, instance.equals(obj));
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
 
@@ -89,7 +93,6 @@ public class NodeTest {
     public void testEqualsTrueCase() {
         System.out.println("equals");
         Object obj = new Node();
-        Node instance = new Node();
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
@@ -102,7 +105,6 @@ public class NodeTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Node instance = new Node();
         instance.setId("test");
         int expResult = instance.hashCode();
         int result = instance.hashCode();

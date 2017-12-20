@@ -18,10 +18,12 @@ import static org.junit.Assert.*;
  */
 public class RegimeTest {
 
-    private Regime instance;
+    private final Regime instance;
+    private final Regime instanceEmpty;
 
     public RegimeTest() {
         instance = new Regime(20, 30, 40, 50.0);
+        instanceEmpty = new Regime();
     }
 
     @BeforeClass
@@ -56,7 +58,7 @@ public class RegimeTest {
      */
     @Test
     public void testGetRpm_low() {
-        System.out.println("getRpm_low");
+        System.out.println("getRpmLow");
         int expResult = 30;
         int result = instance.getRpmLow();
         assertEquals(expResult, result);
@@ -67,7 +69,7 @@ public class RegimeTest {
      */
     @Test
     public void testGetRpm_high() {
-        System.out.println("getRpm_high");
+        System.out.println("getRpmHigh");
         int expResult = 40;
         int result = instance.getRpmHigh();
         assertEquals(expResult, result);
@@ -90,7 +92,7 @@ public class RegimeTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Regime test = new Regime(20, 30, 40, 50.0);;
+        Regime test = new Regime(20, 30, 40, 50.0);
         int expResult = test.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);//result of hashCode should be the same if it is the same object
@@ -116,5 +118,74 @@ public class RegimeTest {
         assertEquals("Should be false if they have not the same rpm_high", false, instance.equals(obj));
         obj = new Regime(20, 30, 40, 5.0);
         assertEquals("Should be false if they have not the same SFC", false, instance.equals(obj));
+    }
+
+    /**
+     * Test of getRpmLow method, of class Regime.
+     */
+    @Test
+    public void testGetRpmLow() {
+        System.out.println("getRpmLow");
+        int expResult = 30;
+        int result = instance.getRpmLow();
+        assertEquals(expResult, result);
+       
+    }
+
+    /**
+     * Test of getRpmHigh method, of class Regime.
+     */
+    @Test
+    public void testGetRpmHigh() {
+        System.out.println("getRpmHigh");
+        int expResult = 40;
+        int result = instance.getRpmHigh();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setTorque method, of class Regime.
+     */
+    @Test
+    public void testSetTorque() {
+        System.out.println("setTorque");
+        int torque = 10;
+        instance.setTorque(torque);
+        assertEquals(torque,instance.getTorque());
+       
+    }
+
+    /**
+     * Test of setRpmLow method, of class Regime.
+     */
+    @Test
+    public void testSetRpmLow() {
+        System.out.println("setRpmLow");
+        int rpmLow = 25;
+        instance.setRpmLow(rpmLow);
+        assertEquals(rpmLow,instance.getRpmLow());
+        
+    }
+
+    /**
+     * Test of setRpmHigh method, of class Regime.
+     */
+    @Test
+    public void testSetRpmHigh() {
+        System.out.println("setRpmHigh");
+        int rpmHigh = 80;
+        instance.setRpmHigh(rpmHigh);
+        assertEquals(rpmHigh,instance.getRpmHigh());
+    }
+
+    /**
+     * Test of setSFC method, of class Regime.
+     */
+    @Test
+    public void testSetSFC() {
+        System.out.println("setSFC");
+        Double SFC = 3.3;
+        instance.setSFC(SFC);
+       assertEquals(SFC,instance.getSFC(),0.0);
     }
 }

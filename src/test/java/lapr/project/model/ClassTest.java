@@ -18,7 +18,14 @@ import static org.junit.Assert.*;
  */
 public class ClassTest {
 
+    private final Class instance;
+    private final Class instanceEmpty;
+    private final Class instance2;
+
     public ClassTest() {
+        instance = new Class("1", 2.5);
+        instanceEmpty = new Class();
+        instance2 = new Class("1");
     }
 
     @BeforeClass
@@ -43,7 +50,7 @@ public class ClassTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Class instance = new Class("1");
+
         String expResult = "1";
         String result = instance.getId();
         assertEquals(expResult, result);
@@ -56,7 +63,7 @@ public class ClassTest {
     public void testHashCode() {
         System.out.println("hashCode");
         Class instanceBase = new Class("1");
-        Class instance = new Class("1");
+
         int expResult = instance.hashCode();
         int result = instanceBase.hashCode();
         assertEquals(expResult, result);
@@ -69,15 +76,19 @@ public class ClassTest {
     public void testEquals() {
         System.out.println("equals");
         Object obj = new Class("1");
-        Class instance = new Class("1");
+
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        
+
         obj = new Class("2");
         expResult = false;
         result = instance.equals(obj);
         assertEquals(expResult, result);
+
+        obj = "test";
+        assertEquals("Should be false because obj is a string", false, instance.equals(obj));
+
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
     }
@@ -88,11 +99,11 @@ public class ClassTest {
     @Test
     public void testGetPrice() {
         System.out.println("getPrice");
-        Class instance = new Class("1",2.5);
+
         Double expResult = 2.5;
         Double result = instance.getPrice();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -102,9 +113,9 @@ public class ClassTest {
     public void testSetId() {
         System.out.println("setId");
         String id = "2";
-        Class instance = new Class();
+
         instance.setId(id);
-        assertEquals(id,instance.getId());
+        assertEquals(id, instance.getId());
     }
 
     /**
@@ -114,10 +125,9 @@ public class ClassTest {
     public void testSetPrice() {
         System.out.println("setPrice");
         Double price = 2.5;
-        Class instance = new Class();
+
         instance.setPrice(price);
-        assertEquals(price,instance.getPrice());
+        assertEquals(price, instance.getPrice());
     }
 
-   
 }

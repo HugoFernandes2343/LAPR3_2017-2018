@@ -20,7 +20,10 @@ import org.junit.Test;
  */
 public class TravelByPhysicsTest {
 
+    private final TravelByPhysics instance;
+
     public TravelByPhysicsTest() {
+        instance = new TravelByPhysics();
     }
 
     @BeforeClass
@@ -51,6 +54,31 @@ public class TravelByPhysicsTest {
         List<String> shouldBeEmpty = result.getAllNames();
         assertTrue("Since the list was just created there should be no names ergo its empty", shouldBeEmpty.isEmpty());
 
+    }
+
+    /**
+     * Test of getAlgorithmsList method, of class TravelByPhysics.
+     */
+    @Test
+    public void testGetAlgorithmsList() {
+        System.out.println("getAlgorithmsList");
+        TravelByPhysics instance = new TravelByPhysics();
+        List<Algorithm> expResult = new ArrayList<>();
+        List<Algorithm> result = instance.getAlgorithmsList();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getAlgorithmsByName method, of class TravelByPhysics.
+     */
+    @Test
+    public void testGetAlgorithmsByName() {
+        System.out.println("getAlgorithmsByName");
+        TravelByPhysics instance = new TravelByPhysics();
+        List<String> expResult = new ArrayList<>();
+        List<String> result = instance.getAlgorithmsByName();
+        assertEquals(expResult, result);
     }
 
 }
