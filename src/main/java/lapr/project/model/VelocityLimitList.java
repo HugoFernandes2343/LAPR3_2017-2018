@@ -45,7 +45,7 @@ public class VelocityLimitList implements Serializable {
     public int getVelocityLimit(String type) {
         int limit = 0;
         for (VelocityLimit vl : listVelocityLimits) {
-            if (vl.getSegmentType().equalsIgnoreCase(type)) {
+            if (type.toUpperCase().contains(vl.getSegmentType().toUpperCase())) {
                 limit = vl.getLimit();
             }
         }

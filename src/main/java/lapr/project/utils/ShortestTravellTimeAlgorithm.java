@@ -170,7 +170,9 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
     private double getTollCost(LinkedList<RoadSection> bestPath, int tollClass, Project project) {
         double tollCost = 0;
         for (RoadSection road : bestPath) {
-            tollCost = tollCost + project.getNetwork().getRoad(road.getRoadId()).getTollFare().getListClasses().get(tollClass).getPrice();
+            if (!project.getNetwork().getRoad(road.getRoadId()).getTollFare().getListClasses().isEmpty()) {
+                tollCost = tollCost + project.getNetwork().getRoad(road.getRoadId()).getTollFare().getListClasses().get(tollClass).getPrice();
+            }
         }
         return tollCost;
     }

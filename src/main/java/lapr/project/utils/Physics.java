@@ -69,7 +69,7 @@ public class Physics {
      * @return the engine power in watts
      */
     public static double getVehicleRelativeVelocity(double vehicleVelocity, double windVelocity, double angle) {
-        return vehicleVelocity - (windVelocity * Math.cos(angle));
+        return vehicleVelocity - (windVelocity * Math.cos(Math.toRadians(angle)));
     }
 
     /**
@@ -117,4 +117,3 @@ public class Physics {
         return 0.5 * m * Math.pow(v, 2);
     }
 }
-
