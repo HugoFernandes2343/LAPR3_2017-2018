@@ -70,6 +70,7 @@ public class CreateProjectController {
 
         Network r = FileXML.loadXmlNetwork(fileNetwork);
         VehicleList v = FileXML.loadXmlVehicleList(fileVehicleList);
+        
         if (v == null || r == null) {
             return false;
         }

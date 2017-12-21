@@ -53,6 +53,9 @@ public class AddVehiclesController {
     public boolean addVehicles(String filename) {
         VehicleList v = FileXML.loadXmlVehicleList(filename);
         Set<Vehicle> newVehicles = v.getVehicleList();
+        if(this.project == null){
+            return false;
+        }
         return this.project.getVehicleList().verifyAndAddVehicles(newVehicles) > 0;
 
     }
