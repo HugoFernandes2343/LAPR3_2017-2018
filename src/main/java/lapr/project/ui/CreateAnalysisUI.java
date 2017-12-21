@@ -7,6 +7,8 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import lapr.project.controller.CreateAnalysisController;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.TravelByPhysics;
@@ -23,6 +26,13 @@ import lapr.project.model.TravelByPhysics;
 public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
     private static final long serialVersionUID = 111L;
+
+    /**
+     * Atributes that keep the information for building the table
+     */
+    private String[][] data;
+    private String[] columnsHeader = {"", "Values"};
+    private DefaultTableModel tableModel;
 
     /**
      * TravelByPhysics object
@@ -34,9 +44,9 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     private String node2;
     private String vehicle;
     private String alg;
-    private String[][] data = {{"",""}};
     private JTextField analName;
     private NetworkAnalysis na;
+    private JTable table;
 
     /**
      * UI components
@@ -51,6 +61,11 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     public CreateAnalysisUI(TravelByPhysics tp) {
         this.tp = tp;
         ca = new CreateAnalysisController(tp);
+        String[][] emptyData = new String[3][2];
+        tableModel = new DefaultTableModel();
+        this.table = new JTable(tableModel);
+        tableModel.setDataVector(emptyData, columnsHeader);
+
         mPanel = new JPanel(layout);
         mPanel.setPreferredSize(dim);
         mPanel.add(pageOne(), "page1");
@@ -102,44 +117,63 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         nextOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (!node1.equals(node2)) {
-                    if (!analName.getText().isEmpty()) {
-                        if (ca.runAlgorithm(alg, vehicle, node1, node2, analName.getText())) {
-                            na = ca.getAnalysis();
-                            fillDataArray();
-//                            data = {{"nr_analise", na.getId()+""}, {"nome_analise", na.getName()}, {"travel_time", na.getTravellTime()+""}};
-                            layout.show(mPanel, "page2");
+                try {
+                    if (checkSelected()) {
+                        if (!node1.equals(node2)) {
+                            if (!analName.getText().isEmpty()) {
+                                if (ca.runAlgorithm(alg, vehicle, node1, node2, analName.getText())) {
+                                    na = ca.getAnalysis();
+                                    fillDataArray();
+                                    tableModel.setDataVector(data, columnsHeader);
+                                    layout.show(mPanel, "page2");
+                                } else {
+                                    errMess(ERR_ANAL, MESS_ERR);
+                                }
+                            } else {
+                                errMess(EMPTY_FIELDS, MESS_ERR);
+                            }
                         } else {
-                            errMess(ERR_ANAL, MESS_ERR);
+                            errMess(ERR_NODE, MESS_ERR);
                         }
                     } else {
-                        errMess(EMPTY_FIELDS, MESS_ERR);
+                        errMess(ERR_CSEL, MESS_ERR);
                     }
-                } else {
-                    errMess(ERR_NODE, MESS_ERR);
+                } catch (NullPointerException ex) {
+                    errMess(ERR_CSEL, MESS_ERR);
                 }
             }
         }
         );
         return nextOne;
     }
-    
-    private void fillDataArray(){
+
+    /**
+     * check if the comboboxes are selected, returs true if they are.
+     *
+     * @return
+     */
+    private boolean checkSelected() {
+        String sel = "Select an option:";
+        return (!node1.equals(sel)) && (!node2.equals(sel)) && (!vehicle.equals(sel)) && (!alg.equals(sel));
+    }
+
+    private void fillDataArray() {
         data = new String[3][2];
-        
-        data[0][0]="nr_analise";
-        data[0][1]=na.getId()+"";
-        data[1][0]="nome_analise";
-        data[1][1]=na.getName();
-        data[2][0]="travel_time";
-        data[2][1]=na.getTravellTime()+"";
-        
+
+        data[0][0] = "nr_analise";
+        data[0][1] = na.getId() + "";
+        data[1][0] = "nome_analise";
+        data[1][1] = na.getName();
+        data[2][0] = "travel_time";
+        data[2][1] = na.getTravellTime() + "";
+
     }
 
     private JPanel selNode1() {
-        String[] allNodes1 = ca.getNodeList().toArray(new String[0]);
+        String[] allNodes1 = addUnselectedToJumboBox(ca.getNodeList());
 
         JComboBox<String> boxNodes1 = new JComboBox<>(allNodes1);
+        boxNodes1.setSelectedIndex(0);
         boxNodes1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -154,9 +188,9 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selNode2() {
-        String[] allNodes2 = ca.getNodeList().toArray(new String[0]);
-
+        String[] allNodes2 = addUnselectedToJumboBox(ca.getNodeList());
         JComboBox<String> boxNodes2 = new JComboBox<>(allNodes2);
+        boxNodes2.setSelectedIndex(0);
         boxNodes2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -171,9 +205,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selVehicle() {
-        String[] allVehicles = ca.getVehicleList().toArray(new String[0]);
+        String[] allVehicles = addUnselectedToJumboBox(ca.getVehicleList());
 
         JComboBox<String> boxVehicles = new JComboBox<>(allVehicles);
+        boxVehicles.setSelectedIndex(0);
         boxVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -187,9 +222,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selAlg() {
-        String[] allAlg = ca.getAlgorithmList().toArray(new String[0]);
+        String[] allAlg = addUnselectedToJumboBox(ca.getAlgorithmList());
 
         JComboBox<String> boxAlg = new JComboBox<>(allAlg);
+        boxAlg.setSelectedIndex(0);
         boxAlg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -200,6 +236,15 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         JPanel p = new JPanel();
         p.add(boxAlg);
         return p;
+    }
+
+    private String[] addUnselectedToJumboBox(List<String> list) {
+        LinkedList<String> men = new LinkedList<>();
+        men.add("Select an option:");
+        for (String s : list) {
+            men.add(s);
+        }
+        return men.toArray(new String[0]);
     }
 
     /**
@@ -258,9 +303,6 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel createTable() {
-        String[] colNames = {" ", "Values"};
-
-        JTable table = new JTable(data, colNames);
         JPanel p = new JPanel();
         p.add(new JScrollPane(table));
         return p;
@@ -274,7 +316,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new SaveToFile(tp.getProjectList().getActualProject(),na);
+                new SaveToFile(tp.getProjectList().getActualProject(), na);
             }
         }
         );
