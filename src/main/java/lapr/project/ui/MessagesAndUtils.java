@@ -26,8 +26,11 @@ public interface MessagesAndUtils {
     static final String EMPTY_FIELDS = "Please fill in all the required fields/Name already in use";
     static final String NO_PROJ = "There are no Projects available";
     static final String ERR_PROJ = "Error selecting Project";
+    static final String ERR_NODE = "Nodes are equal";
+    static final String ERR_ANAL = "Error analysing project";
     
     
-    public abstract void errMess(String message, String title);
+    
+    public void errMess(String message, String title);
     public void sucMess(String message, String title);
 }

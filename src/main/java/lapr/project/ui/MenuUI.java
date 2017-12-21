@@ -34,7 +34,6 @@ public class MenuUI extends JFrame {
     private JMenuItem bestPath;
     private JMenuItem compareVehicle;
     private JMenuItem saveDatabase;
-    private JMenuItem saveHTML;
 
     private final TravelByPhysics tp;
 
@@ -217,7 +216,10 @@ public class MenuUI extends JFrame {
         bestPath.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //butao
+                mPanel.removeAll();
+                mPanel.add(new CreateAnalysisUI(tp));
+                mPanel.revalidate();
+                mPanel.repaint();
             }
         });
         m.add(bestPath);
@@ -255,16 +257,6 @@ public class MenuUI extends JFrame {
             }
         });
         m.add(saveDatabase);
-
-        saveHTML = new JMenuItem("N06: Save Project to file");
-        saveHTML.setEnabled(false);
-        saveHTML.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                new SaveToFile(tp.getProjectList().getActualProject());
-            }
-        });
-        m.add(saveHTML);
         return m;
     }
 
@@ -290,7 +282,6 @@ public class MenuUI extends JFrame {
         bestPath.setEnabled(true);
         compareVehicle.setEnabled(true);
         saveDatabase.setEnabled(true);
-        saveHTML.setEnabled(true);
     }
 
 }
