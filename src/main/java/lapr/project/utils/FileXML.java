@@ -26,6 +26,7 @@ import lapr.project.model.Road;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.model.Throttle;
+import lapr.project.model.TollClass;
 import lapr.project.model.TollFare;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VelocityLimit;
@@ -415,16 +416,14 @@ public class FileXML implements Serializable {
                         for (int j = 0; j < list.getLength(); j++) {
                             if (list.item(j).getNodeType() == Node.ELEMENT_NODE) {
                                 Element toll = (Element) list.item(j);
-                                TollFare tollFare = new TollFare();
                                 NodeList tollList = toll.getElementsByTagName("class");
                                 for (int k = 0; k < tollList.getLength(); k++) {
                                     Element vehicle_class = (Element) tollList.item(k);
-                                    tollFare.addClass(vehicle_class.getAttribute("id"), Double.valueOf(tollList.item(k).getTextContent()));
+                                    TollClass classe = new TollClass(vehicle_class.getAttribute("id"), Double.valueOf(tollList.item(k).getTextContent()));
+                                    road.getTollFare().getListClasses().add(classe);  
                                 }
-                                road.setTollFare(tollFare);//road toll_fare
                             }
                         }
-
                         roadNetwork.addRoad(road);//adds the road to the list
 
                     }

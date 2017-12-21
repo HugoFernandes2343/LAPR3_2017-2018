@@ -3,7 +3,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Class implements Serializable {
+public class TollClass implements Serializable {
 
     private static final long serialVersionUID = 501L;
 
@@ -14,7 +14,7 @@ public class Class implements Serializable {
     /**
      * Empty constructor
      */
-    public Class() {
+    public TollClass() {
     }
 
     /**
@@ -23,7 +23,7 @@ public class Class implements Serializable {
      * @param id - id of the class
      * @param price - toll price
      */
-    public Class(String id, Double price) {
+    public TollClass(String id, Double price) {
         this.id = id;
         this.price = price;
     }
@@ -32,7 +32,7 @@ public class Class implements Serializable {
      *
      * @param id id given to the class
      */
-    public Class(String id) {
+    public TollClass(String id) {
         this.id = id;
     }
 
@@ -95,7 +95,7 @@ public class Class implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Class other = (Class) obj;
+        TollClass other = (TollClass) obj;
 
         return this.id.equalsIgnoreCase(other.id);
     }

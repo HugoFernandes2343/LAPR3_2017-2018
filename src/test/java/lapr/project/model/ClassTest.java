@@ -18,14 +18,14 @@ import static org.junit.Assert.*;
  */
 public class ClassTest {
 
-    private final Class instance;
-    private final Class instanceEmpty;
-    private final Class instance2;
+    private final TollClass instance;
+    private final TollClass instanceEmpty;
+    private final TollClass instance2;
 
     public ClassTest() {
-        instance = new Class("1", 2.5);
-        instanceEmpty = new Class();
-        instance2 = new Class("1");
+        instance = new TollClass("1", 2.5);
+        instanceEmpty = new TollClass();
+        instance2 = new TollClass("1");
     }
 
     @BeforeClass
@@ -45,7 +45,7 @@ public class ClassTest {
     }
 
     /**
-     * Test of getId method, of class Class.
+     * Test of getId method, of class TollClass.
      */
     @Test
     public void testGetId() {
@@ -57,12 +57,12 @@ public class ClassTest {
     }
 
     /**
-     * Test of hashCode method, of class Class.
+     * Test of hashCode method, of class TollClass.
      */
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Class instanceBase = new Class("1");
+        TollClass instanceBase = new TollClass("1");
 
         int expResult = instance.hashCode();
         int result = instanceBase.hashCode();
@@ -70,18 +70,18 @@ public class ClassTest {
     }
 
     /**
-     * Test of equals method, of class Class.
+     * Test of equals method, of class TollClass.
      */
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = new Class("1");
+        Object obj = new TollClass("1");
 
         boolean expResult = true;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
 
-        obj = new Class("2");
+        obj = new TollClass("2");
         expResult = false;
         result = instance.equals(obj);
         assertEquals(expResult, result);
@@ -94,7 +94,7 @@ public class ClassTest {
     }
 
     /**
-     * Test of getPrice method, of class Class.
+     * Test of getPrice method, of class TollClass.
      */
     @Test
     public void testGetPrice() {
@@ -107,7 +107,7 @@ public class ClassTest {
     }
 
     /**
-     * Test of setId method, of class Class.
+     * Test of setId method, of class TollClass.
      */
     @Test
     public void testSetId() {
@@ -119,7 +119,7 @@ public class ClassTest {
     }
 
     /**
-     * Test of setPrice method, of class Class.
+     * Test of setPrice method, of class TollClass.
      */
     @Test
     public void testSetPrice() {

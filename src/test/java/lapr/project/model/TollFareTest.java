@@ -23,7 +23,7 @@ public class TollFareTest {
     private final TollFare instance;
 
     public TollFareTest() {
-        List<Class> listClasses = new LinkedList<>();
+        List<TollClass> listClasses = new LinkedList<>();
         instance = new TollFare(listClasses);
     }
 
@@ -52,7 +52,7 @@ public class TollFareTest {
         System.out.println("addClass");
         String id = "1";
         Double price = 1.2;
-        Class c1 = new Class("1", 1.2);
+        TollClass c1 = new TollClass("1", 1.2);
        
         instance.addClass(id, price);
         assertTrue(instance.getListClasses().contains(c1));
@@ -66,8 +66,8 @@ public class TollFareTest {
     public void testGetListClasses() {
         System.out.println("getTollFare");
         
-        List<Class> expResult = new LinkedList<>();
-        List<Class> result = instance.getListClasses();
+        List<TollClass> expResult = new LinkedList<>();
+        List<TollClass> result = instance.getListClasses();
         assertEquals(expResult, result);
 
     }
@@ -78,7 +78,7 @@ public class TollFareTest {
     @Test
     public void testSetTollFare() {
         System.out.println("setTollFare");
-        List<Class> tollFare = null;
+        List<TollClass> tollFare = null;
         
         instance.setListClasses(tollFare);
         assertTrue(instance.getListClasses() == null);
