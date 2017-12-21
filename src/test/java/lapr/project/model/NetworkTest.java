@@ -145,7 +145,7 @@ public class NetworkTest {
         otherTest.loadMap();
 
         assertTrue("If we pass a new network with only vertexes it should be true", test.addNewRoadsFromNetwork(otherTest));
-        
+
         Road r1 = new Road("A1", "Highway", "Tests");
         Road r2 = new Road("A1", "Highway", "Tests1");
         Road r3 = new Road("A1", "Highway", "Tests2");
@@ -262,8 +262,7 @@ public class NetworkTest {
         RoadSection rs1 = new RoadSection("1", "2", "Tests", "South", new LinkedList<>());
         RoadSection rs2 = new RoadSection("1", "6", "Tests", "South", new LinkedList<>());
         instance.loadMap();
-        
-        
+
         List<Node> nodes = instance.getRoadMap().endVertices(rs1);
         assertTrue("Since none of the elementes where put in the matrix it should return an empty list", nodes.isEmpty());
         instance.addRoad(r1);
@@ -324,8 +323,48 @@ public class NetworkTest {
         }
         List<String> result = instance.getNodesByName();
         assertEquals(expResult, result);
-        for(int i = 0; i < expResult.size(); i++){
-           assertTrue("All nodes should be equal", expResult.get(i).equals(result.get(i)));
-        } 
+        for (int i = 0; i < expResult.size(); i++) {
+            assertTrue("All nodes should be equal", expResult.get(i).equals(result.get(i)));
         }
     }
+
+    /**
+     * Test of searchNode method, of class Network.
+     */
+    @Test
+    public void testSearchNode() {
+        System.out.println("searchNode");
+        String id = "nulo";
+        List<Node> listNodes = instance.getNodeList();
+        Node n1 = new Node("test");
+        listNodes.add(n1);
+
+        Node expResult = null;
+        Node result = instance.searchNode(id);
+        assertEquals(expResult, result);
+
+        Node expResult2 = new Node("test");
+        Node result2 = instance.searchNode("test");
+        assertEquals(expResult2, result2);
+
+    }
+
+    /**
+     * Test of getRoad method, of class Network.
+     */
+    @Test
+    public void testGetRoad() {
+        System.out.println("getRoad");
+        String roadId = "test";
+        Road r1 = new Road("A23", "Autoestrada", "A01");
+        instance.addRoad(r1);
+
+        Road expResult = null;
+        Road result = instance.getRoad(roadId);
+        assertEquals(expResult, result);
+        
+        Road expResult2 = new Road("A23", "Autoestrada", "A01");
+        Road result2 = instance.getRoad("A01");
+        assertEquals(expResult2,result2);
+    }
+}

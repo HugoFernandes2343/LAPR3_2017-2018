@@ -10,7 +10,7 @@ public class Regime implements Serializable {
     private int torqueLow;
     private int rpmLow;
     private int rpmHigh;
-    private Double SFC;
+    private Double sfc;
 
     /**
      * Empty constructor
@@ -21,17 +21,18 @@ public class Regime implements Serializable {
     /**
      * Full Constructor for the regime object
      *
-     * @param torque value of torqueHigh to create the
+     * @param torqueHigh value of the high torque
+     * @param torqueLow value of the low torque
      * @param rpmLow value of the low rpms
      * @param rpmHigh value of the high rpms
-     * @param SFC value of the SFC
+     * @param sfc value of the sfc
      */
-    public Regime(int torqueHigh, int torqueLow, int rpmLow, int rpmHigh, Double SFC) {
+    public Regime(int torqueHigh, int torqueLow, int rpmLow, int rpmHigh, Double sfc) {
         this.torqueHigh = torqueHigh;
         this.torqueLow=torqueLow;
         this.rpmLow = rpmLow;
         this.rpmHigh = rpmHigh;
-        this.SFC = SFC;
+        this.sfc = sfc;
     }
 
     /**
@@ -39,6 +40,13 @@ public class Regime implements Serializable {
      */
     public int getTorqueHigh() {
         return torqueHigh;
+    }
+    
+    /**
+     * @return the torqueHigh torqueHigh of the regime
+     */
+    public int getTorqueLow() {
+        return torqueLow;
     }
 
     /**
@@ -56,10 +64,10 @@ public class Regime implements Serializable {
     }
 
     /**
-     * @return the SFC SFC value of the regime
+     * @return the sfc sfc value of the regime
      */
-    public Double getSFC() {
-        return SFC;
+    public Double getSfc() {
+        return sfc;
     }
 
     /**
@@ -101,12 +109,12 @@ public class Regime implements Serializable {
     }
 
     /**
-     * Set method for the Sfc variable
+     * Set method for the sfc variable
      *
-     * @param SFC value to be set as sfc
+     * @param sfc value to be set as sfc
      */
-    public void setSFC(Double SFC) {
-        this.SFC = SFC;
+    public void setSfc(Double sfc) {
+        this.sfc = sfc;
     }
 
     /**
@@ -148,7 +156,7 @@ public class Regime implements Serializable {
         if (this.rpmHigh != other.rpmHigh) {
             return false;
         }
-        return this.SFC.equals(other.SFC);
+        return this.sfc.equals(other.sfc);
 
     }
 

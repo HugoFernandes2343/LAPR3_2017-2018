@@ -5,7 +5,7 @@
  */
 package lapr.project.model;
 
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -124,5 +124,70 @@ public class VehicleListTest {
         assertTrue(names.contains("Subaru1"));
         assertTrue(names.contains("Subaru2"));
         assertTrue(names.contains("test"));
+    }
+
+    /**
+     * Test of getAllVehicleNames method, of class VehicleList.
+     */
+    @Test
+    public void testGetAllVehicleNames() {
+        System.out.println("getAllVehicleNames");
+        VehicleList instance = new VehicleList();
+
+        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
+        VelocityLimitList vl = new VelocityLimitList();
+        Vehicle car1 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        Vehicle car2 = new Vehicle("mazda1", "car2", "car2", 2, "Eletric", "Gasoline", "305.0", "4.3", 12.2, 11, 2.55, 0.36, e, vl);
+        Vehicle car3 = new Vehicle("Subaru", "car3", "car3", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        Vehicle car4 = new Vehicle("Subaru1", "car4", "car4", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20, e, vl);
+
+        instance.addVehicle(car1);
+        instance.addVehicle(car2);
+        instance.addVehicle(car3);
+        instance.addVehicle(car4);
+
+        List<String> expResult = new ArrayList<>();
+
+        expResult.add(car1.getName());
+        expResult.add(car2.getName());
+        expResult.add(car3.getName());
+        expResult.add(car4.getName());
+
+        List<String> result = instance.getAllVehicleNames();
+        for (int i = 0; i < result.size(); i++) {
+            assertTrue(expResult.contains(result.get(i)));
+        }
+    }
+
+    /**
+     * Test of getVehicleByName method, of class VehicleList.
+     */
+    @Test
+    public void testGetVehicleByName() {
+        System.out.println("getVehicleByName");
+        String name = "fiat";
+        VehicleList instance = new VehicleList();
+
+        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
+        VelocityLimitList vl = new VelocityLimitList();
+        Vehicle car1 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        Vehicle car2 = new Vehicle("mazda1", "car2", "car2", 2, "Eletric", "Gasoline", "305.0", "4.3", 12.2, 11, 2.55, 0.36, e, vl);
+        Vehicle car3 = new Vehicle("Subaru", "car3", "car3", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        Vehicle car4 = new Vehicle("Subaru1", "car4", "car4", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20, e, vl);
+
+        instance.addVehicle(car1);
+        instance.addVehicle(car2);
+        instance.addVehicle(car3);
+        instance.addVehicle(car4);
+
+        Vehicle expResult = null;
+        Vehicle result = instance.getVehicleByName(name);
+        assertEquals(expResult, result);
+
+        Vehicle car5 = new Vehicle("fiat", "car4", "car4", 1, "Eletric", "Gasoline", "302.0", "2.0", 12.2, 12, 2.52, 0.20, e, vl);
+        instance.addVehicle(car5);
+        Vehicle expResult2 = car5;
+        Vehicle result2 = instance.getVehicleByName(name);
+        assertEquals(expResult2,result2);
     }
 }

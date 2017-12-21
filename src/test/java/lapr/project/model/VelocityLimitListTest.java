@@ -18,22 +18,22 @@ import static org.junit.Assert.*;
  * @author
  */
 public class VelocityLimitListTest {
-    
+
     public VelocityLimitListTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -59,12 +59,36 @@ public class VelocityLimitListTest {
         VelocityLimitList instance = new VelocityLimitList();
         instance.addVelocityLimit(limit);
         assertTrue(instance.getVelocityLimitList().contains(limit));
-        
+
         VelocityLimitList instance2 = new VelocityLimitList();
         instance2.getVelocityLimitList().add(limit);
         instance2.addVelocityLimit(limit);
         assertTrue(instance2.getVelocityLimitList().contains(limit));
-       
+
     }
-    
+
+    /**
+     * Test of getVelocityLimit method, of class VelocityLimitList.
+     */
+    @Test
+    public void testGetVelocityLimit() {
+        System.out.println("getVelocityLimit");
+        VelocityLimit testLimit1 = new VelocityLimit("test", 120);
+        VelocityLimit testLimit2 = new VelocityLimit("road", 125);
+        String type = "highway";
+
+        VelocityLimitList instance = new VelocityLimitList();
+        instance.addVelocityLimit(testLimit1);
+        instance.addVelocityLimit(testLimit2);
+
+        int expResult = 0;
+        int result = instance.getVelocityLimit(type);
+        assertEquals(expResult, result);
+
+        String type2 = "test";
+        int expResult2 = 120;
+        int result2 = instance.getVelocityLimit(type2);
+        assertEquals(expResult2, result2);
+    }
+
 }

@@ -24,6 +24,7 @@ public class EnergyTest {
 
     public EnergyTest() {
         this.instance = new Energy();
+        instance.setErr(1.1);
     }
 
     @BeforeClass
@@ -215,6 +216,28 @@ public class EnergyTest {
         
         instance2.addGear(gear);
         assertTrue(listGears2.contains(gear));
+    }
+
+    /**
+     * Test of setErr method, of class Energy.
+     */
+    @Test
+    public void testSetErr() {
+        System.out.println("setErr");
+        double err = 66.0;
+        instance.setErr(err);
+        assertEquals(err,instance.getErr(),0.0);
+    }
+
+    /**
+     * Test of getErr method, of class Energy.
+     */
+    @Test
+    public void testGetErr() {
+        System.out.println("getErr");
+        double expResult = 1.1;
+        double result = instance.getErr();
+        assertEquals(expResult, result, 0.0);
     }
 
 }

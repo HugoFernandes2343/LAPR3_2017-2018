@@ -63,6 +63,14 @@ public class Energy implements Serializable {
         return finalDriveRatio;
     }
 
+    
+    /**
+     * @return the err
+     */
+    public double getErr() {
+        return err;
+    }
+
     /**
      * @return the gearList
      */

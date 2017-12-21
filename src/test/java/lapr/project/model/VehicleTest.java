@@ -213,7 +213,7 @@ public class VehicleTest {
      */
     @Test
     public void testGetEnergyFunction() {
-        Energy e = instance.getEnergy();
+
         assertEquals(5, e.getMinRpm());
         assertEquals(10, e.getMaxRpm());
         Double value = 25.0;
@@ -371,7 +371,7 @@ public class VehicleTest {
     @Test
     public void testSetEnergy() {
         System.out.println("setEnergy");
-        Energy e = new Energy(5, 10, 25.0, new LinkedList<>(), new LinkedList<>());
+    
 
         instance.setEnergy(e);
         assertEquals(instance.getEnergy(), e);
@@ -486,8 +486,8 @@ public class VehicleTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Vehicle instance2 = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
-        int expResult = instance2.hashCode();
+        Vehicle instanceTest = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30,e,vl);
+        int expResult = instanceTest.hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
 
@@ -495,5 +495,19 @@ public class VehicleTest {
         expResult = obj1.hashCode();
         assertNotEquals(expResult, result);
     }
-
+    
+    /**
+     * Test of getVelocityLimit method, of class Vehicle
+     */
+    @Test
+    public void testGetVelocityLimit(){
+        VelocityLimit testLimit1 = new VelocityLimit("test", 120);
+        VelocityLimit testLimit2 = new VelocityLimit("road", 125);
+        vl.addVelocityLimit(testLimit1);
+        vl.addVelocityLimit(testLimit2);
+        Vehicle instanceTest = new Vehicle("mazda", "car", "car", 1, "Combustion", "Gas", "300.0", "4.0", 12.0, 10, 2.50, 0.30, e, vl);
+        int result = instanceTest.getVelocityLimit("test");
+        int expResult = 120;
+        assertEquals(result,expResult);
+    }
 }

@@ -51,6 +51,7 @@ public class FileXML implements Serializable {
     /**
      * Method that saves the current data to a file
      *
+     * @param travel
      * @param name - file name (if default uses the final variable of this
      * class)
      * @throws IOException - Exception of Input/Output
@@ -313,7 +314,7 @@ public class FileXML implements Serializable {
 
                                                     regimeList = regimeElem.getElementsByTagName("SFC");
                                                     for (int m = 0; m < regimeList.getLength(); m++) {
-                                                        regime.setSFC(Double.valueOf(regimeList.item(m).getTextContent()));
+                                                        regime.setSfc(Double.valueOf(regimeList.item(m).getTextContent()));
                                                     }
 
                                                     throttle.getRegimeList().add(regime);

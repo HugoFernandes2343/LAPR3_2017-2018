@@ -7,8 +7,6 @@ import java.util.List;
  *
  * @author Utilizador
  */
-
-
 public abstract class NetworkAnalysis {
 
     private static int flag = 1;
@@ -21,27 +19,28 @@ public abstract class NetworkAnalysis {
     private Node beginNode;
     private Node endNode;
     private String type;
-    private double travellTime;
-    private double energyConsumption;
-    private double averageVelocity;
-    private double distance;
-    private double tollCost;
+    private double travellTime = 0.0;
+    private double energyConsumption = 0.0;
+    private double averageVelocity = 0.0;
+    private double distance = 0.0;
+    private double tollCost = 0.0;
 
     public NetworkAnalysis(Node beginNode, Node endNode, Vehicle vehicle, String name, String type) {
         this.name = name;
         this.vehicle = vehicle;
         this.beginNode = beginNode;
         this.endNode = endNode;
+        this.type = type;
         this.velocityPerSegment = new LinkedList<>();
         this.bestPath = new LinkedList<>();
         this.id = flag;
         flag++;
     }
 
-    public NetworkAnalysis(String type){
-        this.type=type;
+    public NetworkAnalysis(String type) {
+        this.type = type;
     }
-    
+
     /**
      * @return the id
      */

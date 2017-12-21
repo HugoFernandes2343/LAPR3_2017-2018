@@ -384,7 +384,7 @@ public class Vehicle implements Serializable {
      * @param type the type of road that will be used as search criteria
      * @return the max velocity for specific type
      */
-    public double getVelocityLimit(String type) {
+    public int getVelocityLimit(String type) {
         return velocityLimitList.getVelocityLimit(type);
     }
 
