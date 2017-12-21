@@ -135,8 +135,9 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Needs testing to see if it can keep the listener from being deleted in case of no file selection
-                temp.dispose();
+                temp.setVisible(false);
                 switchTypes();
+                temp.dispose();
             }
         });
 
@@ -144,6 +145,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //vv Workaround maybe?? vv
+                chosenFormat=-1;
                 temp.dispose();
             }
         });

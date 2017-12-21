@@ -27,6 +27,8 @@ public class SaveToHTML {
      */
     private File fileLocation;
 
+    private static final String fontColor = "color: white";
+    
     /**
      * Project
      */
@@ -75,19 +77,19 @@ public class SaveToHTML {
                         + " background-color: #503f75 "
                         + "}"
                         + "p {"
-                        + "color: white"
+                        + fontColor
                         + "}"
                         + "h1 {"
-                        + "color: white"
+                        + fontColor
                         + "}"
                         + "h2 {"
-                        + "color: white"
+                        + fontColor
                         + "}"
                         + "h3 {"
-                        + "color: white"
+                        + fontColor
                         + "}"
                         + "h4 {"
-                        + "color: white"
+                        + fontColor
                         + "}").end(2)
                 .title().text(p.getName()).end()
                 /**
