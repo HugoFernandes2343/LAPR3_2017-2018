@@ -104,7 +104,7 @@ public class MenuUI extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 mPanel.removeAll();
                 mPanel.add(new CreateProjectUI(tp));
-                if (tp.getProjectList().getActualProject() == null) {
+                if (tp.getProjectList().getActualProject() != null) {
                     setProject();
                 }
                 mPanel.revalidate();
@@ -120,7 +120,7 @@ public class MenuUI extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 mPanel.removeAll();
                 mPanel.add(new SelectProjectUI(tp));
-                if (tp.getProjectList().getActualProject() == null) {
+                if (tp.getProjectList().getActualProject() != null) {
                     setProject();
                 }
                 mPanel.revalidate();

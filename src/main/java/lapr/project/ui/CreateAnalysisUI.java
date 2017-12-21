@@ -170,10 +170,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selNode1() {
-        String[] allNodes1 = addUnselectedToJumboBox(ca.getNodeList());
+        String[] allNodes1 = ca.getNodeList().toArray(new String[0]);
 
         JComboBox<String> boxNodes1 = new JComboBox<>(allNodes1);
-        boxNodes1.setSelectedIndex(0);
+        boxNodes1.setSelectedIndex(-1);
         boxNodes1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -188,9 +188,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selNode2() {
-        String[] allNodes2 = addUnselectedToJumboBox(ca.getNodeList());
+        String[] allNodes2 = ca.getNodeList().toArray(new String[0]);
+        
         JComboBox<String> boxNodes2 = new JComboBox<>(allNodes2);
-        boxNodes2.setSelectedIndex(0);
+        boxNodes2.setSelectedIndex(-1);
         boxNodes2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -205,10 +206,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selVehicle() {
-        String[] allVehicles = addUnselectedToJumboBox(ca.getVehicleList());
+        String[] allVehicles = ca.getVehicleList().toArray(new String[0]);
 
         JComboBox<String> boxVehicles = new JComboBox<>(allVehicles);
-        boxVehicles.setSelectedIndex(0);
+        boxVehicles.setSelectedIndex(-1);
         boxVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -222,10 +223,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selAlg() {
-        String[] allAlg = addUnselectedToJumboBox(ca.getAlgorithmList());
+        String[] allAlg = ca.getAlgorithmList().toArray(new String [0]);
 
         JComboBox<String> boxAlg = new JComboBox<>(allAlg);
-        boxAlg.setSelectedIndex(0);
+        boxAlg.setSelectedIndex(-1);
         boxAlg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -236,15 +237,6 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         JPanel p = new JPanel();
         p.add(boxAlg);
         return p;
-    }
-
-    private String[] addUnselectedToJumboBox(List<String> list) {
-        LinkedList<String> men = new LinkedList<>();
-        men.add("Select an option:");
-        for (String s : list) {
-            men.add(s);
-        }
-        return men.toArray(new String[0]);
     }
 
     /**
