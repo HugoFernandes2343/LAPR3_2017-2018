@@ -274,7 +274,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new SaveToFile(tp.getProjectList().getActualProject());
+                new SaveToFile(tp.getProjectList().getActualProject(),na);
             }
         }
         );

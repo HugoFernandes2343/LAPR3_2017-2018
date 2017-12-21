@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFileChooser;
+import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Project;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
@@ -33,6 +34,8 @@ public class SaveToHTML {
      * Project
      */
     private Project p = new Project();
+    
+    private NetworkAnalysis net;
 
     /**
      * Contructor to Save the HTML file
@@ -40,9 +43,10 @@ public class SaveToHTML {
      * @param p
      * @throws IOException
      */
-    public SaveToHTML(Project p) throws IOException {
+    public SaveToHTML(Project p,NetworkAnalysis netAnalysis) throws IOException {
         HTMLExporter htmlBuilder = new HTMLExporter();
         this.p = p;
+        this.net=netAnalysis;
         buildHTML(htmlBuilder.getHTML());
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showSaveDialog(fileChooser);
@@ -99,10 +103,10 @@ public class SaveToHTML {
                 .center().h1().text(p.getName()).end(2)
                 .p().text(p.getDescription()).end()
                 /*Analysis*/
-                .center().h2().text("Analysis by "+p.getNetworkAnalysis().getType()).end(2)
-                .p().text(""+p.getNetworkAnalysis().getId()).br()
-                .text(p.getNetworkAnalysis().getName()).br()
-                .text(""+p.getNetworkAnalysis().getTravellTime()).end()
+                .center().h2().text("Analysis by "+this.net.getType()).end(2)
+                .p().text(""+this.net.getId()).br()
+                .text(this.net.getName()).br()
+                .text(""+this.net.getTravellTime()).end()
                 .end();
         /**
          * End Head

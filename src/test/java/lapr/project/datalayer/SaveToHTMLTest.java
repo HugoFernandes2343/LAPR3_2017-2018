@@ -65,11 +65,11 @@ public class SaveToHTMLTest {
         setUp();
     }
 
-    @Test
-    public void testStartHTML() throws IOException {
-        HTMLExporter exp = new HTMLExporter();
-        save.startHTML(exp.getHTML());
-        save.output(exp, new File("htmlTest.html"));
-    }
+//    @Test
+//    public void testStartHTML() throws IOException {
+//        HTMLExporter exp = new HTMLExporter();
+//        save.startHTML(exp.getHTML());
+//        save.output(exp, new File("htmlTest.html"));
+//    }
 
 }

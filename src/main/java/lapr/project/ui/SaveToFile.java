@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import lapr.project.datalayer.SaveToCSV;
 import lapr.project.datalayer.SaveToHTML;
+import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Project;
 
 /**
@@ -35,6 +36,11 @@ public class SaveToFile extends JFrame {//Add the implementation later
      * Current project to be exported
      */
     private Project thisProject;
+    
+    /**
+     * Analysis
+     */
+    private NetworkAnalysis net;
 
     /**
      * Serves the purpose of allowing the actionListeners to access the contents
@@ -64,12 +70,12 @@ public class SaveToFile extends JFrame {//Add the implementation later
      *
      * @param p current project/network analysis
      */
-    public SaveToFile(Project p) {
+    public SaveToFile(Project p,NetworkAnalysis netAnalysis) {
         htmlSave = null;
         csvSave = null;
         setLookAndFeel();
         temp = this;
-        checkProject(p);
+        checkProject(p,netAnalysis);
         setConfigurations();
         //JFileChooser fileChooser = new JFileChooser(); add to a method that is activated to a button
         //int input = fileChooser.showOpenDialog(fileChooser); ^^
@@ -174,7 +180,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
 
     private void toHTML() {
         try {
-            htmlSave = new SaveToHTML(thisProject);
+            htmlSave = new SaveToHTML(thisProject,net);
         } catch (IOException ex) {
             Logger.getLogger(SaveToFile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -191,13 +197,14 @@ public class SaveToFile extends JFrame {//Add the implementation later
      *
      * @param p project to have it's contents checked
      */
-    private void checkProject(Project p) {
+    private void checkProject(Project p,NetworkAnalysis net) {
         if (p == null) {
             /*Treat this by allowing a list to select the available projects
             * in the program?
              */
         } else {
             thisProject = p;
+            this.net=net;
         }
     }
 
