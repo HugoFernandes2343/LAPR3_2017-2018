@@ -104,9 +104,9 @@ public class SaveToHTML {
                 .p().text(p.getDescription()).end()
                 /*Analysis*/
                 .center().h2().text("Analysis by "+this.net.getType()).end(2)
-                .p().text(""+this.net.getId()).br()
+                .p().text(""+Integer.toString(this.net.getId())).br()
                 .text(this.net.getName()).br()
-                .text(""+this.net.getTravellTime()).end()
+                .text(""+Double.toString(this.net.getTravellTime())).end()
                 .end();
         /**
          * End Head

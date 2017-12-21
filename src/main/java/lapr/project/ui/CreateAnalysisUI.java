@@ -3,12 +3,11 @@ package lapr.project.ui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -52,8 +51,6 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
      * UI components
      */
     private final JPanel mPanel;
-    private JPanel page1;
-    private JPanel page2;
     private JTextArea projectDescription;
     private JTextField projectName;
     private final CardLayout layout = new CardLayout();
@@ -77,7 +74,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
     private JPanel pageOne() {
 
-        page1 = new JPanel(new BorderLayout());
+       JPanel page1 = new JPanel(new BorderLayout());
         page1.add(createHeader(), BorderLayout.NORTH);
         JPanel selects = new JPanel(new GridLayout(2, 2));
         selects.add(selNode1());
@@ -139,6 +136,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
                         errMess(ERR_CSEL, MESS_ERR);
                     }
                 } catch (NullPointerException ex) {
+                    Logger.getLogger(CreateAnalysisUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_CSEL, MESS_ERR);
                 }
             }
@@ -161,11 +159,11 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         data = new String[3][2];
 
         data[0][0] = "nr_analise";
-        data[0][1] = na.getId() + "";
+        data[0][1] = Integer.toString(na.getId()) + "";
         data[1][0] = "nome_analise";
         data[1][1] = na.getName();
         data[2][0] = "travel_time";
-        data[2][1] = na.getTravellTime() + "";
+        data[2][1] = Double.toString(na.getTravellTime()) + "";
 
     }
 
@@ -268,7 +266,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel pageTwo() {
-        page2 = new JPanel(new GridLayout(2, 1));
+        JPanel page2 = new JPanel(new GridLayout(2, 1));
 
         JPanel project = new JPanel(new GridLayout(1, 2));
         JPanel name = new JPanel(new GridLayout(2, 1));

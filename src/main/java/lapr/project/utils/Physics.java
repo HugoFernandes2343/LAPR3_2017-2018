@@ -13,6 +13,10 @@ import java.util.List;
  */
 public class Physics {
 
+    private Physics() {
+        // Private Constructor of physics
+    }
+
     /**
      *
      * @param velocity the velocity in kilometers per hour

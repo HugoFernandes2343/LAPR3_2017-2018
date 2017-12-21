@@ -58,7 +58,6 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * UI components
      */
     private final JPanel mPanel;
-    private JPanel page1;
     private JPanel page2;
     private JTextArea projectDescription;
     private JTextField projectName;
@@ -89,7 +88,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * @return
      */
     private JPanel createPageOne() {
-        page1 = new JPanel(new GridLayout(3, 1, 20, 20));
+       JPanel page1 = new JPanel(new GridLayout(3, 1, 20, 20));
 
         JPanel nameLabel = createHeader("Project Name: ");
 

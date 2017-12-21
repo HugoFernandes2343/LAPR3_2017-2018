@@ -53,7 +53,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
      *
      * Valores: 0 - HTML 1- CSV
      */
-    private static int chosenFormat = -1;
+    private int chosenFormat = -1;
 
     /**
      * SaveToHTML object
@@ -213,8 +213,8 @@ public class SaveToFile extends JFrame {//Add the implementation later
      *
      * @param n
      */
-    private static void setChosenFormat(int n) {
-        chosenFormat = n;
+    private void setChosenFormat(int n) {
+        this.chosenFormat = n;
     }
 
     /**

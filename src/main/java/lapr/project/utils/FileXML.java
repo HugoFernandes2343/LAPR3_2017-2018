@@ -27,7 +27,6 @@ import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.model.Throttle;
 import lapr.project.model.TollClass;
-import lapr.project.model.TollFare;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VelocityLimit;
 import org.w3c.dom.DOMException;
@@ -59,7 +58,7 @@ public class FileXML implements Serializable {
      */
     public static void saveXml(TravelByPhysics travel, String name) throws IOException {
         File fileXml;
-        if (name.equalsIgnoreCase("default")) {
+        if ("default".equalsIgnoreCase(name)) {
             fileXml = XML_FILE;
         } else {
             fileXml = new File(name);
@@ -83,7 +82,7 @@ public class FileXML implements Serializable {
      */
     public static TravelByPhysics loadXml(String name) throws IOException {
         File fileXml;
-        if (name.equalsIgnoreCase("default")) {
+        if ("default".equalsIgnoreCase(name)) {
             fileXml = XML_FILE;
         } else {
             fileXml = new File(name);

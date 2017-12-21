@@ -21,7 +21,7 @@ import lapr.project.model.TravelByPhysics;
 public class MenuUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private JMenuBar menuBarMain;
+
     private JPanel mPanel;
 
     /**
@@ -76,7 +76,7 @@ public class MenuUI extends JFrame {
      */
     private JMenuBar createMenuBar() {
 
-        menuBarMain = new JMenuBar();
+        JMenuBar menuBarMain = new JMenuBar();
 
         JMenu project = createProjectMenu();
         menuBarMain.add(project);
@@ -232,7 +232,6 @@ public class MenuUI extends JFrame {
         compareVehicle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //createNotImplementedWindow(UC_IMPLEMENTATION);
             }
         });
         m.add(compareVehicle);
@@ -253,7 +252,6 @@ public class MenuUI extends JFrame {
         saveDatabase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //createNotImplementedWindow(UC_IMPLEMENTATION);
             }
         });
         m.add(saveDatabase);
