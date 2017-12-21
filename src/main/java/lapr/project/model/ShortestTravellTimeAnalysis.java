@@ -11,14 +11,14 @@ package lapr.project.model;
  */
 public class ShortestTravellTimeAnalysis extends NetworkAnalysis {
 
-    private static final String type = "Shortest Travel Time";
+    private static final String TYPE = "Shortest Travel Time";
 
     public ShortestTravellTimeAnalysis(Node beginNode, Node endNode, Vehicle vehicle, String name) {
-        super(beginNode, endNode, vehicle, name, type);
+        super(beginNode, endNode, vehicle, name, TYPE);
     }
 
     public ShortestTravellTimeAnalysis(){
-        super(type);
+        super(TYPE);
     }
     
 }

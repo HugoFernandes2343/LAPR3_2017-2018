@@ -27,7 +27,7 @@ public class ShortestTravellTimeAnalysisTest {
         Vehicle vehicle = new Vehicle();
         String name = "test";
         instance = new ShortestTravellTimeAnalysis(beginNode, endNode, vehicle, name);
-        instance = new ShortestTravellTimeAnalysis();
+        instanceEmpty = new ShortestTravellTimeAnalysis();
     }
 
     @BeforeClass
