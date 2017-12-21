@@ -5,8 +5,7 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import lapr.project.model.Project;
 import lapr.project.model.ProjectList;
 import lapr.project.model.TravelByPhysics;
@@ -38,7 +37,7 @@ public class EditProjectControllerTest {
         pl.addProject(p3);
         pl.addProject(p2);
         pl.addProject(p1);
-        instance = new EditProjectController(base);
+        this.instance = new EditProjectController(base);
     }
 
     @BeforeClass

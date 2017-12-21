@@ -13,7 +13,7 @@ class Main {
      * Private constructor to hide implicit public one.
      */
     public Main() {
-
+        // do nothing cause its the constructor of the main
     }
 
     /**
