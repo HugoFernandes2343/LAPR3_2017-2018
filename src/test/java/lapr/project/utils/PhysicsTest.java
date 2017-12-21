@@ -5,6 +5,8 @@
  */
 package lapr.project.utils;
 
+import java.util.LinkedList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -98,6 +100,70 @@ public class PhysicsTest {
         double expResult = 46076.69225;
         double result = Physics.getEnginePower(torque, rpm);
         assertEquals(expResult, result, 0.0001);
+    }
+
+    /**
+     * Test of getVehicleRelativeVelocity method, of class Physics.
+     */
+    @Test
+    public void testGetVehicleRelativeVelocity() {
+        System.out.println("getVehicleRelativeVelocity");
+        double vehicleVelocity = 25.0;
+        double windVelocity = 2.0;
+        double angle = 0.0;
+        double expResult = 23.0;
+        double result = Physics.getVehicleRelativeVelocity(vehicleVelocity, windVelocity, angle);
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of getForceAppliedToVehicleOnFlatSurface method, of class Physics.
+     */
+    @Test
+    public void testGetForceAppliedToVehicleOnFlatSurface() {
+        System.out.println("getForceAppliedToVehicleOnFlatSurface");
+        double torque = 230.0;
+        double fDrive = 3.6;
+        double gearRatio = 0.75;
+        double r = 0.30;
+        double rrc = 0.010;
+        double m = 2020.0;
+        double drag = 0.320;
+        double area = 1.9;
+        double vr = 29.089;
+        double expResult = 1556.926;
+        double result = Physics.getForceAppliedToVehicleOnFlatSurface(torque, fDrive, gearRatio, r, rrc, m, drag, area, vr);
+        assertEquals(expResult, result, 0.001);
+    }
+
+    /**
+     * Test of getAverage method, of class Physics.
+     */
+    @Test
+    public void testGetAverage() {
+        System.out.println("getAverage");
+        List<Double> list = new LinkedList<>();
+        double expResult = 0.0;
+        double result = Physics.getAverage(list);
+        assertEquals(expResult, result, 0.0);
+        expResult = 4.0;
+        list.add(3.0);
+        list.add(5.0);
+        result = Physics.getAverage(list);
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of getKineticEnergy method, of class Physics.
+     */
+    @Test
+    public void testGetKineticEnergy() {
+        System.out.println("getKineticEnergy");
+        double m = 50.0;
+        double v = 20.0;
+        double expResult = 10000.0;
+        double result = Physics.getKineticEnergy(m, v);
+        assertEquals(expResult, result, 0.0);
     }
 
 }

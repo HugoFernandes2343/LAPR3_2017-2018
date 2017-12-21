@@ -17,10 +17,12 @@ public class Energy implements Serializable {
 
     /**
      * Full constructor of the energy objects
-     * @param minRpm minimum rpm value 
-     * @param maxRpm maximum rpm value 
+     *
+     * @param minRpm minimum rpm value
+     * @param maxRpm maximum rpm value
      * @param finalDriveRatio final drive ratio value
-     * @param gearList list of gears present on the vehicle the engery object belongs to
+     * @param gearList list of gears present on the vehicle the engery object
+     * belongs to
      * @param throttleList list of throttle caracteristics
      */
     public Energy(int minRpm, int maxRpm, Double finalDriveRatio, List<Gear> gearList, List<Throttle> throttleList) {
@@ -63,7 +65,6 @@ public class Energy implements Serializable {
         return finalDriveRatio;
     }
 
-    
     /**
      * @return the err
      */
@@ -105,7 +106,7 @@ public class Energy implements Serializable {
     public void setFinalDriveRatio(Double finalDriveRatio) {
         this.finalDriveRatio = finalDriveRatio;
     }
-    
+
     /**
      * @param err the Energy Regeneration Ratio
      */
@@ -157,5 +158,12 @@ public class Energy implements Serializable {
 
     }
 
+    public Throttle getThrottle(String throttleId) {
+        for (Throttle t : throttleList) {
+            if (t.getId().equals(throttleId)) {
+                return t;
+            }
+        }
+        return null;
+    }
 }
-

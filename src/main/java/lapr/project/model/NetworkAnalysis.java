@@ -15,15 +15,17 @@ public abstract class NetworkAnalysis {
     private List<RoadSection> bestPath;
     private List<Double> velocityPerSegment;
     private List<Double> velocityPerSection;
+    private List<Double> forcePerSegment;
     private Vehicle vehicle;
     private Node beginNode;
     private Node endNode;
     private String type;
-    private double travellTime = 0.0;
-    private double energyConsumption = 0.0;
-    private double averageVelocity = 0.0;
-    private double distance = 0.0;
-    private double tollCost = 0.0;
+    private double power;
+    private double travellTime;
+    private double energyConsumption;
+    private double averageVelocity;
+    private double distance;
+    private double tollCost;
 
     public NetworkAnalysis(Node beginNode, Node endNode, Vehicle vehicle, String name, String type) {
         this.name = name;
@@ -221,6 +223,34 @@ public abstract class NetworkAnalysis {
      */
     public void setTollCost(double tollCost) {
         this.tollCost = tollCost;
+    }
+
+    /**
+     * @return the forcePerSegment
+     */
+    public List<Double> getForcePerSegment() {
+        return forcePerSegment;
+    }
+
+    /**
+     * @param forcePerSegment the forcePerSegment to set
+     */
+    public void setForcePerSegment(List<Double> forcePerSegment) {
+        this.forcePerSegment = forcePerSegment;
+    }
+
+    /**
+     * @return the power
+     */
+    public double getPower() {
+        return power;
+    }
+
+    /**
+     * @param power the power to set
+     */
+    public void setPower(double power) {
+        this.power = power;
     }
 
 }

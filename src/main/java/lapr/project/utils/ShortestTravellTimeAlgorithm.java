@@ -10,10 +10,12 @@ import java.util.List;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
+import lapr.project.model.Regime;
 import lapr.project.model.Road;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.model.ShortestTravellTimeAnalysis;
+import lapr.project.model.Throttle;
 import lapr.project.model.Vehicle;
 
 /**
@@ -26,9 +28,12 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
 
     @Override
     public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name) {
+        Throttle throttle = vehicle.getEnergy().getThrottle("25");
+        Regime regime = throttle.getRegimeList().get(throttle.getRegimeList().size() - 1);
         LinkedList<Double> velocityPerSegment = new LinkedList<>();
         LinkedList<Node> path = new LinkedList<>();
-        double travellTime, tollCost, distance;
+        LinkedList<Double> forcePerSegment = new LinkedList<>();
+        double travellTime, tollCost, distance, power, energy;
         NetworkAnalysis analysis = new ShortestTravellTimeAnalysis(begin, end, vehicle, name);
         AdjacencyMatrixGraph<Node, Double> timeMap = createEdgeAsDoubleGraph(project, vehicle);
         travellTime = EdgeAsDoubleGraphAlgorithms.shortestPath(timeMap, begin, end, path);
@@ -36,6 +41,8 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         List<Double> velocityPerSection = getVelocityList(bestPath, vehicle, project, velocityPerSegment);
         distance = getTotalDistance(bestPath);
         tollCost = getTollCost(bestPath, vehicle.getTollClass(), project);
+        power = Physics.getEnginePower(regime.getTorqueHigh(), regime.getRpmHigh());
+        energy = getTotalEnergy(velocityPerSegment, bestPath, vehicle, regime, forcePerSegment);
         analysis.setTravellTime(travellTime);
         analysis.setBestPath(bestPath);
         analysis.setVelocityPerSegment(velocityPerSegment);
@@ -43,6 +50,9 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         analysis.setAverageVelocity(Physics.getVelocity(travellTime, distance));
         analysis.setDistance(distance);
         analysis.setTollCost(tollCost);
+        analysis.setEnergyConsumption(energy);
+        analysis.setForcePerSegment(forcePerSegment);
+        analysis.setPower(power);
         return analysis;
     }
 
@@ -150,15 +160,26 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         return averageSpeed / (double) section.getSegmentList().size();
     }
 
+    /**
+     *
+     * @param bestPath the path the vehicle will traverse
+     * @param tollClass the vehicle toll class
+     * @param project the project to be analysed
+     * @return the total toll cost
+     */
     private double getTollCost(LinkedList<RoadSection> bestPath, int tollClass, Project project) {
         double tollCost = 0;
         for (RoadSection road : bestPath) {
-            project.getNetwork().getRoad(road.getRoadId()).getTollFare().getListClasses().get(tollClass).getPrice();
-            road.getRoadId();
+            tollCost = tollCost + project.getNetwork().getRoad(road.getRoadId()).getTollFare().getListClasses().get(tollClass).getPrice();
         }
         return tollCost;
     }
 
+    /**
+     *
+     * @param bestPath the path the vehicle will traverse
+     * @return the total distance traversed by the car
+     */
     private double getTotalDistance(LinkedList<RoadSection> bestPath) {
         double distance = 0;
         for (RoadSection road : bestPath) {
@@ -167,6 +188,35 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
             }
         }
         return distance;
+    }
+
+    /**
+     *
+     * @param velocityPerSegment velocity used by the car per segment
+     * @param bestPath the path the vehicle will traverse
+     * @param vehicle the test vehicle
+     * @param regime the vehicle regime
+     * @param forcePerSegment force applied in the vehicle for each segment
+     * @return the total energy the vehicle has used during the run
+     */
+    private double getTotalEnergy(LinkedList<Double> velocityPerSegment, LinkedList<RoadSection> bestPath, Vehicle vehicle, Regime regime, LinkedList<Double> forcePerSegment) {
+        double energy = 0;
+        int cont = 0;
+        for (RoadSection road : bestPath) {
+            for (Segment segment : road.getSegmentList()) {
+                double vehicleVelocity = velocityPerSegment.get(cont);
+                double mass = Double.valueOf(vehicle.getMass().replace(" Kg", ""));
+                double windVelocity = Double.valueOf(segment.getWindSpeed().replace(" m/s", ""));
+                double angle = segment.getWindDirection();
+                double relativeVelocity = Physics.getVehicleRelativeVelocity(vehicleVelocity, windVelocity, angle);
+                energy = energy + Physics.getKineticEnergy(mass, relativeVelocity);
+                double gearRatio = vehicle.getEnergy().getGearList().get(vehicle.getEnergy().getGearList().size() - 1).getRatio();
+                double force = Physics.getForceAppliedToVehicleOnFlatSurface(regime.getTorqueHigh(), vehicle.getEnergy().getFinalDriveRatio(), gearRatio, vehicle.getWheelSize() / 2, vehicle.getRrc(), mass, vehicle.getDrag(), vehicle.getFrontalArea(), relativeVelocity);
+                forcePerSegment.add(force);
+                cont++;
+            }
+        }
+        return energy;
     }
 
 }
