@@ -21,10 +21,26 @@ import static org.junit.Assert.*;
 public class EnergyTest {
 
     private Energy instance;
+    private Energy instance2;
 
     public EnergyTest() {
         this.instance = new Energy();
         instance.setErr(1.1);
+        List<Throttle> lt = new LinkedList<>();
+        List<Regime> lr = new LinkedList<>();
+        Throttle t1 = new Throttle("test1", lr);
+        Throttle t2 = new Throttle("test2", lr);
+        Throttle t3 = new Throttle("test3", lr);
+        Throttle t4 = new Throttle("test4", lr);
+
+        lt.add(t1);
+        lt.add(t2);
+        lt.add(t3);
+        lt.add(t4);
+
+        List<Gear> lg = new LinkedList<>();
+
+        this.instance2 = new Energy(0, 1000, 0.0, lg, lt);
     }
 
     @BeforeClass
@@ -194,7 +210,7 @@ public class EnergyTest {
         instance = new Energy();
         instance.setFinalDriveRatio(finalDriveRatio);
         assertTrue(instance.getFinalDriveRatio() == 1.0);
-        
+
     }
 
     /**
@@ -203,17 +219,17 @@ public class EnergyTest {
     @Test
     public void testAddGear() {
         System.out.println("addGear");
-        Gear gear = new Gear("1",1.5);
+        Gear gear = new Gear("1", 1.5);
         instance = new Energy();
         instance.addGear(gear);
         List<Gear> listGears = instance.getGearList();
         assertTrue(listGears.contains(gear));
-        
+
         Energy instance2 = new Energy();
         List<Gear> listGears2 = instance2.getGearList();
         listGears2.add(gear);
         assertTrue(listGears2.contains(gear));
-        
+
         instance2.addGear(gear);
         assertTrue(listGears2.contains(gear));
     }
@@ -226,7 +242,7 @@ public class EnergyTest {
         System.out.println("setErr");
         double err = 66.0;
         instance.setErr(err);
-        assertEquals(err,instance.getErr(),0.0);
+        assertEquals(err, instance.getErr(), 0.0);
     }
 
     /**
@@ -238,6 +254,28 @@ public class EnergyTest {
         double expResult = 1.1;
         double result = instance.getErr();
         assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of getThrottle method, of class Energy.
+     */
+    @Test
+    public void testGetThrottle() {
+        System.out.println("getThrottle");
+        String throttleId = "test1";
+
+        List<Regime> lr = new LinkedList<>();
+        Throttle t1 = new Throttle("test1", lr);
+
+        Throttle expResult = t1;
+        Throttle result = instance2.getThrottle(throttleId);
+        assertEquals(expResult, result);
+
+        String throttleId2 = "testFail";
+
+        Throttle expResult2 = null;
+        Throttle result2 = instance2.getThrottle(throttleId2);
+        assertEquals(expResult2, result2);
     }
 
 }

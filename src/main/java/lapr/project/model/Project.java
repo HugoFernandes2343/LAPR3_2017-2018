@@ -15,7 +15,7 @@ public class Project implements Serializable {
     private String description;
     private VehicleList vehicleList;
     private Network network;
-    private NetworkAnalysis netAnal;
+    private NetworkAnalysis netAnalysis;
 
     public Project() {
         this.name = "n/a";
@@ -93,11 +93,11 @@ public class Project implements Serializable {
      * @return
      */
     public NetworkAnalysis getNetworkAnalysis() {
-        return this.netAnal;
+        return this.netAnalysis;
     }
 
     public void setNetworkAnalysis(NetworkAnalysis net){
-        this.netAnal=net;
+        this.netAnalysis=net;
     }
     
     /**

@@ -152,10 +152,9 @@ public class ProjectTest {
     public void testEqualsFalseCaseNull() {
         System.out.println("equals");
         Object obj = null;
-        boolean expResult = false;
         boolean result = instance.equals(obj);
 
-        assertEquals("Should be false because obj is null", false, instance.equals(obj));
+        assertEquals("Should be false because obj is null", false, result);
 
     }
 
@@ -205,5 +204,27 @@ public class ProjectTest {
         instance.setNetwork(network);
 
         assertEquals(network, instance.getNetwork());
+    }
+
+    /**
+     * Test of getNetworkAnalysis method, of class Project.
+     */
+    @Test
+    public void testGetNetworkAnalysis() {
+        System.out.println("getNetworkAnalysis");
+        NetworkAnalysis result = instance.getNetworkAnalysis();
+        assertTrue(result==null);
+     
+    }
+
+    /**
+     * Test of setNetworkAnalysis method, of class Project.
+     */
+    @Test
+    public void testSetNetworkAnalysis() {
+        System.out.println("setNetworkAnalysis");
+        NetworkAnalysis net = new NetworkAnalysis("test") {};
+        instance.setNetworkAnalysis(net);
+        assertTrue(net.getType().equalsIgnoreCase(instance.getNetworkAnalysis().getType()));
     }
 }

@@ -59,7 +59,7 @@ public class NetworkAnalysisTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        int expResult = 6;
+        int expResult = 7;
         int result = instance.getId();
         assertEquals(expResult, result);
 
@@ -364,6 +364,66 @@ public class NetworkAnalysisTest {
         public NetworkAnalysisImpl() {
             super("");
         }
+    }
+
+    /**
+     * Test of getForcePerSegment method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testGetForcePerSegment() {
+        System.out.println("getForcePerSegment");
+        List<Double> result = instance.getForcePerSegment();
+        assertTrue(result==null);
+
+    }
+
+    /**
+     * Test of setForcePerSegment method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testSetForcePerSegment() {
+        System.out.println("setForcePerSegment");
+        List<Double> forcePerSegment = new LinkedList<>();
+        Double d1 = 2.1;
+        Double d2 = 2.2;
+        Double d3 = 2.3;
+        Double d4 = 2.4;
+        Double d5 = 2.5;
+        forcePerSegment.add(d1);
+        forcePerSegment.add(d2);
+        forcePerSegment.add(d3);
+        forcePerSegment.add(d4);
+        forcePerSegment.add(d5);
+
+        instance.setForcePerSegment(forcePerSegment);
+
+        List<Double> result = instance.getForcePerSegment();
+        assertEquals(forcePerSegment, result);
+
+    }
+
+    /**
+     * Test of getPower method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testGetPower() {
+        System.out.println("getPower");
+        instance.setPower(2.0);
+        double expResult = 2.0;
+        double result = instance.getPower();
+        assertEquals(expResult, result, 0.0);
+
+    }
+
+    /**
+     * Test of setPower method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testSetPower() {
+        System.out.println("setPower");
+        double power = 5.0;
+        instance.setPower(power);
+        assertTrue(instance.getPower() == power);
     }
 
 }

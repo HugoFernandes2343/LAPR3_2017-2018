@@ -315,7 +315,15 @@ public class NetworkTest {
     public void testGetNodesByName() {
         System.out.println("getNodesByName");
 
-        List<Node> nodes = new Network().getNodeList();
+       
+        
+        instance.addNode("1");
+        instance.addNode("2");
+        instance.addNode("3");
+        instance.addNode("4");
+        instance.addNode("5");
+        
+        List<Node> nodes = instance.getNodeList();
         List<String> expResult = new LinkedList<>();
         Iterator<Node> itr = nodes.iterator();
         while (itr.hasNext()) {
