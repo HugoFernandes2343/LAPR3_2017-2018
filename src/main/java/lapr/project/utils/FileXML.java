@@ -130,52 +130,52 @@ public class FileXML implements Serializable {
                     car.setDescription(e.getAttribute("description"));
 
                     String value = elementValueByTag(e,"type");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setType(value);
                     }
                     
                     value = elementValueByTag(e,"toll_class");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setTollClass(Integer.valueOf(value));
                     }
                     
                     value = elementValueByTag(e,"motorization");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setMotorization(value);
                     }
                     
                     value = elementValueByTag(e,"fuel");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setFuel(value);
                     }
 
                     value = elementValueByTag(e,"mass");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setMass(value);
                     }
                     
                     value = elementValueByTag(e,"load");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setLoad(value);
                     }
                     
                     value = elementValueByTag(e,"drag");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setDrag(Double.valueOf(value));
                     }
 
                     value = elementValueByTag(e,"frontal_area");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setFrontalArea(Double.valueOf(value));
                     }
                     
                     value = elementValueByTag(e,"rrc");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setRrc(Double.valueOf(value));
                     }
                     
                     value = elementValueByTag(e,"wheel_size");
-                    if (!value.equalsIgnoreCase("")) {
+                    if (!"".equalsIgnoreCase(value)) {
                         car.setWheelSize(Double.valueOf(value));
                     }
  
