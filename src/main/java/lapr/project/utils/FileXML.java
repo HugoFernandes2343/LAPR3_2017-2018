@@ -129,67 +129,58 @@ public class FileXML implements Serializable {
 
                     car.setDescription(e.getAttribute("description"));
 
-                    NodeList nodes = e.getElementsByTagName("type");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setType(nodes.item(j).getTextContent());
+                    String value = elementValueByTag(e,"type");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setType(value);
+                    }
+                    
+                    value = elementValueByTag(e,"toll_class");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setTollClass(Integer.valueOf(value));
+                    }
+                    
+                    value = elementValueByTag(e,"motorization");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setMotorization(value);
+                    }
+                    
+                    value = elementValueByTag(e,"fuel");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setFuel(value);
                     }
 
-                    nodes = e.getElementsByTagName("toll_class");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setTollClass(Integer.valueOf(nodes.item(j).getTextContent()));
+                    value = elementValueByTag(e,"mass");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setMass(value);
+                    }
+                    
+                    value = elementValueByTag(e,"load");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setLoad(value);
+                    }
+                    
+                    value = elementValueByTag(e,"drag");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setDrag(Double.valueOf(value));
                     }
 
-                    nodes = e.getElementsByTagName("motorization");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setMotorization(nodes.item(j).getTextContent());
+                    value = elementValueByTag(e,"frontal_area");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setFrontalArea(Double.valueOf(value));
                     }
-
-                    nodes = e.getElementsByTagName("fuel");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setFuel(nodes.item(j).getTextContent());
+                    
+                    value = elementValueByTag(e,"rrc");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setRrc(Double.valueOf(value));
                     }
-
-                    nodes = e.getElementsByTagName("mass");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setMass(nodes.item(j).getTextContent());
+                    
+                    value = elementValueByTag(e,"wheel_size");
+                    if (!value.equalsIgnoreCase("")) {
+                        car.setWheelSize(Double.valueOf(value));
                     }
+ 
 
-                    nodes = e.getElementsByTagName("load");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setLoad(nodes.item(j).getTextContent());
-                    }
-
-                    nodes = e.getElementsByTagName("drag");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setDrag(Double.valueOf(nodes.item(j).getTextContent()));
-                    }
-
-                    nodes = e.getElementsByTagName("frontal_area");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setFrontalArea(Double.valueOf(nodes.item(j).getTextContent()));
-                    }
-
-                    nodes = e.getElementsByTagName("rrc");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setRrc(Double.valueOf(nodes.item(j).getTextContent()));
-                    }
-
-                    nodes = e.getElementsByTagName("wheel_size");
-                    for (int j = 0; j < nodes.getLength(); j++) {
-
-                        car.setWheelSize(Double.valueOf(nodes.item(j).getTextContent()));
-                    }
-
-                    nodes = e.getElementsByTagName("velocity_limit_list");
+                    NodeList nodes = e.getElementsByTagName("velocity_limit_list");
                     for (int j = 0; j < nodes.getLength(); j++) {
                         if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
                             Element el = (Element) nodes.item(j);//velocity_limit_list
@@ -197,12 +188,12 @@ public class FileXML implements Serializable {
                             for (int k = 0; k < nodesLimit.getLength(); k++) {
                                 if (nodesLimit.item(k).getNodeType() == Node.ELEMENT_NODE) {
                                     Element elem = (Element) nodesLimit.item(k);//velocity_limit
-                                    
+
                                     VelocityLimit limit = new VelocityLimit();
 
                                     NodeList nodesLimits = elem.getElementsByTagName("segment_type");
                                     for (int l = 0; l < nodesLimits.getLength(); l++) {
-                                            
+
                                         limit.setSegmentType(nodesLimits.item(l).getTextContent());
                                     }
 
@@ -224,34 +215,33 @@ public class FileXML implements Serializable {
                             Energy energy = new Energy();
                             NodeList list = el.getElementsByTagName("min_rpm");
                             for (int k = 0; k < list.getLength(); k++) {
-                                
+
                                 energy.setMinRpm(Integer.valueOf(list.item(k).getTextContent()));
                             }
 
                             list = el.getElementsByTagName("max_rpm");
                             for (int k = 0; k < list.getLength(); k++) {
-                                
+
                                 energy.setMaxRpm(Integer.valueOf(list.item(k).getTextContent()));
                             }
 
                             list = el.getElementsByTagName("final_drive_ratio");
                             for (int k = 0; k < list.getLength(); k++) {
-                                
+
                                 energy.setFinalDriveRatio(Double.valueOf(list.item(k).getTextContent()));
                             }
-                            
+
                             list = el.getElementsByTagName("energy_regeneration_ratio");
                             for (int k = 0; k < list.getLength(); k++) {
-                                
+
                                 energy.setErr(Double.valueOf(list.item(k).getTextContent()));
                             }
-                            
 
                             list = el.getElementsByTagName("gear_list");
                             for (int k = 0; k < list.getLength(); k++) {
                                 if (list.item(k).getNodeType() == Node.ELEMENT_NODE) {
                                     Element element = (Element) list.item(k);//gear_list
-                                
+
                                     NodeList gearList = element.getElementsByTagName("gear");
                                     for (int l = 0; l < gearList.getLength(); l++) {
                                         if (gearList.item(l).getNodeType() == Node.ELEMENT_NODE) {
@@ -260,7 +250,7 @@ public class FileXML implements Serializable {
                                             gear.setId(elem.getAttribute("id"));
                                             NodeList ratios = elem.getElementsByTagName("ratio");
                                             for (int m = 0; m < ratios.getLength(); m++) {
-                                
+
                                                 gear.setRatio(Double.valueOf(ratios.item(m).getTextContent()));
                                             }
 
@@ -276,27 +266,27 @@ public class FileXML implements Serializable {
                             for (int q = 0; q < nodes.getLength(); q++) {
                                 if (nodes.item(q).getNodeType() == Node.ELEMENT_NODE) {
                                     Element eler = (Element) nodes.item(q);//throttle_list
-                                
+
                                     NodeList listElem = eler.getElementsByTagName("throttle");
                                     for (int k = 0; k < listElem.getLength(); k++) {
                                         if (listElem.item(k).getNodeType() == Node.ELEMENT_NODE) {
                                             Element elem = (Element) listElem.item(k);//throttle
                                             Throttle throttle = new Throttle();
-                                
+
                                             throttle.setId(elem.getAttribute("id"));
 
                                             NodeList lastList = elem.getElementsByTagName("regime");
                                             for (int l = 0; l < lastList.getLength(); l++) {
                                                 if (lastList.item(l).getNodeType() == Node.ELEMENT_NODE) {
                                                     Element regimeElem = (Element) lastList.item(l);//regime
-                                                    
+
                                                     Regime regime = new Regime();
-                                                    
+
                                                     NodeList regimeList = regimeElem.getElementsByTagName("torque_low");
                                                     for (int m = 0; m < regimeList.getLength(); m++) {
                                                         regime.setTorqueLow(Integer.valueOf(regimeList.item(m).getTextContent()));
                                                     }
-                                                    
+
                                                     regimeList = regimeElem.getElementsByTagName("torque_high");
                                                     for (int m = 0; m < regimeList.getLength(); m++) {
                                                         regime.setTorqueHigh(Integer.valueOf(regimeList.item(m).getTextContent()));
@@ -338,7 +328,6 @@ public class FileXML implements Serializable {
         } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException e) {
             Logger.getLogger(FileXML.class.getName()).log(Level.SEVERE, null, e);
 
-           
         }
 
         return null;
@@ -362,7 +351,6 @@ public class FileXML implements Serializable {
 
             roadNetwork.setId("Description: " + doc.getDocumentElement().getAttribute("id"));
 
-
             roadNetwork.setDescription(doc.getDocumentElement().getAttribute("description"));
 
             //node_list
@@ -370,14 +358,13 @@ public class FileXML implements Serializable {
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-               
 
                 NodeList nodes = nNode.getChildNodes();
 
                 for (int i = 0; i < nodes.getLength(); i++) {
                     if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
                         Element e = (Element) nodes.item(i);
-                        
+
                         roadNetwork.addNode(e.getAttribute("id"));
                     }
                 }
@@ -391,7 +378,6 @@ public class FileXML implements Serializable {
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                
 
                 NodeList nodes = nNode.getChildNodes();
 
@@ -399,16 +385,16 @@ public class FileXML implements Serializable {
                     if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
                         Element e = (Element) nodes.item(i);//road
                         Road road = new Road();
-                        
+
                         road.setId(e.getAttribute("id"));
                         NodeList list = e.getElementsByTagName("road_name");//road_name
                         for (int j = 0; j < list.getLength(); j++) {
-                            
+
                             road.setName(list.item(j).getTextContent());
                         }
                         list = e.getElementsByTagName("typology");
                         for (int j = 0; j < list.getLength(); j++) {
-                            
+
                             road.setTypology(list.item(j).getTextContent());
                         }
                         list = e.getElementsByTagName("toll_fare");
@@ -419,7 +405,7 @@ public class FileXML implements Serializable {
                                 for (int k = 0; k < tollList.getLength(); k++) {
                                     Element vehicle_class = (Element) tollList.item(k);
                                     TollClass classe = new TollClass(vehicle_class.getAttribute("id"), Double.valueOf(tollList.item(k).getTextContent()));
-                                    road.getTollFare().getListClasses().add(classe);  
+                                    road.getTollFare().getListClasses().add(classe);
                                 }
                             }
                         }
@@ -434,7 +420,6 @@ public class FileXML implements Serializable {
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                
 
                 NodeList nodes = nNode.getChildNodes();
                 for (int i = 0; i < nodes.getLength(); i++) {
@@ -446,13 +431,13 @@ public class FileXML implements Serializable {
 
                         NodeList list = e.getElementsByTagName("road_id");
                         for (int j = 0; j < list.getLength(); j++) {
-                   
+
                             section.setRoadId(list.item(j).getTextContent());
                         }
 
                         list = e.getElementsByTagName("direction");
                         for (int j = 0; j < list.getLength(); j++) {
-                            
+
                             section.setDirection(list.item(j).getTextContent());
                         }
 
@@ -460,46 +445,46 @@ public class FileXML implements Serializable {
                         for (int j = 0; j < list.getLength(); j++) {
                             if (list.item(j).getNodeType() == Node.ELEMENT_NODE) {
                                 Element el = (Element) list.item(j);
-                                
+
                                 NodeList seglist = el.getElementsByTagName("segment");
                                 for (int k = 0; k < seglist.getLength(); k++) {
                                     if (seglist.item(k).getNodeType() == Node.ELEMENT_NODE) {
                                         Element segment = (Element) seglist.item(k);
                                         Segment roadSegment = new Segment();
-                                        
+
                                         roadSegment.setId(segment.getAttribute("id"));
 
                                         //init_height
                                         NodeList seg = e.getElementsByTagName("init_height");
-                                        
+
                                         roadSegment.setInitHeight(Double.valueOf(seg.item(k).getTextContent()));
 
                                         //final_height
                                         seg = e.getElementsByTagName("final_height");
-                                        
+
                                         roadSegment.setFinalHeight(Double.valueOf(seg.item(k).getTextContent()));
 
                                         //length
                                         seg = e.getElementsByTagName("length");
-                                        
+
                                         roadSegment.setLength(seg.item(k).getTextContent());
                                         //max_velocity
                                         seg = e.getElementsByTagName("max_velocity");
-                                        
+
                                         roadSegment.setMaxVelocity(seg.item(k).getTextContent());
 
                                         //min_velocity
                                         seg = e.getElementsByTagName("min_velocity");
-                                        
+
                                         roadSegment.setMinVelocity(seg.item(k).getTextContent());
 
                                         //wind_direction
                                         seg = e.getElementsByTagName("wind_direction");
-                                        
+
                                         roadSegment.setWindDirection(Double.valueOf(seg.item(k).getTextContent()));
                                         //wind_speed
                                         seg = e.getElementsByTagName("wind_speed");
-                                        
+
                                         roadSegment.setWindSpeed(seg.item(k).getTextContent());
 
                                         section.addSegment(roadSegment);
@@ -515,11 +500,22 @@ public class FileXML implements Serializable {
             }
             roadNetwork.loadMap();
             return roadNetwork;
+
         } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException e) {
-            Logger.getLogger(FileXML.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FileXML.class
+                    .getName()).log(Level.SEVERE, null, e);
         }
 
         return null;
+    }
+
+    private static String elementValueByTag(Element e, String type) {
+        String value = "";
+        NodeList nodes = e.getElementsByTagName(type);
+        for (int j = 0; j < nodes.getLength(); j++) {
+            value = nodes.item(j).getTextContent();
+        }
+        return value;
     }
 
 }
