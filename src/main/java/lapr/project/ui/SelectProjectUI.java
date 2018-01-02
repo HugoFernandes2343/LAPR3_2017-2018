@@ -32,14 +32,16 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
     private final JPanel mPanel;
     private final JList<String> projectList;
     private String name = "";
+    private MenuUI win;
 
     /**
      * constructor
      *
      * @param tp
      */
-    public SelectProjectUI(TravelByPhysics tp) {
+    public SelectProjectUI(TravelByPhysics tp, MenuUI win) {
         this.tp = tp;
+        this.win = win;
         sp = new SelectProjectController(this.tp);
         mPanel = new JPanel();
 
@@ -143,6 +145,7 @@ public class SelectProjectUI extends JPanel implements MessagesAndUtils {
                             sucMess(SEL_SUCC, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
+                            win.setProject();
                             revalidate();
                             repaint();
                         }

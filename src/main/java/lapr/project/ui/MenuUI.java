@@ -27,6 +27,7 @@ public class MenuUI extends JFrame {
     /**
      * Menu buttons
      */
+    JMenuBar mainBar;
     private JMenuItem copy;
     private JMenuItem changeName;
     private JMenuItem importVehicles;
@@ -48,8 +49,8 @@ public class MenuUI extends JFrame {
     public MenuUI(TravelByPhysics tp) {
         setLookAndFeel();
         this.tp = tp;
-        JMenuBar barraMenu = createMenuBar();
-        setJMenuBar(barraMenu);
+        mainBar = createMenuBar();
+        setJMenuBar(mainBar);
         mPanel = new MainPanel();
         mPanel.setBackground(Color.GRAY);
         add(mPanel);
@@ -103,10 +104,7 @@ public class MenuUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 mPanel.removeAll();
-                mPanel.add(new CreateProjectUI(tp));
-                if (tp.getProjectList().getActualProject() != null) {
-                    setProject();
-                }
+                mPanel.add(new CreateProjectUI(tp, MenuUI.this));
                 mPanel.revalidate();
                 mPanel.repaint();
             }
@@ -119,10 +117,7 @@ public class MenuUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 mPanel.removeAll();
-                mPanel.add(new SelectProjectUI(tp));
-                if (tp.getProjectList().getActualProject() != null) {
-                    setProject();
-                }
+                mPanel.add(new SelectProjectUI(tp, MenuUI.this));
                 mPanel.revalidate();
                 mPanel.repaint();
             }

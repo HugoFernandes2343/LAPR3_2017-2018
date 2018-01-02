@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -22,7 +23,7 @@ import lapr.project.model.TravelByPhysics;
 
 /**
  *
- * @author 
+ * @author
  */
 public class CreateProjectUI extends JPanel implements MessagesAndUtils {
 
@@ -64,14 +65,16 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
     private JTextArea roadsFilePath;
     private JTextArea vehiclesFilePath;
     private final CardLayout layout = new CardLayout();
+    private MenuUI win;
 
     /**
      * Constructor for this class
      *
      * @param tp
      */
-    public CreateProjectUI(TravelByPhysics tp) {
+    public CreateProjectUI(TravelByPhysics tp, MenuUI win) {
         this.tp = tp;
+        this.win = win;
         cp = new CreateProjectController(tp);
         mPanel = new JPanel(layout);
         mPanel.add(createPageOne(), "page1");
@@ -88,7 +91,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      * @return
      */
     private JPanel createPageOne() {
-       JPanel page1 = new JPanel(new GridLayout(3, 1, 20, 20));
+        JPanel page1 = new JPanel(new GridLayout(3, 1, 20, 20));
 
         JPanel nameLabel = createHeader("Project Name: ");
 
@@ -136,6 +139,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
 
     /**
      * Creates the cancel button for this page
+     *
      * @return the cancel button
      */
     private JButton getCancelButton() {
@@ -252,6 +256,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                             sucMess(CREATE_SUC, MESS_SUCC);
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
+                            win.setProject();
                             revalidate();
                             repaint();
                         } else {
@@ -308,16 +313,16 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
         buttonVehicles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JFileChooser vehiclesChooser = new JFileChooser("Choose file to import vehicles data");
-                vehiclesChooser.showOpenDialog(page2);
                 try {
+                    JFileChooser vehiclesChooser = new JFileChooser("Choose file to import vehicles data");
+                    vehiclesChooser.showOpenDialog(page2);
                     String vehiclesFilePathStr = vehiclesChooser.getSelectedFile().getAbsolutePath();
                     if (!(vehiclesFilePathStr.isEmpty()) && validateFile(vehiclesChooser.getSelectedFile().getAbsolutePath())) {
                         vehiclesFilePath.setText(vehiclesFilePathStr);
                     } else {
                         errMess(ERR_WRONG_FILE, MESS_ERR);
                     }
-                } catch (NullPointerException ex) {
+                } catch (NullPointerException ex ) {
                     Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_NO_FILE, MESS_ERR);
                 }
