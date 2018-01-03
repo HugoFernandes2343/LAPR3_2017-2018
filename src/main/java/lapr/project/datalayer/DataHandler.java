@@ -60,7 +60,7 @@ public class DataHandler {
         registerDriver();
         this.jdbcUrl = "jdbc:oracle:thin://LAPR3_G42@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl";
         this.username = "LAPR3_G42";
-        this.password = "ficaproano";
+        this.password = getEncryptedPassword();
         connection = null;
         callStmt = null;
         rSet = null;
@@ -70,6 +70,18 @@ public class DataHandler {
         openConnection();
     }
 
+    /**
+     * Placeholder until credential autho is implemented
+     * @return 
+     */
+    private static String getEncryptedPassword(){
+        String string="icaproanof";
+        String n1 = string.substring(0, 9);
+        String n2 = string.substring(9);
+        string=n2+n1;
+        return string;
+    }
+    
     /**
      * Get a connection to database
      *
@@ -193,12 +205,13 @@ public class DataHandler {
      */
     public UserList getUserList(UserList list) throws SQLException {
         Statement stmt = null;
+        ResultSet rs = null;
         String query = "select * "
                 + "FROM "
-                + "USER_DATA";
+                + "\"USER\"";
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String userName = rs.getString("USERNAME");//Change as in DB
                 int charKey = rs.getInt("CHARKEY");
@@ -212,6 +225,7 @@ public class DataHandler {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
+                rs.close();
                 stmt.close();
             }
         }
@@ -263,6 +277,7 @@ public class DataHandler {
      */
     public VehicleList getVehicleList(VehicleList list, Project p) throws SQLException {
         Statement stmt = null;
+        ResultSet rs = null;
         String query = "select * "
                 + "FROM "
                 + "VEHICLE "
@@ -270,7 +285,7 @@ public class DataHandler {
                 + "ProjectName = " + p.getName();
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String name = rs.getString("NAME");
                 String description = rs.getString("DESCRIPTION");
@@ -294,6 +309,7 @@ public class DataHandler {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
+                rs.close();
                 stmt.close();
             }
         }
@@ -308,6 +324,7 @@ public class DataHandler {
      */
     public Energy getEnergyByVehicle(Vehicle vehicle) throws SQLException {
         Statement stmt = null;
+        ResultSet rs = null;
         String query = "SELECT * "
                 + "FROM "
                 + "ENERGY "
@@ -316,7 +333,7 @@ public class DataHandler {
         Energy energy = null;
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 int minRPM = rs.getInt("min_rpm");
                 int maxRPM = rs.getInt("max_rpm");
@@ -324,11 +341,11 @@ public class DataHandler {
                 double err = rs.getDouble("ENERGY_REGENERATION_RATIO");
                 /*Get the Gears*/
                 List<Gear> gearList = new LinkedList<>();
-                getGearsByVehicle(gearList,vehicle);
+                getGearsByVehicle(gearList, vehicle);
                 /**/
-                /*get Throttle*/
+ /*get Throttle*/
                 List<Throttle> throttleList = new LinkedList<>();
-                getThrottleByVehicle(throttleList,vehicle);
+                getThrottleByVehicle(throttleList, vehicle);
                 /**/
                 energy = new Energy(minRPM, maxRPM, finalDriveRatio, gearList, throttleList);
                 energy.setErr(err);
@@ -337,6 +354,7 @@ public class DataHandler {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
+                rs.close();
                 stmt.close();
             }
         }
@@ -344,10 +362,10 @@ public class DataHandler {
     }
 
     private void getGearsByVehicle(List<Gear> gearList, Vehicle vehicle) {
-        
+
     }
 
     private void getThrottleByVehicle(List<Throttle> throttleList, Vehicle vehicle) {
-        
+
     }
 }
