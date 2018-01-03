@@ -303,16 +303,17 @@ public class DataHandler {
     /**
      * Prototype method to allow the creation of a statement to query the
      * database in order to return the Energy factor of one vehicle
+     *
      * @throws SQLException
      */
     public Energy getEnergyByVehicle(Vehicle vehicle) throws SQLException {
         Statement stmt = null;
-        String query = "select * "
+        String query = "SELECT * "
                 + "FROM "
                 + "ENERGY "
                 + "WHERE "
                 + "VEHICLE_NAME = " + vehicle.getName();
-        Energy energy=null;
+        Energy energy = null;
         try {
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -322,11 +323,13 @@ public class DataHandler {
                 Double finalDriveRatio = rs.getDouble("FINAL_DRIVE_RATIO");
                 double err = rs.getDouble("ENERGY_REGENERATION_RATIO");
                 /*Get the Gears*/
-                List<Gear> gearList = new LinkedList();
-
+                List<Gear> gearList = new LinkedList<>();
+                getGearsByVehicle(gearList,vehicle);
+                /**/
                 /*get Throttle*/
-                List<Throttle> throttleList = new LinkedList();
-                
+                List<Throttle> throttleList = new LinkedList<>();
+                getThrottleByVehicle(throttleList,vehicle);
+                /**/
                 energy = new Energy(minRPM, maxRPM, finalDriveRatio, gearList, throttleList);
                 energy.setErr(err);
             }
@@ -338,5 +341,13 @@ public class DataHandler {
             }
         }
         return energy;
+    }
+
+    private void getGearsByVehicle(List<Gear> gearList, Vehicle vehicle) {
+        
+    }
+
+    private void getThrottleByVehicle(List<Throttle> throttleList, Vehicle vehicle) {
+        
     }
 }
