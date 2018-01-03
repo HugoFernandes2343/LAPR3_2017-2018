@@ -72,16 +72,17 @@ public class DataHandler {
 
     /**
      * Placeholder until credential autho is implemented
-     * @return 
+     *
+     * @return
      */
-    private static String getEncryptedPassword(){
-        String string="icaproanof";
+    private static String getEncryptedPassword() {
+        String string = "icaproanof";
         String n1 = string.substring(0, 9);
         String n2 = string.substring(9);
-        string=n2+n1;
+        string = n2 + n1;
         return string;
     }
-    
+
     /**
      * Get a connection to database
      *
@@ -221,12 +222,14 @@ public class DataHandler {
                 User user = new User(userName, charKey, name, password, email);
                 list.getUserList().add(user);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
-                rs.close();
                 stmt.close();
+            }
+            if (rs != null) {
+                rs.close();
             }
         }
         return list;
@@ -305,12 +308,14 @@ public class DataHandler {
                 vehicle.setEnergy(energy);
                 list.getVehicleList().add(vehicle);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
-                rs.close();
                 stmt.close();
+            }
+            if (rs != null) {
+                rs.close();
             }
         }
         return list;
@@ -329,7 +334,7 @@ public class DataHandler {
                 + "FROM "
                 + "ENERGY "
                 + "WHERE "
-                + "VEHICLE_NAME = " + vehicle.getName();
+                + "VEHICLE = " + vehicle.getName();
         Energy energy = null;
         try {
             stmt = connection.createStatement();
@@ -342,20 +347,21 @@ public class DataHandler {
                 /*Get the Gears*/
                 List<Gear> gearList = new LinkedList<>();
                 getGearsByVehicle(gearList, vehicle);
-                /**/
- /*get Throttle*/
+                /*get Throttle*/
                 List<Throttle> throttleList = new LinkedList<>();
                 getThrottleByVehicle(throttleList, vehicle);
                 /**/
                 energy = new Energy(minRPM, maxRPM, finalDriveRatio, gearList, throttleList);
                 energy.setErr(err);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
-                rs.close();
                 stmt.close();
+            }
+            if (rs != null) {
+                rs.close();
             }
         }
         return energy;
