@@ -190,16 +190,15 @@ public class FileXML implements Serializable {
                                     Element elem = (Element) nodesLimit.item(k);//velocity_limit
 
                                     VelocityLimit limit = new VelocityLimit();
-
-                                    NodeList nodesLimits = elem.getElementsByTagName("segment_type");
-                                    for (int l = 0; l < nodesLimits.getLength(); l++) {
-
-                                        limit.setSegmentType(nodesLimits.item(l).getTextContent());
+                                    
+                                    value = elementValueByTag(elem,"segment_type");
+                                    if (!"".equalsIgnoreCase(value)) {
+                                        limit.setSegmentType(value);
                                     }
-
-                                    nodesLimits = elem.getElementsByTagName("limit");
-                                    for (int l = 0; l < nodesLimits.getLength(); l++) {
-                                        limit.setLimit(Integer.valueOf(nodesLimits.item(l).getTextContent()));
+                                    
+                                    value = elementValueByTag(elem,"limit");
+                                    if (!"".equalsIgnoreCase(value)) {
+                                        limit.setLimit(Integer.valueOf(value));
                                     }
 
                                     car.getVelocityLimitList().addVelocityLimit(limit);
@@ -215,7 +214,6 @@ public class FileXML implements Serializable {
                             Energy energy = new Energy();
                             NodeList list = el.getElementsByTagName("min_rpm");
                             for (int k = 0; k < list.getLength(); k++) {
-
                                 energy.setMinRpm(Integer.valueOf(list.item(k).getTextContent()));
                             }
 
