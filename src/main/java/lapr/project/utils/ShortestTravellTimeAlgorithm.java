@@ -27,7 +27,7 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
     private static final String ALGORITHM = "Shortest Travell Time (N10)";
 
     @Override
-    public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name) {
+    public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {
         Throttle throttle = vehicle.getEnergy().getThrottle("25");
         Regime regime = throttle.getRegimeList().get(throttle.getRegimeList().size() - 1);
         LinkedList<Double> velocityPerSegment = new LinkedList<>();
@@ -36,27 +36,33 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         double travellTime;
         double tollCost;
         double distance;
-        double power;
         double energy;
         NetworkAnalysis analysis = new ShortestTravellTimeAnalysis(begin, end, vehicle, name);
         AdjacencyMatrixGraph<Node, Double> timeMap = createEdgeAsDoubleGraph(project, vehicle);
         travellTime = EdgeAsDoubleGraphAlgorithms.shortestPath(timeMap, begin, end, path);
         LinkedList<RoadSection> bestPath = getConvertedPath(project.getNetwork().getRoadMap(), path);
-        List<Double> velocityPerSection = getVelocityList(bestPath, vehicle, project, velocityPerSegment);
-        distance = getTotalDistance(bestPath);
+        distance = getBaseData(project, bestPath, velocityPerSegment, vehicle);
         tollCost = getTollCost(bestPath, vehicle.getTollClass(), project);
-        power = Physics.getEnginePower(regime.getTorqueHigh(), regime.getRpmHigh());
-        energy = getTotalEnergy(velocityPerSegment, bestPath, vehicle, regime, forcePerSegment);
+        energy = getTotalEnergy(velocityPerSegment, bestPath, vehicle, regime, forcePerSegment, load);
         analysis.setTravellTime(travellTime);
         analysis.setBestPath(bestPath);
         analysis.setVelocityPerSegment(velocityPerSegment);
-        analysis.setVelocityPerSection(velocityPerSection);
         analysis.setAverageVelocity(Physics.getVelocity(travellTime, distance));
         analysis.setDistance(distance);
         analysis.setTollCost(tollCost);
         analysis.setEnergyConsumption(energy);
         analysis.setForcePerSegment(forcePerSegment);
-        analysis.setPower(power);
+        analysis.setLoad(load);
+        analysis.setFuelMass(0);
+        analysis.setFuelVolume(0);
+        if (vehicle.getFuel().equals("diesel")) {
+            analysis.setFuelMass(energy / DIESEL_FUEL_MASS);
+            analysis.setFuelVolume(analysis.getFuelMass() / DIESEL_FUEL_DENSITY);
+        }
+        if (vehicle.getFuel().equals("gasoline")) {
+            analysis.setFuelMass(energy / GASOLINE_FUEL_MASS);
+            analysis.setFuelVolume(analysis.getFuelMass() / GASOLINE_FUEL_DENSITY);
+        }
         return analysis;
     }
 
@@ -125,43 +131,22 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         return sectionPath;
     }
 
-    /**
-     *
-     * @param bestPath path traversed by the vehicle
-     * @param vehicle vehicle that trverses the path
-     * @param project project that holds the data
-     * @param speedBySegment speed used by the car in each segment
-     * @return
-     */
-    private List<Double> getVelocityList(LinkedList<RoadSection> bestPath, Vehicle vehicle, Project project, LinkedList<Double> speedBySegment) {
-        List<Double> velocityPerSection = new LinkedList<>();
-        for (RoadSection road : bestPath) {
-            String type = project.getNetwork().getRoad(road.getRoadId()).getTypology();
-            velocityPerSection.add(getVelocityPerSection(road, vehicle.getVelocityLimit(type), speedBySegment));
-        }
-        return velocityPerSection;
-    }
-
-    /**
-     *
-     * @param section section that will use for Segment sorting
-     * @param velocityVehicle velocity of the vehicle for the vehicle
-     * @param speedBySegment speed used by the car in each segment
-     * @return the average speed traversed in each Section
-     */
-    private static double getVelocityPerSection(RoadSection section, double velocityVehicle, LinkedList<Double> speedBySegment) {
-        double averageSpeed = 0;
-        for (Segment segment : section.getSegmentList()) {
-            double velocitySeg = Physics.convertKmPerHourToMeterPerSec(Double.valueOf(segment.getMaxVelocity().replace(" Km/h", "")));
-            if (velocityVehicle < velocitySeg) {
-                speedBySegment.add(velocityVehicle);
-                averageSpeed = averageSpeed + velocityVehicle;
-            } else {
-                speedBySegment.add(velocitySeg);
-                averageSpeed = averageSpeed + velocitySeg;
+    private static double getBaseData(Project project, LinkedList<RoadSection> bestPath, LinkedList<Double> velocityPerSegment, Vehicle vehicle) {
+        double distance = 0;
+        for (RoadSection section : bestPath) {
+            String type = project.getNetwork().getRoad(section.getRoadId()).getTypology();
+            double velocityVehicle = Physics.convertKmPerHourToMeterPerSec(vehicle.getVelocityLimit(type));
+            for (Segment segment : section.getSegmentList()) {
+                distance = distance + Physics.convertKmToMeter(Double.valueOf(segment.getLength().replace(" Km", "")));
+                double velocitySeg = Physics.convertKmPerHourToMeterPerSec(Double.valueOf(segment.getMaxVelocity().replace(" Km/h", "")));
+                if (velocityVehicle < velocitySeg) {
+                    velocityPerSegment.add(velocityVehicle);
+                } else {
+                    velocityPerSegment.add(velocitySeg);
+                }
             }
         }
-        return averageSpeed / (double) section.getSegmentList().size();
+        return distance;
     }
 
     /**
@@ -183,21 +168,6 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
 
     /**
      *
-     * @param bestPath the path the vehicle will traverse
-     * @return the total distance traversed by the car
-     */
-    private static double getTotalDistance(LinkedList<RoadSection> bestPath) {
-        double distance = 0;
-        for (RoadSection road : bestPath) {
-            for (Segment segment : road.getSegmentList()) {
-                distance = distance + Physics.convertKmToMeter(Double.valueOf(segment.getLength().replace(" Km", "")));
-            }
-        }
-        return distance;
-    }
-
-    /**
-     *
      * @param velocityPerSegment velocity used by the car per segment
      * @param bestPath the path the vehicle will traverse
      * @param vehicle the test vehicle
@@ -205,24 +175,20 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
      * @param forcePerSegment force applied in the vehicle for each segment
      * @return the total energy the vehicle has used during the run
      */
-    private static double getTotalEnergy(LinkedList<Double> velocityPerSegment, LinkedList<RoadSection> bestPath, Vehicle vehicle, Regime regime, LinkedList<Double> forcePerSegment) {
+    private static double getTotalEnergy(LinkedList<Double> velocityPerSegment, LinkedList<RoadSection> bestPath, Vehicle vehicle, Regime regime, LinkedList<Double> forcePerSegment, double load) {
         double energy = 0;
         int cont = 0;
+        double power = Physics.getEnginePower(regime.getTorqueHigh(), regime.getRpmHigh());
         for (RoadSection road : bestPath) {
             for (Segment segment : road.getSegmentList()) {
+                double distance = Physics.convertKmToMeter(Double.valueOf(segment.getLength().replace(" Km", "")));
                 double vehicleVelocity = velocityPerSegment.get(cont);
-                double mass = Double.parseDouble(vehicle.getMass().replace(" Kg", ""));
-                double windVelocity = Double.parseDouble(segment.getWindSpeed().replace(" m/s", ""));
-                double angle = segment.getWindDirection();
-                double relativeVelocity = Physics.getVehicleRelativeVelocity(vehicleVelocity, windVelocity, angle);
-                energy = energy + Physics.getKineticEnergy(mass, relativeVelocity);
-                double gearRatio = vehicle.getEnergy().getGearList().get(vehicle.getEnergy().getGearList().size() - 1).getRatio();
-                double force = Physics.getForceAppliedToVehicleOnFlatSurface(regime.getTorqueHigh(), vehicle.getEnergy().getFinalDriveRatio(), gearRatio, vehicle.getWheelSize() / 2, vehicle.getRrc(), mass, vehicle.getDrag(), vehicle.getFrontalArea(), relativeVelocity);
+                double force = 0;
+                energy = energy + Physics.getEnergy(power, Physics.getTime(vehicleVelocity, distance));
                 forcePerSegment.add(force);
                 cont++;
             }
         }
         return energy;
     }
-
 }

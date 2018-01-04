@@ -89,10 +89,11 @@ public class Physics {
      * @param vr velocity of the car relative to the air(m/s)
      * @return the force applied to the car in Newton
      */
-    public static double getForceAppliedToVehicleOnFlatSurface(double torque, double fDrive, double gearRatio, double r, double rrc, double m, double drag, double area, double vr) {
+    public static double getForceAppliedToVehicle(double torque, double fDrive, double gearRatio, double r, double rrc, double m, double drag, double area, double vr, double angle) {
         return (torque * fDrive * gearRatio) / r
-                - (rrc * m * 9.8)
-                - (0.5 * drag * area * 1.225 * Math.pow(vr, 2));
+                - (rrc * m * 9.8 * Math.cos(Math.toRadians(angle)))
+                - (0.5 * drag * area * 1.225 * Math.pow(vr, 2))
+                - m * 9.8 * Math.sin(Math.toRadians(angle));
     }
 
     /**
@@ -119,5 +120,29 @@ public class Physics {
      */
     public static double getKineticEnergy(double m, double v) {
         return 0.5 * m * Math.pow(v, 2);
+    }
+
+    /**
+     *
+     * @param distance the distance
+     * @param initHeight the initial height
+     * @param finalHeight the final height
+     * @return the angle in degrees
+     */
+    public static double getAngle(double distance, double initHeight, double finalHeight) {
+        if (finalHeight > initHeight) {
+            return Math.toDegrees(Math.asin((finalHeight - initHeight) / distance));
+        }
+        return Math.toDegrees(Math.asin((initHeight - finalHeight) / distance));
+    }
+
+    /**
+     *
+     * @param power power of the engine
+     * @param time the time of function
+     * @return the energy
+     */
+    public static double getEnergy(double power, double time) {
+        return power * time;
     }
 }

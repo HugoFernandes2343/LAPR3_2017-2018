@@ -18,84 +18,86 @@ import lapr.project.utils.Algorithm;
  * @author filip
  */
 public class CreateAnalysisController {
-    
+
     /**
      * The project to make the analisys.
      */
     private final Project actualproject;
-    
+
     /**
      * The system base.
      */
     private final TravelByPhysics tb;
-    
+
     /**
      * Algorithm list
      */
     private List<Algorithm> algorithmList;
-    
+
     /**
      * Results of the analysis.
      */
     private NetworkAnalysis result;
-    
+
     /**
      * Constructor.
+     *
      * @param tb - system base.
      */
-    public CreateAnalysisController(TravelByPhysics tb){
+    public CreateAnalysisController(TravelByPhysics tb) {
         this.tb = tb;
         this.actualproject = this.tb.getProjectList().getActualProject();
     }
-    
-    public List<String> getAlgorithmList(){
-       this.algorithmList = this.tb.getAlgorithmsList();
-       return this.tb.getAlgorithmsByName();
+
+    public List<String> getAlgorithmList() {
+        this.algorithmList = this.tb.getAlgorithmsList();
+        return this.tb.getAlgorithmsByName();
     }
-    
-    public List<String> getVehicleList(){
+
+    public List<String> getVehicleList() {
         return this.actualproject.getVehicleList().getAllVehicleNames();
     }
-    
-    public List<String> getNodeList(){
+
+    public List<String> getNodeList() {
         return this.actualproject.getNetwork().getNodesByName();
     }
-    
-    public boolean runAlgorithm(String algorithm, String vehicle, String begin, String end, String name){
+
+    public boolean runAlgorithm(String algorithm, String vehicle, String begin, String end, String name) {
         Algorithm a = findAlgorithm(algorithm);
-        if(a == null){
+        if (a == null) {
             return false;
         }
         Vehicle v = this.actualproject.getVehicleList().getVehicleByName(vehicle);
-        if(v == null){
+        if (v == null) {
             return false;
         }
-        
+
         Node beginN = this.actualproject.getNetwork().searchNode(begin);
         Node endN = this.actualproject.getNetwork().searchNode(end);
-        if(beginN == null || endN == null){
+        if (beginN == null || endN == null) {
             return false;
         }
-        
-        this.result = a.runAlgorithm(actualproject, beginN, endN, v, name);
+
+        this.result = a.runAlgorithm(actualproject, beginN, endN, v, name, 20);
         return true;
     }
 
     /**
      * Method that finds the algorithm to use
+     *
      * @param algorithm Algorithm to use
      * @return null if doesn´t find the algorithm.
      */
     private Algorithm findAlgorithm(String algorithm) {
-        for(Algorithm a : this.algorithmList){
-            if(a.toString().equals(algorithm)){
+        for (Algorithm a : this.algorithmList) {
+            if (a.toString().equals(algorithm)) {
                 return a;
             }
         }
         return null;
     }
-    
-    public NetworkAnalysis getAnalysis(){
+
+    public NetworkAnalysis getAnalysis() {
         return this.result;
     }
 }

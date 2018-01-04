@@ -14,18 +14,19 @@ public abstract class NetworkAnalysis {
     private String name;
     private List<RoadSection> bestPath;
     private List<Double> velocityPerSegment;
-    private List<Double> velocityPerSection;
     private List<Double> forcePerSegment;
     private Vehicle vehicle;
     private Node beginNode;
     private Node endNode;
     private String type;
-    private double power;
+    private double load;
     private double travellTime;
     private double energyConsumption;
     private double averageVelocity;
     private double distance;
     private double tollCost;
+    private double fuelMass;
+    private double fuelVolume;
 
     public NetworkAnalysis(Node beginNode, Node endNode, Vehicle vehicle, String name, String type) {
         this.name = name;
@@ -184,20 +185,6 @@ public abstract class NetworkAnalysis {
     }
 
     /**
-     * @return the velocityPerSection
-     */
-    public List<Double> getVelocityPerSection() {
-        return velocityPerSection;
-    }
-
-    /**
-     * @param velocityPerSection the velocityPerSection to set
-     */
-    public void setVelocityPerSection(List<Double> velocityPerSection) {
-        this.velocityPerSection = velocityPerSection;
-    }
-
-    /**
      * @return the distance
      */
     public double getDistance() {
@@ -240,17 +227,45 @@ public abstract class NetworkAnalysis {
     }
 
     /**
-     * @return the power
+     * @return the load
      */
-    public double getPower() {
-        return power;
+    public double getLoad() {
+        return load;
     }
 
     /**
-     * @param power the power to set
+     * @param load the load to set
      */
-    public void setPower(double power) {
-        this.power = power;
+    public void setLoad(double load) {
+        this.load = load;
+    }
+
+    /**
+     * @return the fuelMass
+     */
+    public double getFuelMass() {
+        return fuelMass;
+    }
+
+    /**
+     * @param fuelMass the fuelMass to set
+     */
+    public void setFuelMass(double fuelMass) {
+        this.fuelMass = fuelMass;
+    }
+
+    /**
+     * @return the fuelVolume
+     */
+    public double getFuelVolume() {
+        return fuelVolume;
+    }
+
+    /**
+     * @param fuelVolume the fuelVolume to set
+     */
+    public void setFuelVolume(double fuelVolume) {
+        this.fuelVolume = fuelVolume;
     }
 
 }

@@ -117,26 +117,6 @@ public class PhysicsTest {
     }
 
     /**
-     * Test of getForceAppliedToVehicleOnFlatSurface method, of class Physics.
-     */
-    @Test
-    public void testGetForceAppliedToVehicleOnFlatSurface() {
-        System.out.println("getForceAppliedToVehicleOnFlatSurface");
-        double torque = 230.0;
-        double fDrive = 3.6;
-        double gearRatio = 0.75;
-        double r = 0.30;
-        double rrc = 0.010;
-        double m = 2020.0;
-        double drag = 0.320;
-        double area = 1.9;
-        double vr = 29.089;
-        double expResult = 1556.926;
-        double result = Physics.getForceAppliedToVehicleOnFlatSurface(torque, fDrive, gearRatio, r, rrc, m, drag, area, vr);
-        assertEquals(expResult, result, 0.001);
-    }
-
-    /**
      * Test of getAverage method, of class Physics.
      */
     @Test

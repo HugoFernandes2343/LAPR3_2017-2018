@@ -59,7 +59,7 @@ public class NetworkAnalysisTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        int expResult = 7;
+        int expResult = 6;
         int result = instance.getId();
         assertEquals(expResult, result);
 
@@ -288,34 +288,6 @@ public class NetworkAnalysisTest {
     }
 
     /**
-     * Test of getVelocityPerSection method, of class NetworkAnalysis.
-     */
-    @Test
-    public void testGetVelocityPerSection() {
-        System.out.println("getVelocityPerSection");
-        List<Double> result = instance.getVelocityPerSection();
-        assertTrue(result == null);
-    }
-
-    /**
-     * Test of setVelocityPerSection method, of class NetworkAnalysis.
-     */
-    @Test
-    public void testSetVelocityPerSection() {
-        System.out.println("setVelocityPerSection");
-        List<Double> velocityPerSection = new LinkedList<>();
-
-        velocityPerSection.add(1.1);
-        velocityPerSection.add(1.2);
-        velocityPerSection.add(1.3);
-        velocityPerSection.add(1.4);
-        velocityPerSection.add(1.5);
-
-        instance.setVelocityPerSection(velocityPerSection);
-        assertEquals(velocityPerSection, instance.getVelocityPerSection());
-    }
-
-    /**
      * Test of getDistance method, of class NetworkAnalysis.
      */
     @Test
@@ -408,9 +380,9 @@ public class NetworkAnalysisTest {
     @Test
     public void testGetPower() {
         System.out.println("getPower");
-        instance.setPower(2.0);
+        instance.setLoad(2.0);
         double expResult = 2.0;
-        double result = instance.getPower();
+        double result = instance.getLoad();
         assertEquals(expResult, result, 0.0);
 
     }
@@ -422,8 +394,8 @@ public class NetworkAnalysisTest {
     public void testSetPower() {
         System.out.println("setPower");
         double power = 5.0;
-        instance.setPower(power);
-        assertTrue(instance.getPower() == power);
+        instance.setLoad(power);
+        assertTrue(instance.getLoad() == power);
     }
 
 }

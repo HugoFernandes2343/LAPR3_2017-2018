@@ -16,7 +16,12 @@ import lapr.project.model.Vehicle;
  */
 public interface Algorithm {
 
-    public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name);
+    static final double DIESEL_FUEL_MASS = 44400;
+    static final double DIESEL_FUEL_DENSITY = 853;
+    static final double GASOLINE_FUEL_MASS = 48000;
+    static final double GASOLINE_FUEL_DENSITY = 755;
+
+    public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load);
 
     @Override
     public String toString();
