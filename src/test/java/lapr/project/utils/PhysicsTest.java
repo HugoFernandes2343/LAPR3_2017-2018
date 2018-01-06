@@ -146,4 +146,55 @@ public class PhysicsTest {
         assertEquals(expResult, result, 0.0);
     }
 
+    /**
+     * Test of getForceAppliedToVehicle method, of class Physics.
+     */
+    @Test
+    public void testGetForceAppliedToVehicle() {
+        System.out.println("getForceAppliedToVehicle");
+        double torque = 80.0;
+        double fDrive = 4.0;
+        double gearRatio = 0.9;
+        double r = 0.4;
+        double rrc = 0.015;
+        double m = 2420.0;
+        double drag = 0.39;
+        double area = 2.4;
+        double vr = 17.58;
+        double angle = 4.78;
+        double expResult = -1787.939;
+        double result = Physics.getForceAppliedToVehicle(torque, fDrive, gearRatio, r, rrc, m, drag, area, vr, angle);
+        assertEquals(expResult, result, 0.001);
+    }
+
+    /**
+     * Test of getAngle method, of class Physics.
+     */
+    @Test
+    public void testGetAngle() {
+        System.out.println("getAngle");
+        double distance = 1200.0;
+        double initHeight = 100.0;
+        double finalHeight = 200.0;
+        double expResult = 4.78;
+        double result = Physics.getAngle(distance, initHeight, finalHeight);
+        assertEquals(expResult, result, 0.01);
+        expResult = -4.78;
+        result = Physics.getAngle(distance, finalHeight, initHeight);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    /**
+     * Test of getEnergy method, of class Physics.
+     */
+    @Test
+    public void testGetEnergy() {
+        System.out.println("getEnergy");
+        double power = 46076.69;
+        double time = 68.26;
+        double expResult = 3145194.859;
+        double result = Physics.getEnergy(power, time);
+        assertEquals(expResult, result, 0.001);
+    }
+
 }

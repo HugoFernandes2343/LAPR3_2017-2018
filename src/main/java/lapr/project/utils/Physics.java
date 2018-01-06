@@ -130,10 +130,7 @@ public class Physics {
      * @return the angle in degrees
      */
     public static double getAngle(double distance, double initHeight, double finalHeight) {
-        if (finalHeight > initHeight) {
-            return Math.toDegrees(Math.asin((finalHeight - initHeight) / distance));
-        }
-        return Math.toDegrees(Math.asin((initHeight - finalHeight) / distance));
+        return Math.toDegrees(Math.asin((finalHeight - initHeight) / distance));
     }
 
     /**
