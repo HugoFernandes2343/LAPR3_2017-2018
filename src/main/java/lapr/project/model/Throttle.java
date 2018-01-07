@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import lapr.project.utils.DatabaseExchangable;
 
-public class Throttle implements Serializable {
+public class Throttle implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 100L;
 
-    private String id;
+    private String percentage;
     private List<Regime> regimeList = new LinkedList<>();
 
     /**
@@ -22,28 +23,28 @@ public class Throttle implements Serializable {
     /**
      * Full constructor of the throttle type object
      * 
-     * @param id id of the throttle object
+     * @param percentage id of the throttle object
      * @param regimeList List of regiments that will be placed in this object
      */
-    public Throttle(String id, List<Regime> regimeList) {
-        this.id = id;
+    public Throttle(String percentage, List<Regime> regimeList) {
+        this.percentage = percentage;
         this.regimeList = regimeList;
     }
 
     /**
      * Setter for the Throttle id
      *
-     * @param id - throttle id
+     * @param percentage - throttle id
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setPercentage(String percentage) {
+        this.percentage = percentage;
     }
 
     /**
      * @return the id id of the throttle 
      */
-    public String getId() {
-        return id;
+    public String getPercentage() {
+        return percentage;
     }
 
     /**
@@ -61,7 +62,7 @@ public class Throttle implements Serializable {
     @Override
     public int hashCode() {
         int hash =6;
-        hash = 19 * hash + Objects.hashCode(this.getId());
+        hash = 19 * hash + Objects.hashCode(this.getPercentage());
         return hash;
     }
 
@@ -81,7 +82,7 @@ public class Throttle implements Serializable {
             return false;
         }
         Throttle other = (Throttle) obj;
-        return this.id.equalsIgnoreCase(other.id);
+        return this.percentage.equalsIgnoreCase(other.percentage);
 
     }
 

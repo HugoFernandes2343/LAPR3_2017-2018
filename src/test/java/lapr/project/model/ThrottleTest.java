@@ -43,7 +43,7 @@ public class ThrottleTest {
     }
 
     /**
-     * Test of getId method, of class Throttle.
+     * Test of getPercentage method, of class Throttle.
      */
     @Test
     public void testGetId() {
@@ -53,7 +53,7 @@ public class ThrottleTest {
         listTest.add(test);
         Throttle instance = new Throttle("test_id", listTest);
         String expResult = "test_id";
-        String result = instance.getId();
+        String result = instance.getPercentage();
         assertEquals(expResult, result);
     }
 //david.santos.maia@gmail.com
@@ -129,15 +129,15 @@ public class ThrottleTest {
     }
 
     /**
-     * Test of setId method, of class Throttle.
+     * Test of setPercentage method, of class Throttle.
      */
     @Test
     public void testSetId() {
         System.out.println("setId");
         String id = "test_id";
         Throttle instance = new Throttle();
-        instance.setId(id);
-        assertEquals(id,instance.getId());
+        instance.setPercentage(id);
+        assertEquals(id,instance.getPercentage());
     }
 
 }

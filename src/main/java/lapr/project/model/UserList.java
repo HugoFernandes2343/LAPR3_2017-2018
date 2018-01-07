@@ -3,8 +3,9 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 
-public class UserList implements Serializable{
+public class UserList implements Serializable,DatabaseExchangable {
     
     private static final long serialVersionUID = 202L;
     

@@ -271,7 +271,7 @@ public class FileXML implements Serializable {
                                             Element elem = (Element) listElem.item(k);//throttle
                                             Throttle throttle = new Throttle();
 
-                                            throttle.setId(elem.getAttribute("id"));
+                                            throttle.setPercentage(elem.getAttribute("id"));
 
                                             NodeList lastList = elem.getElementsByTagName("regime");
                                             for (int l = 0; l < lastList.getLength(); l++) {

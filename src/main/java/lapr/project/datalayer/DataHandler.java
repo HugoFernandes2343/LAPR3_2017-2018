@@ -115,6 +115,36 @@ public class DataHandler {
     }
 
     /**
+     * Commits the changes made to the database
+     *
+     * @param con Connections
+     * @throws SQLException If the operation was not successful
+     */
+    public void commitChanges() throws SQLException {
+        try {
+            connection.commit();
+            connection.close();
+        } catch (SQLException e) {
+            throw new SQLException("Impossible to commit the changes!");
+        }
+    }
+
+    /**
+     * Commits the changes made to the database
+     *
+     * @param con Connections
+     * @throws SQLException If the operation was not successful
+     */
+    public void rollBackChanges() throws SQLException {
+        try {
+            connection.rollback();
+            connection.close();
+        } catch (SQLException e) {
+            throw new SQLException("Impossible to commit changes");
+        }
+    }
+
+    /**
      * Closes the "ResultSet" object specifically. Returns a empty string if
      * everything goes to plan.
      *
@@ -215,14 +245,14 @@ public class DataHandler {
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.executeQuery();
             rs = (ResultSet) stmt.getObject(1);
-            
+
             while (rs.next()) {
                 String userName = rs.getString("USERNAME");
                 int charKey = rs.getInt("CHARKEY");
                 String name = rs.getString("NAME");
-                String password = rs.getString("PASSWORD");
+                String pass = rs.getString("PASSWORD");
                 String email = rs.getString("EMAIL");
-                User user = new User(userName, charKey, name, password, email);
+                User user = new User(userName, charKey, name, pass, email);
                 list.getUserList().add(user);
             }
         } catch (SQLException | NullPointerException ex) {
@@ -336,7 +366,7 @@ public class DataHandler {
     public Energy getEnergyByVehicle(Vehicle vehicle) throws SQLException {
         CallableStatement stmt = null;
         ResultSet rs = null;
-        
+
         String command = "{call proc_getEnergy_Vehicle (?,?)}";
         Energy energy = null;
         try {
@@ -345,7 +375,7 @@ public class DataHandler {
             stmt.setString(2, vehicle.getName());
             stmt.executeQuery();
             rs = (ResultSet) stmt.getObject(1);
-            
+
             while (rs.next()) {
                 int minRPM = rs.getInt("MIN_RPM");
                 int maxRPM = rs.getInt("MAX_RPM");
@@ -377,137 +407,147 @@ public class DataHandler {
     private List<Gear> getGearsByVehicle(List<Gear> gearList, Vehicle vehicle) throws SQLException {
         CallableStatement stmt = null;
         ResultSet rs = null;
-        
+
         String command = "{call proc_getGears_Vehicle (?,?)}";
-        
-        try{
+
+        try {
             stmt = connection.prepareCall(command);
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, vehicle.getName());
             stmt.executeQuery();
             rs = (ResultSet) stmt.getObject(1);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 String id = String.valueOf(rs.getInt("id"));
                 double ratio = (double) rs.getInt("ratio");
-                Gear gear = new Gear(id,ratio);
+                Gear gear = new Gear(id, ratio);
                 gearList.add(gear);
             }
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 stmt.close();
             }
-            if(rs != null){
-                rs.close(); 
+            if (rs != null) {
+                rs.close();
             }
         }
         return gearList;
     }
 
     private List<Throttle> getThrottleByVehicle(List<Throttle> throttleList, Vehicle vehicle) throws SQLException {
+        List<Regime> regimeList = null;
         CallableStatement stmt = null;
         ResultSet rs = null;
-        
+
         String command = "{call proc_getThrottle_Vehicle (?,?)}";
-        
-        try{
+
+        try {
             stmt = connection.prepareCall(command);
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, vehicle.getName());
             stmt.executeQuery();
             rs = (ResultSet) stmt.getObject(1);
-            
-            while(rs.next()){
-                String id = String.valueOf(rs.getInt("id"));   
-                List<Regime> regimeList = new LinkedList<>();
-                getRegimeByThrottle(id,regimeList,vehicle);
-                Throttle t = new Throttle();
+
+            while (rs.next()) {
+                String percentage = String.valueOf(rs.getInt("percentage"));
+                int throttleId = rs.getInt("id");
+                regimeList = getRegimeByThrottle(throttleId, regimeList);
+                Throttle t = new Throttle(percentage, regimeList);
                 throttleList.add(t);
             }
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 stmt.close();
             }
-            if(rs != null){
-                rs.close(); 
+            if (rs != null) {
+                rs.close();
             }
         }
         return throttleList;
     }
 
-    private List<Regime> getRegimeByThrottle(String id,List<Regime> regimeList,Vehicle vehicle) throws SQLException {
+    private List<Regime> getRegimeByThrottle(int id, List<Regime> regimeList) throws SQLException {
         CallableStatement stmt = null;
         ResultSet rs = null;
-        
-        String command = "{call proc_getRegime_Vehicle (?,?,?)}";
-        
-        try{
+
+        String command = "{call proc_getRegime_Vehicle (?,?)}";
+
+        try {
             stmt = connection.prepareCall(command);
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
-            stmt.setString(2, vehicle.getName());
-            stmt.setString(3, id);
+            stmt.setInt(2, id);
             stmt.executeQuery();
             rs = (ResultSet) stmt.getObject(1);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 int torqueHigh = rs.getInt(rs.getInt("torqueHigh"));
                 int torqueLow = rs.getInt(rs.getInt("torqueLow"));
                 int rpmLow = rs.getInt(rs.getInt("rpmLow"));
                 int rpmHigh = rs.getInt(rs.getInt("rpmHigh"));
                 Double sfc = rs.getDouble("sfc");
-                Regime r = new Regime(torqueHigh,torqueLow,rpmLow,rpmHigh,sfc);
+                Regime r = new Regime(torqueHigh, torqueLow, rpmLow, rpmHigh, sfc);
                 regimeList.add(r);
             }
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 stmt.close();
             }
-            if(rs != null){
-                rs.close(); 
+            if (rs != null) {
+                rs.close();
             }
         }
         return regimeList;
     }
-    
-    private VelocityLimitList getVelocityLimits(Vehicle vehicle) throws SQLException{
+
+    private VelocityLimitList getVelocityLimits(Vehicle vehicle) throws SQLException {
         VelocityLimitList limitList = new VelocityLimitList();
         CallableStatement stmt = null;
-        
+
         ResultSet rs = null;
-        
-        String command = "{call proc_velocityLimit (?,?)}";
-        
-        try{
+
+        String command = "{call proc_getVelocityLimit (?,?)}";
+
+        try {
             stmt = connection.prepareCall(command);
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, vehicle.getName());
             stmt.executeQuery();
             rs = (ResultSet) stmt.getObject(1);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 String segmentType = rs.getString(rs.getInt("segmentType"));
                 int limit = rs.getInt(rs.getInt("limit"));
-                VelocityLimit vl = new VelocityLimit(segmentType,limit);
+                VelocityLimit vl = new VelocityLimit(segmentType, limit);
                 limitList.addVelocityLimit(vl);
             }
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 stmt.close();
             }
-            if(rs != null){
-                rs.close(); 
+            if (rs != null) {
+                rs.close();
             }
         }
         return limitList;
     }
-    
-    //ADD THE NETWORK NOW!!! ATE DOMINGO
+
+    //ADD THE NETWORK NOW!!! ATE DOMINGO ADD/UPDATE NETWORK
+    private Network getNetworkData(Project p, Network network) throws SQLException {
+        CallableStatement stmt = null;
+        Network net = new Network();
+        ResultSet rs = null;
+
+        String command = "{call proc_addNetwork (?,?)}";
+
+        //WIP
+        return net;
+    }
 }

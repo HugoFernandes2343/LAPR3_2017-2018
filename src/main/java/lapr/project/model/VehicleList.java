@@ -6,12 +6,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
  * @author
  */
-public class VehicleList implements Serializable {
+public class VehicleList implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 205L;
 

@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import lapr.project.utils.DatabaseExchangable;
 
-public class RoadSection implements Serializable {
+public class RoadSection implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 600L;
 

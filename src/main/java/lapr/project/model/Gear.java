@@ -2,8 +2,9 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import lapr.project.utils.DatabaseExchangable;
 
-public class Gear implements Serializable {
+public class Gear implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 504L;
 

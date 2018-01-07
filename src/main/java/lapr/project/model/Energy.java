@@ -3,8 +3,9 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import lapr.project.utils.DatabaseExchangable;
 
-public class Energy implements Serializable {
+public class Energy implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 503L;
 
@@ -160,7 +161,7 @@ public class Energy implements Serializable {
 
     public Throttle getThrottle(String throttleId) {
         for (Throttle t : throttleList) {
-            if (t.getId().equals(throttleId)) {
+            if (t.getPercentage().equals(throttleId)) {
                 return t;
             }
         }

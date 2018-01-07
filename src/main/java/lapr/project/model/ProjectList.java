@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 
-public class ProjectList implements Serializable {
+public class ProjectList implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 602L;
 
@@ -80,6 +81,10 @@ public class ProjectList implements Serializable {
         return allNames;
     }
 
+    public Set<Project> getAllProjects(){
+        return this.listProjects;
+    }
+    
     /**
      *
      * @param name , name of the project to look for

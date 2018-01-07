@@ -2,8 +2,9 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import lapr.project.utils.DatabaseExchangable;
 
-public class VelocityLimit implements Serializable {
+public class VelocityLimit implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 204L;
 

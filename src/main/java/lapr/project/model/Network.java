@@ -6,12 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import lapr.project.utils.AdjacencyMatrixGraph;
+import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
  * @author
  */
-public class Network implements Serializable {
+public class Network implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 502L;
 

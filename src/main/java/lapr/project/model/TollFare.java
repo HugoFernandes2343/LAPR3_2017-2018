@@ -4,8 +4,9 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import lapr.project.utils.DatabaseExchangable;
 
-public class TollFare implements Serializable{
+public class TollFare implements Serializable,DatabaseExchangable {
     private static final long serialVersionUID = 101L;
     
     private List<TollClass> listClasses = new LinkedList<>();

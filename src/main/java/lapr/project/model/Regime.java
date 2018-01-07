@@ -1,8 +1,9 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import lapr.project.utils.DatabaseExchangable;
 
-public class Regime implements Serializable {
+public class Regime implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 603L;
 

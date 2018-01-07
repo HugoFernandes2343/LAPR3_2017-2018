@@ -2,12 +2,13 @@ package lapr.project.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
  * @author Utilizador
  */
-public abstract class NetworkAnalysis {
+public class NetworkAnalysis implements DatabaseExchangable{
 
     private static int flag = 1;
     private int id;

@@ -2,12 +2,13 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
  * @author
  */
-public class Project implements Serializable {
+public class Project implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 601L;
 
