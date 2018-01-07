@@ -12,7 +12,7 @@ import lapr.project.utils.DatabaseExchangable;
  *
  * @author
  */
-public class VehicleList implements Serializable,DatabaseExchangable {
+public class VehicleList implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 205L;
 
@@ -38,7 +38,7 @@ public class VehicleList implements Serializable,DatabaseExchangable {
 
     /**
      * Method that adds a vehicle to the list
-     * 
+     *
      * @param car
      */
     public void addVehicle(Vehicle car) {
@@ -48,8 +48,8 @@ public class VehicleList implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *  Method that returns a list with all the vehicle names present in the list
-     * 
+     * Method that returns a list with all the vehicle names present in the list
+     *
      * @return List of strings with the names of the vehicles
      */
     public List<String> getAllVehicleNames() {
@@ -66,7 +66,7 @@ public class VehicleList implements Serializable,DatabaseExchangable {
      * the VehicleList
      *
      * @param newVehicles the list of chicles to be added
-     * @return 
+     * @return
      */
     public int verifyAndAddVehicles(Set<Vehicle> newVehicles) {
         int cont = 0;
@@ -93,19 +93,27 @@ public class VehicleList implements Serializable,DatabaseExchangable {
         }
         return cont;
     }
-    
+
     /**
      * Return a Vehicle Object if it finds it by the name
+     *
      * @param name - Vehicle name
-     * @return Vehicle object if found, null otherwise 
+     * @return Vehicle object if found, null otherwise
      */
-    public Vehicle getVehicleByName(String name){
-        for(Vehicle v : this.listVehicles){
-            if(v.getName().equals(name)){
+    public Vehicle getVehicleByName(String name) {
+        for (Vehicle v : this.listVehicles) {
+            if (v.getName().equals(name)) {
                 return v;
             }
         }
         return null;
     }
-    
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.addAll(this.listVehicles);
+        return temp;
+    }
+
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class VelocityLimitList implements Serializable,DatabaseExchangable {
+public class VelocityLimitList implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 203L;
 
@@ -51,5 +51,12 @@ public class VelocityLimitList implements Serializable,DatabaseExchangable {
             }
         }
         return limit;
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.addAll(this.listVelocityLimits);
+        return temp;
     }
 }

@@ -17,7 +17,7 @@ import lapr.project.utils.DatabaseExchangable;
  */
 public class DAONetwork extends DAOManager {
 
-    private Project projectRef;
+    private final Project projectRef;
     
     /**
      * Name of the function in the database that adds Networks

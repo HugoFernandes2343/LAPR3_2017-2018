@@ -1,9 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 
-public class Node implements Serializable {
+public class Node implements Serializable,DatabaseExchangable {
 
     private static final long serialVersionUID = 505L;
 
@@ -59,5 +62,12 @@ public class Node implements Serializable {
         int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 }

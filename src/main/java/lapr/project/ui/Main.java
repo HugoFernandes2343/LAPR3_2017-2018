@@ -1,6 +1,7 @@
 package lapr.project.ui;
 
 
+import java.sql.SQLException;
 import lapr.project.model.TravelByPhysics;
 
 /**
@@ -21,7 +22,7 @@ class Main {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         new MenuUI(new TravelByPhysics());
     }
 }

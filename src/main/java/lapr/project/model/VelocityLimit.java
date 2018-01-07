@@ -1,10 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class VelocityLimit implements Serializable,DatabaseExchangable {
+public class VelocityLimit implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 204L;
 
@@ -94,6 +96,13 @@ public class VelocityLimit implements Serializable,DatabaseExchangable {
         }
         return this.segmentType.equalsIgnoreCase(other.segmentType);
 
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 
 }

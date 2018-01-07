@@ -1,9 +1,11 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Regime implements Serializable,DatabaseExchangable {
+public class Regime implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 603L;
 
@@ -30,7 +32,7 @@ public class Regime implements Serializable,DatabaseExchangable {
      */
     public Regime(int torqueHigh, int torqueLow, int rpmLow, int rpmHigh, Double sfc) {
         this.torqueHigh = torqueHigh;
-        this.torqueLow=torqueLow;
+        this.torqueLow = torqueLow;
         this.rpmLow = rpmLow;
         this.rpmHigh = rpmHigh;
         this.sfc = sfc;
@@ -42,7 +44,7 @@ public class Regime implements Serializable,DatabaseExchangable {
     public int getTorqueHigh() {
         return torqueHigh;
     }
-    
+
     /**
      * @return the torqueHigh torqueHigh of the regime
      */
@@ -79,7 +81,7 @@ public class Regime implements Serializable,DatabaseExchangable {
     public void setTorqueHigh(int torqueHigh) {
         this.torqueHigh = torqueHigh;
     }
-    
+
     /**
      * Set method for the torqueLow variable
      *
@@ -88,8 +90,6 @@ public class Regime implements Serializable,DatabaseExchangable {
     public void setTorqueLow(int torqueLow) {
         this.torqueLow = torqueLow;
     }
-    
-    
 
     /**
      * Set method for the rpm low variable
@@ -159,6 +159,13 @@ public class Regime implements Serializable,DatabaseExchangable {
         }
         return this.sfc.equals(other.sfc);
 
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 
 }

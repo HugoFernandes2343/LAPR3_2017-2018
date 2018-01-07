@@ -119,4 +119,11 @@ public class ProjectList implements Serializable, DatabaseExchangable {
         this.actualProject = project;
         return true;
     }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.addAll(this.listProjects);
+        return temp;
+    }
 }

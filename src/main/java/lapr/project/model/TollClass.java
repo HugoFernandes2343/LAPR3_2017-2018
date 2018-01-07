@@ -1,10 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class TollClass implements Serializable,DatabaseExchangable {
+public class TollClass implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 501L;
 
@@ -99,6 +101,13 @@ public class TollClass implements Serializable,DatabaseExchangable {
         TollClass other = (TollClass) obj;
 
         return this.id.equalsIgnoreCase(other.id);
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 
 }

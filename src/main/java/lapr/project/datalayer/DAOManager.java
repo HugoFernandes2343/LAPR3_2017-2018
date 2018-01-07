@@ -80,7 +80,7 @@ public abstract class DAOManager extends ConnectionManager {
             cs = con.prepareCall(readProcedure);
             read(cs,placeToAdd, refs);
         } catch (SQLException | NullPointerException ex) {
-            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (cs != null) {
                 cs.close();

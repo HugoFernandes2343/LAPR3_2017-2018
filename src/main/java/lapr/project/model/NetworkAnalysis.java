@@ -1,7 +1,9 @@
 package lapr.project.model;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
@@ -267,6 +269,13 @@ public class NetworkAnalysis implements DatabaseExchangable {
      */
     public void setFuelVolume(double fuelVolume) {
         this.fuelVolume = fuelVolume;
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 
 }

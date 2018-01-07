@@ -15,17 +15,17 @@ public abstract class ConnectionManager {
     /**
      * Data base url
      */
-    public static final String jdbcUrl = "jdbc:oracle:thin://LAPR3_G42@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl";
+    public static final String JDBCURL = "jdbc:oracle:thin://LAPR3_G42@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl";
 
     /**
-     * Data base username
+     * Data base USERNAME
      */
-    public static final String username = "LAPR3_G42";
+    public static final String USERNAME = "LAPR3_G42";
 
     /**
      * Data base password
      */
-    public static final String pass = "ficaproano";
+    public static final String PASS = "ficaproano";
     
     /**
      * Constructor
@@ -44,8 +44,8 @@ public abstract class ConnectionManager {
         Connection connection = null;
         try {
             OracleDataSource ds = new OracleDataSource();
-            ds.setURL(jdbcUrl);
-            connection = ds.getConnection(username, pass);
+            ds.setURL(JDBCURL);
+            connection = ds.getConnection(USERNAME, PASS);
 
         } catch (SQLException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);

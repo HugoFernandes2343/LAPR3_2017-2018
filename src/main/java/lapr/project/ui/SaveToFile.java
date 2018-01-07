@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -19,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import lapr.project.datalayer.DAOHandler;
+import lapr.project.datalayer.DAONetworkAnalysis;
 import lapr.project.datalayer.SaveToCSV;
 import lapr.project.datalayer.SaveToHTML;
 import lapr.project.model.NetworkAnalysis;
@@ -36,7 +39,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
      * Current project to be exported
      */
     private Project thisProject;
-    
+
     /**
      * Analysis
      */
@@ -70,12 +73,11 @@ public class SaveToFile extends JFrame {//Add the implementation later
      *
      * @param p current project/network analysis
      */
-    public SaveToFile(Project p,NetworkAnalysis netAnalysis) {
+    public SaveToFile(Project p,NetworkAnalysis na) {
         htmlSave = null;
         csvSave = null;
         setLookAndFeel();
         temp = this;
-        checkProject(p,netAnalysis);
         setConfigurations();
         //JFileChooser fileChooser = new JFileChooser(); add to a method that is activated to a button
         //int input = fileChooser.showOpenDialog(fileChooser); ^^
@@ -151,13 +153,14 @@ public class SaveToFile extends JFrame {//Add the implementation later
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //vv Workaround maybe?? vv
-                chosenFormat=-1;
+                chosenFormat = -1;
                 temp.dispose();
             }
         });
 
         mainPanel.add(jHtmlButton);
         mainPanel.add(jCsvButton);
+//        mainPanel.add(jDBButton);
         mainPanel.add(exportButton);
         mainPanel.add(cancelButton);
     }
@@ -171,7 +174,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
                 toCSV();
                 break;
             case -1:
-                JOptionPane.showMessageDialog(null, "Choose a file first!");
+                JOptionPane.showMessageDialog(null, "Choose an exportation type first!");
                 break;
             default:
                 break;
@@ -180,7 +183,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
 
     private void toHTML() {
         try {
-            htmlSave = new SaveToHTML(thisProject,net);
+            htmlSave = new SaveToHTML(thisProject, net);
         } catch (IOException ex) {
             Logger.getLogger(SaveToFile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,24 +191,6 @@ public class SaveToFile extends JFrame {//Add the implementation later
 
     private void toCSV() {
         csvSave = new SaveToCSV(thisProject);
-    }
-
-    /**
-     * Custom action to determine the best course of action if a given project
-     * is not selected ::NOTE:: This is still placeholder however if only used
-     * after a network analisys is performed then it shouldnt raise issues
-     *
-     * @param p project to have it's contents checked
-     */
-    private void checkProject(Project p,NetworkAnalysis net) {
-        if (p == null) {
-            /*Treat this by allowing a list to select the available projects
-            * in the program?
-             */
-        } else {
-            thisProject = p;
-            this.net=net;
-        }
     }
 
     /**

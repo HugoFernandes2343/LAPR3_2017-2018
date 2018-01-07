@@ -1,12 +1,14 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class RoadSection implements Serializable,DatabaseExchangable {
+public class RoadSection implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 600L;
 
@@ -18,7 +20,8 @@ public class RoadSection implements Serializable,DatabaseExchangable {
 
     /**
      * Full constructor of the RoadSection object
-     * @param begin id of the begining node 
+     *
+     * @param begin id of the begining node
      * @param end id of the end node
      * @param roadId id of the road to which the section belongs
      * @param direction direction that the section has
@@ -39,7 +42,7 @@ public class RoadSection implements Serializable,DatabaseExchangable {
         this.segmentList = new LinkedList<>();
     }
 
-    /** 
+    /**
      * @return the begin id of the beginning node
      */
     public String getBegin() {
@@ -47,7 +50,7 @@ public class RoadSection implements Serializable,DatabaseExchangable {
     }
 
     /**
-     * @return the end id of the ending node 
+     * @return the end id of the ending node
      */
     public String getEnd() {
         return end;
@@ -68,15 +71,16 @@ public class RoadSection implements Serializable,DatabaseExchangable {
     }
 
     /**
-     * @return the segmentList list of segments that are contained in the section
+     * @return the segmentList list of segments that are contained in the
+     * section
      */
     public List<Segment> getSegmentList() {
         return segmentList;
     }
 
     /**
-     *Set method of the beginning node id
-     * 
+     * Set method of the beginning node id
+     *
      * @param begin id to be set as the begin node id
      */
     public void setBegin(String begin) {
@@ -84,8 +88,8 @@ public class RoadSection implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the ending node id
-     * 
+     * Set method of the ending node id
+     *
      * @param end id to best as the end node id
      */
     public void setEnd(String end) {
@@ -93,17 +97,17 @@ public class RoadSection implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the road id
-     * 
-     * @param roadId id to be set as the road id 
+     * Set method of the road id
+     *
+     * @param roadId id to be set as the road id
      */
     public void setRoadId(String roadId) {
         this.roadId = roadId;
     }
 
     /**
-     *Set method of the direction
-     * 
+     * Set method of the direction
+     *
      * @param direction direction of trafic to be set as direction
      */
     public void setDirection(String direction) {
@@ -111,8 +115,8 @@ public class RoadSection implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the segment list
-     * 
+     * Set method of the segment list
+     *
      * @param segmentList list to be set as list of segments on this section
      */
     public void setSegmentList(List<Segment> segmentList) {
@@ -120,8 +124,8 @@ public class RoadSection implements Serializable,DatabaseExchangable {
     }
 
     /**
-     * Method to add a segment to the segment list 
-     * 
+     * Method to add a segment to the segment list
+     *
      * @param seg segment to be added
      */
     public void addSegment(Segment seg) {
@@ -132,7 +136,7 @@ public class RoadSection implements Serializable,DatabaseExchangable {
 
     /**
      * hashCode method for the roadSection objects
-     * 
+     *
      * @return the integer representation of the object RoadSection
      */
     @Override
@@ -145,7 +149,7 @@ public class RoadSection implements Serializable,DatabaseExchangable {
 
     /**
      * Equals method for the roadSection objects
-     * 
+     *
      * @param obj the object to compare to the RoadSection
      * @return the result of the comparisons made. True if the objects are the
      * same, otherwise, it returns false
@@ -163,5 +167,12 @@ public class RoadSection implements Serializable,DatabaseExchangable {
             return false;
         }
         return this.end.equals(other.end);
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 }

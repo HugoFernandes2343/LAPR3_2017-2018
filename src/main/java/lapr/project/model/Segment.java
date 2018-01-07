@@ -1,10 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Segment implements Serializable,DatabaseExchangable {
+public class Segment implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 506L;
 
@@ -25,9 +27,10 @@ public class Segment implements Serializable,DatabaseExchangable {
 
     /**
      * Full Constructor of segment objects
+     *
      * @param segmentIndex Index of a segment object
      * @param initialHeight initial height of a segment
-     * @param finalHeight angle of the slope 
+     * @param finalHeight angle of the slope
      * @param length length of the segment
      * @param windDirection direction of the wind ( discuss with team)
      * @param windSpeed speed of the wind that is blowing in said segment
@@ -102,8 +105,8 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     * Set method of the id variable 
-     * 
+     * Set method of the id variable
+     *
      * @param id id to give the segment
      */
     public void setId(String id) {
@@ -111,8 +114,8 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the initial height variable 
-     * 
+     * Set method of the initial height variable
+     *
      * @param initHeight inital height of the segment
      */
     public void setInitHeight(double initHeight) {
@@ -120,17 +123,17 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the final height variable 
-     * 
-     * @param finalHeight final height  of the segment
+     * Set method of the final height variable
+     *
+     * @param finalHeight final height of the segment
      */
     public void setFinalHeight(double finalHeight) {
         this.finalHeight = finalHeight;
     }
 
     /**
-     *Set method of the length variable 
-     * 
+     * Set method of the length variable
+     *
      * @param length length variable to set on the segment
      */
     public void setLength(String length) {
@@ -138,8 +141,8 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the wind direction variable 
-     * 
+     * Set method of the wind direction variable
+     *
      * @param windDirection direction to set on the segment
      */
     public void setWindDirection(double windDirection) {
@@ -147,8 +150,8 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the wind speed variable 
-     * 
+     * Set method of the wind speed variable
+     *
      * @param windSpeed speed of the blowing wind to set on the segment
      */
     public void setWindSpeed(String windSpeed) {
@@ -156,8 +159,8 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the maximum velocity variable 
-     * 
+     * Set method of the maximum velocity variable
+     *
      * @param maxVelocity maximum velocity to be set as the segment's max
      */
     public void setMaxVelocity(String maxVelocity) {
@@ -165,8 +168,8 @@ public class Segment implements Serializable,DatabaseExchangable {
     }
 
     /**
-     *Set method of the minimum velocity variable 
-     * 
+     * Set method of the minimum velocity variable
+     *
      * @param minVelocity minimum velocity to be set as the segment's min
      */
     public void setMinVelocity(String minVelocity) {
@@ -175,7 +178,7 @@ public class Segment implements Serializable,DatabaseExchangable {
 
     /**
      * Equals method of segment objects
-     * 
+     *
      * @param obj the object to compare to the Segment
      * @return the result of the comparisons made. True if the objects are the
      * same, otherwise, it returns false
@@ -194,6 +197,7 @@ public class Segment implements Serializable,DatabaseExchangable {
 
     /**
      * hashcode method of segment objects
+     *
      * @return hash
      */
     @Override
@@ -205,11 +209,19 @@ public class Segment implements Serializable,DatabaseExchangable {
 
     /**
      * To string method of segment objects
+     *
      * @return the String representation of the Segment
      */
     @Override
     public String toString() {
         return String.format("Segment id: %s", this.id);
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 
 }

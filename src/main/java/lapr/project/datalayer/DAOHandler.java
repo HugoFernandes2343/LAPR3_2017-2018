@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import lapr.project.model.Project;
+import lapr.project.model.ProjectList;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.utils.DatabaseExchangable;
 
@@ -18,7 +19,7 @@ public class DAOHandler {
     private final Connection con;
 
     /**
-     * FlyGreen entity
+     * TravelByPhysics entity
      */
     private final TravelByPhysics travelByPhysics;
 
@@ -39,10 +40,10 @@ public class DAOHandler {
      *
      * @throws SQLException If the operation was not successful
      */
-    public void saveData() throws SQLException {
+    public void saveData(ProjectList list) throws SQLException {
         try {
             deleteAllData();
-            addAllData();
+            addAllData(list);
             ConnectionManager.commitChanges(con);
         } catch (SQLException ex) {
             ConnectionManager.rollBackChanges(con);
@@ -58,7 +59,6 @@ public class DAOHandler {
     private void deleteAllData() throws SQLException {
         try (CallableStatement cs = con.prepareCall("{call REMOVE_TABLE_DATA}")) {
             cs.executeUpdate();
-//            cs.close();
         }
     }
 
@@ -67,10 +67,10 @@ public class DAOHandler {
      *
      * @throws SQLException If the addition was impossible
      */
-    private void addAllData() throws SQLException {
+    private void addAllData(ProjectList list) throws SQLException {
         DAOProject dao = new DAOProject();
 
-        for (Project project : travelByPhysics.getProjectList().getAllProjects()) {
+        for (Project project : list.getAllProjects()) {
             dao.addData(con, project);
             addProject(project);
         }
@@ -83,17 +83,19 @@ public class DAOHandler {
      * @throws SQLException If the operation was not successful
      */
     private void addProject(Project project) throws SQLException {
-        //addObjectData(new DAONetwork(project), project.getNetwork());
+        addObjectData(new DAONetwork(project), project.getNetwork());
         /**
-        addObjectData(new DAOAircraft(project), project.getAircraftLibrary());
-        addObjectData(new DAONode(project), project.getNodeLibrary());
-        addObjectData(new DAOSegment(project), project.getSegmentLibrary());
-        addObjectData(new DAOAirport(project), project.getAirportLibrary());
-        addObjectData(new DAOResults(project), project.getResultsLibrary());
-        addObjectData(new DAOFlightPlan(project), project.getFlightPlanLibrary());
-        addObjectData(new DAOCharter(project), project.getFlightLibrary());
-        addObjectData(new DAORegular(project), project.getFlightLibrary());
-        * */
+         * addObjectData(new DAOAircraft(project),
+         * project.getAircraftLibrary()); addObjectData(new DAONode(project),
+         * project.getNodeLibrary()); addObjectData(new DAOSegment(project),
+         * project.getSegmentLibrary()); addObjectData(new DAOAirport(project),
+         * project.getAirportLibrary()); addObjectData(new DAOResults(project),
+         * project.getResultsLibrary()); addObjectData(new
+         * DAOFlightPlan(project), project.getFlightPlanLibrary());
+         * addObjectData(new DAOCharter(project), project.getFlightLibrary());
+         * addObjectData(new DAORegular(project), project.getFlightLibrary());
+        *
+         */
     }
 
     /**
@@ -103,51 +105,46 @@ public class DAOHandler {
      * @param dataHolder Library
      * @throws SQLException If the operation is not successful
      */
-//    private void addObjectData(DAOManager dao, DatabaseExchangable dataHolder) throws SQLException {  //Adicionar o metodo getList à interface
-//        if (!(dataHolder.getList().isEmpty())) {
-//            for (Object object : dataHolder.getList()) {
-//                dao.addData(con, object);
-//            }
-//        }
-//    }
+    public void addObjectData(DAOManager dao, DatabaseExchangable dataHolder) throws SQLException {  //Adicionar o metodo getList à interface
+        if (dataHolder != null) {
+            for (DatabaseExchangable object : dataHolder.getDBData()) {
+                dao.addData(con, object);
+            }
+        }
+    }
 
     /**
      * Reads all the data in the database.
      *
      * @throws SQLException If the operation wasn't successful
      */
-    /**public void readData() throws SQLException {
-        try {
-            readAllData();
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
-        } finally {
-            ConnectionManager.closeConnection(con);
-        }
-    }*/
-
+    /**
+     * public void readData() throws SQLException { try { readAllData(); } catch
+     * (SQLException ex) { throw new SQLException(ex); } finally {
+     * ConnectionManager.closeConnection(con); }
+    }
+     */
     /**
      * Reads the data from the database. Adds the data to this flyGreen
      *
      * @throws SQLException If the operation wasn't successful
      */
-    /**private void readAllData() throws SQLException {
-        readObjectData(new DAOProject(), travelByPhysics.getProjectList());
-
-        for (Project project : flyGreen.getProjectLibrary().getList()) {
-            readObjectData(new DAOAircraftModel(project), project.getAircraftModelLibrary());
-            readObjectData(new DAOAircraft(project), project.getAircraftLibrary());
-            readObjectData(new DAONode(project), project.getNodeLibrary());
-            readObjectData(new DAOSegment(project), project.getSegmentLibrary());
-            readObjectData(new DAOAirport(project), project.getAirportLibrary());
-            readObjectData(new DAOResults(project), project.getResultsLibrary());
-            readObjectData(new DAOFlightPlan(project), project.getFlightPlanLibrary());
-            readObjectData(new DAOCharter(project), project.getFlightLibrary());
-            readObjectData(new DAORegular(project), project.getFlightLibrary());
-        }
-    }
-    */
-
+    /**
+     * private void readAllData() throws SQLException { readObjectData(new
+     * DAOProject(), travelByPhysics.getProjectList());
+     *
+     * for (Project project : flyGreen.getProjectLibrary().getList()) {
+     * readObjectData(new DAOAircraftModel(project),
+     * project.getAircraftModelLibrary()); readObjectData(new
+     * DAOAircraft(project), project.getAircraftLibrary()); readObjectData(new
+     * DAONode(project), project.getNodeLibrary()); readObjectData(new
+     * DAOSegment(project), project.getSegmentLibrary()); readObjectData(new
+     * DAOAirport(project), project.getAirportLibrary()); readObjectData(new
+     * DAOResults(project), project.getResultsLibrary()); readObjectData(new
+     * DAOFlightPlan(project), project.getFlightPlanLibrary());
+     * readObjectData(new DAOCharter(project), project.getFlightLibrary());
+     * readObjectData(new DAORegular(project), project.getFlightLibrary()); } }
+     */
     /**
      * Reads a library from the database
      *
@@ -155,8 +152,8 @@ public class DAOHandler {
      * @param library library in which data will be added
      * @throws SQLException If the operation wasn't successful
      */
-    private void readObjectData(DAOManager dao, DatabaseExchangable placeToAdd,Object[] refs) throws SQLException {//refs might need to get out
-        dao.readData(con, placeToAdd,refs);
+    private void readObjectData(DAOManager dao, DatabaseExchangable placeToAdd, Object[] refs) throws SQLException {//refs might need to get out
+        dao.readData(con, placeToAdd, refs);
     }
 
 }

@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import lapr.project.controller.CreateAnalysisController;
+import lapr.project.datalayer.DAOHandler;
+import lapr.project.datalayer.DAONetworkAnalysis;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.TravelByPhysics;
 
@@ -39,6 +42,11 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     private final TravelByPhysics tp;
     private final CreateAnalysisController ca;
 
+    /**
+     * DAOHandler object
+     */
+    protected DAOHandler daoHandler;
+
     private String node1;
     private String node2;
     private String vehicle;
@@ -57,6 +65,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
     public CreateAnalysisUI(TravelByPhysics tp) {
         this.tp = tp;
+        this.daoHandler = tp.getDAOHandler();
         ca = new CreateAnalysisController(tp);
         String[][] emptyData = new String[3][2];
         tableModel = new DefaultTableModel();
@@ -74,7 +83,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
     private JPanel pageOne() {
 
-       JPanel page1 = new JPanel(new BorderLayout());
+        JPanel page1 = new JPanel(new BorderLayout());
         page1.add(createHeader(), BorderLayout.NORTH);
         JPanel selects = new JPanel(new GridLayout(2, 2));
         selects.add(selNode1());
@@ -187,7 +196,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
     private JPanel selNode2() {
         String[] allNodes2 = ca.getNodeList().toArray(new String[0]);
-        
+
         JComboBox<String> boxNodes2 = new JComboBox<>(allNodes2);
         boxNodes2.setSelectedIndex(-1);
         boxNodes2.addActionListener(new ActionListener() {
@@ -221,7 +230,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     }
 
     private JPanel selAlg() {
-        String[] allAlg = ca.getAlgorithmList().toArray(new String [0]);
+        String[] allAlg = ca.getAlgorithmList().toArray(new String[0]);
 
         JComboBox<String> boxAlg = new JComboBox<>(allAlg);
         boxAlg.setSelectedIndex(-1);
@@ -303,10 +312,12 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
         JPanel pSave = new JPanel();
         JButton save = new JButton("Save");
+
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new SaveToFile(tp.getProjectList().getActualProject(), na);
+                SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(),na);
+                saveToFile.dispose();
             }
         }
         );
@@ -317,7 +328,12 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         database.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JOptionPane.showMessageDialog(null, "Not Implemented", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    DAONetworkAnalysis dao = new DAONetworkAnalysis();
+                    daoHandler.addObjectData(dao, na);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CreateAnalysisUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         );

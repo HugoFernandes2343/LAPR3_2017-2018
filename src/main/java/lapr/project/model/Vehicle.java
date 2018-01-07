@@ -1,10 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Vehicle implements Serializable,DatabaseExchangable {
+public class Vehicle implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 201L;
 
@@ -397,5 +399,12 @@ public class Vehicle implements Serializable,DatabaseExchangable {
     @Override
     public String toString() {
         return String.format("Vehicle: %s", name);
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 }

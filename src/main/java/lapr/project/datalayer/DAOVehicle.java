@@ -10,10 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lapr.project.model.Energy;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VehicleList;
-import lapr.project.model.VelocityLimitList;
 import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
 

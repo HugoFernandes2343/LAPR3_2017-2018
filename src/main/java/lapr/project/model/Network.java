@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import lapr.project.utils.AdjacencyMatrixGraph;
 import lapr.project.utils.DatabaseExchangable;
 
@@ -265,6 +266,11 @@ public class Network implements Serializable,DatabaseExchangable {
             }
         }
         return null;
+    }
+
+    @Override
+    public Set<DatabaseExchangable> getDBData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

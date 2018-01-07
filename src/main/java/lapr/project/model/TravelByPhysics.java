@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lapr.project.datalayer.DataHandler;
+import lapr.project.datalayer.DAOHandler;
 import lapr.project.utils.Algorithm;
 import lapr.project.utils.ShortestTravellTimeAlgorithm;
 
@@ -21,7 +21,7 @@ public class TravelByPhysics implements Serializable {
     /**
      * Data Exchange
      */
-    private DataHandler dataExchange;
+    private DAOHandler dataExchange;
     /**
      * Attribute that keeps the project list of the system.
      */
@@ -46,7 +46,7 @@ public class TravelByPhysics implements Serializable {
         Algorithm a = new ShortestTravellTimeAlgorithm();
         this.algorithmsList = new ArrayList<>();
         this.algorithmsList.add(a);
-        this.dataExchange = new DataHandler();
+        createDataHandler(this);
 //        getFromDB();
         System.out.println("Test");
     }
@@ -66,6 +66,13 @@ public class TravelByPhysics implements Serializable {
     }
 
     /**
+     * @return the dataExchange
+     */
+    public DAOHandler getDAOHandler() {
+        return this.dataExchange;
+    }
+    
+    /**
      * @return a List of all algorithms names
      */
     public List<String> getAlgorithmsByName() {
@@ -76,16 +83,25 @@ public class TravelByPhysics implements Serializable {
         return names;
     }
 
+    private void createDataHandler(TravelByPhysics aThis) {
+        try {
+            this.dataExchange = new DAOHandler(this);
+        } catch (SQLException ex) {
+            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error connecting , please check if you can reach the server");
+        }
+    }
+
     /**
      * Get data from the database
      * NOTE: For now only the users are meant to be uploaded for testing purposes
      * tests are needed still
      */
-    private void getFromDB() {
-        try {
-            dataExchange.getUserList(userList);
-        } catch (SQLException ex) {
-            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void getFromDB() {
+//        try {
+//            dataExchange.getUserList(userList);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }
