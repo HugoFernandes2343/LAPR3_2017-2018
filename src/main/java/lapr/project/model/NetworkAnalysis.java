@@ -8,7 +8,7 @@ import lapr.project.utils.DatabaseExchangable;
  *
  * @author Utilizador
  */
-public class NetworkAnalysis implements DatabaseExchangable{
+public class NetworkAnalysis implements DatabaseExchangable {
 
     private static int flag = 1;
     private int id;

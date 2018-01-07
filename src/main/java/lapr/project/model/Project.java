@@ -8,7 +8,7 @@ import lapr.project.utils.DatabaseExchangable;
  *
  * @author
  */
-public class Project implements Serializable,DatabaseExchangable {
+public class Project implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 601L;
 
@@ -97,10 +97,10 @@ public class Project implements Serializable,DatabaseExchangable {
         return this.netAnalysis;
     }
 
-    public void setNetworkAnalysis(NetworkAnalysis net){
-        this.netAnalysis=net;
+    public void setNetworkAnalysis(NetworkAnalysis net) {
+        this.netAnalysis = net;
     }
-    
+
     /**
      *
      * @return the integer representation of the object Project

@@ -79,6 +79,7 @@ public class TravelByPhysics implements Serializable {
     /**
      * Get data from the database
      * NOTE: For now only the users are meant to be uploaded for testing purposes
+     * tests are needed still
      */
     private void getFromDB() {
         try {

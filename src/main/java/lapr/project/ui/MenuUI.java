@@ -227,6 +227,7 @@ public class MenuUI extends JFrame {
         compareVehicle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                // not  yet implemented
             }
         });
         m.add(compareVehicle);
@@ -247,6 +248,7 @@ public class MenuUI extends JFrame {
         saveDatabase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                //not yet implemented
             }
         });
         m.add(saveDatabase);

@@ -6,7 +6,9 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -140,5 +142,20 @@ public class ProjectListTest {
 
         assertTrue("Should contain only one project name", allNames.size() == 1);
         assertTrue("This should be the only project in the list", allNames.contains("test"));
+    }
+
+    /**
+     * Test of getAllProjects method, of class ProjectList.
+     */
+    @Test
+    public void testGetAllProjects() {
+        System.out.println("getAllProjects");
+        Project p1 = new Project();
+        Set<Project> expResult = new HashSet<>();
+        expResult.add(p1);
+        Set<Project> result = instance.getAllProjects();
+        result.add(p1);
+        assertEquals(expResult, result);
+        
     }
 }

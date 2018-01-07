@@ -55,11 +55,11 @@ public class ShortestTravellTimeAlgorithm implements Algorithm {
         analysis.setLoad(load);
         analysis.setFuelMass(0);
         analysis.setFuelVolume(0);
-        if (vehicle.getFuel().equals("diesel")) {
+        if ("diesel".equals(vehicle.getFuel())) {
             analysis.setFuelMass(energy / DIESEL_FUEL_MASS);
             analysis.setFuelVolume(analysis.getFuelMass() / DIESEL_FUEL_DENSITY);
         }
-        if (vehicle.getFuel().equals("gasoline")) {
+        if ("gasoline".equals(vehicle.getFuel())) {
             analysis.setFuelMass(energy / GASOLINE_FUEL_MASS);
             analysis.setFuelVolume(analysis.getFuelMass() / GASOLINE_FUEL_DENSITY);
         }
