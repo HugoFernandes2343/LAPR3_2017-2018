@@ -58,7 +58,7 @@ public class DAOHandler {
     private void deleteAllData() throws SQLException {
         try (CallableStatement cs = con.prepareCall("{call REMOVE_TABLE_DATA}")) {
             cs.executeUpdate();
-            cs.close();
+//            cs.close();
         }
     }
 

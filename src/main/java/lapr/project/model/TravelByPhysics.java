@@ -47,7 +47,7 @@ public class TravelByPhysics implements Serializable {
         this.algorithmsList = new ArrayList<>();
         this.algorithmsList.add(a);
         this.dataExchange = new DataHandler();
-        getFromDB();
+//        getFromDB();
         System.out.println("Test");
     }
 
