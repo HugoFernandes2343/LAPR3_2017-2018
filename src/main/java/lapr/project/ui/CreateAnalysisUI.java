@@ -52,6 +52,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     private String vehicle;
     private String alg;
     private JTextField analName;
+    private JTextField load;
     private NetworkAnalysis na;
     private JTable table;
 
@@ -189,8 +190,13 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         }
         );
 
-        JPanel p = new JPanel();
-        p.add(boxNodes1);
+        JPanel p = new JPanel(new GridLayout(2, 1));
+        JLabel lab = new JLabel("Select 1st Node: ");
+        lab.setHorizontalAlignment(JLabel.CENTER);
+        p.add(lab);
+        JPanel p2 = new JPanel();
+        p2.add(boxNodes1);
+        p.add(p2);
         return p;
     }
 
@@ -207,8 +213,13 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         }
         );
 
-        JPanel p = new JPanel();
-        p.add(boxNodes2);
+        JPanel p = new JPanel(new GridLayout(2, 1));
+        JLabel lab = new JLabel("Select 2nd Node: ");
+        lab.setHorizontalAlignment(JLabel.CENTER);
+        p.add(lab);
+        JPanel p2 = new JPanel();
+        p2.add(boxNodes2);
+        p.add(p2);
         return p;
     }
 
@@ -224,8 +235,14 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
             }
         }
         );
-        JPanel p = new JPanel();
-        p.add(boxVehicles);
+
+        JPanel p = new JPanel(new GridLayout(2, 1));
+        JLabel lab = new JLabel("Select Vehicle: ");
+        lab.setHorizontalAlignment(JLabel.CENTER);
+        p.add(lab);
+        JPanel p2 = new JPanel();
+        p2.add(boxVehicles);
+        p.add(p2);
         return p;
     }
 
@@ -241,8 +258,13 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
             }
         }
         );
-        JPanel p = new JPanel();
-        p.add(boxAlg);
+        JPanel p = new JPanel(new GridLayout(2, 1));
+        JLabel lab = new JLabel("Select Algorithm: ");
+        lab.setHorizontalAlignment(JLabel.CENTER);
+        p.add(lab);
+        JPanel p2 = new JPanel();
+        p2.add(boxAlg);
+        p.add(p2);
         return p;
     }
 
@@ -255,12 +277,13 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
      */
     private JPanel createHeader() {
         analName = new JTextField(25);
-        JPanel p = new JPanel(new GridLayout(2, 2));
+        load = new JTextField(25);
+        JPanel p = new JPanel(new GridLayout(3, 2));
         JLabel text1 = new JLabel("Project: ");
         text1.setHorizontalAlignment(JLabel.CENTER);
         p.add(text1);
 
-        JLabel text2 = new JLabel("name");
+        JLabel text2 = new JLabel(tp.getProjectList().getActualProject().getName());
         text2.setHorizontalAlignment(JLabel.CENTER);
         p.add(text2);
 
@@ -271,6 +294,15 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         JPanel an = new JPanel();
         an.add(analName);
         p.add(an);
+
+        JLabel text4 = new JLabel("Load: ");
+        text4.setHorizontalAlignment(JLabel.CENTER);
+        p.add(text4);
+
+        JPanel l = new JPanel();
+        l.add(load);
+        p.add(l);
+
         return p;
     }
 
@@ -312,11 +344,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
         JPanel pSave = new JPanel();
         JButton save = new JButton("Save");
-
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(),na);
+                SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(), na);
                 saveToFile.dispose();
             }
         }
