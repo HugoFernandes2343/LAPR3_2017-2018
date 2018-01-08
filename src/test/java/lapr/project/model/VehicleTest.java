@@ -5,7 +5,10 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -179,8 +182,8 @@ public class VehicleTest {
      * Test of getFrontalArea method, of class Vehicle.
      */
     @Test
-    public void testGetFrontal_area() {
-        System.out.println("getFrontal_area");
+    public void testGetFrontalArea() {
+        System.out.println("getFrontalArea");
         double expResult = 10;
         double result = instance.getFrontalArea();
         assertEquals(expResult, result, 0.0);
@@ -235,8 +238,8 @@ public class VehicleTest {
      * Test of getVelocityLimitList method, of class Vehicle.
      */
     @Test
-    public void testGetVelocity_limit_list() {
-        System.out.println("getVelocity_limit_list");
+    public void testGetVelocityLimitList() {
+        System.out.println("getVelocityLimitList");
         VelocityLimitList result = instance.getVelocityLimitList();
         assertTrue("The velocity limit list should be empty", result.getVelocityLimitList().isEmpty());
     }
@@ -330,8 +333,8 @@ public class VehicleTest {
      * Test of setFrontalArea method, of class Vehicle.
      */
     @Test
-    public void testSetFrontal_area() {
-        System.out.println("setFrontal_area");
+    public void testSetFrontalArea() {
+        System.out.println("setFrontalArea");
         double frontal_area = 72.0;
 
         instance.setFrontalArea(frontal_area);
@@ -381,11 +384,11 @@ public class VehicleTest {
      * Test of setVelocityLimitList method, of class Vehicle.
      */
     @Test
-    public void testSetVelocity_limit_list() {
-        System.out.println("setVelocity_limit_list");
-        VelocityLimitList velocity_limit_list = null;
+    public void testSetVelocityLimitList() {
+        System.out.println("setVelocityLimitList");
+        VelocityLimitList velocityLimitList = null;
 
-        instance.setVelocityLimitList(velocity_limit_list);
+        instance.setVelocityLimitList(velocityLimitList);
         assertTrue(instance.getVelocityLimitList() == null);
     }
 
@@ -509,5 +512,17 @@ public class VehicleTest {
         int result = instanceTest.getVelocityLimit("test");
         int expResult = 120;
         assertEquals(result,expResult);
+    }
+
+    /**
+     * Test of getDBData method, of class Vehicle.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);    
     }
 }

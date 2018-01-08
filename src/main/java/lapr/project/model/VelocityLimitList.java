@@ -2,6 +2,8 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
@@ -53,6 +55,50 @@ public class VelocityLimitList implements Serializable, DatabaseExchangable {
         return limit;
     }
 
+     /**
+     * HashCode method for velocity limit type objects
+     *
+     * @return hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.listVelocityLimits);
+        return hash;
+    }
+
+     /**
+     * Equals method for velocity limit type objects
+     *
+     * @param obj the object to compare to the throttle
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        VelocityLimitList other = (VelocityLimitList) obj;
+        Iterator<VelocityLimit> itr = this.listVelocityLimits.iterator();
+        while(itr.hasNext()){
+           VelocityLimit vl =  itr.next();
+            if(!other.getVelocityLimitList().contains(vl)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

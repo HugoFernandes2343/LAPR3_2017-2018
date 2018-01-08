@@ -217,6 +217,9 @@ public class Segment implements Serializable, DatabaseExchangable {
         return String.format("Segment id: %s", this.id);
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

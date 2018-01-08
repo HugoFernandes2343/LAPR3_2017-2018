@@ -5,8 +5,11 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,6 +27,12 @@ public class TollFareTest {
 
     public TollFareTest() {
         List<TollClass> listClasses = new LinkedList<>();
+
+        TollClass c1 = new TollClass("1", 6.3);
+        TollClass c2 = new TollClass("2", 4.3);
+        listClasses.add(c1);
+        listClasses.add(c2);
+
         instance = new TollFare(listClasses);
     }
 
@@ -53,7 +62,7 @@ public class TollFareTest {
         String id = "1";
         Double price = 1.2;
         TollClass c1 = new TollClass("1", 1.2);
-       
+
         instance.addClass(id, price);
         assertTrue(instance.getListClasses().contains(c1));
 
@@ -65,8 +74,14 @@ public class TollFareTest {
     @Test
     public void testGetListClasses() {
         System.out.println("getTollFare");
-        
+
         List<TollClass> expResult = new LinkedList<>();
+
+        TollClass c1 = new TollClass("1", 6.3);
+        TollClass c2 = new TollClass("2", 4.3);
+        expResult.add(c1);
+        expResult.add(c2);
+
         List<TollClass> result = instance.getListClasses();
         assertEquals(expResult, result);
 
@@ -79,9 +94,89 @@ public class TollFareTest {
     public void testSetTollFare() {
         System.out.println("setTollFare");
         List<TollClass> tollFare = null;
-        
+
         instance.setListClasses(tollFare);
         assertTrue(instance.getListClasses() == null);
+    }
+
+    /**
+     * Test of setListClasses method, of class TollFare.
+     */
+    @Test
+    public void testSetListClasses() {
+        System.out.println("setListClasses");
+
+        List<TollClass> listClasses = new LinkedList<>();
+        TollClass c1 = new TollClass("1", 3.3);
+        TollClass c2 = new TollClass("2", 2.3);
+        listClasses.add(c1);
+        listClasses.add(c2);
+
+        instance.setListClasses(listClasses);
+        assertTrue(instance.getListClasses().equals(listClasses));
+    }
+
+    /**
+     * Test of getDBData method, of class TollFare.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of hashCode method, of class TollFare.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+
+        List<TollClass> listClasses = new LinkedList<>();
+
+        TollClass c1 = new TollClass("1", 6.3);
+        TollClass c2 = new TollClass("2", 4.3);
+        listClasses.add(c1);
+        listClasses.add(c2);
+
+        int expResult = new TollFare(listClasses).hashCode();
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of equals method, of class TollFare.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+
+        List<TollClass> listClasses = new LinkedList<>();
+
+        TollClass c1 = new TollClass("1", 6.3);
+        TollClass c2 = new TollClass("2", 4.3);
+        listClasses.add(c1);
+        listClasses.add(c2);
+
+        Object obj = new TollFare(listClasses);
+        assertEquals("Should be true if they are the same object", true, instance.equals(obj));
+
+        obj = null;
+        assertEquals("Should be false because obj is null", false, instance.equals(obj));
+
+        obj = "test";
+        assertEquals("Should be false if they are not from the same class", false, instance.equals(obj));
+
+        obj = new TollFare(listClasses);
+        instance.addClass("3", 2.11);
+        assertEquals("Should be false if they have not the same Lists", false, instance.equals(obj));
     }
 
 }

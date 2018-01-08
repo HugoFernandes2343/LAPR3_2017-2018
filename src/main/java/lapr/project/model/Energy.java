@@ -161,6 +161,9 @@ public class Energy implements Serializable, DatabaseExchangable {
 
     }
 
+    /**
+     * method that returns the throttle by name
+     */
     public Throttle getThrottle(String throttleId) {
         for (Throttle t : throttleList) {
             if (t.getPercentage().equals(throttleId)) {
@@ -170,6 +173,9 @@ public class Energy implements Serializable, DatabaseExchangable {
         return null;
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

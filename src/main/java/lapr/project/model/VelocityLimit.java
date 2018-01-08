@@ -98,6 +98,9 @@ public class VelocityLimit implements Serializable, DatabaseExchangable {
 
     }
 
+     /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

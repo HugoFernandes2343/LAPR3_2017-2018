@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -96,7 +99,7 @@ public class VelocityLimitTest {
 
         obj = "test";
         assertEquals("Should be false because obj is a string", false, instance.equals(obj));
-        
+
         obj = null;
         assertEquals("Should be false because obj is null", false, instance.equals(obj));
     }
@@ -133,6 +136,19 @@ public class VelocityLimitTest {
 
         instance.setLimit(limit);
         assertEquals(limit, instance.getLimit());
+    }
+
+    /**
+     * Test of getDBData method, of class VelocityLimit.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
+
     }
 
 }

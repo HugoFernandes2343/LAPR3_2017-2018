@@ -46,8 +46,7 @@ public class TravelByPhysics implements Serializable {
         Algorithm a = new ShortestTravellTimeAlgorithm();
         this.algorithmsList = new ArrayList<>();
         this.algorithmsList.add(a);
-        createDataHandler(this);
-//        getFromDB();
+        createDataHandler();
         System.out.println("Test");
     }
 
@@ -83,7 +82,7 @@ public class TravelByPhysics implements Serializable {
         return names;
     }
 
-    private void createDataHandler(TravelByPhysics aThis) {
+    private void createDataHandler() {
         try {
             this.dataExchange = new DAOHandler(this);
         } catch (SQLException ex) {
@@ -92,16 +91,4 @@ public class TravelByPhysics implements Serializable {
         }
     }
 
-    /**
-     * Get data from the database
-     * NOTE: For now only the users are meant to be uploaded for testing purposes
-     * tests are needed still
-     */
-//    private void getFromDB() {
-//        try {
-//            dataExchange.getUserList(userList);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 }

@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,7 +27,7 @@ public class RoadTest {
     public RoadTest() {
         instance = new Road("A23", "Autoestrada", "A01");
         TollFare tf = new TollFare();
-        instance2 = new Road("A23", "Autoestrada", "A01",tf);
+        instance2 = new Road("A23", "Autoestrada", "A01", tf);
     }
 
     @BeforeClass
@@ -176,11 +179,11 @@ public class RoadTest {
     @Test
     public void testGetTollFare() {
         System.out.println("getTollFare");
-       
+
         TollFare tollFare = new TollFare();
         TollFare result = instance2.getTollFare();
-        assertTrue( result.getClass()== tollFare.getClass());
-        
+        assertTrue(result.getClass() == tollFare.getClass());
+
     }
 
     /**
@@ -191,7 +194,19 @@ public class RoadTest {
         System.out.println("setTollFare");
         TollFare tollFare = new TollFare();
         instance2.setTollFare(tollFare);
-        assertTrue(instance2.getTollFare().getClass()== tollFare.getClass());
+        assertTrue(instance2.getTollFare().getClass() == tollFare.getClass());
+    }
+
+    /**
+     * Test of getDBData method, of class Road.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
     }
 
 }

@@ -401,6 +401,9 @@ public class Vehicle implements Serializable, DatabaseExchangable {
         return String.format("Vehicle: %s", name);
     }
 
+     /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

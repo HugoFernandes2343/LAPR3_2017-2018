@@ -2,6 +2,7 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import lapr.project.utils.DatabaseExchangable;
  *
  * @author
  */
-public class Network implements Serializable,DatabaseExchangable {
+public class Network implements Serializable, DatabaseExchangable {
 
     private static final long serialVersionUID = 502L;
 
@@ -268,9 +269,14 @@ public class Network implements Serializable,DatabaseExchangable {
         return null;
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<DatabaseExchangable> temp = new HashSet<>();
+        temp.add(this);
+        return temp;
     }
 
 }

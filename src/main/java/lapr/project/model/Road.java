@@ -153,6 +153,9 @@ public class Road implements Serializable, DatabaseExchangable {
         return String.format("Road name: %s, id: %s", name, id);
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

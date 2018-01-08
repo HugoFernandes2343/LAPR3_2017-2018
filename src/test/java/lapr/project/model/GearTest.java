@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -117,7 +120,7 @@ public class GearTest {
         System.out.println("setId");
         String id = "2";
         instance.setId(id);
-        assertEquals(id,instance.getId());
+        assertEquals(id, instance.getId());
 
     }
 
@@ -129,7 +132,18 @@ public class GearTest {
         System.out.println("setRatio");
         double ratio = 2.2;
         instance.setRatio(ratio);
-        assertEquals(ratio, instance.getRatio(),0.0);
+        assertEquals(ratio, instance.getRatio(), 0.0);
     }
 
+    /**
+     * Test of getDBData method, of class Gear.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
+    }
 }

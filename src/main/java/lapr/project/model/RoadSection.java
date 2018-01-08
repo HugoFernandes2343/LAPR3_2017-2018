@@ -169,6 +169,9 @@ public class RoadSection implements Serializable, DatabaseExchangable {
         return this.end.equals(other.end);
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

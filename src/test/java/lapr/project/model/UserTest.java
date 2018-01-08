@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -198,6 +201,18 @@ public class UserTest {
         User instance = new User("hdany", 2, "hugo", "qwerty", "1161155@isep.ipp.pt");
         String expResult = "qwerty";
         String result = instance.getPassword();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getDBData method, of class User.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
         assertEquals(expResult, result);
     }
 }

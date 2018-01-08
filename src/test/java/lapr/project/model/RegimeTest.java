@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -187,5 +190,17 @@ public class RegimeTest {
         int torqueLow = 5;
         instance.setTorqueLow(torqueLow);
         assertEquals(torqueLow, instance.getTorqueLow());
+    }
+
+    /**
+     * Test of getDBData method, of class Regime.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
     }
 }

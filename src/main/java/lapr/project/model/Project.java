@@ -99,6 +99,9 @@ public class Project implements Serializable, DatabaseExchangable {
         return this.netAnalysis;
     }
 
+    /**
+     * @param network the networkanalysis to set
+     */
     public void setNetworkAnalysis(NetworkAnalysis net) {
         this.netAnalysis = net;
     }
@@ -141,6 +144,9 @@ public class Project implements Serializable, DatabaseExchangable {
         return String.format("Project: %s", name);
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

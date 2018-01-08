@@ -14,6 +14,9 @@ public class ProjectList implements Serializable, DatabaseExchangable {
     private Set<Project> listProjects;
     private Project actualProject;
 
+    /**
+     * empty constructor
+     */
     public ProjectList() {
         this.listProjects = new HashSet<>();
         this.actualProject = null;
@@ -81,6 +84,11 @@ public class ProjectList implements Serializable, DatabaseExchangable {
         return allNames;
     }
 
+    /**
+     * Method that returns all projects
+     *
+     * @return List of names
+     */
     public Set<Project> getAllProjects() {
         return this.listProjects;
     }
@@ -120,6 +128,9 @@ public class ProjectList implements Serializable, DatabaseExchangable {
         return true;
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();

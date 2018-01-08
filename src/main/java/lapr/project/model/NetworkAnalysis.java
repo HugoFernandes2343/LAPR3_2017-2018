@@ -3,12 +3,13 @@ package lapr.project.model;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
- * @author Utilizador
+ * @author 
  */
 public class NetworkAnalysis implements DatabaseExchangable {
 
@@ -42,7 +43,7 @@ public class NetworkAnalysis implements DatabaseExchangable {
         this.id = flag;
         flag++;
     }
-
+    
     public NetworkAnalysis(String type) {
         this.type = type;
     }
@@ -271,11 +272,45 @@ public class NetworkAnalysis implements DatabaseExchangable {
         this.fuelVolume = fuelVolume;
     }
 
+    /**
+     * method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();
         temp.add(this);
         return temp;
+    }
+
+    /**
+     * Hash code fo the object node
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    /**
+     *
+     * @param obj the object to compare to the network analysis
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        NetworkAnalysis other = (NetworkAnalysis) obj;
+        return name.equalsIgnoreCase( other.name);
+
     }
 
 }

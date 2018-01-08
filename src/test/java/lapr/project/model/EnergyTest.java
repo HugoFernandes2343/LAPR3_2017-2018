@@ -5,8 +5,11 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -276,6 +279,18 @@ public class EnergyTest {
         Throttle expResult2 = null;
         Throttle result2 = instance2.getThrottle(throttleId2);
         assertEquals(expResult2, result2);
+    }
+
+    /**
+     * Test of getDBData method, of class Energy.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
     }
 
 }

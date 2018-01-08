@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -226,5 +229,18 @@ public class ProjectTest {
         NetworkAnalysis net = new NetworkAnalysis("test") {};
         instance.setNetworkAnalysis(net);
         assertTrue(net.getType().equalsIgnoreCase(instance.getNetworkAnalysis().getType()));
+    }
+
+    /**
+     * Test of getDBData method, of class Project.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
+       
     }
 }

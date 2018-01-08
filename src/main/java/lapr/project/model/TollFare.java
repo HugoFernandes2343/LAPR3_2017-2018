@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
@@ -56,6 +57,9 @@ public class TollFare implements Serializable, DatabaseExchangable {
         this.listClasses = classes;
     }
 
+    /**
+     *  method that returns the data to relate to the dataBase
+     */
     @Override
     public Set<DatabaseExchangable> getDBData() {
         Set<DatabaseExchangable> temp = new HashSet<>();
@@ -63,4 +67,34 @@ public class TollFare implements Serializable, DatabaseExchangable {
         return temp;
     }
 
+    /**
+     * Hash code for teh tollfare class
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.listClasses);
+        return hash;
+    }
+
+    /**
+     * @param obj the object to compare to the tollfare
+     * @return the result of the comparisons made. True if the objects are the
+     * same, otherwise, it returns false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TollFare other = (TollFare) obj;
+        return Objects.equals(this.listClasses, other.listClasses);       
+        
+    }
+    
 }

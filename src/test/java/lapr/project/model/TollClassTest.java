@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,15 +17,15 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author
+ * @author hugod
  */
-public class ClassTest {
-
+public class TollClassTest {
+    
     private final TollClass instance;
     private final TollClass instanceEmpty;
     private final TollClass instance2;
 
-    public ClassTest() {
+    public TollClassTest() {
         instance = new TollClass("1", 2.5);
         instanceEmpty = new TollClass();
         instance2 = new TollClass("1");
@@ -128,6 +131,19 @@ public class ClassTest {
 
         instance.setPrice(price);
         assertEquals(price, instance.getPrice());
+    }
+
+    /**
+     * Test of getDBData method, of class TollClass.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
+        
     }
 
 }

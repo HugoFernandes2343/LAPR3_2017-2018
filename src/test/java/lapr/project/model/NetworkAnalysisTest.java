@@ -5,8 +5,11 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -20,8 +23,8 @@ import org.junit.Test;
  */
 public class NetworkAnalysisTest {
 
-    private final NetworkAnalysis instance;
-    private final NetworkAnalysis instanceType;
+    private  NetworkAnalysis instance;
+    private  NetworkAnalysis instanceType;
 
     public NetworkAnalysisTest() {
         Node beginNode = new Node("testBegin");

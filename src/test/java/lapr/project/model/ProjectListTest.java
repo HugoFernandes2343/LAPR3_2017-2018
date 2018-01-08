@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -118,7 +119,7 @@ public class ProjectListTest {
         assertEquals(expResult, result);
         String name2 = "Proj3";
         Project result2 = instance.getProject(name2);
-        assertTrue("should be null because there is no such project name",result2 ==null);
+        assertTrue("should be null because there is no such project name", result2 == null);
 
     }
 
@@ -156,6 +157,6 @@ public class ProjectListTest {
         Set<Project> result = instance.getAllProjects();
         result.add(p1);
         assertEquals(expResult, result);
-        
+
     }
 }

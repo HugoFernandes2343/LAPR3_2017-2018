@@ -5,6 +5,9 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -108,6 +111,20 @@ public class NodeTest {
         instance.setId("test");
         int expResult = instance.hashCode();
         int result = instance.hashCode();
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getDBData method, of class Node.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        
+        Set<DatabaseExchangable> result = instance.getDBData();
         assertEquals(expResult, result);
 
     }

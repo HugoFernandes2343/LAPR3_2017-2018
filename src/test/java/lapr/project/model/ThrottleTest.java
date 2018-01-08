@@ -5,8 +5,11 @@
  */
 package lapr.project.model;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,11 +22,17 @@ import static org.junit.Assert.*;
  * @author
  */
 public class ThrottleTest {
-    
-    private final Throttle instanceEmpty;
+
+    private Throttle instanceEmpty;
+    private Throttle instance;
 
     public ThrottleTest() {
         instanceEmpty = new Throttle();
+
+        Regime test = new Regime(10, 5, 20, 30, 40.0);
+        LinkedList<Regime> listTest = new LinkedList<>();
+        listTest.add(test);
+        instance = new Throttle("test_id", listTest);
     }
 
     @BeforeClass
@@ -48,16 +57,12 @@ public class ThrottleTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Regime test = new Regime(10, 5, 20, 30, 40.0);
-        LinkedList<Regime> listTest = new LinkedList<>();
-        listTest.add(test);
-        Throttle instance = new Throttle("test_id", listTest);
+
         String expResult = "test_id";
         String result = instance.getPercentage();
         assertEquals(expResult, result);
     }
-//david.santos.maia@gmail.com
-    //pass: ficaproano
+
     /**
      * Test of getRegimeList method, of class Throttle.
      */
@@ -67,7 +72,6 @@ public class ThrottleTest {
         Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
-        Throttle instance = new Throttle("test_id", listTest);
         LinkedList<Regime> expResult = listTest;
         List<Regime> result = instance.getRegimeList();
         assertEquals(expResult, result);
@@ -82,8 +86,7 @@ public class ThrottleTest {
         Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
-        Throttle instance = new Throttle("test_id", listTest);
-        Throttle instance2 = new Throttle("test_id", new LinkedList<>());
+        Throttle instance2 = new Throttle("test_id", listTest);
         int expResult = instance2.hashCode();
         int result = instance.hashCode();
         assertEquals("Same id/hashcode", expResult, result);
@@ -107,7 +110,6 @@ public class ThrottleTest {
         Regime test = new Regime(10, 5, 20, 30, 40.0);
         LinkedList<Regime> listTest = new LinkedList<>();
         listTest.add(test);
-        Throttle instance = new Throttle("test_id", listTest);
         Throttle instance2 = new Throttle("test_id", listTest);
         boolean expResult = true;
         boolean result = instance.equals(instance2);
@@ -135,9 +137,44 @@ public class ThrottleTest {
     public void testSetId() {
         System.out.println("setId");
         String id = "test_id";
-        Throttle instance = new Throttle();
         instance.setPercentage(id);
-        assertEquals(id,instance.getPercentage());
+        assertEquals(id, instance.getPercentage());
+    }
+
+    /**
+     * Test of setPercentage method, of class Throttle.
+     */
+    @Test
+    public void testSetPercentage() {
+        System.out.println("setPercentage");
+        String percentage = "10";
+        instance.setPercentage(percentage);
+        assertTrue(instance.getPercentage().equals(percentage));
+    }
+
+    /**
+     * Test of getPercentage method, of class Throttle.
+     */
+    @Test
+    public void testGetPercentage() {
+        System.out.println("getPercentage");
+        instance.setPercentage("10");
+        String expResult = "10";
+        String result = instance.getPercentage();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getDBData method, of class Throttle.
+     */
+    @Test
+    public void testGetDBData() {
+        System.out.println("getDBData");
+        Set<DatabaseExchangable> expResult = new HashSet<>();
+        expResult.add(instance);
+        Set<DatabaseExchangable> result = instance.getDBData();
+        assertEquals(expResult, result);
+
     }
 
 }
