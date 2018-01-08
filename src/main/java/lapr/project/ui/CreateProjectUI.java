@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -19,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import lapr.project.controller.CreateProjectController;
+import lapr.project.datalayer.DAOProject;
 import lapr.project.model.TravelByPhysics;
 
 /**
@@ -254,6 +256,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
                             sucMess(CREATE_SUC, MESS_SUCC);
+                            cp.exportProjectToDatabase();;
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             win.setProject();
@@ -267,7 +270,8 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     errMess(ERR_NO_FILE, MESS_ERR);
                 }
             }
-        });
+        }
+        );
         return buttonDone;
     }
 
@@ -276,6 +280,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
      *
      * @return the new JButton
      */
+
     private JPanel createButtonRoads() {
         JPanel p = new JPanel();
         JButton buttonRoads = new JButton("Choose Roads file");
@@ -322,7 +327,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     } else {
                         errMess(ERR_WRONG_FILE, MESS_ERR);
                     }
-                } catch (NullPointerException ex ) {
+                } catch (NullPointerException ex) {
                     Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_NO_FILE, MESS_ERR);
                 }
@@ -360,7 +365,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     } else {
                         errMess(ERR_IMPORT, MESS_ERR);
                     }
-                } catch (NullPointerException ex) {
+                } catch (RuntimeException ex) {
                     Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
                     errMess(ERR_IMPORT, MESS_ERR);
                 }

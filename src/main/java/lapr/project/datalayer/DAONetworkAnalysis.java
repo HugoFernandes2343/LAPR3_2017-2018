@@ -19,7 +19,7 @@ public class DAONetworkAnalysis extends DAOManager {
     /**
      * Name of the function in the database that adds analysis
      */
-    private static final String ADD_ANALYSIS_PROCEDURE = "{call proc_addAnalysis(?,?,?,?,?,?,?,?,?,?,?)}";
+    private static final String ADD_ANALYSIS_PROCEDURE = "{call proc_insert_network_analysis(?,?,?,?,?,?,?,?,?,?,?)}";
 
     /**
      * Name of the function in the database that gets analysis

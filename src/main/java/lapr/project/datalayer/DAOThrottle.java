@@ -7,35 +7,35 @@ package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
-import lapr.project.model.Project;
+import lapr.project.model.Throttle;
+import lapr.project.model.Vehicle;
 import lapr.project.utils.DatabaseExchangable;
 
-/**
- *
- * @author Utilizador
- */
-public class DAOProject extends DAOManager{
+public class DAOThrottle extends DAOManager {
 
     /**
      * Name of the function in the database that adds vehicles
      */
-    private static final String ADD_PROJECT_PROCEDURE = "{call proc_addProject(?,?)}";
+    private static final String ADD_THROTTLE_PROCEDURE = "{call proc_insert_throttle(?,?)}";
 
     /**
      * Name of the function in the database that gets vehicles
      */
-    private static final String GET_PROJECTS_PROCEDURE = "{call proc_getProject(?)}";
-    
-    public DAOProject() throws SQLException {
-        super(ADD_PROJECT_PROCEDURE, GET_PROJECTS_PROCEDURE);
+    private static final String GET_THROTTLE_PROCEDURE = "{call proc_getProject(?)}";
+
+    private Vehicle v;
+
+    public DAOThrottle(Vehicle v) throws SQLException {
+        super(ADD_THROTTLE_PROCEDURE, GET_THROTTLE_PROCEDURE);
+        this.v = v;
     }
 
     @Override
-    protected void add(CallableStatement cs, DatabaseExchangable projectToAdd) throws SQLException {
-        Project p = (Project) projectToAdd;
-        
-        cs.setString(1, p.getName());
-        cs.setString(2, p.getDescription());
+    protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
+        Throttle list = (Throttle) data;
+
+        cs.setString(1, v.getName());
+        cs.setDouble(2, Double.parseDouble(list.getPercentage()));
     }
 
     @Override
@@ -43,5 +43,4 @@ public class DAOProject extends DAOManager{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
 }

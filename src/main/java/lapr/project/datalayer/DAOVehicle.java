@@ -75,9 +75,24 @@ public class DAOVehicle extends DAOManager {
             }
         }
     }
+    
+    
 
-    @Override
+        @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Vehicle vehicle = (Vehicle) data;
+
+        cs.setString(1, vehicle.getName());
+        cs.setString(2, vehicle.getDescription());
+        cs.setString(3, vehicle.getType());
+        cs.setString(4, vehicle.getMotorization());
+        cs.setString(5, vehicle.getMass());
+        cs.setString(6, vehicle.getLoad());
+        cs.setDouble(7, vehicle.getDrag());
+        cs.setDouble(8, vehicle.getRrc());
+        cs.setDouble(9, vehicle.getWheelSize());
+        cs.setString(10, vehicle.getFuel());
+        cs.setDouble(11, vehicle.getTollClass());
+        cs.setDouble(12, vehicle.getFrontalArea());
     }
 }
