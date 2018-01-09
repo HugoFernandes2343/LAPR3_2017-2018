@@ -19,7 +19,7 @@ public class DAOProject extends DAOManager{
     /**
      * Name of the function in the database that adds vehicles
      */
-    private static final String ADD_PROJECT_PROCEDURE = "{call proc_addProject(?,?)}";
+    private static final String ADD_PROJECT_PROCEDURE = "{call proc_addProject(?,?,?)}";
 
     /**
      * Name of the function in the database that gets vehicles
@@ -36,6 +36,7 @@ public class DAOProject extends DAOManager{
         
         cs.setString(1, p.getName());
         cs.setString(2, p.getDescription());
+        cs.setInt(3, Integer.parseInt(p.getNetwork().getId()));
     }
 
     @Override

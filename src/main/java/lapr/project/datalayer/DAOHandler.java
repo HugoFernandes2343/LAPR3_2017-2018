@@ -3,9 +3,13 @@ package lapr.project.datalayer;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.Project;
 import lapr.project.model.ProjectList;
 import lapr.project.model.TravelByPhysics;
+import lapr.project.model.Vehicle;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
@@ -32,6 +36,17 @@ public class DAOHandler {
     public DAOHandler(TravelByPhysics tf) throws SQLException {
         con = ConnectionManager.openConnection();
         this.travelByPhysics = tf;
+    }
+
+    /**
+     * Commits the changes made to the database
+     */
+    public void commitChangesMadeToTheDatabase() {
+        try {
+            ConnectionManager.commitChanges(con);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +87,7 @@ public class DAOHandler {
 
         for (Project project : list.getAllProjects()) {
             dao.addData(con, project);
-            addProject(project);
+            addToProject(project);
         }
     }
 
@@ -82,20 +97,21 @@ public class DAOHandler {
      * @param project Project where the libraries are located
      * @throws SQLException If the operation was not successful
      */
-    private void addProject(Project project) throws SQLException {
+    private void addToProject(Project project) throws SQLException {
+        addObjectData(new DAOVehicle(), project.getVehicleList());
+        
+        //ADD FOREIGN KEYS
+        LinkedList<Vehicle> tempVehicleList = new LinkedList<>();
+        tempVehicleList.addAll(project.getVehicleList().getVehicleList());
+        
+        for (Vehicle tempVehicle : tempVehicleList) {
+            tempVehicle.getVelocityLimitList();
+        }
         addObjectData(new DAONetwork(project), project.getNetwork());
-        /**
-         * addObjectData(new DAOAircraft(project),
-         * project.getAircraftLibrary()); addObjectData(new DAONode(project),
-         * project.getNodeLibrary()); addObjectData(new DAOSegment(project),
-         * project.getSegmentLibrary()); addObjectData(new DAOAirport(project),
-         * project.getAirportLibrary()); addObjectData(new DAOResults(project),
-         * project.getResultsLibrary()); addObjectData(new
-         * DAOFlightPlan(project), project.getFlightPlanLibrary());
-         * addObjectData(new DAOCharter(project), project.getFlightLibrary());
-         * addObjectData(new DAORegular(project), project.getFlightLibrary());
-        *
-         */
+        for(int i = 0;i<project.getNetwork().getNodeList().size();i++){
+            addObjectData(new DAONode(), project.getNetwork().getNodeList().get(i));
+        }
+        
     }
 
     /**
@@ -121,8 +137,7 @@ public class DAOHandler {
     /**
      * public void readData() throws SQLException { try { readAllData(); } catch
      * (SQLException ex) { throw new SQLException(ex); } finally {
-     * ConnectionManager.closeConnection(con); }
-    }
+     * ConnectionManager.closeConnection(con); } }
      */
     /**
      * Reads the data from the database. Adds the data to this flyGreen

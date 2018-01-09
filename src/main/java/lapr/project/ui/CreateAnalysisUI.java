@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import lapr.project.controller.CreateAnalysisController;
 import lapr.project.datalayer.DAOHandler;
+import lapr.project.datalayer.DAONetwork;
 import lapr.project.datalayer.DAONetworkAnalysis;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.TravelByPhysics;
@@ -329,10 +330,16 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 try {
-                    DAONetworkAnalysis dao = new DAONetworkAnalysis();
-                    daoHandler.addObjectData(dao, na);
+                    DAONetwork daoNetwork = new DAONetwork(tp.getProjectList().getActualProject());
+                    daoHandler.addObjectData(daoNetwork, tp.getProjectList().getActualProject().getNetwork());
+                    DAONetworkAnalysis daoNetAnal = new DAONetworkAnalysis();
+                    daoHandler.addObjectData(daoNetAnal, na);
                 } catch (SQLException ex) {
+                    errMess("Error processing request!\n"
+                            + "The project was not saved to database first!","Error");
                     Logger.getLogger(CreateAnalysisUI.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    sucMess("Exportation of Network and Analysis complete!","Success");
                 }
             }
         }
