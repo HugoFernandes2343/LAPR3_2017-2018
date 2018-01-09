@@ -5,13 +5,18 @@
  */
 package lapr.project.utils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import lapr.project.model.Gear;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
+import lapr.project.model.Regime;
 import lapr.project.model.RoadSection;
+import lapr.project.model.Segment;
 import lapr.project.model.TheoreticalMostEnergyEfficientAnalysis;
+import lapr.project.model.Throttle;
 import lapr.project.model.Vehicle;
 
 /**
@@ -47,6 +52,16 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
     private double brakingAcceleration;
 
     /**
+     * The total mass of the vehicle, including the load.
+     */
+    private double totalMass;
+
+    /**
+     * Atribute to keep the project being analyzed
+     */
+    private Project projectAnalyzed;
+
+    /**
      * Method that runs the algorithm.
      *
      * @param project - the project that is being analyzed.
@@ -61,11 +76,20 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
     @Override
     public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {
         AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
+        this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Km", "")) + load;
+        this.projectAnalyzed = project;
+        TheoreticalMostEnergyEfficientAnalysis analysis = new TheoreticalMostEnergyEfficientAnalysis(begin, end, vehicle, name);
 
+        //discovering the best path and coverting it      
         LinkedList<Node> shortestPath = new LinkedList<>();
-        EdgeAsDoubleGraphAlgorithms.shortestPath(edgeAsDouble, begin, end, shortestPath);
+        double energy = EdgeAsDoubleGraphAlgorithms.shortestPath(edgeAsDouble, begin, end, shortestPath);
+        List<RoadSection> path = recreatePath(shortestPath);
+        analysis.setBestPath(path);
 
-        TheoreticalMostEnergyEfficientAnalysis analysis = new TheoreticalMostEnergyEfficientAnalysis();
+        //Setting the velocity per segment of the analysis.
+        //Setting the force per segment in this analysis.
+        //Setting the load used in this analysis
+        analysis.setLoad(load);
 
         return analysis;
     }
@@ -114,7 +138,197 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
      * @return a double that represent the energy costs.
      */
     private double calculateSectionEnergy(RoadSection rs, Vehicle vehicle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Segment> segmentList = rs.getSegmentList();
+        double sectionEnergy = 0;
+        double lastVelocity;
+
+        Segment first = segmentList.get(NODE_POSITION);
+        lastVelocity = discoverVelocity(vehicle, first, this.projectAnalyzed.getNetwork().getRoad(first.getId()).getTypology());
+        sectionEnergy += calculateSegmentEnergy(first, 0, lastVelocity, vehicle);
+
+        for (int i = 1; i < segmentList.size() - 1; i++) {
+            Segment actual = segmentList.get(i);
+            double temp = lastVelocity;
+            lastVelocity = discoverVelocity(vehicle, actual, this.projectAnalyzed.getNetwork().getRoad(first.getId()).getTypology());
+            sectionEnergy += calculateSegmentEnergy(actual, temp, lastVelocity, vehicle);
+        }
+
+        Segment last = segmentList.get(segmentList.size() - 1);
+        sectionEnergy += calculateSegmentEnergy(last, lastVelocity, 0, vehicle);
+
+        return sectionEnergy;
+    }
+
+    /**
+     * Method that receives the segment, the vehicle and the type of the road
+     * and indicates what velocity should be used to go through the segment.
+     *
+     * @param vehicle - vehicle used
+     * @param segment - segment to go through
+     * @param type - type of the road of thi segment
+     * @return - a double indicating the velocity.
+     */
+    private double discoverVelocity(Vehicle vehicle, Segment segment, String type) {
+        double vehicleVelocity = Physics.convertKmPerHourToMeterPerSec(vehicle.getVelocityLimit(type));
+        double segmentVelocity = Physics.convertKmPerHourToMeterPerSec(Double.parseDouble(segment.getMaxVelocity().replace(" Km", "")));
+
+        if (segmentVelocity > vehicleVelocity) {
+            return vehicleVelocity;
+        }
+
+        return segmentVelocity;
+    }
+
+    /**
+     * Method that calculates the energy consumed to go through a segment.
+     *
+     * @return double with the energy or zero if it is not possible to calculate
+     * the energy
+     */
+    private double calculateSegmentEnergy(Segment segment, double lastVelocity, double newVelocity, Vehicle vehicle) {
+        double energy = 0;
+
+        if (lastVelocity > newVelocity) { // In this case the car should decrease the velocity so the calculations should be made accordingly.
+
+            //decreasing velocity
+            List<Double> velocities = getVelocities(lastVelocity, Physics.kinematicFunctionsGetTimeByVelocities(lastVelocity, newVelocity, this.brakingAcceleration), this.brakingAcceleration);
+            double velocity = Physics.getAverage(velocities);
+            double vr = Physics.getVehicleRelativeVelocity(velocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
+            double angle = Physics.getAngle(Double.parseDouble(segment.getLength().replace(" Km", "")), segment.getInitHeight(), segment.getFinalHeight());
+            double values[] = new double[10];
+            Gear gear = discoverGear(values, this.brakingAcceleration, vehicle, vr, angle);
+            double kinematicFunctions = Physics.kinematicFunctions(lastVelocity, newVelocity, this.brakingAcceleration);
+            energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions;
+
+            //constant velocity
+            double values1[] = new double[10];
+            double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
+            Gear gear1 = discoverGear(values1, 0, vehicle, vr1, angle);
+            double power = Physics.getEnginePower(values1[0], values1[1]);
+            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))) - kinematicFunctions);
+            return energy;
+
+        } else if (lastVelocity < newVelocity) { // In this case the car should increase the velocity so the calculations should be made accordingly.
+            
+            //increasing velocity
+            List<Double> velocities = getVelocities(lastVelocity, Physics.kinematicFunctionsGetTimeByVelocities(lastVelocity, newVelocity, this.aceleratingAcceleration), this.aceleratingAcceleration);
+            double velocity = Physics.getAverage(velocities);
+            double vr = Physics.getVehicleRelativeVelocity(velocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
+            double angle = Physics.getAngle(Double.parseDouble(segment.getLength().replace(" Km", "")), segment.getInitHeight(), segment.getFinalHeight());
+            double values[] = new double[10];
+            Gear gear = discoverGear(values, this.aceleratingAcceleration, vehicle, vr, angle);
+            double kinematicFunctions = Physics.kinematicFunctions(lastVelocity, newVelocity, this.aceleratingAcceleration);
+            energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions;
+
+            //constant velocity
+            double values1[] = new double[10];
+            double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
+            Gear gear1 = discoverGear(values1, 0, vehicle, vr1, angle);
+            double power = Physics.getEnginePower(values1[0], values1[1]);
+            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))) - kinematicFunctions);
+            return energy;
+
+        } else if (lastVelocity == newVelocity) { // In this case the car shouldn't alter the velocity so the calculations should be made accordingly.
+            
+            //constant velocity
+            double values[] = new double[1];
+            double vr = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
+            double angle = Physics.getAngle(Double.parseDouble(segment.getLength().replace(" Km", "")), segment.getInitHeight(), segment.getFinalHeight());
+            Gear gear = discoverGear(values, 0, vehicle, vr, angle);
+            double power = Physics.getEnginePower(values[0], values[1]);
+            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))));
+            return energy;
+
+        }
+
+        return energy;
+    }
+
+    /**
+     * Method that creates a list with the velocities of the time that the
+     * vehicle velocity is being increased
+     *
+     * @param lastVelocity - initial velocity of the vehicle.
+     * @param newVelocity - final velocity of the vehicle
+     * @param time - time that the vehicle takes to reach the final velocity
+     * @param acceleration - acceleration of the movement.
+     *
+     * @return a list with all the velocitites.
+     */
+    private List<Double> getVelocities(double lastVelocity, double time, double acceleration) {
+        List<Double> velocities = new ArrayList<>();
+
+        for (double i = 0; i <= time; i++) {
+            velocities.add(Physics.kinematicFunctionsGetVelocity(lastVelocity, acceleration, time));
+        }
+
+        return velocities;
+    }
+
+    /**
+     * Method used to discover the correct gear to be used.
+     *
+     * @param values - array to keep some necessary values for other methods.
+     * @param acceleration - acceleration to keep track
+     * @param v - vehicle that is being used to travel.
+     * @return - the gear that should be used.
+     */
+    private Gear discoverGear(double[] values, double acceleration, Vehicle v, double vr, double angle) {
+        List<String> percentages = new ArrayList<>();
+        percentages.add("25");
+        percentages.add("50");
+        percentages.add("100");
+
+        if (acceleration < 0) {
+            acceleration = -acceleration;
+        }
+
+        List<Gear> gears = v.getEnergy().getGearList();
+        for (int i = gears.size() - 1; i >= 0; i++) {
+            Gear g = gears.get(i);
+            for (int j = 0; i < percentages.size(); i++) {
+                Throttle t = v.getEnergy().getThrottle(percentages.get(j));
+                Regime r = getLowestSFCRegime(t);
+                for (int torque = r.getTorqueLow(); torque < r.getTorqueHigh(); torque++) {
+                    if (acceleration == 0) {
+                        if (Physics.getForceAppliedToVehicle(torque, v.getEnergy().getFinalDriveRatio(), g.getRatio(), v.getWheelSize(), v.getRrc(), this.totalMass, v.getDrag(), v.getFrontalArea(), vr, angle) <= 0) {
+                            values[0] = torque;
+                            values[1] = r.getRpmLow();
+                            return g;
+                        }
+                    } else {
+                        if (Physics.getForceAppliedToVehicle(torque, v.getEnergy().getFinalDriveRatio(), g.getRatio(), v.getWheelSize(), v.getRrc(), this.totalMass, v.getDrag(), v.getFrontalArea(), vr, angle) > this.totalMass * acceleration) {
+                            values[0] = torque;
+                            values[1] = r.getRpmLow();
+                            return g;
+                        }
+                    }
+                }
+            }
+        }
+        values[0] = getLowestSFCRegime(v.getEnergy().getThrottle(percentages.get(0))).getTorqueLow();
+        values[1] = getLowestSFCRegime(v.getEnergy().getThrottle(percentages.get(0))).getRpmLow();
+        return gears.get(0);
+    }
+
+    /**
+     * Returns the Regime with the Lowest SFC int the same throttle
+     *
+     * @param t - thottle where is supposed to find the regime with the lowest
+     * SFC
+     * @return - regime with the lowest SFC, or null if doesn't exists any.
+     */
+    private Regime getLowestSFCRegime(Throttle t) {
+        double sfc = Double.MAX_VALUE;
+        Regime reg = null;
+        for (Regime r : t.getRegimeList()) {
+            if (r.getSfc() < sfc) {
+                sfc = r.getSfc();
+                reg = r;
+            }
+        }
+
+        return reg;
     }
 
     /**
@@ -128,7 +342,26 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
     }
 
     /**
+     * Method that receives a list with all the nodes in the path and recreates
+     * it using all the road sections necessary to pass.
+     *
+     * @param shortestPath - List with the shortest path in nodes
+     * @return - List with the same path but in road sections.
+     */
+    private List<RoadSection> recreatePath(LinkedList<Node> shortestPath) {
+        List<RoadSection> path = new ArrayList<>();
+
+        for (int i = 0; i < path.size() - 1; i++) {
+            RoadSection r = this.projectAnalyzed.getNetwork().getRoadMap().getEdge(shortestPath.get(i), shortestPath.get(i + 1));
+            path.add(r);
+        }
+        return path;
+
+    }
+
+    /**
      * Setter of the acelerating Acceleration
+     *
      * @param aceleratingAcceleration the aceleratingAcceleration to set
      */
     public void setAceleratingAcceleration(double aceleratingAcceleration) {
@@ -137,11 +370,10 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
 
     /**
      * Setter of the braking acceleration
+     *
      * @param brakingAcceleration the brakingAcceleration to set
      */
     public void setBrakingAcceleration(double brakingAcceleration) {
         this.brakingAcceleration = brakingAcceleration;
     }
-    
-    
 }

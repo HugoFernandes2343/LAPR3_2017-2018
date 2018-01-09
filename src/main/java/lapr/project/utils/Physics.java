@@ -87,6 +87,7 @@ public class Physics {
      * @param drag drag (air resistance) coefficient
      * @param area frontal area of the car(m2)
      * @param vr velocity of the car relative to the air(m/s)
+     * @param angle - angle of the inclination of the segment.
      * @return the force applied to the car in Newton
      */
     public static double getForceAppliedToVehicle(double torque, double fDrive, double gearRatio, double r, double rrc, double m, double drag, double area, double vr, double angle) {
@@ -141,5 +142,49 @@ public class Physics {
      */
     public static double getEnergy(double power, double time) {
         return power * time;
+    }
+    
+    /**
+     * Function that given the initial velocity, the final velocity and an acceleration,
+     * calculates the distance travelled by the car.
+     * 
+     * @param initialVelocity - initial velocity of the vehicle.
+     * @param finalVelocity - final velocity of the vehicle.
+     * @param acceleration - acceleration of the vehicle.
+     * 
+     * @return a double value with the distance travelled by the car. 
+     */
+    public static double kinematicFunctions(double initialVelocity, double finalVelocity, double acceleration){
+      double time = (finalVelocity - initialVelocity) / acceleration;
+      return (initialVelocity * time) + (0.5 * acceleration * Math.pow(time, 2));
+    }
+    
+    /**
+     * Function that given the initial, the final velocity and an acceleration calculates the time taken to 
+     * go from the initial velocityb to the final.
+     * 
+     * @param initialVelocity - initial velocity of the vehicle
+     * @param finalVelocity - final velocity of the vehicle
+     * @param acceleration - acceleration of the vehicle.
+     * 
+     * @return  - a double with the tima taken.
+     */
+    public static double kinematicFunctionsGetTimeByVelocities(double initialVelocity, double finalVelocity, double acceleration){
+        double time = (finalVelocity - initialVelocity) / acceleration;
+        return time;
+    }
+    
+    /**
+     * Method that given the initialVelocity, acceleration and the tima calculates the actual velocity of the vehicle following
+     * the function V(t) = V0 + at.
+     * 
+     * @param initialVelocity - initial velocity of the vehicle.
+     * @param acceleration - acceleration of the vehicle.
+     * @param time - time of the travel.
+     * 
+     * @return double with the velocity of the vehicle
+     */
+    public static double kinematicFunctionsGetVelocity(double initialVelocity, double acceleration, double time){
+        return initialVelocity + (acceleration * time);
     }
 }
