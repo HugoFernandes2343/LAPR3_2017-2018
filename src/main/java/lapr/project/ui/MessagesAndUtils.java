@@ -28,6 +28,7 @@ public interface MessagesAndUtils {
     static final String ERR_PROJ = "Error selecting Project";
     static final String ERR_NODE = "Nodes are equal";
     static final String ERR_ANAL = "Error analysing project";
+    static final String ERR_LOAD = "Error invalid load";
     static final String ERR_CSEL = "Select all necessary information";
     static final String ERR_DB = "Project wont be saved to databased";
     

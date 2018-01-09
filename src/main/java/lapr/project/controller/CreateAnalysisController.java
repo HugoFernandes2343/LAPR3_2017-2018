@@ -6,6 +6,8 @@
 package lapr.project.controller;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
@@ -99,5 +101,16 @@ public class CreateAnalysisController {
 
     public NetworkAnalysis getAnalysis() {
         return this.result;
+    }
+
+    public boolean validateLoad(String text, String vehicle) {
+        try {
+            double load = Double.parseDouble(text);
+            double maxLoad = (Double.parseDouble(actualproject.getVehicleList().getVehicleByName(vehicle).getLoad().replace(" kg", "")));
+            return maxLoad >= load;
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(CreateAnalysisController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
