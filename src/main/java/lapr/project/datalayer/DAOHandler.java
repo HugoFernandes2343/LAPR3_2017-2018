@@ -98,7 +98,7 @@ public class DAOHandler {
      * @throws SQLException If the operation was not successful
      */
     private void addToProject(Project project) throws SQLException {
-        addObjectData(new DAOVehicle(), project.getVehicleList());
+        addObjectData(new DAOVehicle(project), project.getVehicleList());
         
         //ADD FOREIGN KEYS
         LinkedList<Vehicle> tempVehicleList = new LinkedList<>();
