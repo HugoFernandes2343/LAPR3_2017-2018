@@ -161,13 +161,13 @@ public class Physics {
     
     /**
      * Function that given the initial, the final velocity and an acceleration calculates the time taken to 
-     * go from the initial velocityb to the final.
+     * go from the initial velocity to the final.
      * 
      * @param initialVelocity - initial velocity of the vehicle
      * @param finalVelocity - final velocity of the vehicle
      * @param acceleration - acceleration of the vehicle.
      * 
-     * @return  - a double with the tima taken.
+     * @return  - a double with the time taken.
      */
     public static double kinematicFunctionsGetTimeByVelocities(double initialVelocity, double finalVelocity, double acceleration){
         double time = (finalVelocity - initialVelocity) / acceleration;
