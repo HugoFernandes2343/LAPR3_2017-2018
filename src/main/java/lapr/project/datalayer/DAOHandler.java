@@ -88,6 +88,12 @@ public class DAOHandler {
         }
     }
 
+    private void addProjectData(Project p) throws SQLException {
+        DAOProject dao = new DAOProject();
+        dao.addData(con, p);
+        addToProject(p);
+    }
+
     /**
      * Adds the library of a project to the database
      *
@@ -97,11 +103,15 @@ public class DAOHandler {
     private void addToProject(Project project) throws SQLException {
         addObjectData(new DAOVehicle(project), project.getVehicleList());
 
-        //ADD FOREIGN KEYS
-        LinkedList<Vehicle> tempVehicleList = new LinkedList<>();
-        tempVehicleList.addAll(project.getVehicleList().getVehicleList());
-
-        for (Vehicle tempVehicle : tempVehicleList) {
+        for (Vehicle tempVehicle : project.getVehicleList().getVehicleList()) {
+            
+            /*Add VelocityLimits*/
+            for (int i = 0; i < tempVehicle.getVelocityLimitList().getVelocityLimitList().size(); i++) {
+                addObjectData(new DAOVelocityList(tempVehicle), (VelocityLimit) tempVehicle.getVelocityLimitList().getDBData().get(i));
+            }
+            /*Add Energy*/
+            addObjectData(new DAOEnergy(tempVehicle), tempVehicle.getEnergy());
+            
             tempVehicle.getVelocityLimitList();
         }
         addObjectData(new DAONetwork(project), project.getNetwork());
@@ -137,55 +147,61 @@ public class DAOHandler {
      * ConnectionManager.closeConnection(con); } }
      */
     /**
-     * Reads the data from the database. Adds the data to this flyGreen
+     * Reads the data from the database. Adds the data to this travelByPhysics
      *
      * @throws SQLException If the operation wasn't successful
      */
-    /**
-     * private void readAllData() throws SQLException { readObjectData(new
-     * DAOProject(), travelByPhysics.getProjectList());
-     *
-     * for (Project project : flyGreen.getProjectLibrary().getList()) {
-     * readObjectData(new DAOAircraftModel(project),
-     * project.getAircraftModelLibrary()); readObjectData(new
-     * DAOAircraft(project), project.getAircraftLibrary()); readObjectData(new
-     * DAONode(project), project.getNodeLibrary()); readObjectData(new
-     * DAOSegment(project), project.getSegmentLibrary()); readObjectData(new
-     * DAOAirport(project), project.getAirportLibrary()); readObjectData(new
-     * DAOResults(project), project.getResultsLibrary()); readObjectData(new
-     * DAOFlightPlan(project), project.getFlightPlanLibrary());
-     * readObjectData(new DAOCharter(project), project.getFlightLibrary());
-     * readObjectData(new DAORegular(project), project.getFlightLibrary()); } }
-     */
-    
+    private void readAllData() throws SQLException {
+//        readObjectData(new DAOProject(), travelByPhysics.getProjectList());
+
+//        for (Project project : flyGreen.getProjectLibrary().getList()) {
+//            readObjectData(new DAOAircraftModel(project),project.getAircraftModelLibrary());
+//            readObjectData(new DAOAircraft(project), project.getAircraftLibrary());
+//            readObjectData(new DAONode(project), project.getNodeLibrary());
+//            readObjectData(new DAOSegment(project), project.getSegmentLibrary());
+//            readObjectData(new DAOAirport(project), project.getAirportLibrary());
+//            readObjectData(new DAOResults(project), project.getResultsLibrary());
+//            readObjectData(new DAOFlightPlan(project), project.getFlightPlanLibrary());
+//            readObjectData(new DAOCharter(project), project.getFlightLibrary());
+//            readObjectData(new DAORegular(project), project.getFlightLibrary());
+//        }
+    }
+
+    private void readProjectData(Project p) {
+        readVehicleData(p);
+        //toADD: readNetworkData(p)
+    }
+
     private void readVehicleData(Project p) {
         try {
             VehicleList vehicleList = p.getVehicleList();
             Object[] refs = {p.getName()};//Pode-se tirar o refs de tudo provavelmente
             readObjectData(new DAOVehicle(p), vehicleList, refs);
-            
-            for(Vehicle v : vehicleList.getVehicleList()){
+
+            for (Vehicle v : vehicleList.getVehicleList()) {
                 /*Read the Energy*/
                 Energy tempEnergy = v.getEnergy();
                 Object[] refs2 = {v.getName()};//Pode-se tirar o refs de tudo provavelmente
-                readObjectData(new DAOEnergy(v),tempEnergy,refs2);
-                
+                readObjectData(new DAOEnergy(v), tempEnergy, refs2);
+
                 /*Read the gears*/
-                readObjectData(new DAOGear(v), (DatabaseExchangable) tempEnergy.getGearList(),refs2);
-                
+                readObjectData(new DAOGear(v), (DatabaseExchangable) tempEnergy.getGearList(), refs2);
+
                 /*Read the velocityLimits*/
                 VelocityLimitList tempVLimit = v.getVelocityLimitList();
-                readObjectData(new DAOVelocityList(v),tempVLimit,refs2);
-                
+                readObjectData(new DAOVelocityList(v), tempVLimit, refs2);
+
                 /*Read the Throttle*/
-                readObjectData(new DAOThrottle(v), (DatabaseExchangable) tempEnergy.getThrottleList(),refs2);
-                
+                readObjectData(new DAOThrottle(v), (DatabaseExchangable) tempEnergy.getThrottleList(), refs2);
+
                 /*Read the regimes based on Throttles*/
-                for(Throttle t : tempEnergy.getThrottleList()){
-//                    readObjectData(new DAORegime());
+                for (Throttle t : tempEnergy.getThrottleList()) {
+                    Object[] refs3 = {t.getPercentage(), v.getName()};
+                    readObjectData(new DAORegime(t, v), (DatabaseExchangable) t.getRegimeList(), refs3);
                 }
+
             }
-        
+
         } catch (SQLException ex) {
             Logger.getLogger(DAOHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

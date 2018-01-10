@@ -26,7 +26,7 @@ public class DAOThrottle extends DAOManager {
     /**
      * Name of the function in the database that gets vehicles
      */
-    private static final String GET_THROTTLE_PROCEDURE = "{call proc_getProject(?)}";
+    private static final String GET_THROTTLE_PROCEDURE = "{call proc_get_throttle(?,?)}";
 
     private Vehicle v;
 
@@ -40,7 +40,7 @@ public class DAOThrottle extends DAOManager {
         Throttle list = (Throttle) data;
 
         cs.setString(1, v.getName());
-        cs.setDouble(2, Double.parseDouble(list.getPercentage()));
+        cs.setInt(2, Integer.parseInt(list.getPercentage()));
     }
 
     @Override
@@ -56,13 +56,13 @@ public class DAOThrottle extends DAOManager {
             rs = (ResultSet) stmt.getObject(1);
             
             while(rs.next()){
-                String percentage = rs.getString("percentage");
+                int percentage = rs.getInt("percentage");
                 Throttle t = new Throttle();
-                t.setPercentage(percentage);
+                t.setPercentage(String.valueOf(percentage));
                 tList.add(t);
             }
         }catch(SQLException ex){
-            Logger.getLogger(DAOGear.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOThrottle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

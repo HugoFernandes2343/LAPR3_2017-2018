@@ -27,32 +27,32 @@ public class DAOVehicle extends DAOManager {
     /**
      * Name of the function in the database that adds vehicles
      */
-    private static final String ADD_VEHICLES_PROCEDURE = "{call proc_addVehicle(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+    private static final String ADD_VEHICLES_PROCEDURE = "{call proc_insert_vehicle(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
     /**
      * Name of the function in the database that gets vehicles
      */
     private static final String GET_VEHICLES_PROCEDURE = "{call proc_getVehicle(?,?)}";
-    
+
     private final Project projectRef;
 
     public DAOVehicle(Project p) throws SQLException {
         super(ADD_VEHICLES_PROCEDURE, GET_VEHICLES_PROCEDURE);
-        this.projectRef=p;
+        this.projectRef = p;
     }
 
     @Override
-    protected void read(CallableStatement stmt,DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
+    protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         VehicleList list = (VehicleList) placeToAdd;
         String projectName = (String) references[0];
         ResultSet rs = null;
-        
+
         try {
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, projectName);
             stmt.executeUpdate();
             rs = (ResultSet) stmt.getObject(1);
-            
+
             while (rs.next()) {
                 String name = rs.getString("NAME");
                 String description = rs.getString("DESCRIPTION");
@@ -67,10 +67,6 @@ public class DAOVehicle extends DAOManager {
                 int tollClass = rs.getInt("TOLLCLASS");
                 double frontalArea = rs.getDouble("FRONTAL_AREA");
                 Vehicle vehicle = new Vehicle(name, description, type, tollClass, motorization, fuel, mass, load, drag, frontalArea, rrc, wheelSize, new Energy(), new VelocityLimitList());
-//                Energy energy = getEnergyByVehicle(vehicle);
-//                vehicle.setEnergy(energy);
-//                VelocityLimitList velocityLimitList = getVelocityLimits(vehicle);
-//                vehicle.setVelocityLimitList(velocityLimitList);
                 list.getVehicleList().add(vehicle);
             }
         } catch (SQLException | NullPointerException ex) {
@@ -81,10 +77,8 @@ public class DAOVehicle extends DAOManager {
             }
         }
     }
-    
-    
 
-        @Override
+    @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         Vehicle vehicle = (Vehicle) data;
 

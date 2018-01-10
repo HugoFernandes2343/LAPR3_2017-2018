@@ -22,7 +22,7 @@ public class DAOVelocityList extends DAOManager {
     /**
      * Name of the function in the database that gets VelocityLimits
      */
-    private static final String GET_VELOCITY_LIST_PROCEDURE = "{call proc_getProject(?)}";
+    private static final String GET_VELOCITY_LIST_PROCEDURE = "{call proc_getProject(?,?)}";
 
     private Vehicle v;
 

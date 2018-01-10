@@ -1,11 +1,9 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
@@ -21,6 +19,13 @@ public class Project implements Serializable, DatabaseExchangable {
     private VehicleList vehicleList;
     private Network network;
     private NetworkAnalysis netAnalysis;
+
+    public Project(String name, String desc) {
+        this.name = name;
+        this.description = desc;
+        this.network = new Network();
+        this.vehicleList = new VehicleList();
+    }
 
     public Project() {
         this.name = "n/a";
