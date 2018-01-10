@@ -1,10 +1,15 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import lapr.project.model.Gear;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.Vehicle;
+import lapr.project.model.Gear;
 import lapr.project.utils.DatabaseExchangable;
+import oracle.jdbc.OracleTypes;
 
 public class DAOGear extends DAOManager {
 
@@ -17,12 +22,13 @@ public class DAOGear extends DAOManager {
     /**
      * Name of the function in the database that gets VelocityLimits
      */
-    private static final String GET_GEAR_PROCEDURE = "{call proc_getProject(?)}";
+    private static final String GET_GEAR_PROCEDURE = "{call proc_getGears(?,?)}";
 
     private Vehicle v;
 
-    public DAOGear(String addProcedure, String readProcedure) throws SQLException {
+    public DAOGear(Vehicle v) throws SQLException {
         super(ADD_GEAR_PROCEDURE, GET_GEAR_PROCEDURE);
+        this.v = v;
     }
 
     @Override
@@ -36,7 +42,25 @@ public class DAOGear extends DAOManager {
 
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<DatabaseExchangable> gList = placeToAdd.getDBData();
+        String vehicleName = (String) references[0];
+        ResultSet rs = null;
+
+        try {
+            stmt.registerOutParameter(1, OracleTypes.CURSOR);
+            stmt.setString(2, vehicleName);
+            stmt.executeUpdate();
+            rs = (ResultSet) stmt.getObject(1);
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                double ratio = rs.getDouble("ratio");
+                Gear g = new Gear(id, ratio);
+                gList.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGear.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

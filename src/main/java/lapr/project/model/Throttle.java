@@ -92,8 +92,8 @@ public class Throttle implements Serializable, DatabaseExchangable {
      * method that returns the data to relate to the dataBase
      */
     @Override
-    public Set<DatabaseExchangable> getDBData() {
-        Set<DatabaseExchangable> temp = new HashSet<>();
+    public List<DatabaseExchangable> getDBData() {
+        List<DatabaseExchangable> temp = new LinkedList<>();
         temp.add(this);
         return temp;
     }

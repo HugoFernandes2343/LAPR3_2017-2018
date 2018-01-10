@@ -6,10 +6,15 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.Throttle;
 import lapr.project.model.Vehicle;
 import lapr.project.utils.DatabaseExchangable;
+import oracle.jdbc.OracleTypes;
 
 public class DAOThrottle extends DAOManager {
 
@@ -40,7 +45,25 @@ public class DAOThrottle extends DAOManager {
 
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<DatabaseExchangable> tList = placeToAdd.getDBData();
+        String vehicleName = (String) references[0];
+        ResultSet rs = null;
+        
+        try {
+            stmt.registerOutParameter(1, OracleTypes.CURSOR);
+            stmt.setString(2, vehicleName);
+            stmt.executeUpdate();
+            rs = (ResultSet) stmt.getObject(1);
+            
+            while(rs.next()){
+                String percentage = rs.getString("percentage");
+                Throttle t = new Throttle();
+                t.setPercentage(percentage);
+                tList.add(t);
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(DAOGear.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

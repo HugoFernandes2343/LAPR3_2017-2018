@@ -6,6 +6,8 @@
 package lapr.project.model;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
@@ -210,9 +212,9 @@ public class UserTest {
     @Test
     public void testGetDBData() {
         System.out.println("getDBData");
-        Set<DatabaseExchangable> expResult = new HashSet<>();
+        List<DatabaseExchangable> expResult = new LinkedList<>();
         expResult.add(instance);
-        Set<DatabaseExchangable> result = instance.getDBData();
+        List<DatabaseExchangable> result = instance.getDBData();
         assertEquals(expResult, result);
     }
 }

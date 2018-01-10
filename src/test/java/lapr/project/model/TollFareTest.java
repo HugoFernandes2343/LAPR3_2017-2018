@@ -123,10 +123,10 @@ public class TollFareTest {
     public void testGetDBData() {
         System.out.println("getDBData");
 
-        Set<DatabaseExchangable> expResult = new HashSet<>();
+        List<DatabaseExchangable> expResult = new LinkedList<>();
         expResult.add(instance);
 
-        Set<DatabaseExchangable> result = instance.getDBData();
+        List<DatabaseExchangable> result = instance.getDBData();
         assertEquals(expResult, result);
 
     }

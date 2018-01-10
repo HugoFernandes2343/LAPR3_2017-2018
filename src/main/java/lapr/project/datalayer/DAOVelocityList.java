@@ -1,10 +1,15 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VelocityLimit;
+import lapr.project.model.VelocityLimitList;
 import lapr.project.utils.DatabaseExchangable;
+import oracle.jdbc.OracleTypes;
 
 public class DAOVelocityList extends DAOManager {
 
@@ -37,7 +42,25 @@ public class DAOVelocityList extends DAOManager {
 
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VelocityLimitList vList = (VelocityLimitList) placeToAdd;
+        String vehicleName = (String) references[0];
+        ResultSet rs = null;
+
+        try {
+            stmt.registerOutParameter(1, OracleTypes.CURSOR);
+            stmt.setString(2, vehicleName);
+            stmt.executeUpdate();
+            rs = (ResultSet) stmt.getObject(1);
+
+            while (rs.next()) {
+                String segType = rs.getString("Segment_Type");
+                int limit = rs.getInt("Limit");
+                VelocityLimit newLimit = new VelocityLimit(segType,limit);
+                vList.getVelocityLimitList().add(newLimit);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOVelocityList.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

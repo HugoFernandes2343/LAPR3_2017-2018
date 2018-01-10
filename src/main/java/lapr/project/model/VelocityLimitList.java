@@ -3,6 +3,8 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
@@ -100,8 +102,8 @@ public class VelocityLimitList implements Serializable, DatabaseExchangable {
      * method that returns the data to relate to the dataBase
      */
     @Override
-    public Set<DatabaseExchangable> getDBData() {
-        Set<DatabaseExchangable> temp = new HashSet<>();
+    public List<DatabaseExchangable> getDBData() {
+        List<DatabaseExchangable> temp = new LinkedList<>();
         temp.addAll(this.listVelocityLimits);
         return temp;
     }

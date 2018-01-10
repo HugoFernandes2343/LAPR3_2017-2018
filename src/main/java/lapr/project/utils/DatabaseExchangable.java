@@ -5,7 +5,7 @@
  */
 package lapr.project.utils;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -21,5 +21,5 @@ public interface DatabaseExchangable {
      * Returns the necessary data from a said class
      * @return 
      */
-    public Set<DatabaseExchangable> getDBData();
+    public List<DatabaseExchangable> getDBData();
 }

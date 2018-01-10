@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lapr.project.model.Project;
-import lapr.project.model.ProjectList;
-import lapr.project.model.TravelByPhysics;
-import lapr.project.model.Vehicle;
+import lapr.project.model.*;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
@@ -99,19 +96,19 @@ public class DAOHandler {
      */
     private void addToProject(Project project) throws SQLException {
         addObjectData(new DAOVehicle(project), project.getVehicleList());
-        
+
         //ADD FOREIGN KEYS
         LinkedList<Vehicle> tempVehicleList = new LinkedList<>();
         tempVehicleList.addAll(project.getVehicleList().getVehicleList());
-        
+
         for (Vehicle tempVehicle : tempVehicleList) {
             tempVehicle.getVelocityLimitList();
         }
         addObjectData(new DAONetwork(project), project.getNetwork());
-        for(int i = 0;i<project.getNetwork().getNodeList().size();i++){
+        for (int i = 0; i < project.getNetwork().getNodeList().size(); i++) {
             addObjectData(new DAONode(), project.getNetwork().getNodeList().get(i));
         }
-        
+
     }
 
     /**
@@ -160,6 +157,40 @@ public class DAOHandler {
      * readObjectData(new DAOCharter(project), project.getFlightLibrary());
      * readObjectData(new DAORegular(project), project.getFlightLibrary()); } }
      */
+    
+    private void readVehicleData(Project p) {
+        try {
+            VehicleList vehicleList = p.getVehicleList();
+            Object[] refs = {p.getName()};//Pode-se tirar o refs de tudo provavelmente
+            readObjectData(new DAOVehicle(p), vehicleList, refs);
+            
+            for(Vehicle v : vehicleList.getVehicleList()){
+                /*Read the Energy*/
+                Energy tempEnergy = v.getEnergy();
+                Object[] refs2 = {v.getName()};//Pode-se tirar o refs de tudo provavelmente
+                readObjectData(new DAOEnergy(v),tempEnergy,refs2);
+                
+                /*Read the gears*/
+                readObjectData(new DAOGear(v), (DatabaseExchangable) tempEnergy.getGearList(),refs2);
+                
+                /*Read the velocityLimits*/
+                VelocityLimitList tempVLimit = v.getVelocityLimitList();
+                readObjectData(new DAOVelocityList(v),tempVLimit,refs2);
+                
+                /*Read the Throttle*/
+                readObjectData(new DAOThrottle(v), (DatabaseExchangable) tempEnergy.getThrottleList(),refs2);
+                
+                /*Read the regimes based on Throttles*/
+                for(Throttle t : tempEnergy.getThrottleList()){
+//                    readObjectData(new DAORegime());
+                }
+            }
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * Reads a library from the database
      *

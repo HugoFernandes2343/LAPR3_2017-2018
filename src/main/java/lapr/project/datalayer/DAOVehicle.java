@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.model.Energy;
 import lapr.project.model.Project;
 import lapr.project.model.Vehicle;
 import lapr.project.model.VehicleList;
+import lapr.project.model.VelocityLimitList;
 import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
 
@@ -64,7 +66,7 @@ public class DAOVehicle extends DAOManager {
                 String fuel = rs.getString("FUEL");
                 int tollClass = rs.getInt("TOLLCLASS");
                 double frontalArea = rs.getDouble("FRONTAL_AREA");
-                Vehicle vehicle = new Vehicle(name, description, type, tollClass, motorization, fuel, mass, load, drag, frontalArea, rrc, wheelSize, null, null);
+                Vehicle vehicle = new Vehicle(name, description, type, tollClass, motorization, fuel, mass, load, drag, frontalArea, rrc, wheelSize, new Energy(), new VelocityLimitList());
 //                Energy energy = getEnergyByVehicle(vehicle);
 //                vehicle.setEnergy(energy);
 //                VelocityLimitList velocityLimitList = getVelocityLimits(vehicle);
@@ -72,7 +74,7 @@ public class DAOVehicle extends DAOManager {
                 list.getVehicleList().add(vehicle);
             }
         } catch (SQLException | NullPointerException ex) {
-            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOVehicle.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
