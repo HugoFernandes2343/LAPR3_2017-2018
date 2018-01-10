@@ -227,9 +227,13 @@ public class MenuUI extends JFrame {
         compareVehicle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // not  yet implemented
+                mPanel.removeAll();
+                mPanel.add(new CompareAnalysisUI(tp));
+                mPanel.revalidate();
+                mPanel.repaint();
             }
         });
+        m.add(compareVehicle);
         m.add(compareVehicle);
         return m;
     }

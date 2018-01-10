@@ -83,7 +83,7 @@ public class VelocityLimitListTest {
         instance.addVelocityLimit(testLimit1);
         instance.addVelocityLimit(testLimit2);
 
-        int expResult = 0;
+        int expResult = 300;
         int result = instance.getVelocityLimit(type);
         assertEquals(expResult, result);
 

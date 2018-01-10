@@ -48,7 +48,7 @@ public class VelocityLimitList implements Serializable, DatabaseExchangable {
      * vehicle
      */
     public int getVelocityLimit(String type) {
-        int limit = 0;
+        int limit = 300;
         for (VelocityLimit vl : listVelocityLimits) {
             if (type.toUpperCase().contains(vl.getSegmentType().toUpperCase())) {
                 limit = vl.getLimit();
@@ -57,7 +57,7 @@ public class VelocityLimitList implements Serializable, DatabaseExchangable {
         return limit;
     }
 
-     /**
+    /**
      * HashCode method for velocity limit type objects
      *
      * @return hash
@@ -69,7 +69,7 @@ public class VelocityLimitList implements Serializable, DatabaseExchangable {
         return hash;
     }
 
-     /**
+    /**
      * Equals method for velocity limit type objects
      *
      * @param obj the object to compare to the throttle
@@ -89,9 +89,9 @@ public class VelocityLimitList implements Serializable, DatabaseExchangable {
         }
         VelocityLimitList other = (VelocityLimitList) obj;
         Iterator<VelocityLimit> itr = this.listVelocityLimits.iterator();
-        while(itr.hasNext()){
-           VelocityLimit vl =  itr.next();
-            if(!other.getVelocityLimitList().contains(vl)){
+        while (itr.hasNext()) {
+            VelocityLimit vl = itr.next();
+            if (!other.getVelocityLimitList().contains(vl)) {
                 return false;
             }
         }

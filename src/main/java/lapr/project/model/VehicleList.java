@@ -110,7 +110,20 @@ public class VehicleList implements Serializable, DatabaseExchangable {
         return null;
     }
 
-     /**
+    /**
+     *
+     * @return an list with the max load of each vehicle
+     */
+    public List<String> getAllVehicleLoads() {
+        Iterator<Vehicle> itr = listVehicles.iterator();
+        ArrayList<String> loads = new ArrayList<>();
+        while (itr.hasNext()) {
+            loads.add(itr.next().getLoad());
+        }
+        return loads;
+    }
+
+    /**
      * method that returns the data to relate to the dataBase
      */
     @Override
