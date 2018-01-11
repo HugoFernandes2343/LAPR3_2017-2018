@@ -29,6 +29,8 @@ public class NetworkAnalysis extends DatabaseExchangable {
     private double tollCost;
     private double fuelMass;
     private double fuelVolume;
+    private double aceleratingAcceleration;
+    private double brakingAcceleration;
 
     public NetworkAnalysis(Node beginNode, Node endNode, Vehicle vehicle, String name, String type) {
         this.name = name;
@@ -274,6 +276,36 @@ public class NetworkAnalysis extends DatabaseExchangable {
         this.fuelVolume = fuelVolume;
     }
 
+     /**
+     * @return Acceleration
+     */
+    public double getAceleratingAcceleration() {
+        return aceleratingAcceleration;
+    }
+    
+    /**
+     * @return braking accelaration
+     */
+    public double getBrakingAcceleration() {
+        return brakingAcceleration;
+    }
+    
+    /**
+     * Setter of aceleratingAcceleration 
+     * @param aceleratingAcceleration -  car acceleration
+     */
+    public void setAceleratingAcceleration(double aceleratingAcceleration) {
+        this.aceleratingAcceleration = aceleratingAcceleration;
+    }
+    
+    /**
+     * Setter of Car Braking Acceleration
+     * @param brakingAcceleration - Car Braking Acceleration
+     */
+    public void setBrakingAcceleration(double brakingAcceleration) {
+        this.brakingAcceleration = brakingAcceleration;
+    }
+    
     /**
      * method that returns the data to relate to the dataBase
      */

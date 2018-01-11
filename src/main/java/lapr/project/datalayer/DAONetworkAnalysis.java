@@ -19,7 +19,7 @@ public class DAONetworkAnalysis extends DAOManager {
     /**
      * Name of the function in the database that adds analysis
      */
-    private static final String ADD_ANALYSIS_PROCEDURE = "{call proc_insert_network_analysis(?,?,?,?,?,?,?,?,?,?,?)}";
+    private static final String ADD_ANALYSIS_PROCEDURE = "{call proc_insert_network_analysis(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
     /**
      * Name of the function in the database that gets analysis
@@ -34,17 +34,36 @@ public class DAONetworkAnalysis extends DAOManager {
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         NetworkAnalysis netAnalysis = (NetworkAnalysis) data;
 
-        cs.setInt(1, netAnalysis.getId());
-        cs.setString(2, netAnalysis.getType());
-        cs.setString(3, netAnalysis.getName());
-        cs.setDouble(4, netAnalysis.getTravellTime());
-        cs.setDouble(5, netAnalysis.getEnergyConsumption());
-        cs.setDouble(6, netAnalysis.getAverageVelocity());
-        cs.setDouble(7, netAnalysis.getDistance());
-        cs.setDouble(8, netAnalysis.getTollCost());
-        cs.setDouble(9, netAnalysis.getLoad());
-        cs.setDouble(10, netAnalysis.getFuelMass());
-        cs.setDouble(11, netAnalysis.getFuelVolume());
+        if (netAnalysis.getType().equalsIgnoreCase("Shortest Travel Time")) {
+            cs.setInt(1, netAnalysis.getId());
+            cs.setString(2, netAnalysis.getType());
+            cs.setString(3, netAnalysis.getName());
+            cs.setDouble(4, netAnalysis.getTravellTime());
+            cs.setDouble(5, netAnalysis.getEnergyConsumption());
+            cs.setDouble(6, netAnalysis.getAverageVelocity());
+            cs.setDouble(7, netAnalysis.getDistance());
+            cs.setDouble(8, netAnalysis.getTollCost());
+            cs.setDouble(9, netAnalysis.getLoad());
+            cs.setDouble(10, netAnalysis.getFuelMass());
+            cs.setDouble(11, netAnalysis.getFuelVolume());
+            cs.setString(12, "N/A");
+            cs.setString(13, "N/A");
+        }else{
+            cs.setInt(1, netAnalysis.getId());
+            cs.setString(2, netAnalysis.getType());
+            cs.setString(3, netAnalysis.getName());
+            cs.setDouble(4, netAnalysis.getTravellTime());
+            cs.setDouble(5, netAnalysis.getEnergyConsumption());
+            cs.setDouble(6, netAnalysis.getAverageVelocity());
+            cs.setDouble(7, netAnalysis.getDistance());
+            cs.setDouble(8, netAnalysis.getTollCost());
+            cs.setDouble(9, netAnalysis.getLoad());
+            cs.setDouble(10, netAnalysis.getFuelMass());
+            cs.setDouble(11, netAnalysis.getFuelVolume());
+            cs.setString(12, String.valueOf(netAnalysis.getAceleratingAcceleration()));
+            cs.setString(13, String.valueOf(netAnalysis.getBrakingAcceleration()));
+        }
+
     }
 
     @Override

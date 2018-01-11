@@ -483,4 +483,49 @@ public class NetworkAnalysisTest {
         assertTrue(instance.getFuelVolume() == fuelVolume);
     }
 
+    /**
+     * Test of getAceleratingAcceleration method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testGetAceleratingAcceleration() {
+        System.out.println("getAceleratingAcceleration");
+        double expResult = 22.2;
+        instance.setAceleratingAcceleration(22.2);
+        double result = instance.getAceleratingAcceleration();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of getBrakingAcceleration method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testGetBrakingAcceleration() {
+        System.out.println("getBrakingAcceleration");
+        double expResult = 22.2;
+        instance.setBrakingAcceleration(22.2);
+        double result = instance.getBrakingAcceleration();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of setAceleratingAcceleration method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testSetAceleratingAcceleration() {
+        System.out.println("setAceleratingAcceleration");
+        double aceleratingAcceleration = 5.0;
+        instance.setAceleratingAcceleration(aceleratingAcceleration);
+        assertTrue(instance.getAceleratingAcceleration()== aceleratingAcceleration);
+    }
+
+    /**
+     * Test of setBrakingAcceleration method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testSetBrakingAcceleration() {
+        System.out.println("setBrakingAcceleration");
+        double brakingAcceleration = 5.0;
+        instance.setBrakingAcceleration(brakingAcceleration);
+        assertTrue(instance.getBrakingAcceleration() == brakingAcceleration);
+    }
 }
