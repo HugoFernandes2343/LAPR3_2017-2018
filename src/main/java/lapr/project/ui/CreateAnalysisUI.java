@@ -350,7 +350,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(), na);
-                saveToFile.dispose();
+                //saveToFile.dispose();
             }
         }
         );

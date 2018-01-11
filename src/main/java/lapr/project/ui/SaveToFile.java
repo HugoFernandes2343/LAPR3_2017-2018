@@ -70,7 +70,9 @@ public class SaveToFile extends JFrame {//Add the implementation later
      *
      * @param p current project/network analysis
      */
-    public SaveToFile(Project p,NetworkAnalysis na) {
+    public SaveToFile(Project p, NetworkAnalysis na) {
+        this.thisProject = p;
+        this.net = na;
         htmlSave = null;
         csvSave = null;
         setLookAndFeel();

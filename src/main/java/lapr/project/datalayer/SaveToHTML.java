@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.JFileChooser;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Project;
@@ -29,13 +31,15 @@ public class SaveToHTML {
     private File fileLocation;
 
     private static final String fontColor = "color: white";
-    
+
     /**
      * Project
      */
     private Project p = new Project();
-    
+
     private NetworkAnalysis net;
+
+    private static final NumberFormat FORMATTER = new DecimalFormat("0.####E0");
 
     /**
      * Contructor to Save the HTML file
@@ -43,10 +47,10 @@ public class SaveToHTML {
      * @param p
      * @throws IOException
      */
-    public SaveToHTML(Project p,NetworkAnalysis netAnalysis) throws IOException {
+    public SaveToHTML(Project p, NetworkAnalysis netAnalysis) throws IOException {
         HTMLExporter htmlBuilder = new HTMLExporter();
         this.p = p;
-        this.net=netAnalysis;
+        this.net = netAnalysis;
         buildHTML(htmlBuilder.getHTML());
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showSaveDialog(fileChooser);
@@ -95,18 +99,28 @@ public class SaveToHTML {
                         + "h4 {"
                         + fontColor
                         + "}").end(2)
-                .title().text(p.getName()).end()
+                .title().text("Network Analysis").end()
                 /**
                  * Head
                  */
                 .head().font().face("Calibri").end()
-                .center().h1().text(p.getName()).end(2)
-                .p().text(p.getDescription()).end()
+                .center().h1().text("Project Name: " + p.getName()).end(2)
+                .p().text("Project Description: " + p.getDescription()).end()
                 /*Analysis*/
-                .center().h2().text("Analysis by "+this.net.getType()).end(2)
-                .p().text(""+Integer.toString(this.net.getId())).br()
-                .text(this.net.getName()).br()
-                .text(""+Double.toString(this.net.getTravellTime())).end()
+                .center().h2().text("Analysis by " + this.net.getType()).end(2)
+                .p().text("Analysis ID: " + Integer.toString(this.net.getId())).br()
+                .text("Name: " + this.net.getName()).br()
+                .text("Begin Node: " + this.net.getBeginNode().getId()).br()
+                .text("End Node: " + this.net.getEndNode().getId()).br()
+                .text("Vehicle: " + this.net.getVehicle().getName()).br()
+                .text("Distance: " + FORMATTER.format(this.net.getDistance()) + " m").br()
+                .text("Average Velocity: " + FORMATTER.format(this.net.getAverageVelocity()) + " m/s").br()
+                .text("Time: " + FORMATTER.format(this.net.getTravellTime()) + " s").br()
+                .text("Energy Consumption: " + FORMATTER.format(this.net.getEnergyConsumption()) + " J").br()
+                .text("Fuel Mass: " + FORMATTER.format(this.net.getFuelMass()) + " g").br()
+                .text("Fuel Volume: " + FORMATTER.format(this.net.getFuelVolume()) + " L").br()
+                .text("Load : " + this.net.getLoad() + " Kg").br()
+                .text("Toll Cost: " + this.net.getTollCost() + " €").end()
                 .end();
         /**
          * End Head
@@ -116,10 +130,14 @@ public class SaveToHTML {
          */
         html.body().font().face("Calibri Regular").end()
                 .div()
-                .center().h2().text("ROADS").end(2);
-        for (int i = 0; i < p.getNetwork().getSectionList().size(); i++) {
-            RoadSection temp = p.getNetwork().getSectionList().get(i);
-            html.div()/*.center()*/.h3().text("Road " + temp.getRoadId()).end()
+                .center().h2().text("BEST PATH").end(2);
+        for (int i = 0; i < net.getBestPath().size(); i++) {
+            RoadSection temp = net.getBestPath().get(i);
+            html.div().h3().text("Section " + (i+1)).end()
+                    .p().text("Road ID : " + temp.getRoadId()).end()
+                    .p().text("Begin Node : " + temp.getBegin()).end()
+                    .p().text("End Node : " + temp.getEnd()).end()
+                    .p().text("Direction : " + temp.getDirection()).end()
                     .div().center().h4().text("SEGMENTS").end(2);
             for (Segment seg : temp.getSegmentList()) {
                 html.h4().text("Segment " + seg.getId()).end()

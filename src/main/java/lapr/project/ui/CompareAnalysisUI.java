@@ -158,17 +158,6 @@ public class CompareAnalysisUI extends JPanel implements MessagesAndUtils {
         return (!node1.equals(sel)) && (!node2.equals(sel)) && (!alg.equals(sel));
     }
 
-//    private void fillDataArray() {
-//        data = new String[3][2];
-//
-//        data[0][0] = "nr_analise";
-//        data[0][1] = Integer.toString(na.getId()) + "";
-//        data[1][0] = "nome_analise";
-//        data[1][1] = na.getName();
-//        data[2][0] = "travel_time";
-//        data[2][1] = Double.toString(na.getTravellTime()) + "";
-//
-//    }
     private JPanel selNode1() {
         String[] allNodes1 = ca.getNodeList().toArray(new String[0]);
 
@@ -266,45 +255,6 @@ public class CompareAnalysisUI extends JPanel implements MessagesAndUtils {
         return p;
     }
 
-//    private JPanel createButtons() {
-//        JPanel bt = new JPanel(new GridLayout(1, 3));
-//
-//        JPanel pSave = new JPanel();
-//        JButton save = new JButton("Save");
-//        save.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                new SaveToFile(tp.getProjectList().getActualProject(), na);
-////				saveToFile.dispose();
-//            }
-//        }
-//        );
-//        pSave.add(save);
-//
-//        JPanel pDatab = new JPanel();
-//        JButton database = new JButton("Export to DB");
-//        database.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-////                try {
-////                    DAONetworkAnalysis dao = new DAONetworkAnalysis();
-////                    daoHandler.addObjectData(dao, na);
-////                } catch (SQLException ex) {
-////                    Logger.getLogger(CreateAnalysisUI.class.getName()).log(Level.SEVERE, null, ex);
-////                }
-//            }
-//        }
-//        );
-//        pDatab.add(database);
-//
-//        JPanel canc = new JPanel();
-//        canc.add(new CancelButton(this));
-//
-//        bt.add(canc);
-//        bt.add(pDatab);
-//        bt.add(pSave);
-//        return bt;
-//    }
     /**
      * ErrorMessages
      *
@@ -486,7 +436,7 @@ public class CompareAnalysisUI extends JPanel implements MessagesAndUtils {
             public void actionPerformed(ActionEvent ae) {
                 for (NetworkAnalysis analysis : na) {
                     SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(), analysis);
-                    saveToFile.dispose();
+                    //saveToFile.dispose();
                 }
             }
         }
