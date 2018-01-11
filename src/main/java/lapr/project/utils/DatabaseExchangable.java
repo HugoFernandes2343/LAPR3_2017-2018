@@ -11,15 +11,18 @@ import java.util.List;
  *
  * @author Utilizador
  */
-public interface DatabaseExchangable {
+public abstract class DatabaseExchangable {
     /**
      * Sole purpose of this interface is to allow the DataLayer to properly 
      * recieve and treat the data from objects which implement this interface
      */
     
+    public DatabaseExchangable(){
+    }
+    
     /**
      * Returns the necessary data from a said class
      * @return 
      */
-    public List<DatabaseExchangable> getDBData();
+    public abstract List<DatabaseExchangable> getDBData();
 }

@@ -1,13 +1,11 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Regime implements Serializable, DatabaseExchangable {
+public class Regime extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 603L;
 

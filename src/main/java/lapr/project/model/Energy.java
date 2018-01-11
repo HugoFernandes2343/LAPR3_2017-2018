@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Energy implements Serializable, DatabaseExchangable {
+public class Energy extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 503L;
 
@@ -178,6 +178,18 @@ public class Energy implements Serializable, DatabaseExchangable {
     public List<DatabaseExchangable> getDBData() {
         List<DatabaseExchangable> temp = new LinkedList<>();
         temp.add(this);
+        return temp;
+    }
+    
+    public List<DatabaseExchangable> getDBGearData(){
+        List<DatabaseExchangable> temp = new LinkedList<>();
+        temp.addAll(this.gearList);
+        return temp;
+    }
+    
+    public List<DatabaseExchangable> getDBThrottleData(){
+        List<DatabaseExchangable> temp = new LinkedList<>();
+        temp.addAll(this.throttleList);
         return temp;
     }
 }

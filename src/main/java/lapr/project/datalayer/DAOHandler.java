@@ -3,10 +3,10 @@ package lapr.project.datalayer;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.model.*;
+import lapr.project.utils.DataExchangableList;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
@@ -88,10 +88,13 @@ public class DAOHandler {
         }
     }
 
-    private void addProjectData(Project p) throws SQLException {
-        DAOProject dao = new DAOProject();
-        dao.addData(con, p);
+    public void addProjectData(Project p) throws SQLException {
+        addObjectData(new DAOProject(),p);
+//        DAOProject dao = new DAOProject();
+//        dao.addData(con, p);
         addToProject(p);
+        ConnectionManager.commitChanges(con);
+        ConnectionManager.closeConnection(con);
     }
 
     /**
@@ -109,16 +112,15 @@ public class DAOHandler {
             for (int i = 0; i < tempVehicle.getVelocityLimitList().getVelocityLimitList().size(); i++) {
                 addObjectData(new DAOVelocityList(tempVehicle), (VelocityLimit) tempVehicle.getVelocityLimitList().getDBData().get(i));
             }
-            /*Add Energy*/
-            addObjectData(new DAOEnergy(tempVehicle), tempVehicle.getEnergy());
-            
-            tempVehicle.getVelocityLimitList();
-        }
-        addObjectData(new DAONetwork(project), project.getNetwork());
-        for (int i = 0; i < project.getNetwork().getNodeList().size(); i++) {
-            addObjectData(new DAONode(), project.getNetwork().getNodeList().get(i));
-        }
 
+            /*Add Energy*/
+//            addObjectData(new DAOEnergy(tempVehicle), tempVehicle.getEnergy());
+
+        }
+//        addObjectData(new DAONetwork(project), project.getNetwork());
+//        for (int i = 0; i < project.getNetwork().getNodeList().size(); i++) {
+//            addObjectData(new DAONode(), project.getNetwork().getNodeList().get(i));
+//        }
     }
 
     /**
@@ -151,7 +153,7 @@ public class DAOHandler {
      *
      * @throws SQLException If the operation wasn't successful
      */
-    private void readAllData() throws SQLException {
+    public void readAllData() throws SQLException {
 //        readObjectData(new DAOProject(), travelByPhysics.getProjectList());
 
 //        for (Project project : flyGreen.getProjectLibrary().getList()) {
@@ -185,19 +187,19 @@ public class DAOHandler {
                 readObjectData(new DAOEnergy(v), tempEnergy, refs2);
 
                 /*Read the gears*/
-                readObjectData(new DAOGear(v), (DatabaseExchangable) tempEnergy.getGearList(), refs2);
+                readObjectData(new DAOGear(v), new DataExchangableList(tempEnergy.getDBGearData()), refs2);
 
                 /*Read the velocityLimits*/
                 VelocityLimitList tempVLimit = v.getVelocityLimitList();
                 readObjectData(new DAOVelocityList(v), tempVLimit, refs2);
 
                 /*Read the Throttle*/
-                readObjectData(new DAOThrottle(v), (DatabaseExchangable) tempEnergy.getThrottleList(), refs2);
+                readObjectData(new DAOThrottle(v), new DataExchangableList(tempEnergy.getDBThrottleData()), refs2);
 
                 /*Read the regimes based on Throttles*/
                 for (Throttle t : tempEnergy.getThrottleList()) {
                     Object[] refs3 = {t.getPercentage(), v.getName()};
-                    readObjectData(new DAORegime(t, v), (DatabaseExchangable) t.getRegimeList(), refs3);
+                    readObjectData(new DAORegime(t, v), new DataExchangableList(t.getDBRegimeData()), refs3);
                 }
 
             }

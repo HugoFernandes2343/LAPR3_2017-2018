@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import lapr.project.datalayer.DAOHandler;
 import lapr.project.datalayer.DAOProject;
 import lapr.project.model.Project;
 import lapr.project.model.Network;
@@ -97,20 +96,20 @@ public class CreateProjectController {
         return this.base.getProjectList().addProject(this.newP);
     }
 
-    public void exportProjectToDatabase() {
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Wanna save to database?\n(It would not be possible to save the network analysis to db)",
-                "CONFIRM", dialogButton);
-        if (dialogResult == 0) {
-            try {
-                DAOProject DAOProject = new DAOProject();
-                base.getDAOHandler().addObjectData(DAOProject, newP);
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Project wont be saved to databased", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+//    public void exportProjectToDatabase() {
+//        int dialogButton = JOptionPane.YES_NO_OPTION;
+//        int dialogResult = JOptionPane.showConfirmDialog(null, "Wanna save to database?\n(It would not be possible to save the network analysis to db)",
+//                "CONFIRM", dialogButton);
+//        if (dialogResult == 0) {
+//            try {
+//                DAOProject DAOProject = new DAOProject();
+//                base.getDAOHandler().addObjectData(DAOProject, newP);
+//                
+//            } catch (SQLException ex) {
+//                Logger.getLogger(CreateProjectUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Project wont be saved to databased", "ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 }

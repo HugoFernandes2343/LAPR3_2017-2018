@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import lapr.project.datalayer.DAOHandler;
 import lapr.project.utils.Algorithm;
 import lapr.project.utils.ShortestTravellTimeAlgorithm;
@@ -87,7 +88,7 @@ public class TravelByPhysics implements Serializable {
             this.dataExchange = new DAOHandler(this);
         } catch (SQLException ex) {
             Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error connecting , please check if you can reach the server");
+            
         }
     }
 

@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -20,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import lapr.project.controller.CreateProjectController;
-import lapr.project.datalayer.DAOProject;
 import lapr.project.model.TravelByPhysics;
 
 /**
@@ -256,7 +253,7 @@ public class CreateProjectUI extends JPanel implements MessagesAndUtils {
                     if (dialogResult == 0) {
                         if (cp.addProject()) {
                             sucMess(CREATE_SUC, MESS_SUCC);
-                            cp.exportProjectToDatabase();;
+//                            cp.exportProjectToDatabase();
                             removeAll();
                             add(new MainPanel(tp.getProjectList().getActualProject()));
                             win.setProject();

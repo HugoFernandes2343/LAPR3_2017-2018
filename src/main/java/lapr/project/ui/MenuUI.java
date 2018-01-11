@@ -7,16 +7,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import lapr.project.model.TravelByPhysics;
+import static lapr.project.ui.MessagesAndUtils.CREATE_SUC;
+import static lapr.project.ui.MessagesAndUtils.ERR_NO_FILE;
+import static lapr.project.ui.MessagesAndUtils.MESS_CONF;
+import static lapr.project.ui.MessagesAndUtils.MESS_ERR;
+import static lapr.project.ui.MessagesAndUtils.MESS_SUCC;
 
 public class MenuUI extends JFrame {
 
@@ -252,7 +259,24 @@ public class MenuUI extends JFrame {
         saveDatabase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //not yet implemented
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Save?",
+                        MESS_CONF, dialogButton);
+                if (dialogResult == 0) {
+                    try {
+                        tp.getDAOHandler().addProjectData(tp.getProjectList().getActualProject());
+                        tp.getDAOHandler().commitChangesMadeToTheDatabase();
+                    }catch(SQLException ex){
+                        Logger.getLogger(MenuUI.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Error processing",
+                        MESS_ERR,JOptionPane.ERROR_MESSAGE);
+                    }
+                    removeAll();
+                    add(new MainPanel(tp.getProjectList().getActualProject()));
+                    revalidate();
+                    repaint();
+
+                }
             }
         });
         m.add(saveDatabase);

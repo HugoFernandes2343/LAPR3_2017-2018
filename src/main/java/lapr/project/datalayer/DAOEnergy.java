@@ -1,6 +1,7 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -35,8 +36,8 @@ public class DAOEnergy extends DAOManager {
         Energy energy = (Energy) data;
 
         cs.setString(1, v.getName());
-        cs.setDouble(2, energy.getMinRpm());
-        cs.setDouble(3, energy.getMaxRpm());
+        cs.setInt(2, energy.getMinRpm());
+        cs.setInt(3, energy.getMaxRpm());
         cs.setDouble(4, energy.getFinalDriveRatio());
         cs.setDouble(5, energy.getErr());
     }

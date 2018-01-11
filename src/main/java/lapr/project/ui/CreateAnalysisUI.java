@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -21,8 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import lapr.project.controller.CreateAnalysisController;
 import lapr.project.datalayer.DAOHandler;
-import lapr.project.datalayer.DAONetwork;
-import lapr.project.datalayer.DAONetworkAnalysis;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.TravelByPhysics;
 
@@ -47,7 +44,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
      * DAOHandler object
      */
     protected DAOHandler daoHandler;
-	
+
     private String node1;
     private String node2;
     private String vehicle;
@@ -67,7 +64,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 
     public CreateAnalysisUI(TravelByPhysics tp) {
         this.tp = tp;
-		this.daoHandler = tp.getDAOHandler();
+        this.daoHandler = tp.getDAOHandler();
         ca = new CreateAnalysisController(tp);
         String[][] emptyData = new String[3][2];
         tableModel = new DefaultTableModel();
@@ -129,7 +126,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
                     if (checkSelected()) {
                         if (!node1.equals(node2)) {
                             if (!analName.getText().isEmpty() && !load.getText().isEmpty()) {
-                                if (ca.validateLoad(load.getText(),vehicle)) {
+                                if (ca.validateLoad(load.getText(), vehicle)) {
                                     if (ca.runAlgorithm(alg, vehicle, node1, node2, analName.getText())) {
                                         na = ca.getAnalysis();
                                         fillDataArray();
@@ -352,40 +349,40 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(),na);
+                SaveToFile saveToFile = new SaveToFile(tp.getProjectList().getActualProject(), na);
                 saveToFile.dispose();
             }
         }
         );
         pSave.add(save);
 
-        JPanel pDatab = new JPanel();
-        JButton database = new JButton("Export to DB");
-        database.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    DAONetwork daoNetwork = new DAONetwork(tp.getProjectList().getActualProject());
-                    daoHandler.addObjectData(daoNetwork, tp.getProjectList().getActualProject().getNetwork());
-                    DAONetworkAnalysis daoNetAnal = new DAONetworkAnalysis();
-                    daoHandler.addObjectData(daoNetAnal, na);
-                } catch (SQLException ex) {
-                    errMess("Error processing request!\n"
-                            + "The project was not saved to database first!","Error");
-                    Logger.getLogger(CreateAnalysisUI.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    sucMess("Exportation of Network and Analysis complete!","Success");
-                }
-            }
-        }
-        );
-        pDatab.add(database);
+//        JPanel pDatab = new JPanel();
+//        JButton database = new JButton("Export to DB");
+//        database.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                try {
+//                    DAONetwork daoNetwork = new DAONetwork(tp.getProjectList().getActualProject());
+//                    daoHandler.addObjectData(daoNetwork, tp.getProjectList().getActualProject().getNetwork());
+//                    DAONetworkAnalysis daoNetAnal = new DAONetworkAnalysis();
+//                    daoHandler.addObjectData(daoNetAnal, na);
+//                } catch (SQLException ex) {
+//                    errMess("Error processing request!\n"
+//                            + "The project was not saved to database first!", "Error");
+//                    Logger.getLogger(CreateAnalysisUI.class.getName()).log(Level.SEVERE, null, ex);
+//                } finally {
+//                    sucMess("Exportation of Network and Analysis complete!", "Success");
+//                }
+//            }
+//        }
+//        );
+//        pDatab.add(database);
 
         JPanel canc = new JPanel();
         canc.add(new CancelButton(this));
 
         bt.add(canc);
-        bt.add(pDatab);
+//        bt.add(pDatab);
         bt.add(pSave);
         return bt;
     }

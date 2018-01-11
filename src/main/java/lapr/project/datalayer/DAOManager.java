@@ -53,7 +53,7 @@ public abstract class DAOManager extends ConnectionManager {
     protected abstract void read(CallableStatement stmt,DatabaseExchangable placeToAdd, Object[] references) throws SQLException;
 
     protected void execute(CallableStatement cs) throws SQLException {
-        cs.executeUpdate();//Was Query
+        cs.execute();
         cs.close();
     }
 

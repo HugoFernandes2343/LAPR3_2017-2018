@@ -9,7 +9,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -20,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import lapr.project.datalayer.DAOHandler;
-import lapr.project.datalayer.DAONetworkAnalysis;
 import lapr.project.datalayer.SaveToCSV;
 import lapr.project.datalayer.SaveToHTML;
 import lapr.project.model.NetworkAnalysis;
@@ -88,7 +85,7 @@ public class SaveToFile extends JFrame {//Add the implementation later
      */
     private void setConfigurations() {
         this.setTitle("Export(Choose format):");
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setAlwaysOnTop(true);
         createMainPanel();

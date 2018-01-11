@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Node implements Serializable,DatabaseExchangable {
+public class Node extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 505L;
 

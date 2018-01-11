@@ -13,7 +13,7 @@ import lapr.project.utils.DatabaseExchangable;
  *
  * @author
  */
-public class VehicleList implements Serializable, DatabaseExchangable {
+public class VehicleList extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 205L;
 

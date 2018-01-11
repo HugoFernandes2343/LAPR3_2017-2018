@@ -25,7 +25,7 @@ public abstract class ConnectionManager {
     /**
      * Data base password
      */
-    public static final String PASS = "ficaproano";
+    public static final String PASS = "katchow";
     
     /**
      * Constructor

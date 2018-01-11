@@ -1,14 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class TollClass implements Serializable, DatabaseExchangable {
+public class TollClass extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 501L;
 

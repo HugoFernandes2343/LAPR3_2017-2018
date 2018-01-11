@@ -1,14 +1,12 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class Throttle implements Serializable, DatabaseExchangable {
+public class Throttle extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 100L;
 
@@ -95,6 +93,12 @@ public class Throttle implements Serializable, DatabaseExchangable {
     public List<DatabaseExchangable> getDBData() {
         List<DatabaseExchangable> temp = new LinkedList<>();
         temp.add(this);
+        return temp;
+    }
+    
+    public List<DatabaseExchangable> getDBRegimeData() {
+        List<DatabaseExchangable> temp = new LinkedList<>();
+        temp.addAll(this.regimeList);
         return temp;
     }
 

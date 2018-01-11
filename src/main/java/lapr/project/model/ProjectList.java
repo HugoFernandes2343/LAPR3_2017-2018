@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
-public class ProjectList implements Serializable, DatabaseExchangable {
+public class ProjectList extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 602L;
 
