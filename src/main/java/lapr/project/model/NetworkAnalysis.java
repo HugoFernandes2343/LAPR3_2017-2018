@@ -7,14 +7,14 @@ import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
- * @author 
+ * @author
  */
 public class NetworkAnalysis extends DatabaseExchangable {
 
     private static int flag = 1;
     private int id;
     private String name;
-    private List<RoadSection> bestPath;
+    private BestPath bestPath;
     private List<Double> velocityPerSegment;
     private List<Double> forcePerSegment;
     private Vehicle vehicle;
@@ -39,11 +39,11 @@ public class NetworkAnalysis extends DatabaseExchangable {
         this.endNode = endNode;
         this.type = type;
         this.velocityPerSegment = new LinkedList<>();
-        this.bestPath = new LinkedList<>();
+        this.bestPath = new BestPath();
         this.id = flag;
         flag++;
     }
-    
+
     public NetworkAnalysis(String type) {
         this.type = type;
     }
@@ -62,22 +62,22 @@ public class NetworkAnalysis extends DatabaseExchangable {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * @return the bestPath
      */
     public List<RoadSection> getBestPath() {
-        return bestPath;
+        return bestPath.getSectionList();
     }
 
     /**
      * @param bestPath the bestPath to set
      */
     public void setBestPath(List<RoadSection> bestPath) {
-        this.bestPath = bestPath;
+        this.bestPath.setSectionList(bestPath);
     }
 
     /**
@@ -276,36 +276,38 @@ public class NetworkAnalysis extends DatabaseExchangable {
         this.fuelVolume = fuelVolume;
     }
 
-     /**
+    /**
      * @return Acceleration
      */
     public double getAceleratingAcceleration() {
         return aceleratingAcceleration;
     }
-    
+
     /**
      * @return braking accelaration
      */
     public double getBrakingAcceleration() {
         return brakingAcceleration;
     }
-    
+
     /**
-     * Setter of aceleratingAcceleration 
-     * @param aceleratingAcceleration -  car acceleration
+     * Setter of aceleratingAcceleration
+     *
+     * @param aceleratingAcceleration - car acceleration
      */
     public void setAceleratingAcceleration(double aceleratingAcceleration) {
         this.aceleratingAcceleration = aceleratingAcceleration;
     }
-    
+
     /**
      * Setter of Car Braking Acceleration
+     *
      * @param brakingAcceleration - Car Braking Acceleration
      */
     public void setBrakingAcceleration(double brakingAcceleration) {
         this.brakingAcceleration = brakingAcceleration;
     }
-    
+
     /**
      * method that returns the data to relate to the dataBase
      */
@@ -343,7 +345,7 @@ public class NetworkAnalysis extends DatabaseExchangable {
             return false;
         }
         NetworkAnalysis other = (NetworkAnalysis) obj;
-        return name.equalsIgnoreCase( other.name);
+        return name.equalsIgnoreCase(other.name);
 
     }
 
