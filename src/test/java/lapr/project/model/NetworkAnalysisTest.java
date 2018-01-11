@@ -79,6 +79,16 @@ public class NetworkAnalysisTest {
     }
 
     /**
+     * Test of setBeginNode method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testSetName() {
+        System.out.println("setName");
+        instance.setName("test");
+        assertTrue(instance.getName().equalsIgnoreCase("test"));
+    }    
+    
+    /**
      * Test of getBestPath method, of class NetworkAnalysis.
      */
     @Test

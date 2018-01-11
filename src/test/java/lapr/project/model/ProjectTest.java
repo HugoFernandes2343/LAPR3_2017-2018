@@ -217,8 +217,8 @@ public class ProjectTest {
     @Test
     public void testGetNetworkAnalysis() {
         System.out.println("getNetworkAnalysis");
-        NetworkAnalysis result = instance.getNetworkAnalysis();
-        assertTrue(result==null);
+        List<NetworkAnalysis> result = instance.getNetworkAnalysis();
+        assertTrue(result.isEmpty());
      
     }
 
@@ -228,9 +228,11 @@ public class ProjectTest {
     @Test
     public void testSetNetworkAnalysis() {
         System.out.println("setNetworkAnalysis");
+        LinkedList<NetworkAnalysis> netList = new LinkedList<>();
         NetworkAnalysis net = new NetworkAnalysis("test") {};
-        instance.setNetworkAnalysis(net);
-        assertTrue(net.getType().equalsIgnoreCase(instance.getNetworkAnalysis().getType()));
+        netList.add(net);
+        instance.setNetworkAnalysis(netList);
+        assertTrue(net.getType().equalsIgnoreCase(instance.getNetworkAnalysis().get(0).getType()));
     }
 
     /**
@@ -244,5 +246,34 @@ public class ProjectTest {
         List<DatabaseExchangable> result = instance.getDBData();
         assertEquals(expResult, result);
        
+    }
+
+    /**
+     * Test of addNetworkAnalysis method, of class Project.
+     */
+    @Test
+    public void testAddNetworkAnalysis() {
+        System.out.println("addNetworkAnalysis");
+        NetworkAnalysis net = new NetworkAnalysis("testType");
+        instance.addNetworkAnalysis(net);
+        assertTrue(instance.getNetworkAnalysis().get(0).getType().equalsIgnoreCase("testType"));
+        
+    }
+
+    /**
+     * Test of getNetAnalByName method, of class Project.
+     */
+    @Test
+    public void testGetNetAnalByName() {
+        System.out.println("getNetAnalByName");
+        NetworkAnalysis netAnal = new NetworkAnalysis("testType");
+        netAnal.setName("test");
+        instance.getNetworkAnalysis().add(netAnal);
+        NetworkAnalysis expResult = netAnal;
+        NetworkAnalysis result = instance.getNetAnalByName("test");
+        assertEquals(expResult, result);
+        expResult = null;
+        result = instance.getNetAnalByName("testfail");
+        assertEquals(expResult,result);
     }
 }

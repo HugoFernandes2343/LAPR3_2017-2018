@@ -56,7 +56,7 @@ public class SaveToHTMLTest {
         test.setNetwork(netTest);
         
         ShortestTravellTimeAnalysis analysis = new ShortestTravellTimeAnalysis();
-        test.setNetworkAnalysis(analysis);
+        test.addNetworkAnalysis(analysis);
         save = new SaveToHTML();
         save.setProject(test);
     }

@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -18,13 +19,14 @@ public class Project extends DatabaseExchangable implements Serializable {
     private String description;
     private VehicleList vehicleList;
     private Network network;
-    private NetworkAnalysis netAnalysis;
+    private List<NetworkAnalysis> netAnalysis;
 
     public Project(String name, String desc) {
         this.name = name;
         this.description = desc;
         this.network = new Network();
         this.vehicleList = new VehicleList();
+        this.netAnalysis = new  LinkedList<>();
     }
 
     public Project() {
@@ -32,6 +34,7 @@ public class Project extends DatabaseExchangable implements Serializable {
         this.description = "n/a";
         this.network = new Network();
         this.vehicleList = new VehicleList();
+        this.netAnalysis = new  LinkedList<>();
     }
 
     public Project(Project other) {
@@ -39,6 +42,7 @@ public class Project extends DatabaseExchangable implements Serializable {
         this.name = other.name;
         this.network = other.network;
         this.vehicleList = other.vehicleList;
+        this.netAnalysis =other.netAnalysis;
     }
 
     /**
@@ -102,17 +106,33 @@ public class Project extends DatabaseExchangable implements Serializable {
      *
      * @return
      */
-    public NetworkAnalysis getNetworkAnalysis() {
+    public List<NetworkAnalysis> getNetworkAnalysis() {
         return this.netAnalysis;
     }
 
     /**
      * @param network the networkanalysis to set
      */
-    public void setNetworkAnalysis(NetworkAnalysis net) {
+    public void setNetworkAnalysis(List<NetworkAnalysis> net) {
         this.netAnalysis = net;
     }
 
+    /**
+     * @param network the networkanalysis to set
+     */
+    public void addNetworkAnalysis(NetworkAnalysis net) {
+        this.netAnalysis.add(net);
+    }
+
+    public NetworkAnalysis getNetAnalByName(String name)throws NullPointerException{
+        for ( NetworkAnalysis  net : this.netAnalysis) {
+            if (net.getName().equalsIgnoreCase(name)) {
+                return net;
+            }
+        }
+        return null;
+    }
+    
     /**
      *
      * @return the integer representation of the object Project

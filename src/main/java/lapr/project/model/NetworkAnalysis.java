@@ -60,6 +60,10 @@ public class NetworkAnalysis extends DatabaseExchangable {
         return name;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+    
     /**
      * @return the bestPath
      */
