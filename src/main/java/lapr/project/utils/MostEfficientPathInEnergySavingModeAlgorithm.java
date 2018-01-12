@@ -84,7 +84,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
         this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
         AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
         this.vehicle = vehicle;
-        MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis();
+        MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
         
         analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
         analysis.setBrakingAcceleration(this.brakingAcceleration);
@@ -162,7 +162,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
         if (regime == null) {
             return null;
         }
-         for(int i = 0;i<vehicle.getEnergy().getGearList().size();i++){
+         for(int i = 0;i<vehicle.getEnergy().getGearList().size()-1;i++){
             
             if(validateValues(gear, regime, acceleration, values, vehicle, vr, angle)){
                 return gear;

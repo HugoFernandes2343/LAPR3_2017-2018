@@ -64,23 +64,47 @@ public class MostEfficientPathInEnergySavingModeAlgorithmTest {
         System.out.println("runAlgorithm");
         VelocityLimitList velocityLimitList = new VelocityLimitList();
         VehicleList vehicles = new VehicleList();
-        List<Gear> gears = new LinkedList<>();
+        List<Segment> segments = new LinkedList<>();
+        segments.add(new Segment("01", 100.0, 200.0, "1.2 Km", 20.0, "5 m/s", "90 Km/h", "0 Km/h"));
+        
+        
         List<Throttle> throttles = new LinkedList<>();
         List<Regime> regimes = new LinkedList<>();
-        List<Segment> segments = new LinkedList<>();
-        segments.add(new Segment("01", 100.0, 200.0, "1.5 Km", 20.0, "5 m/s", "90 Km/h", "0 Km/h"));
         regimes.add(new Regime(125, 115, 900, 1499, 500.0));
-        regimes.add(new Regime(125, 120, 1500, 2499, 450.0));
+        regimes.add(new Regime(120, 125, 1500, 2499, 450.0));
         regimes.add(new Regime(105, 120, 2500, 3499, 520.0));
         regimes.add(new Regime(90, 105, 3500, 3499, 550.0));
         regimes.add(new Regime(80, 90, 4500, 5500, 650.0));
         throttles.add(new Throttle("25", regimes));
+        
+        
+        List<Regime> regimes1 = new LinkedList<>();
+        regimes1.add(new Regime(195, 185, 900, 1499, 380.0));
+        regimes1.add(new Regime(190, 195, 1500, 2499, 350.0));
+        regimes1.add(new Regime(180, 190, 2500, 3999, 360.0));
+        regimes1.add(new Regime(150, 180, 3500, 4499, 4000.0));
+        regimes1.add(new Regime(135, 150, 4500, 5500, 520.0));
+        throttles.add(new Throttle("50", regimes1));
+        
+        
+        List<Regime> regimes2 = new LinkedList<>();
+        regimes2.add(new Regime(325, 305, 900, 1499, 380.0));
+        regimes2.add(new Regime(315, 125, 1500, 2499, 350.0));
+        regimes2.add(new Regime(290, 315, 2500, 3999, 360.0));
+        regimes2.add(new Regime(220, 290, 3500, 4499, 400.0));
+        regimes2.add(new Regime(80, 90, 4500, 5500, 520.0));
+        throttles.add(new Throttle("100", regimes2));
+        
+        
+        List<Gear> gears = new LinkedList<>();
         gears.add(new Gear("01", 4.5));
         gears.add(new Gear("02", 3.5));
         gears.add(new Gear("03", 2.7));
         gears.add(new Gear("04", 1.6));
         gears.add(new Gear("05", 1.2));
         gears.add(new Gear("06", 0.9));
+        
+        
         Energy energy = new Energy(900, 5500, 4.0, gears, throttles);
         velocityLimitList.addVelocityLimit(new VelocityLimit("Highway", 110));
         velocityLimitList.addVelocityLimit(new VelocityLimit("Road", 80));
@@ -89,8 +113,8 @@ public class MostEfficientPathInEnergySavingModeAlgorithmTest {
         Project project = new Project();
         Node begin = new Node("n0");
         Node end = new Node("n2");
-        Road road = new Road("E01", "regular road", "E01",new TollFare());
-        RoadSection section=new RoadSection("n0", "n2", "E01", "bidirection", segments);
+        Road road = new Road("E01", "regular road", "E01", new TollFare());
+        RoadSection section = new RoadSection("n0", "n2", "E01", "bidirection", segments);
         Network network = new Network();
         network.addRoad(road);
         network.addNode("n0");
@@ -102,11 +126,18 @@ public class MostEfficientPathInEnergySavingModeAlgorithmTest {
         String name = "TestAnalysis";
         double load = 20.0;
         
-//        MostEfficientPathInEnergySavingModeAlgorithm instance = new MostEfficientPathInEnergySavingModeAlgorithm();
-//        NetworkAnalysis expResult = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
-//        
-//        NetworkAnalysis result = instance.runAlgorithm(project, begin, end, vehicle, name, load);
-//        assertEquals(expResult, result);
+        MostEfficientPathInEnergySavingModeAlgorithm instance = new MostEfficientPathInEnergySavingModeAlgorithm();
+        NetworkAnalysis expResult = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
+        instance.setAceleratingAcceleration(0.5);
+        instance.setBrakingAcceleration(-0.5);
+        
+        
+        NetworkAnalysis result = instance.runAlgorithm(project, begin, end, vehicle, name, load);
+        //assertEquals(expResult, result);
+        
+        System.out.println(result.getAverageVelocity());
+        System.out.println(result.getEnergyConsumption());
+        System.out.println(result.getTravellTime());
     }
 
 
