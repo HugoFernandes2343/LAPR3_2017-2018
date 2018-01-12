@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,8 +31,8 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     /**
      * Atributes that keep the information for building the table
      */
-    private String[][] data;
-    private String[] columnsHeader = {"", "Values"};
+    private Object[][] data;
+    private String[] columnsHeader = {"", "Valor"};
     private DefaultTableModel tableModel;
 
     /**
@@ -51,6 +52,8 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     private String alg;
     private JTextField analName;
     private JTextField load;
+    private JTextField accelaration;
+    private JTextField braking;
     private NetworkAnalysis na;
     private JTable table;
 
@@ -66,15 +69,10 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         this.tp = tp;
         this.daoHandler = tp.getDAOHandler();
         ca = new CreateAnalysisController(tp);
-        String[][] emptyData = new String[3][2];
-        tableModel = new DefaultTableModel();
-        this.table = new JTable(tableModel);
-        tableModel.setDataVector(emptyData, columnsHeader);
-
         mPanel = new JPanel(layout);
         mPanel.setPreferredSize(dim);
         mPanel.add(pageOne(), "page1");
-        mPanel.add(pageTwo(), "page2");
+
         layout.show(mPanel, "page1");
         setBackground(Color.GRAY);
         add(mPanel);
@@ -127,13 +125,26 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
                         if (!node1.equals(node2)) {
                             if (!analName.getText().isEmpty() && !load.getText().isEmpty()) {
                                 if (ca.validateLoad(load.getText(), vehicle)) {
-                                    if (ca.runAlgorithm(alg, vehicle, node1, node2, analName.getText())) {
-                                        na = ca.getAnalysis();
-                                        fillDataArray();
-                                        tableModel.setDataVector(data, columnsHeader);
-                                        layout.show(mPanel, "page2");
+                                    if (!alg.equals("Algorithm: Shortest Travell Time (N10)")) {
+                                        JFrame accFrame = new JFrame("Accelaration Values: ");
+                                        accFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                        accFrame.setLocationRelativeTo(null);
+                                        accFrame.add(createAccComponents(accFrame));
+                                        accFrame.pack();
+                                        accFrame.setVisible(true);
                                     } else {
-                                        errMess(ERR_ANAL, MESS_ERR);
+                                        if (ca.runAlgorithm(alg, vehicle, node1, node2, analName.getText(), load.getText(), "0", "0")) {
+                                            na = ca.getAnalysis();
+
+                                            tableModel = new DefaultTableModel();
+                                            tableModel.setDataVector(getFinalResultTable(), columnsHeader);
+                                            table = new JTable(tableModel);
+                                            mPanel.add(pageTwo(), "page2");
+
+                                            layout.show(mPanel, "page2");
+                                        } else {
+                                            errMess(ERR_ANAL, MESS_ERR);
+                                        }
                                     }
                                 } else {
                                     errMess(ERR_LOAD, MESS_ERR);
@@ -165,18 +176,6 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     private boolean checkSelected() {
         String sel = "Select an option:";
         return (!node1.equals(sel)) && (!node2.equals(sel)) && (!vehicle.equals(sel)) && (!alg.equals(sel));
-    }
-
-    private void fillDataArray() {
-        data = new String[3][2];
-
-        data[0][0] = "nr_analise";
-        data[0][1] = Integer.toString(na.getId()) + "";
-        data[1][0] = "nome_analise";
-        data[1][1] = na.getName();
-        data[2][0] = "travel_time";
-        data[2][1] = Double.toString(na.getTravellTime()) + "";
-
     }
 
     private JPanel selNode1() {
@@ -377,7 +376,6 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
 //        }
 //        );
 //        pDatab.add(database);
-
         JPanel canc = new JPanel();
         canc.add(new CancelButton(this));
 
@@ -409,5 +407,97 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
     public void sucMess(String message, String title
     ) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public JPanel createAccComponents(JFrame accFrame) {
+        JPanel accMain = new JPanel(new GridLayout(3, 1));
+        accMain.add(createAccAccelarationComponent());
+        accMain.add(createAccBrakingComponent());
+        accMain.add(createAccButtons(accFrame));
+
+        return accMain;
+    }
+
+    public JPanel createAccAccelarationComponent() {
+        JPanel accMain = new JPanel(new GridLayout(1, 2));
+        JPanel textAccelaration = new JPanel();
+        JPanel labelAccelaration = new JPanel();
+        JLabel lbAccelaration = new JLabel("Acelarating accelaration value");
+        lbAccelaration.setHorizontalAlignment(JLabel.CENTER);
+        labelAccelaration.add(lbAccelaration);
+        this.accelaration = new JTextField(20);
+        textAccelaration.add(accelaration);
+        accMain.add(labelAccelaration);
+        accMain.add(textAccelaration);
+
+        return accMain;
+    }
+
+    public JPanel createAccBrakingComponent() {
+        JPanel accMain = new JPanel(new GridLayout(1, 2));
+        JPanel textBraking = new JPanel();
+        JPanel labelBraking = new JPanel();
+        JLabel lbBraking = new JLabel("Acelarating braking value");
+        lbBraking.setHorizontalAlignment(JLabel.CENTER);
+        labelBraking.add(lbBraking);
+        this.braking = new JTextField(20);
+        textBraking.add(braking);
+        accMain.add(labelBraking);
+        accMain.add(textBraking);
+
+        return accMain;
+    }
+
+    public JPanel createAccButtons(JFrame accFrame) {
+        JPanel accMain = new JPanel(new GridLayout(1, 2));
+        JButton next = new JButton("Next");
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (ca.runAlgorithm(alg, vehicle, node1, node2, analName.getText(), load.getText(), accelaration.getText(), braking.getText())) {
+                    na = ca.getAnalysis();
+
+                    tableModel = new DefaultTableModel();
+                    tableModel.setDataVector(getFinalResultTable(), columnsHeader);
+                    table = new JTable(tableModel);
+                    mPanel.add(pageTwo(), "page2");
+                    accFrame.dispose();
+                    layout.show(mPanel, "page2");
+                } else {
+                    errMess(ERR_ANAL, MESS_ERR);
+                }
+            }
+        });
+
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                accFrame.dispose();
+            }
+        });
+        accMain.add(cancel);
+        accMain.add(next);
+        return accMain;
+    }
+
+    private Object[][] getFinalResultTable() {
+        data = new Object[7][2];
+        Object[][] result = ca.getFinalTableData();
+        data[0][0] = "Analysis Name";
+        data[0][1] = na.getName();
+        data[1][0] = "Analysis id";
+        data[1][1] = na.getId();
+        data[2][0] = "Vehicle";
+        data[2][1] = result[0][0];
+        data[3][0] = "Best Path";
+        data[3][1] = result[0][1];
+        data[4][0] = "Traveling Time (seconds)";
+        data[4][1] = result[0][2];
+        data[5][0] = "Energy Consumption (joules)";
+        data[5][1] = result[0][3];
+        data[6][0] = "Toll cost (euro)";
+        data[6][1] = result[0][4];
+        return data;
     }
 }

@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import lapr.project.datalayer.DAOHandler;
 import lapr.project.utils.Algorithm;
+import lapr.project.utils.MostEfficientPathInEnergySavingModeAlgorithm;
 import lapr.project.utils.ShortestTravellTimeAlgorithm;
+import lapr.project.utils.TheoreticalMostEnergyEfficientAlgorithm;
 
 /**
  *
@@ -44,9 +46,10 @@ public class TravelByPhysics implements Serializable {
     public TravelByPhysics() {
         this.projectList = new ProjectList();
         this.userList = new UserList();
-        Algorithm a = new ShortestTravellTimeAlgorithm();
         this.algorithmsList = new ArrayList<>();
-        this.algorithmsList.add(a);
+        this.algorithmsList.add(new ShortestTravellTimeAlgorithm());
+        this.algorithmsList.add(new MostEfficientPathInEnergySavingModeAlgorithm());
+        this.algorithmsList.add(new TheoreticalMostEnergyEfficientAlgorithm());
         createDataHandler();
         System.out.println("Test");
     }
@@ -71,7 +74,7 @@ public class TravelByPhysics implements Serializable {
     public DAOHandler getDAOHandler() {
         return this.dataExchange;
     }
-    
+
     /**
      * @return a List of all algorithms names
      */
@@ -88,7 +91,7 @@ public class TravelByPhysics implements Serializable {
             this.dataExchange = new DAOHandler(this);
         } catch (SQLException ex) {
             Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
     }
 

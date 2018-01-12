@@ -17,6 +17,9 @@ import lapr.project.model.Project;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.model.Vehicle;
 import lapr.project.utils.Algorithm;
+import lapr.project.utils.MostEfficientPathInEnergySavingModeAlgorithm;
+import lapr.project.utils.ShortestTravellTimeAlgorithm;
+import lapr.project.utils.TheoreticalMostEnergyEfficientAlgorithm;
 
 /**
  *
@@ -27,7 +30,7 @@ public class CreateAnalysisController {
     /**
      * Constant to check if a string is a number
      */
-    private static final String REGEX = "\\d+";
+    private static final String REGEX = "-?\\d+(\\.\\d+)?";
 
     /**
      * The analysis list for comparison.
@@ -78,7 +81,8 @@ public class CreateAnalysisController {
         return this.actualproject.getNetwork().getNodesByName();
     }
 
-    public boolean runAlgorithm(String algorithm, String vehicle, String begin, String end, String name) {
+    public boolean runAlgorithm(String algorithm, String vehicle, String begin, String end, String name, String load, String accelaration, String braking) {
+        double loadValue = Double.parseDouble(load);
         Algorithm a = findAlgorithm(algorithm);
         if (a == null) {
             return false;
@@ -94,8 +98,36 @@ public class CreateAnalysisController {
             return false;
         }
 
-        this.result = a.runAlgorithm(actualproject, beginN, endN, v, name, 20);
-        return true;
+        if (a instanceof ShortestTravellTimeAlgorithm) {
+            this.result = ((ShortestTravellTimeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+            resultList.add(result);
+            return true;
+        }
+
+        if (!accelaration.matches(REGEX) || !braking.matches(REGEX)) {
+            return false;
+        }
+
+        double aAccelaration = Double.parseDouble(accelaration);
+        double aBraking = Double.parseDouble(braking);
+
+        if (aBraking < 0 && aAccelaration > 0) {
+            if (a instanceof MostEfficientPathInEnergySavingModeAlgorithm) {
+                ((MostEfficientPathInEnergySavingModeAlgorithm) a).setAceleratingAcceleration(aAccelaration);
+                ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(aBraking);
+                this.result = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+                resultList.add(result);
+                return true;
+            }
+
+            ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
+            ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
+            this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+            resultList.add(result);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -188,7 +220,7 @@ public class CreateAnalysisController {
         if (alg.equals("Algorithm: Shortest Travell Time (N10)")) {
             return runBulkAlgorithmN10(chosenRows, alg, node1, node2, name);
         }
-        return null;
+        return runBulkAlgorithm(chosenRows, alg, node1, node2, name);
     }
 
     private List<NetworkAnalysis> runBulkAlgorithmN10(List<Object[]> chosenRows, String alg, String node1, String node2, String name) {
@@ -197,8 +229,40 @@ public class CreateAnalysisController {
             Node beginN = this.actualproject.getNetwork().searchNode(node1);
             Node endN = this.actualproject.getNetwork().searchNode(node2);
             String value = (String) data[1];
-            double load = Double.parseDouble(value.replace(" kg", ""));
+            double load = Double.parseDouble(value);
             NetworkAnalysis analysis = a.runAlgorithm(actualproject, beginN, endN, actualproject.getVehicleList().getVehicleByName((String) data[0]), name, load);
+            resultList.add(analysis);
+        }
+        return resultList;
+    }
+
+    private List<NetworkAnalysis> runBulkAlgorithm(List<Object[]> chosenRows, String alg, String node1, String node2, String name) {
+        NetworkAnalysis analysis = null;
+        Algorithm a = findAlgorithm(alg);
+        for (Object[] data : chosenRows) {
+            Node beginN = this.actualproject.getNetwork().searchNode(node1);
+            Node endN = this.actualproject.getNetwork().searchNode(node2);
+            String value = (String) data[1];
+            String sBraking = (String) data[3];
+            String sAccelarating = (String) data[4];
+            double load = Double.parseDouble(value);
+            double braking = Double.parseDouble(sBraking);
+            double accelaration = Double.parseDouble(sAccelarating);
+            String vehicleName = (String) data[0];
+            Vehicle v = actualproject.getVehicleList().getVehicleByName(vehicleName);
+            if (braking < 0 && accelaration > 0) {
+                if (a instanceof MostEfficientPathInEnergySavingModeAlgorithm) {
+                    ((MostEfficientPathInEnergySavingModeAlgorithm) a).setAceleratingAcceleration(accelaration);
+                    ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(braking);
+                    analysis = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
+
+                }
+
+                ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(accelaration);
+                ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(braking);
+                analysis = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
+
+            }
             resultList.add(analysis);
         }
         return resultList;
