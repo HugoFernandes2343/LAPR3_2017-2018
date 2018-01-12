@@ -53,7 +53,7 @@ public class DAOBestPath extends DAOManager {
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         List<DatabaseExchangable> bpList = placeToAdd.getDBData();
         int naId = (int) references[0];
-        Network net = (Network) references[0];
+        Network net = (Network) references[1];
         ResultSet rs = null;
 
         try {

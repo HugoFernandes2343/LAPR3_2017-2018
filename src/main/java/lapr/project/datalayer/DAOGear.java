@@ -22,7 +22,7 @@ public class DAOGear extends DAOManager {
     /**
      * Name of the function in the database that gets VelocityLimits
      */
-    private static final String GET_GEAR_PROCEDURE = "{call proc_getGears(?,?)}";
+    private static final String GET_GEAR_PROCEDURE = "{call proc_get_gear(?,?)}";
 
     private Vehicle v;
 

@@ -25,12 +25,12 @@ public class DAOTollClass extends DAOManager {
     /**
      * Name of the function in the database that adds TollClasses
      */
-    private static final String ADD_TOLLCLASS_PROCEDURE = "{call proc_insert_tollclass(?,?,?)}";
+    private static final String ADD_TOLLCLASS_PROCEDURE = "{call proc_insert_toll_class(?,?,?)}";
 
     /**
      * Name of the function in the database that gets TollClasses
      */
-    private static final String GET_TOLLCLASSES_PROCEDURE = "{call proc_get_tollclasses(?,?)}";
+    private static final String GET_TOLLCLASSES_PROCEDURE = "{call proc_get_toll_class(?,?)}";
 
     private Road r;
 

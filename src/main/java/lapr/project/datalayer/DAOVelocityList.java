@@ -22,7 +22,7 @@ public class DAOVelocityList extends DAOManager {
     /**
      * Name of the function in the database that gets VelocityLimits
      */
-    private static final String GET_VELOCITY_LIST_PROCEDURE = "{call proc_getProject(?,?)}";
+    private static final String GET_VELOCITY_LIST_PROCEDURE = "{call proc_get_velocity_limit(?,?)}";
 
     private Vehicle v;
 
@@ -33,11 +33,11 @@ public class DAOVelocityList extends DAOManager {
 
     @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
-        VelocityLimit list = (VelocityLimit) data;
+        VelocityLimit limit = (VelocityLimit) data;
 
         cs.setString(1, v.getName());
-        cs.setString(2, list.getSegmentType());
-        cs.setDouble(3, list.getLimit());
+        cs.setString(2, limit.getSegmentType());
+        cs.setDouble(3, limit.getLimit());
     }
 
     @Override

@@ -31,7 +31,7 @@ public class DAONetworkAnalysis extends DAOManager {
     /**
      * Name of the function in the database that gets analysis
      */
-    private static final String GET_ANALYSIS_PROCEDURE = "{call proc_get_Analysis(?,?)}";
+    private static final String GET_ANALYSIS_PROCEDURE = "{call proc_get_Analysis(?,?,?,?,?,?)}";
 
     public DAONetworkAnalysis() throws SQLException {
         super(ADD_ANALYSIS_PROCEDURE, GET_ANALYSIS_PROCEDURE);
@@ -72,6 +72,7 @@ public class DAONetworkAnalysis extends DAOManager {
         String endNodeId = endNode.getId();
         Node beginNode = (Node) references[3];
         String beginNodeId = beginNode.getId();
+        String typeRef = (String) references[4];
         ResultSet rs = null;
 
         try {
@@ -80,6 +81,7 @@ public class DAONetworkAnalysis extends DAOManager {
             stmt.setString(3, vehicleName);
             stmt.setString(4, endNodeId);
             stmt.setString(5, beginNodeId);
+            stmt.setString(6, typeRef);
             stmt.executeUpdate();
             rs = (ResultSet) stmt.getObject(1);
 

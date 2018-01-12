@@ -35,6 +35,10 @@ public class DAOHandler {
         this.travelByPhysics = tf;
     }
 
+    public Connection getConnection() {
+        return this.con;
+    }
+
     /**
      * Commits the changes made to the database
      */
@@ -89,45 +93,83 @@ public class DAOHandler {
     }
 
     public void addProjectData(Project p) throws SQLException {
-        addObjectData(new DAOProject(),p);
-//        DAOProject dao = new DAOProject();
-//        dao.addData(con, p);
+        addObjectData(new DAOProject(), p);
         addToProject(p);
-        ConnectionManager.commitChanges(con);
-        ConnectionManager.closeConnection(con);
+//        commitChangesMadeToTheDatabase();
     }
 
     /**
-     * Adds the library of a project to the database
+     * Adds data of a project to the database
      *
-     * @param project Project where the libraries are located
+     * @param project Project where the all the data is stored
      * @throws SQLException If the operation was not successful
      */
     private void addToProject(Project project) throws SQLException {
+        /*Add the vehicles*/
         addObjectData(new DAOVehicle(project), project.getVehicleList());
 
         for (Vehicle tempVehicle : project.getVehicleList().getVehicleList()) {
-            
+
             /*Add VelocityLimits*/
-            for (int i = 0; i < tempVehicle.getVelocityLimitList().getVelocityLimitList().size(); i++) {
-                addObjectData(new DAOVelocityList(tempVehicle), (VelocityLimit) tempVehicle.getVelocityLimitList().getDBData().get(i));
+            for (VelocityLimit limit : tempVehicle.getVelocityLimitList().getVelocityLimitList()) {
+                addObjectData(new DAOVelocityList(tempVehicle), limit);
             }
 
             /*Add Energy*/
-//            addObjectData(new DAOEnergy(tempVehicle), tempVehicle.getEnergy());
+            addObjectData(new DAOEnergy(tempVehicle), tempVehicle.getEnergy());
 
+            /*Add Gears*/
+            for (Gear gTemp : tempVehicle.getEnergy().getGearList()) {
+                addObjectData(new DAOGear(tempVehicle), gTemp);
+            }
+            
+            /*Add Throttles*/
+            for (Throttle tTemp : tempVehicle.getEnergy().getThrottleList()) {
+                addObjectData(new DAOThrottle(tempVehicle), tTemp);
+                /*Add Regimes*/
+                for (Regime rTemp : tTemp.getRegimeList()) {
+                    addObjectData(new DAORegime(tTemp), rTemp);
+                }
+            }
         }
-//        addObjectData(new DAONetwork(project), project.getNetwork());
-//        for (int i = 0; i < project.getNetwork().getNodeList().size(); i++) {
-//            addObjectData(new DAONode(), project.getNetwork().getNodeList().get(i));
-//        }
+
+        /*Add Network*/
+        addObjectData(new DAONetwork(project), project.getNetwork());
+        /*Add Nodes*/
+        for(Node nTemp : project.getNetwork().getNodeList()){
+            addObjectData(new DAONode(project.getNetwork()), nTemp);
+        }
+        /*Add Roads*/
+        for(Road roadTemp : project.getNetwork().getRoadList()){
+            addObjectData(new DAORoad(project.getNetwork()),roadTemp);
+            
+            for(TollClass tollTemp : roadTemp.getTollFare().getListClasses()){
+                addObjectData(new DAOTollClass(roadTemp),tollTemp);
+            }
+        }
+        /*Add RoadSections*/
+        for(RoadSection roadSectionTemp : project.getNetwork().getSectionList()){
+            addObjectData(new DAORoadSection(),roadSectionTemp);
+            
+            for(Segment segTemp : roadSectionTemp.getSegmentList()){
+                addObjectData(new DAOSegment(roadSectionTemp),segTemp);
+            }
+        }
+        
+        for(NetworkAnalysis netAnal : project.getNetworkAnalysis()){
+            addObjectData(new DAONetworkAnalysis(),netAnal);
+            
+            for(RoadSection nodeBestPath : netAnal.getBestPath()){
+                addObjectData(new DAOBestPath(netAnal),nodeBestPath);
+            }
+        }
     }
 
     /**
-     * Adds a library to the database
+     * Adds a object to the database
      *
      * @param dao DAO class
-     * @param dataHolder Library
+     * @param dataHolder object
      * @throws SQLException If the operation is not successful
      */
     public void addObjectData(DAOManager dao, DatabaseExchangable dataHolder) throws SQLException {  //Adicionar o metodo getList à interface
@@ -139,22 +181,13 @@ public class DAOHandler {
     }
 
     /**
-     * Reads all the data in the database.
-     *
-     * @throws SQLException If the operation wasn't successful
-     */
-    /**
-     * public void readData() throws SQLException { try { readAllData(); } catch
-     * (SQLException ex) { throw new SQLException(ex); } finally {
-     * ConnectionManager.closeConnection(con); } }
-     */
-    /**
      * Reads the data from the database. Adds the data to this travelByPhysics
      *
      * @throws SQLException If the operation wasn't successful
      */
     public void readAllData() throws SQLException {
-//        readObjectData(new DAOProject(), travelByPhysics.getProjectList());
+        /*Read All Projects, references are empty*/
+        readObjectData(new DAOProject(), travelByPhysics.getProjectList(),new Object[1]);
 
 //        for (Project project : flyGreen.getProjectLibrary().getList()) {
 //            readObjectData(new DAOAircraftModel(project),project.getAircraftModelLibrary());
@@ -177,13 +210,13 @@ public class DAOHandler {
     private void readVehicleData(Project p) {
         try {
             VehicleList vehicleList = p.getVehicleList();
-            Object[] refs = {p.getName()};//Pode-se tirar o refs de tudo provavelmente
+            Object[] refs = {p.getName()};
             readObjectData(new DAOVehicle(p), vehicleList, refs);
 
             for (Vehicle v : vehicleList.getVehicleList()) {
                 /*Read the Energy*/
                 Energy tempEnergy = v.getEnergy();
-                Object[] refs2 = {v.getName()};//Pode-se tirar o refs de tudo provavelmente
+                Object[] refs2 = {v.getName()};
                 readObjectData(new DAOEnergy(v), tempEnergy, refs2);
 
                 /*Read the gears*/
@@ -199,16 +232,23 @@ public class DAOHandler {
                 /*Read the regimes based on Throttles*/
                 for (Throttle t : tempEnergy.getThrottleList()) {
                     Object[] refs3 = {t.getPercentage(), v.getName()};
-                    readObjectData(new DAORegime(t, v), new DataExchangableList(t.getDBRegimeData()), refs3);
+                    readObjectData(new DAORegime(t), new DataExchangableList(t.getDBRegimeData()), refs3);
                 }
 
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DAOHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+//    private void readNetworkData(Project p){
+//        try{
+//            Network network = p.getNetwork();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAOHandler.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+    
     /**
      * Reads a library from the database
      *

@@ -32,7 +32,7 @@ public class DAOVehicle extends DAOManager {
     /**
      * Name of the function in the database that gets vehicles
      */
-    private static final String GET_VEHICLES_PROCEDURE = "{call proc_getVehicle(?,?)}";
+    private static final String GET_VEHICLES_PROCEDURE = "{call proc_get_vehicle(?,?)}";
 
     private final Project projectRef;
 

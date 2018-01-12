@@ -19,11 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import lapr.project.model.TravelByPhysics;
-import static lapr.project.ui.MessagesAndUtils.CREATE_SUC;
-import static lapr.project.ui.MessagesAndUtils.ERR_NO_FILE;
 import static lapr.project.ui.MessagesAndUtils.MESS_CONF;
 import static lapr.project.ui.MessagesAndUtils.MESS_ERR;
-import static lapr.project.ui.MessagesAndUtils.MESS_SUCC;
 
 public class MenuUI extends JFrame {
 
@@ -65,7 +62,13 @@ public class MenuUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose();
+                try {
+                    tp.getDAOHandler().getConnection().close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MenuUI.class.getName()).log(Level.SEVERE, null, ex);
+                }finally{
+                    dispose();
+                }
             }
         });
 
@@ -271,11 +274,6 @@ public class MenuUI extends JFrame {
                         JOptionPane.showMessageDialog(null, "Error processing",
                         MESS_ERR,JOptionPane.ERROR_MESSAGE);
                     }
-                    removeAll();
-                    add(new MainPanel(tp.getProjectList().getActualProject()));
-                    revalidate();
-                    repaint();
-
                 }
             }
         });

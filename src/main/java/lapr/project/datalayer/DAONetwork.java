@@ -31,7 +31,7 @@ public class DAONetwork extends DAOManager {
     /**
      * Name of the function in the database that gets Networks
      */
-    private static final String GET_NETWORKS_PROCEDURE = "{call proc_getNetwork(?,?)}";
+    private static final String GET_NETWORKS_PROCEDURE = "{call proc_get_network(?,?)}";
 
     public DAONetwork(Project p) throws SQLException {
         super(ADD_NETWORKS_PROCEDURE, GET_NETWORKS_PROCEDURE);

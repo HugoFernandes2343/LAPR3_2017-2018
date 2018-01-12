@@ -25,7 +25,7 @@ public class DAORoad extends DAOManager {
     /**
      * Name of the function in the database that adds roads
      */
-    private static final String ADD_ROADS_PROCEDURE = "{call proc_insert_Road(?,?,?)}";
+    private static final String ADD_ROADS_PROCEDURE = "{call proc_insert_Road(?,?,?,?)}";
 
     /**
      * Name of the function in the database that gets roads
@@ -46,7 +46,7 @@ public class DAORoad extends DAOManager {
         cs.setString(1, road.getId());
         cs.setString(2, road.getName());
         cs.setString(3, road.getTypology());
-        //ADD THE NETWORK ID ALGURES
+        cs.setString(4, net.getId());
     }
 
     @Override

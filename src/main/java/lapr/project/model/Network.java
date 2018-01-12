@@ -243,6 +243,13 @@ public class Network extends DatabaseExchangable implements Serializable {
     }
 
     /**
+     * @return NodeList
+     */
+    public List<Road> getRoadList() {
+        return roadList;
+    }
+
+    /**
      * @return a List of all nodes ids
      */
     public List<String> getNodesByName() {

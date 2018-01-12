@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import lapr.project.datalayer.DAOHandler;
 import lapr.project.utils.Algorithm;
 import lapr.project.utils.MostEfficientPathInEnergySavingModeAlgorithm;
@@ -31,11 +30,6 @@ public class TravelByPhysics implements Serializable {
     private ProjectList projectList;
 
     /**
-     * Attribute that keeps the users list of the system.
-     */
-    private UserList userList;
-
-    /**
      * Attribute that keeps the algorithms list
      */
     private List<Algorithm> algorithmsList;
@@ -45,7 +39,6 @@ public class TravelByPhysics implements Serializable {
      */
     public TravelByPhysics() {
         this.projectList = new ProjectList();
-        this.userList = new UserList();
         this.algorithmsList = new ArrayList<>();
         this.algorithmsList.add(new ShortestTravellTimeAlgorithm());
         this.algorithmsList.add(new MostEfficientPathInEnergySavingModeAlgorithm());

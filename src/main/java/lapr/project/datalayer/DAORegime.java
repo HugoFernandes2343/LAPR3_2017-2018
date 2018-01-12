@@ -25,20 +25,18 @@ public class DAORegime extends DAOManager {
     private static final String GET_REGIME_PROCEDURE = "{call proc_get_regime(?,?,?)}";
 
     private Throttle t;
-    private Vehicle v;
 
-    public DAORegime(Throttle t, Vehicle v) throws SQLException {
+    public DAORegime(Throttle t) throws SQLException {
         super(ADD_REGIME_PROCEDURE, GET_REGIME_PROCEDURE);
         this.t = t;
-        this.v = v;
     }
 
     @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         Regime regime = (Regime) data;
 
-        cs.setString(1, t.getPercentage());
-        cs.setString(2, v.getName());
+        cs.setInt(1, t.getId());
+        cs.setString(2, t.getPercentage());
         cs.setDouble(3, regime.getTorqueHigh());
         cs.setDouble(4, regime.getTorqueLow());
         cs.setDouble(5, regime.getRpmLow());
@@ -51,13 +49,13 @@ public class DAORegime extends DAOManager {
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         List<DatabaseExchangable> rList = placeToAdd.getDBData();
         String percentage = (String) references[0];
-        String vehicleName = (String) references[1];
+        int throttleId = (int) references[1];
         ResultSet rs = null;
 
         try {
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, percentage);
-            stmt.setString(3, vehicleName);
+            stmt.setInt(3, throttleId);
             stmt.executeUpdate();
             rs = (ResultSet) stmt.getObject(1);
 

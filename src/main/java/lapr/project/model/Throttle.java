@@ -10,6 +10,9 @@ public class Throttle extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 100L;
 
+    private static int flag = 1;
+
+    private int id;
     private String percentage;
     private List<Regime> regimeList = new LinkedList<>();
 
@@ -18,6 +21,8 @@ public class Throttle extends DatabaseExchangable implements Serializable {
      */
     public Throttle() {
         this.regimeList = new LinkedList<>();
+        this.id = flag;
+        flag++;
     }
 
     /**
@@ -29,6 +34,8 @@ public class Throttle extends DatabaseExchangable implements Serializable {
     public Throttle(String percentage, List<Regime> regimeList) {
         this.percentage = percentage;
         this.regimeList = regimeList;
+        this.id = flag;
+        flag++;
     }
 
     /**
@@ -40,11 +47,19 @@ public class Throttle extends DatabaseExchangable implements Serializable {
         this.percentage = percentage;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * @return the id id of the throttle
      */
     public String getPercentage() {
         return percentage;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     /**
@@ -95,7 +110,7 @@ public class Throttle extends DatabaseExchangable implements Serializable {
         temp.add(this);
         return temp;
     }
-    
+
     public List<DatabaseExchangable> getDBRegimeData() {
         List<DatabaseExchangable> temp = new LinkedList<>();
         temp.addAll(this.regimeList);

@@ -21,7 +21,7 @@ public class DAOEnergy extends DAOManager {
     /**
      * Name of the function in the database that gets VelocityLimits
      */
-    private static final String GET_ENERGY_PROCEDURE = "{call proc_getProject(?,?)}";
+    private static final String GET_ENERGY_PROCEDURE = "{call proc_get_energy(?,?)}";
 
     private Vehicle v;
 

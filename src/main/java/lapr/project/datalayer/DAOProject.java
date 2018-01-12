@@ -24,12 +24,12 @@ public class DAOProject extends DAOManager{
     /**
      * Name of the function in the database that adds vehicles
      */
-    private static final String ADD_PROJECT_PROCEDURE = "{call proc_insert_Project(?,?)}";
+    private static final String ADD_PROJECT_PROCEDURE = "{call proc_insert_project(?,?)}";
 
     /**
      * Name of the function in the database that gets vehicles
      */
-    private static final String GET_PROJECTS_PROCEDURE = "{call proc_getProject(?)}";
+    private static final String GET_PROJECTS_PROCEDURE = "{call proc_get_project(?)}";
     
     public DAOProject() throws SQLException {
         super(ADD_PROJECT_PROCEDURE, GET_PROJECTS_PROCEDURE);

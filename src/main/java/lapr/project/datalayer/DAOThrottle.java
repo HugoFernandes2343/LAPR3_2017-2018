@@ -21,7 +21,7 @@ public class DAOThrottle extends DAOManager {
     /**
      * Name of the function in the database that adds vehicles
      */
-    private static final String ADD_THROTTLE_PROCEDURE = "{call proc_insert_throttle(?,?)}";
+    private static final String ADD_THROTTLE_PROCEDURE = "{call proc_insert_throttle(?,?,?)}";
 
     /**
      * Name of the function in the database that gets vehicles
@@ -37,10 +37,11 @@ public class DAOThrottle extends DAOManager {
 
     @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
-        Throttle list = (Throttle) data;
+        Throttle throttle = (Throttle) data;
 
         cs.setString(1, v.getName());
-        cs.setInt(2, Integer.parseInt(list.getPercentage()));
+        cs.setInt(2, Integer.parseInt(throttle.getPercentage()));
+        cs.setInt(3, throttle.getId());
     }
 
     @Override
@@ -56,9 +57,11 @@ public class DAOThrottle extends DAOManager {
             rs = (ResultSet) stmt.getObject(1);
             
             while(rs.next()){
+                int id = rs.getInt("id");
                 int percentage = rs.getInt("percentage");
                 Throttle t = new Throttle();
                 t.setPercentage(String.valueOf(percentage));
+                t.setId(id);
                 tList.add(t);
             }
         }catch(SQLException ex){

@@ -43,12 +43,13 @@ public abstract class ConnectionManager {
     public static Connection openConnection() throws SQLException {
         Connection connection = null;
         try {
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
             OracleDataSource ds = new OracleDataSource();
             ds.setURL(JDBCURL);
             connection = ds.getConnection(USERNAME, PASS);
 
         } catch (SQLException ex) {
-            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Error registring the Driver : ", ex);
         }
         connection.setAutoCommit(false);
@@ -84,8 +85,8 @@ public abstract class ConnectionManager {
     public static void commitChanges(Connection con) throws SQLException {
         try {
             con.commit();
-            con.close();
         } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, e);
             throw new SQLException("Impossible to commit the changes!");
         }
     }

@@ -25,12 +25,12 @@ public class DAONode extends DAOManager {
     /**
      * Name of the function in the database that adds Nodes
      */
-    private static final String ADD_NODE_PROCEDURE = "{call proc_addNode(?,?)}";
+    private static final String ADD_NODE_PROCEDURE = "{call proc_insert_node(?,?)}";
 
     /**
      * Name of the function in the database that gets Nodes
      */
-    private static final String GET_NODE_PROCEDURE = "{call proc_getNode(?)}";
+    private static final String GET_NODE_PROCEDURE = "{call proc_get_node(?,?)}";
 
     private Network net;
 
