@@ -153,26 +153,22 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      */
     private Gear selectGear(double[] values, double acceleration, Vehicle vehicle, double vr, double angle) {
         Gear gear = biggestGear(vehicle);
-        if (gear == null) {
-            return null;
-        }
 
         Regime regime = getLowestSFCRegime(vehicle, THROTTLE);
-        if (regime == null) {
-            return null;
-        }
-        for (int i = 0; i < vehicle.getEnergy().getGearList().size(); i++) {
+        if (!"eletric".equals(vehicle.getMotorization())) {
+            for (int i = 0; i < vehicle.getEnergy().getGearList().size(); i++) {
 
-            if (validateValues(gear, regime, acceleration, values, vehicle, vr, angle)) {
-                return gear;
-            } else {
-                gear = downGear(vehicle, gear);
+                if (validateValues(gear, regime, acceleration, values, vehicle, vr, angle)) {
+                    return gear;
+                } else {
+                    gear = downGear(vehicle, gear);
+                }
+
             }
-
         }
-        
-        if("01".equals(gear.getId())){
-            if (Physics.getForceAppliedToVehicle(regime.getTorqueLow(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) > Physics.getForceAppliedToVehicle(regime.getTorqueHigh(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) ) {
+
+        if (gear.equals(vehicle.getEnergy().getGearList().get(0))) {
+            if (Physics.getForceAppliedToVehicle(regime.getTorqueLow(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) > Physics.getForceAppliedToVehicle(regime.getTorqueHigh(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle)) {
                 values[0] = regime.getTorqueLow();
                 values[1] = regime.getRpmLow();
             } else {
@@ -180,7 +176,14 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
                 values[1] = regime.getRpmHigh();
             }
         }
-        
+
+        if (vehicle.getMotorization().equals("eletric")) {
+            for (Regime r : vehicle.getEnergy().getThrottle(THROTTLE).getRegimeList()) {
+                if (validateValues(gear, r, acceleration, values, vehicle, vr, angle)) {
+                    return gear;
+                }
+            }
+        }
 
         return gear;
     }
@@ -577,7 +580,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
                 values[1] = r.getRpmLow();
                 return true;
             }
-        }     
+        }
         return false;
     }
 
