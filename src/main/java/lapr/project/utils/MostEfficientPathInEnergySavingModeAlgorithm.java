@@ -394,7 +394,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             if ("electric".equalsIgnoreCase(vehicle.getMotorization())) {
                 Gear gear = selectGear(values, this.brakingAcceleration, vehicle, vr, angle);
                 kinematicFunctions += Physics.kinematicFunctions(newVelocity, 0, this.brakingAcceleration);
-                energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions;
+                energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions * vehicle.getEnergy().getErr();
             } else {
                 Gear gear = discoverBrakingGearForCombustion(values, this.brakingAcceleration, vehicle, vr, angle);
                 kinematicFunctions += Physics.kinematicFunctions(newVelocity, 0, this.brakingAcceleration);
