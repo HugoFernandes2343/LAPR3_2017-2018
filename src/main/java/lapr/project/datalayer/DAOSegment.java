@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.utils.DatabaseExchangable;
@@ -49,24 +51,32 @@ public class DAOSegment extends DAOManager {
         List<DatabaseExchangable> sList = placeToAdd.getDBData();
         String rsID = (String) references[0];
         ResultSet rs = null;
-        
-        stmt.registerOutParameter(1, OracleTypes.CURSOR);
-        stmt.setString(2, rsID);
-        stmt.executeUpdate();
-        rs = (ResultSet) stmt.getObject(1);
-        
-        while(rs.next()){
-            String segID = rs.getString(("ID"));
-            double initHeight = rs.getDouble("INIT_HEIGTH");
-            double finHeight = rs.getDouble("FINAL_HEIGTH");
-            String length = rs.getString("LENGTH");
-            double windDirect = rs.getDouble("WIND_DIRECTION");
-            String windSpeed = rs.getString("WIND_SPEED");
-            String maxVelocity = rs.getString("MAX_VELOCITY");
-            String minVelocity = rs.getString("MIN_VELOCITY");
-            
-            Segment seg = new Segment(segID, initHeight, finHeight, length, windDirect, windSpeed, maxVelocity, minVelocity);
-            sList.add(seg);
+
+        try {
+            stmt.registerOutParameter(1, OracleTypes.CURSOR);
+            stmt.setString(2, rsID);
+            stmt.executeUpdate();
+            rs = (ResultSet) stmt.getObject(1);
+
+            while (rs.next()) {
+                String segID = rs.getString(("ID"));
+                double initHeight = rs.getDouble("INIT_HEIGTH");
+                double finHeight = rs.getDouble("FINAL_HEIGTH");
+                String length = rs.getString("LENGTH");
+                double windDirect = rs.getDouble("WIND_DIRECTION");
+                String windSpeed = rs.getString("WIND_SPEED");
+                String maxVelocity = rs.getString("MAX_VELOCITY");
+                String minVelocity = rs.getString("MIN_VELOCITY");
+
+                Segment seg = new Segment(segID, initHeight, finHeight, length, windDirect, windSpeed, maxVelocity, minVelocity);
+                sList.add(seg);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOSegment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
         }
     }
 

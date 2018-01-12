@@ -357,7 +357,7 @@ public class NetworkAnalysisTest {
     public void testGetForcePerSegment() {
         System.out.println("getForcePerSegment");
         List<Double> result = instance.getForcePerSegment();
-        assertTrue(result == null);
+        assertTrue(result.isEmpty());
 
     }
 
@@ -527,5 +527,16 @@ public class NetworkAnalysisTest {
         double brakingAcceleration = 5.0;
         instance.setBrakingAcceleration(brakingAcceleration);
         assertTrue(instance.getBrakingAcceleration() == brakingAcceleration);
+    }
+
+    /**
+     * Test of setId method, of class NetworkAnalysis.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        int id = 3;
+        instance.setId(id);
+        assertTrue(instance.getId()== id);
     }
 }

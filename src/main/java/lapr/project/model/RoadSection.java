@@ -1,17 +1,18 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 
 public class RoadSection extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 600L;
 
+    
+    private static int flag = 1;
+    private int id;
     private String begin;
     private String end;
     private String roadId;
@@ -33,6 +34,8 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
         this.roadId = roadId;
         this.direction = direction;
         this.segmentList = segments;
+        this.id = flag;
+        flag++;
     }
 
     /**
@@ -177,5 +180,19 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
         List<DatabaseExchangable> temp = new LinkedList<>();
         temp.add(this);
         return temp;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

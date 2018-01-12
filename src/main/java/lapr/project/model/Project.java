@@ -1,7 +1,6 @@
 package lapr.project.model;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -178,6 +177,12 @@ public class Project extends DatabaseExchangable implements Serializable {
     public List<DatabaseExchangable> getDBData() {
         List<DatabaseExchangable> temp = new LinkedList<>();
         temp.add(this);
+        return temp;
+    }
+    
+    public List<DatabaseExchangable> getDBNetworkAnalysisData(){
+        List<DatabaseExchangable> temp = new LinkedList<>();
+        temp.addAll(this.netAnalysis);
         return temp;
     }
 

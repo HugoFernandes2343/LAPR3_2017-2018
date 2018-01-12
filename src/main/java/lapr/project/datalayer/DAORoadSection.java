@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.RoadSection;
 import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
@@ -13,7 +15,7 @@ public class DAORoadSection extends DAOManager {
     /**
      * Name of the function in the database that adds RoadSections
      */
-    private static final String ADD_ROADSECTION_PROCEDURE = "{call proc_insert_road_section(?,?,?,?)}";
+    private static final String ADD_ROADSECTION_PROCEDURE = "{call proc_insert_road_section(?,?,?,?,?)}";
 
     /**
      * Name of the function in the database that gets RoadSections
@@ -27,37 +29,48 @@ public class DAORoadSection extends DAOManager {
     @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         RoadSection rds = (RoadSection) data;
-
-        cs.setString(1, rds.getDirection());
-        cs.setString(2, rds.getBegin());
-        cs.setString(3, rds.getEnd());
-        cs.setString(4, rds.getRoadId());
+        
+        cs.setString(1, String.valueOf(rds.getId()));
+        cs.setString(2, rds.getDirection());
+        cs.setString(3, rds.getBegin());
+        cs.setString(4, rds.getEnd());
+        cs.setString(5, rds.getRoadId());
     }
 
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         List<DatabaseExchangable> sec = placeToAdd.getDBData();
-        String road_id = (String) references[0];
+        String roadId = (String) references[0];
         ResultSet rs = null;
-
-        stmt.registerOutParameter(1, OracleTypes.CURSOR);
-        stmt.setString(2, road_id);
-        stmt.executeUpdate();
-        rs = (ResultSet) stmt.getObject(1);
         
-        while(rs.next()){
-            String dir = rs.getString(("DIRECTION"));
-            String beg = rs.getString(("BEGIN_NODE"));
-            String end = rs.getString(("END_NODE"));
-            
-            RoadSection roadSection = new RoadSection();
-            roadSection.setBegin(beg);
-            roadSection.setDirection(dir);
-            roadSection.setEnd(end);
-            roadSection.setRoadId(road_id);
-            
-            sec.add(roadSection);
-        }
-    }
+        try {
+            stmt.registerOutParameter(1, OracleTypes.CURSOR);
+            stmt.setString(2, roadId);
+            stmt.executeUpdate();
+            rs = (ResultSet) stmt.getObject(1);
 
+            while (rs.next()) {
+                String id = rs.getString("ID");
+                String dir = rs.getString(("DIRECTION"));
+                String beg = rs.getString(("BEGIN_NODE"));
+                String end = rs.getString(("END_NODE"));
+
+                RoadSection roadSection = new RoadSection();
+                roadSection.setId(Integer.parseInt(id));
+                roadSection.setBegin(beg);
+                roadSection.setDirection(dir);
+                roadSection.setEnd(end);
+                roadSection.setRoadId(roadId);
+
+                sec.add(roadSection);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORoadSection.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+
+    }
 }

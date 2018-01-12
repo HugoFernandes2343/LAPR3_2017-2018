@@ -5,10 +5,8 @@
  */
 package lapr.project.model;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import lapr.project.utils.DatabaseExchangable;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,6 +44,27 @@ public class RoadSectionTest {
     public void tearDown() {
     }
 
+     /**
+     * Test of getId method, of class RoadSection.
+     */
+    @Test
+    public void testGetId() {
+        System.out.println("getId");
+        int result = instance.getId();
+        assertTrue(result > 0);
+    }
+
+    /**
+     * Test of setId method, of class RoadSection.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        int id = 2;
+
+        instance.setId(id);
+        assertTrue(instance.getId() == id);
+    }
     /**
      * Test of getBegin method, of class RoadSection.
      */

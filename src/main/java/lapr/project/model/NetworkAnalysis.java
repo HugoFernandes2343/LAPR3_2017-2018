@@ -12,6 +12,7 @@ import lapr.project.utils.DatabaseExchangable;
 public class NetworkAnalysis extends DatabaseExchangable {
 
     private static int flag = 1;
+    
     private int id;
     private String name;
     private BestPath bestPath;
@@ -32,6 +33,14 @@ public class NetworkAnalysis extends DatabaseExchangable {
     private double aceleratingAcceleration;
     private double brakingAcceleration;
 
+    /**
+     * Full constructor
+     * @param beginNode
+     * @param endNode
+     * @param vehicle
+     * @param name
+     * @param type
+     */
     public NetworkAnalysis(Node beginNode, Node endNode, Vehicle vehicle, String name, String type) {
         this.name = name;
         this.vehicle = vehicle;
@@ -39,15 +48,27 @@ public class NetworkAnalysis extends DatabaseExchangable {
         this.endNode = endNode;
         this.type = type;
         this.velocityPerSegment = new LinkedList<>();
+        this.forcePerSegment = new LinkedList<>();
         this.bestPath = new BestPath();
         this.id = flag;
         flag++;
     }
 
+    /**
+     * empty constructor
+     * @param type
+     */
     public NetworkAnalysis(String type) {
         this.type = type;
     }
 
+    /**
+     * set the id
+     * @param id
+     */
+    public void setId(int id){
+        this.id = id;
+    }
     /**
      * @return the id
      */

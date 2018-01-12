@@ -7,12 +7,13 @@ package lapr.project.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import lapr.project.utils.DatabaseExchangable;
 
 /**
  *
  * @author Hugo
  */
-public class BestPath {
+public class BestPath extends DatabaseExchangable {
 
     private List<RoadSection> sectionList;
 
@@ -36,6 +37,13 @@ public class BestPath {
      */
     public void setSectionList(List<RoadSection> sectionList) {
         this.sectionList = sectionList;
+    }
+
+    @Override
+    public List<DatabaseExchangable> getDBData() {
+        List<DatabaseExchangable> temp = new LinkedList<>();
+        temp.addAll(this.sectionList);
+        return temp;
     }
 
 }
