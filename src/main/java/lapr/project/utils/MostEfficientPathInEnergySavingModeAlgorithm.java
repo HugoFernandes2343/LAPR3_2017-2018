@@ -17,54 +17,54 @@ import lapr.project.model.Vehicle;
 public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
 
     /**
-    * Constant that keeps the name of this algorithm.
-    */
+     * Constant that keeps the name of this algorithm.
+     */
     private static final String NAME = "Most Efficient Path In Energy Saving Mode N(12)";
 
     /**
-    * Constant that keeps the position of the first node.
-    */
+     * Constant that keeps the position of the first node.
+     */
     private static final int NODE_POSITION = 0;
 
     /**
-    * Constant that keeps the position of the second node.
-    */
+     * Constant that keeps the position of the second node.
+     */
     private static final int NODE_SECOND_POSITION = 1;
 
     /**
-    * Atribute that keeps the chosen acceleration for the process of
-    * acelerating.
-    */
+     * Atribute that keeps the chosen acceleration for the process of
+     * acelerating.
+     */
     private double aceleratingAcceleration;
 
     /**
-    * Atribute that keeps the chosen acceleration for the process of braking.
-    */
+     * Atribute that keeps the chosen acceleration for the process of braking.
+     */
     private double brakingAcceleration;
-    
+
     /**
-    * The total mass of the vehicle, including the load.
-    */
+     * The total mass of the vehicle, including the load.
+     */
     private double totalMass;
 
     /**
-    * Atribute to keep the project being analyzed
-    */
+     * Atribute to keep the project being analyzed
+     */
     private Project projectAnalyzed;
 
     /**
-    * List that keeps the velocity travelled by the vehicle in each segment
-    */
+     * List that keeps the velocity travelled by the vehicle in each segment
+     */
     private List<Double> velocityPerSegment;
 
     /**
-    * Vehicle used in this analysis.
-    */
+     * Vehicle used in this analysis.
+     */
     private Vehicle vehicle;
-    
+
     /**
-    * Throttle of this algorithm
-    */
+     * Throttle of this algorithm
+     */
     private static final String THROTTLE = "25";
 
     /**
@@ -79,13 +79,13 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      * @return
      */
     @Override
-    public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {      
+    public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {
         this.projectAnalyzed = project;
         this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
         AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
         this.vehicle = vehicle;
         MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
-        
+
         analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
         analysis.setBrakingAcceleration(this.brakingAcceleration);
 
@@ -151,26 +151,36 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      * @param angle
      * @return
      */
-    private Gear selectGear(double [] values, double acceleration, Vehicle vehicle, double vr, double angle) {
+    private Gear selectGear(double[] values, double acceleration, Vehicle vehicle, double vr, double angle) {
         Gear gear = biggestGear(vehicle);
         if (gear == null) {
             return null;
         }
 
-        
         Regime regime = getLowestSFCRegime(vehicle, THROTTLE);
         if (regime == null) {
             return null;
         }
-         for(int i = 0;i<vehicle.getEnergy().getGearList().size()-1;i++){
-            
-            if(validateValues(gear, regime, acceleration, values, vehicle, vr, angle)){
+        for (int i = 0; i < vehicle.getEnergy().getGearList().size(); i++) {
+
+            if (validateValues(gear, regime, acceleration, values, vehicle, vr, angle)) {
                 return gear;
             } else {
                 gear = downGear(vehicle, gear);
             }
 
         }
+        
+        if("01".equals(gear.getId())){
+            if (Physics.getForceAppliedToVehicle(regime.getTorqueLow(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) > Physics.getForceAppliedToVehicle(regime.getTorqueHigh(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) ) {
+                values[0] = regime.getTorqueLow();
+                values[1] = regime.getRpmLow();
+            } else {
+                values[0] = regime.getTorqueHigh();
+                values[1] = regime.getRpmHigh();
+            }
+        }
+        
 
         return gear;
     }
@@ -235,6 +245,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
 
         return reg;
     }
+
     /**
      * Method that calculates the velocity used to go through each segment
      *
@@ -252,7 +263,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
         }
         return velocities;
     }
-    
+
     /**
      * Method that calculates all the road sections energy and creates a
      * adjacency matrix with the edges as double with all the values of the
@@ -416,7 +427,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, this.brakingAcceleration, 0);
             }
-            
+
             //constant velocity
             double[] values1 = new double[10];
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
@@ -442,11 +453,11 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             Gear gear = selectGear(values, this.aceleratingAcceleration, vehicle, vr, angle);
             kinematicFunctions += Physics.kinematicFunctions(lastVelocity, newVelocity, this.aceleratingAcceleration);
             energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions);
-            
+
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, this.aceleratingAcceleration, 0);
             }
-            
+
             //constant velocity
             double[] values1 = new double[10];
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
@@ -463,7 +474,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
         } else if (Math.abs(lastVelocity - newVelocity) < 0.01) { // In this case the car shouldn't alter the velocity so the calculations should be made accordingly.
 
             //constant velocity
-            double[] values = new double[1];
+            double[] values = new double[10];
             double vr = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             double lengthInMeters = Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", "")));
             double angle = Physics.getAngle(lengthInMeters, segment.getInitHeight(), segment.getFinalHeight());
@@ -566,7 +577,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
                 values[1] = r.getRpmLow();
                 return true;
             }
-        }
+        }     
         return false;
     }
 
@@ -775,7 +786,6 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
         return Physics.kinematicFunctionsGetTimeByVelocities(lastVelocity, newVelocity, acceleration);
     }
 
-    
     /**
      * Setter of the acelerating Acceleration
      *
@@ -803,21 +813,21 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
     public String toString() {
         return String.format("Algorithm: %s", NAME);
     }
-        
+
     /**
-     * 
+     *
      * @return accelaration value
      */
     public double getAceleratingAcceleration() {
         return aceleratingAcceleration;
     }
-    
+
     /**
-     * 
+     *
      * @return braking accelaration value
      */
     public double getBrakingAcceleration() {
         return brakingAcceleration;
     }
-    
+
 }
