@@ -60,6 +60,10 @@ public class DAOVelocityList extends DAOManager {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOVelocityList.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (rs != null) {
+                rs.close();
+            }
         }
     }
 

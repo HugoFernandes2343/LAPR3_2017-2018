@@ -71,6 +71,10 @@ public class DAORoad extends DAOManager {
 
         } catch (SQLException ex) {
             Logger.getLogger(DAOProject.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (rs != null) {
+                rs.close();
+            }
         }
     }
 

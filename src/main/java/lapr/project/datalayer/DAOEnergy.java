@@ -1,7 +1,6 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -73,6 +72,10 @@ public class DAOEnergy extends DAOManager {
             }
         } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(DAOEnergy.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (rs != null) {
+                rs.close();
+            }
         }
     }
 

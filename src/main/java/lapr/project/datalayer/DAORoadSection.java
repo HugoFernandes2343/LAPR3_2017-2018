@@ -51,9 +51,9 @@ public class DAORoadSection extends DAOManager {
 
             while (rs.next()) {
                 String id = rs.getString("ID");
-                String dir = rs.getString(("DIRECTION"));
-                String beg = rs.getString(("BEGIN_NODE"));
-                String end = rs.getString(("END_NODE"));
+                String dir = rs.getString("DIRECTION");
+                String beg = rs.getString("BEGIN_NODE");
+                String end = rs.getString("END_NODE");
 
                 RoadSection roadSection = new RoadSection();
                 roadSection.setId(Integer.parseInt(id));

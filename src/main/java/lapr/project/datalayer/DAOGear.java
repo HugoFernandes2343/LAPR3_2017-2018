@@ -60,6 +60,10 @@ public class DAOGear extends DAOManager {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOGear.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (rs != null) {
+                rs.close();
+            }
         }
     }
 

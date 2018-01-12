@@ -72,7 +72,10 @@ public class DAORegime extends DAOManager {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORegime.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
         }
     }
-
 }
