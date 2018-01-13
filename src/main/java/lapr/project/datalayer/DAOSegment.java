@@ -22,7 +22,7 @@ public class DAOSegment extends DAOManager {
      * Name of the function in the database that gets Road Segments
      */
     private static final String GET_SEGMENT_PROCEDURE = "{call proc_get_segment(?,?)}";
-
+    private static int i;
     private RoadSection rs;
 
     public DAOSegment(RoadSection rs) throws SQLException {
@@ -43,16 +43,29 @@ public class DAOSegment extends DAOManager {
 //        cs.setString("s_max_velocity", seg.getMaxVelocity());
 //        cs.setString("s_min_velocity", seg.getMinVelocity());
 //        cs.setString("s_road_section_id", rs.getRoadId());
+        if (seg.getId() != null && rs.getId()>=0) {
+            cs.setString(1, seg.getId());
+            cs.setFloat(2, (float) seg.getInitHeight());
+            cs.setFloat(3, (float) seg.getFinalHeight());
+            cs.setString(4, seg.getLength());
+            cs.setFloat(5, (float) seg.getWindDirection());
+            cs.setString(6, seg.getWindSpeed());
+            cs.setString(7, seg.getMaxVelocity());
+            cs.setString(8, seg.getMinVelocity());
+            cs.setInt(9, rs.getId());
+        } else {
+            cs.setString(1, "TEMP");
+            cs.setFloat(2, (float) seg.getInitHeight());
+            cs.setFloat(3, (float) seg.getFinalHeight());
+            cs.setString(4, seg.getLength());
+            cs.setFloat(5, (float) seg.getWindDirection());
+            cs.setString(6, seg.getWindSpeed());
+            cs.setString(7, seg.getMaxVelocity());
+            cs.setString(8, seg.getMinVelocity());
+            cs.setInt(9, i);
+            i++;
+        }
 
-        cs.setString(1, seg.getId());
-        cs.setDouble(2,  seg.getInitHeight());
-        cs.setDouble(3,  seg.getFinalHeight());
-        cs.setString(4, seg.getLength());
-        cs.setDouble(5, seg.getWindDirection());
-        cs.setString(6, seg.getWindSpeed());
-        cs.setString(7, seg.getMaxVelocity());
-        cs.setString(8, seg.getMinVelocity());
-        cs.setString(9, rs.getRoadId());
     }
 
     @Override

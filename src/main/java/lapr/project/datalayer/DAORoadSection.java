@@ -30,7 +30,7 @@ public class DAORoadSection extends DAOManager {
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         RoadSection rds = (RoadSection) data;
         
-        cs.setString(1, String.valueOf(rds.getId()));
+        cs.setInt(1, rds.getId());
         cs.setString(2, rds.getDirection());
         cs.setString(3, rds.getBegin());
         cs.setString(4, rds.getEnd());

@@ -60,6 +60,8 @@ public class NetworkAnalysis extends DatabaseExchangable {
      */
     public NetworkAnalysis(String type) {
         this.type = type;
+        this.id=flag;
+        flag++;
     }
 
     /**

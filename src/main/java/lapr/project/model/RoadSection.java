@@ -34,8 +34,8 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
         this.roadId = roadId;
         this.direction = direction;
         this.segmentList = segments;
-        this.id = flag;
         flag++;
+        id = flag;  
     }
 
     /**
@@ -43,6 +43,8 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
      */
     public RoadSection() {
         this.segmentList = new LinkedList<>();
+        flag++;
+        this.id=flag;
     }
 
     /**
