@@ -277,8 +277,8 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
      * @return JPanel with text
      */
     private JPanel createHeader() {
-        analName = new JTextField(25);
-        load = new JTextField(25);
+        analName = new JTextField(20);
+        load = new JTextField(20);
         JPanel p = new JPanel(new GridLayout(3, 2));
         JLabel text1 = new JLabel("Project: ");
         text1.setHorizontalAlignment(JLabel.CENTER);
@@ -288,7 +288,7 @@ public class CreateAnalysisUI extends JPanel implements MessagesAndUtils {
         text2.setHorizontalAlignment(JLabel.CENTER);
         p.add(text2);
 
-        JLabel text3 = new JLabel("Analise: ");
+        JLabel text3 = new JLabel("Analysis: ");
         text3.setHorizontalAlignment(JLabel.CENTER);
         p.add(text3);
 
