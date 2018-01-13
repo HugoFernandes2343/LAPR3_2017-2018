@@ -19,12 +19,12 @@ import oracle.jdbc.OracleTypes;
 public class DAOThrottle extends DAOManager {
 
     /**
-     * Name of the function in the database that adds vehicles
+     * Name of the function in the database that adds throttle
      */
     private static final String ADD_THROTTLE_PROCEDURE = "{call proc_insert_throttle(?,?,?)}";
 
     /**
-     * Name of the function in the database that gets vehicles
+     * Name of the function in the database that gets throttles
      */
     private static final String GET_THROTTLE_PROCEDURE = "{call proc_get_throttle(?,?)}";
 

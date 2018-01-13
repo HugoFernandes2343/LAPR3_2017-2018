@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import lapr.project.utils.DatabaseExchangable;
 
 /**
- * Super class that defines the behavior of updating data in the database
+ * Super DAO class that defines the behavior of updating data in the database
  */
 public abstract class DAOManager extends ConnectionManager {
 
@@ -18,7 +18,7 @@ public abstract class DAOManager extends ConnectionManager {
     private final String addProcedure;
 
     /**
-     * Name of the function in the database that adds data
+     * Name of the function in the database that reads data
      */
     private final String readProcedure;
 
@@ -44,10 +44,10 @@ public abstract class DAOManager extends ConnectionManager {
     protected abstract void add(CallableStatement cs, DatabaseExchangable data) throws SQLException;
 
     /**
-     * Reads the library in the database
+     * Reads the data in the database
      *
      * @param cs CallableStatement
-     * @param placer Library where the data will be placed
+     * @param placeToAdd place where the data will be placed
      * @throws SQLException If the operation was not successful
      */
     protected abstract void read(CallableStatement stmt,DatabaseExchangable placeToAdd, Object[] references) throws SQLException;
@@ -73,6 +73,14 @@ public abstract class DAOManager extends ConnectionManager {
         }
     }
 
+    /**
+     * General method that defines the act of reading data from the database. Call abstract method
+     * add that will be implemented by the other DAO classes
+     *
+     * @param con Connection
+     * @param placeToAdd Data to add
+     * @throws SQLException If the operation was not successful
+     */
     @Override
     public void readData(Connection con,DatabaseExchangable placeToAdd, Object[] refs) throws SQLException {
         CallableStatement cs = null;

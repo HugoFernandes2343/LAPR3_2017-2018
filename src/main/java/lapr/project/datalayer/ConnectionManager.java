@@ -71,7 +71,8 @@ public abstract class ConnectionManager {
      * Method that reads data from the database
      *
      * @param con Connection to the database
-     * @param library Library library where the data will be added
+     * @param placeToadd place where the data will be added
+     * @param refs references to allow read data
      * @throws SQLException If the operation was not successful
      */
     public abstract void readData(Connection con, DatabaseExchangable placeToAdd, Object[] refs) throws SQLException;

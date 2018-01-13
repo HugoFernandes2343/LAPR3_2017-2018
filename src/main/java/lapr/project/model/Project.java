@@ -117,15 +117,15 @@ public class Project extends DatabaseExchangable implements Serializable {
     }
 
     /**
-     * @param network the networkanalysis to set
+     * @param network the networkanalysis to add
      */
     public void addNetworkAnalysis(NetworkAnalysis net) {
         int flag = 0;
-        NetworkAnalysis temp=null;
+        NetworkAnalysis temp = null;
         for (NetworkAnalysis netA : netAnalysis) {
             if (net.getType().equals(netA.getType())) {
                 flag = 1;
-                temp=netA;
+                temp = netA;
             } else {
                 flag = 0;
             }
@@ -133,7 +133,7 @@ public class Project extends DatabaseExchangable implements Serializable {
         if (flag == 1) {
             netAnalysis.remove(temp);
             netAnalysis.add(net);
-        }else{
+        } else {
             netAnalysis.add(net);
         }
     }

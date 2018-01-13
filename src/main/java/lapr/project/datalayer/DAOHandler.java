@@ -95,20 +95,8 @@ public class DAOHandler {
     public void addProjectData(Project p) throws SQLException {
         addObjectData(new DAOProject(), p);
         addToProject(p);
-//        addNetworkAnalysis(p);
     }
-
-    private void addNetworkAnalysis(Project project) throws SQLException{
-
-        for(NetworkAnalysis netAnal : project.getNetworkAnalysis()){
-            addObjectData(new DAONetworkAnalysis(project),netAnal);
-            
-            for(RoadSection nodeBestPath : netAnal.getBestPath()){
-                addObjectData(new DAOBestPath(netAnal),nodeBestPath);
-            }
-        }
-    }
-    
+   
     /**
      * Adds data of a project to the database
      *
@@ -252,19 +240,11 @@ public class DAOHandler {
         }
     }
 
-//    private void readNetworkData(Project p){
-//        try{
-//            Network network = p.getNetwork();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOHandler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    
     /**
-     * Reads a library from the database
+     * Reads a object from the database
      *
      * @param dao Implementation of DAOManager
-     * @param library library in which data will be added
+     * @param placeToAdd in which data will be added
      * @throws SQLException If the operation wasn't successful
      */
     private void readObjectData(DAOManager dao, DatabaseExchangable placeToAdd, Object[] refs) throws SQLException {//refs might need to get out

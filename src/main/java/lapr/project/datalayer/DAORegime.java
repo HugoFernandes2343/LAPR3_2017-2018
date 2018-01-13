@@ -62,20 +62,6 @@ public class DAORegime extends DAOManager {
             cs.setDouble(7, 0);
             flag--;
         }
-
-//        try {
-//            Regime regime = (Regime) data;
-//
-//            cs.setInt(1, t.getId());
-//            cs.setInt(2, regime.getId());
-//            cs.setDouble(3, regime.getTorqueHigh());
-//            cs.setDouble(4, regime.getTorqueLow());
-//            cs.setDouble(5, regime.getRpmLow());
-//            cs.setDouble(6, regime.getRpmHigh());
-//            cs.setDouble(7, regime.getSfc());
-//        }catch(NullPointerException ex){
-//            Logger.getLogger(DAORegime.class.getName()).log(Level.SEVERE, "No Regime Found", ex);
-//        }
     }
 
     @Override
