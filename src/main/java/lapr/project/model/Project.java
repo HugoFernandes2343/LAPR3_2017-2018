@@ -25,7 +25,7 @@ public class Project extends DatabaseExchangable implements Serializable {
         this.description = desc;
         this.network = new Network();
         this.vehicleList = new VehicleList();
-        this.netAnalysis = new  LinkedList<>();
+        this.netAnalysis = new LinkedList<>();
     }
 
     public Project() {
@@ -33,7 +33,7 @@ public class Project extends DatabaseExchangable implements Serializable {
         this.description = "n/a";
         this.network = new Network();
         this.vehicleList = new VehicleList();
-        this.netAnalysis = new  LinkedList<>();
+        this.netAnalysis = new LinkedList<>();
     }
 
     public Project(Project other) {
@@ -41,7 +41,7 @@ public class Project extends DatabaseExchangable implements Serializable {
         this.name = other.name;
         this.network = other.network;
         this.vehicleList = other.vehicleList;
-        this.netAnalysis =other.netAnalysis;
+        this.netAnalysis = other.netAnalysis;
     }
 
     /**
@@ -120,18 +120,33 @@ public class Project extends DatabaseExchangable implements Serializable {
      * @param network the networkanalysis to set
      */
     public void addNetworkAnalysis(NetworkAnalysis net) {
-        this.netAnalysis.add(net);
+        int flag = 0;
+        NetworkAnalysis temp=null;
+        for (NetworkAnalysis netA : netAnalysis) {
+            if (net.getType().equals(netA.getType())) {
+                flag = 1;
+                temp=netA;
+            } else {
+                flag = 0;
+            }
+        }
+        if (flag == 1) {
+            netAnalysis.remove(temp);
+            netAnalysis.add(net);
+        }else{
+            netAnalysis.add(net);
+        }
     }
 
-    public NetworkAnalysis getNetAnalByName(String name)throws NullPointerException{
-        for ( NetworkAnalysis  net : this.netAnalysis) {
+    public NetworkAnalysis getNetAnalByName(String name) throws NullPointerException {
+        for (NetworkAnalysis net : this.netAnalysis) {
             if (net.getName().equalsIgnoreCase(name)) {
                 return net;
             }
         }
         return null;
     }
-    
+
     /**
      *
      * @return the integer representation of the object Project
@@ -179,8 +194,8 @@ public class Project extends DatabaseExchangable implements Serializable {
         temp.add(this);
         return temp;
     }
-    
-    public List<DatabaseExchangable> getDBNetworkAnalysisData(){
+
+    public List<DatabaseExchangable> getDBNetworkAnalysisData() {
         List<DatabaseExchangable> temp = new LinkedList<>();
         temp.addAll(this.netAnalysis);
         return temp;

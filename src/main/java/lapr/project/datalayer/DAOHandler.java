@@ -27,7 +27,7 @@ public class DAOHandler {
     /**
      * Opens the connection
      *
-     * @param flyGreen FlyGreen entity
+     * @param TravelByPhysics TravelByPhysics object
      * @throws SQLException If the operation is not successful
      */
     public DAOHandler(TravelByPhysics tf) throws SQLException {
@@ -95,9 +95,20 @@ public class DAOHandler {
     public void addProjectData(Project p) throws SQLException {
         addObjectData(new DAOProject(), p);
         addToProject(p);
-//        commitChangesMadeToTheDatabase();
+//        addNetworkAnalysis(p);
     }
 
+    private void addNetworkAnalysis(Project project) throws SQLException{
+
+        for(NetworkAnalysis netAnal : project.getNetworkAnalysis()){
+            addObjectData(new DAONetworkAnalysis(project),netAnal);
+            
+            for(RoadSection nodeBestPath : netAnal.getBestPath()){
+                addObjectData(new DAOBestPath(netAnal),nodeBestPath);
+            }
+        }
+    }
+    
     /**
      * Adds data of a project to the database
      *
@@ -157,7 +168,7 @@ public class DAOHandler {
         }
         
         for(NetworkAnalysis netAnal : project.getNetworkAnalysis()){
-            addObjectData(new DAONetworkAnalysis(),netAnal);
+            addObjectData(new DAONetworkAnalysis(project),netAnal);
             
             for(RoadSection nodeBestPath : netAnal.getBestPath()){
                 addObjectData(new DAOBestPath(netAnal),nodeBestPath);
@@ -185,21 +196,15 @@ public class DAOHandler {
      *
      * @throws SQLException If the operation wasn't successful
      */
-    public void readAllData() throws SQLException {
+    public void readAllData(ProjectList list) throws SQLException {
         /*Read All Projects, references are empty*/
         readObjectData(new DAOProject(), travelByPhysics.getProjectList(),new Object[1]);
-
-//        for (Project project : flyGreen.getProjectLibrary().getList()) {
-//            readObjectData(new DAOAircraftModel(project),project.getAircraftModelLibrary());
-//            readObjectData(new DAOAircraft(project), project.getAircraftLibrary());
-//            readObjectData(new DAONode(project), project.getNodeLibrary());
-//            readObjectData(new DAOSegment(project), project.getSegmentLibrary());
-//            readObjectData(new DAOAirport(project), project.getAirportLibrary());
-//            readObjectData(new DAOResults(project), project.getResultsLibrary());
-//            readObjectData(new DAOFlightPlan(project), project.getFlightPlanLibrary());
-//            readObjectData(new DAOCharter(project), project.getFlightLibrary());
-//            readObjectData(new DAORegular(project), project.getFlightLibrary());
-//        }
+        DAOProject dao = new DAOProject();
+        
+        for (Project project : list.getAllProjects()) {
+            dao.readData(con, project,new Object[0]);
+            readProjectData(project);
+        }
     }
 
     private void readProjectData(Project p) {

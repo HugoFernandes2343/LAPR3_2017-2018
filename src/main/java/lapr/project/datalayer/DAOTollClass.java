@@ -45,7 +45,7 @@ public class DAOTollClass extends DAOManager {
         TollClass tc = (TollClass) data;
 
         cs.setString(1, tc.getId());
-        cs.setInt(2, Integer.parseInt(r.getId()));
+        cs.setString(2, r.getId());
         cs.setDouble(3, tc.getPrice());
     }
 

@@ -102,6 +102,7 @@ public class CreateAnalysisController {
         if (a instanceof ShortestTravellTimeAlgorithm) {
             this.result = ((ShortestTravellTimeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
             resultList.add(result);
+            actualproject.addNetworkAnalysis(result);
             return true;
         }
 
@@ -118,12 +119,14 @@ public class CreateAnalysisController {
                 ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(aBraking);
                 this.result = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
                 resultList.add(result);
+                actualproject.addNetworkAnalysis(result);
                 return true;
             }
             ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
             ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
             this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
             resultList.add(result);
+            actualproject.addNetworkAnalysis(result);
             return true;
 
         }

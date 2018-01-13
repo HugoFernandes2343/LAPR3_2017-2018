@@ -35,6 +35,10 @@ public class DAOVelocityList extends DAOManager {
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         VelocityLimit limit = (VelocityLimit) data;
 
+//        if (limit == null) {
+//
+//        }
+
         cs.setString(1, v.getName());
         cs.setString(2, limit.getSegmentType());
         cs.setDouble(3, limit.getLimit());
@@ -55,12 +59,12 @@ public class DAOVelocityList extends DAOManager {
             while (rs.next()) {
                 String segType = rs.getString("Segment_Type");
                 int limit = rs.getInt("Limit");
-                VelocityLimit newLimit = new VelocityLimit(segType,limit);
+                VelocityLimit newLimit = new VelocityLimit(segType, limit);
                 vList.getVelocityLimitList().add(newLimit);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOVelocityList.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             if (rs != null) {
                 rs.close();
             }

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
+import lapr.project.model.Project;
 import lapr.project.model.Vehicle;
 import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.internal.OracleTypes;
@@ -23,18 +24,22 @@ import oracle.jdbc.internal.OracleTypes;
  */
 public class DAONetworkAnalysis extends DAOManager {
 
+    private Project p;
+    private Vehicle v;
+
     /**
      * Name of the function in the database that adds analysis
      */
-    private static final String ADD_ANALYSIS_PROCEDURE = "{call proc_insert_network_analysis(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+    private static final String ADD_ANALYSIS_PROCEDURE = "{call proc_insert_network_analysis(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
     /**
      * Name of the function in the database that gets analysis
      */
     private static final String GET_ANALYSIS_PROCEDURE = "{call proc_get_Analysis(?,?,?,?,?,?)}";
 
-    public DAONetworkAnalysis() throws SQLException {
+    public DAONetworkAnalysis(Project p) throws SQLException {
         super(ADD_ANALYSIS_PROCEDURE, GET_ANALYSIS_PROCEDURE);
+        this.p = p;
     }
 
     @Override
@@ -42,26 +47,35 @@ public class DAONetworkAnalysis extends DAOManager {
         NetworkAnalysis netAnalysis = (NetworkAnalysis) data;
 
         cs.setInt(1, netAnalysis.getId());
-        cs.setString(2, netAnalysis.getType());
-        cs.setString(3, netAnalysis.getName());
-        cs.setDouble(4, netAnalysis.getTravellTime());
-        cs.setDouble(5, netAnalysis.getEnergyConsumption());
-        cs.setDouble(6, netAnalysis.getAverageVelocity());
-        cs.setDouble(7, netAnalysis.getDistance());
-        cs.setDouble(8, netAnalysis.getTollCost());
-        cs.setDouble(9, netAnalysis.getLoad());
-        cs.setDouble(10, netAnalysis.getFuelMass());
-        cs.setDouble(11, netAnalysis.getFuelVolume());
+        cs.setString(2, p.getName());
+        cs.setString(3, netAnalysis.getVehicle().getName());
+        cs.setString(4, netAnalysis.getBeginNode().getId());
+        cs.setString(5, netAnalysis.getEndNode().getId());
+        cs.setString(6, netAnalysis.getType());
+        cs.setString(7, netAnalysis.getName());
+        cs.setDouble(8, netAnalysis.getTravellTime());
+        cs.setDouble(9, netAnalysis.getEnergyConsumption());
+        cs.setDouble(10, netAnalysis.getAverageVelocity());
+        cs.setDouble(11, netAnalysis.getDistance());
+        cs.setDouble(12, netAnalysis.getTollCost());
+        cs.setDouble(13, netAnalysis.getLoad());
+        cs.setDouble(14, netAnalysis.getFuelMass());
+        cs.setDouble(15, netAnalysis.getFuelVolume());
         if (netAnalysis.getType().equalsIgnoreCase("Shortest Travel Time")) {
-            cs.setString(12, "N/A");
-            cs.setString(13, "N/A");
+            cs.setString(16, "N/A");
+            cs.setString(17, "N/A");
         } else {
-            cs.setString(12, String.valueOf(netAnalysis.getAceleratingAcceleration()));
-            cs.setString(13, String.valueOf(netAnalysis.getBrakingAcceleration()));
+            cs.setString(16, String.valueOf(netAnalysis.getAceleratingAcceleration()));
+            cs.setString(17, String.valueOf(netAnalysis.getBrakingAcceleration()));
         }
 
     }
 
+//    @Override
+//    protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
+//        NetworkAnalysis netAnalysis = (NetworkAnalysis) data;
+//        
+//    }
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         List<DatabaseExchangable> netList = placeToAdd.getDBData();

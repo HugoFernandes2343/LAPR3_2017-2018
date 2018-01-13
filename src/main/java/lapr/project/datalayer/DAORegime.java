@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.model.Regime;
 import lapr.project.model.Throttle;
-import lapr.project.model.Vehicle;
 import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
 
@@ -22,8 +21,10 @@ public class DAORegime extends DAOManager {
     /**
      * Name of the function in the database that gets Regimes
      */
-    private static final String GET_REGIME_PROCEDURE = "{call proc_get_regime(?,?,?)}";
+    private static final String GET_REGIME_PROCEDURE = "{call proc_get_regime(?,?)}";
 
+    private static int flag = 999;
+    private int id_ph;
     private Throttle t;
 
     public DAORegime(Throttle t) throws SQLException {
@@ -35,27 +36,59 @@ public class DAORegime extends DAOManager {
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         Regime regime = (Regime) data;
 
-        cs.setInt(1, t.getId());
-        cs.setString(2, t.getPercentage());
-        cs.setDouble(3, regime.getTorqueHigh());
-        cs.setDouble(4, regime.getTorqueLow());
-        cs.setDouble(5, regime.getRpmLow());
-        cs.setDouble(6, regime.getRpmHigh());
-        cs.setDouble(7, regime.getSfc());
+        if (regime != null && regime.getSfc() != null) {
+            cs.setInt(1, t.getId());
+            cs.setInt(2, regime.getId());
+            cs.setDouble(3, regime.getTorqueHigh());
+            cs.setDouble(4, regime.getTorqueLow());
+            cs.setDouble(5, regime.getRpmLow());
+            cs.setDouble(6, regime.getRpmHigh());
+            cs.setDouble(7, regime.getSfc());
+        } else if (regime != null && regime.getSfc() == null) {
+            cs.setInt(1, t.getId());
+            cs.setInt(2, regime.getId());
+            cs.setDouble(3, regime.getTorqueHigh());
+            cs.setDouble(4, regime.getTorqueLow());
+            cs.setDouble(5, regime.getRpmLow());
+            cs.setDouble(6, regime.getRpmHigh());
+            cs.setDouble(7, 0);
+        } else {
+            cs.setInt(1, t.getId());
+            cs.setInt(2, id_ph);
+            cs.setDouble(3, 1);
+            cs.setDouble(4, 1);
+            cs.setDouble(5, 1);
+            cs.setDouble(6, 1);
+            cs.setDouble(7, 0);
+            flag--;
+        }
 
+//        try {
+//            Regime regime = (Regime) data;
+//
+//            cs.setInt(1, t.getId());
+//            cs.setInt(2, regime.getId());
+//            cs.setDouble(3, regime.getTorqueHigh());
+//            cs.setDouble(4, regime.getTorqueLow());
+//            cs.setDouble(5, regime.getRpmLow());
+//            cs.setDouble(6, regime.getRpmHigh());
+//            cs.setDouble(7, regime.getSfc());
+//        }catch(NullPointerException ex){
+//            Logger.getLogger(DAORegime.class.getName()).log(Level.SEVERE, "No Regime Found", ex);
+//        }
     }
 
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         List<DatabaseExchangable> rList = placeToAdd.getDBData();
-        String percentage = (String) references[0];
-        int throttleId = (int) references[1];
+//        String percentage = (String) references[1];
+        int throttleId = (int) references[0];
         ResultSet rs = null;
 
         try {
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
-            stmt.setString(2, percentage);
-            stmt.setInt(3, throttleId);
+//            stmt.setString(2, percentage);
+            stmt.setInt(2, throttleId);
             stmt.executeUpdate();
             rs = (ResultSet) stmt.getObject(1);
 

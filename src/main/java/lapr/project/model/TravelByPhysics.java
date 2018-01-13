@@ -83,8 +83,7 @@ public class TravelByPhysics implements Serializable {
         try {
             this.dataExchange = new DAOHandler(this);
         } catch (SQLException ex) {
-            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, null, ex);
-
+            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, "Connection is not possible! Please connect to the enterprise's VPN.", ex);
         }
     }
 

@@ -9,16 +9,21 @@ public class Regime extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 603L;
 
+    private static int flag = 1;
+
     private int torqueHigh;
     private int torqueLow;
     private int rpmLow;
     private int rpmHigh;
     private Double sfc;
+    private int id;
 
     /**
      * Empty constructor
      */
     public Regime() {
+        this.id = flag;
+        flag++;
     }
 
     /**
@@ -66,6 +71,10 @@ public class Regime extends DatabaseExchangable implements Serializable {
         return rpmHigh;
     }
 
+    public int getId(){
+        return id;
+    }
+    
     /**
      * @return the sfc sfc value of the regime
      */
