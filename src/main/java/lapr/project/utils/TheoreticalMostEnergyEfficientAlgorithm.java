@@ -85,8 +85,8 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
     public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {
         this.projectAnalyzed = project;
         this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
-        AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
         this.vehicle = vehicle;
+        AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
         TheoreticalMostEnergyEfficientAnalysis analysis = new TheoreticalMostEnergyEfficientAnalysis(begin, end, vehicle, name);
         analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
         analysis.setBrakingAcceleration(this.brakingAcceleration);
@@ -239,6 +239,10 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
      * @return - a double indicating the velocity.
      */
     private static double discoverVelocity(Vehicle vehicle, Segment segment, String type) {
+        if (vehicle.getVelocityLimitList() == null) {
+            return Physics.convertKmPerHourToMeterPerSec(Double.parseDouble(segment.getMaxVelocity().replace(" Km/h", "")));
+        }
+
         double vehicleVelocity = Physics.convertKmPerHourToMeterPerSec(vehicle.getVelocityLimit(type));
         double segmentVelocity = Physics.convertKmPerHourToMeterPerSec(Double.parseDouble(segment.getMaxVelocity().replace(" Km/h", "")));
 
@@ -266,13 +270,13 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             double vr = Physics.getVehicleRelativeVelocity(velocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             double lengthInMeters = Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", "")));
             double angle = Physics.getAngle(lengthInMeters, segment.getInitHeight(), segment.getFinalHeight());
-            double[] values = new double[10];
+            double[] values = new double[2];
 
             //The regenaration of energy when braking in eletric vehicles should be considered. And the algorithm to discover braking gears for combustion an eletric vehicles is different and it is taken is consideration.
             if ("electric".equalsIgnoreCase(vehicle.getMotorization())) {
                 Gear gear = discoverGear(values, this.brakingAcceleration, vehicle, vr, angle);
                 kinematicFunctions += Physics.kinematicFunctions(newVelocity, 0, this.brakingAcceleration);
-                energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions;
+                energy += (Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions) * vehicle.getEnergy().getErr();
             } else {
                 Gear gear = discoverBrakingGearForCombustion(values, this.brakingAcceleration, vehicle, vr, angle);
                 kinematicFunctions += Physics.kinematicFunctions(newVelocity, 0, this.brakingAcceleration);
@@ -292,13 +296,13 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             double vr = Physics.getVehicleRelativeVelocity(velocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             double lengthInMeters = Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", "")));
             double angle = Physics.getAngle(lengthInMeters, segment.getInitHeight(), segment.getFinalHeight());
-            double[] values = new double[10];
+            double[] values = new double[2];
 
             //The regenaration of energy when braking in eletric vehicles should be considered. And the algorithm to discover braking gears for combustion an eletric vehicles are different and it is taken is consideration.
             if ("electric".equalsIgnoreCase(vehicle.getMotorization())) {
                 Gear gear = discoverGear(values, this.brakingAcceleration, vehicle, vr, angle);
                 kinematicFunctions += Physics.kinematicFunctions(lastVelocity, newVelocity, this.brakingAcceleration);
-                energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions);
+                energy += (Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * kinematicFunctions) * vehicle.getEnergy().getErr();
             } else {
                 Gear gear = discoverBrakingGearForCombustion(values, this.brakingAcceleration, vehicle, vr, angle);
                 kinematicFunctions += Physics.kinematicFunctions(lastVelocity, newVelocity, this.brakingAcceleration);
@@ -308,9 +312,9 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, this.brakingAcceleration, 0);
             }
-            
+
             //constant velocity
-            double[] values1 = new double[10];
+            double[] values1 = new double[2];
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             discoverGear(values1, 0, vehicle, vr1, angle);
             double power = Physics.getEnginePower(values1[0], values1[1]);
@@ -334,13 +338,13 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             Gear gear = discoverGear(values, this.aceleratingAcceleration, vehicle, vr, angle);
             kinematicFunctions += Physics.kinematicFunctions(lastVelocity, newVelocity, this.aceleratingAcceleration);
             energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions);
-            
+
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, this.aceleratingAcceleration, 0);
             }
-            
+
             //constant velocity
-            double[] values1 = new double[10];
+            double[] values1 = new double[2];
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             discoverGear(values1, 0, vehicle, vr1, angle);
             double power = Physics.getEnginePower(values1[0], values1[1]);
@@ -355,7 +359,7 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
         } else if (Math.abs(lastVelocity - newVelocity) < 0.01) { // In this case the car shouldn't alter the velocity so the calculations should be made accordingly.
 
             //constant velocity
-            double[] values = new double[1];
+            double[] values = new double[2];
             double vr = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             double lengthInMeters = Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", "")));
             double angle = Physics.getAngle(lengthInMeters, segment.getInitHeight(), segment.getFinalHeight());
@@ -415,9 +419,17 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             Gear g = gears.get(i);
             for (int j = 0; j < percentages.size(); j++) {
                 Throttle t = v.getEnergy().getThrottle(percentages.get(j));
-                Regime r = getLowestSFCRegime(t);
-                if (validateValues(g, r, acceleration, values, v, vr, angle)) {
-                    return g;
+                if ("electric".equalsIgnoreCase(v.getMotorization())) {
+                    for (Regime r : t.getRegimeList()) {
+                        if (validateValues(g, r, acceleration, values, v, vr, angle)) {
+                            return g;
+                        }
+                    }
+                } else {
+                    Regime r = getLowestSFCRegime(t);
+                    if (validateValues(g, r, acceleration, values, v, vr, angle)) {
+                        return g;
+                    }
                 }
             }
         }
