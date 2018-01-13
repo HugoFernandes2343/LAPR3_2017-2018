@@ -80,67 +80,72 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      */
     @Override
     public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {
-        this.projectAnalyzed = project;
-        this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
-        AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
-        this.vehicle = vehicle;
-        MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
+        try {
+            this.projectAnalyzed = project;
+            this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
+            AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
+            this.vehicle = vehicle;
+            MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
 
-        analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
-        analysis.setBrakingAcceleration(this.brakingAcceleration);
+            analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
+            analysis.setBrakingAcceleration(this.brakingAcceleration);
 
-        //discovering the best path and coverting it.
-        LinkedList<Node> shortestPath = new LinkedList<>();
-        EdgeAsDoubleGraphAlgorithms.shortestPath(edgeAsDouble, begin, end, shortestPath);
-        List<RoadSection> path = recreatePath(shortestPath);
-        analysis.setBestPath(path);
+            //discovering the best path and coverting it.
+            LinkedList<Node> shortestPath = new LinkedList<>();
+            EdgeAsDoubleGraphAlgorithms.shortestPath(edgeAsDouble, begin, end, shortestPath);
+            List<RoadSection> path = recreatePath(shortestPath);
+            analysis.setBestPath(path);
 
-        //Preparing the following steps.
-        double[] values = new double[2];
-        double totalEnergy = getNecessaryData(path, values);
+            //Preparing the following steps.
+            double[] values = new double[2];
+            double totalEnergy = getNecessaryData(path, values);
 
-        //Setting the velocity per segment of the analysis.
-        List<Double> velocityPerSegment = getVelocityPerSegment(path, this.vehicle);
-        analysis.setVelocityPerSegment(velocityPerSegment);
+            //Setting the velocity per segment of the analysis.
+            List<Double> velocityPerSegment = getVelocityPerSegment(path, this.vehicle);
+            analysis.setVelocityPerSegment(velocityPerSegment);
 
-        //Setting the force per segment in this analysis.
-        List<Double> forcePerSegment = new ArrayList<>();
-        for (int i = 0; i < path.size(); i++) {
-            forcePerSegment.add(0.0);
+            //Setting the force per segment in this analysis.
+            List<Double> forcePerSegment = new ArrayList<>();
+            for (int i = 0; i < path.size(); i++) {
+                forcePerSegment.add(0.0);
+            }
+            analysis.setForcePerSegment(forcePerSegment);
+
+            //Setting the load used in this analysis.
+            analysis.setLoad(load);
+
+            //Setting the travel time of the analysis.
+            analysis.setTravellTime(values[0]);
+
+            //Setting the energy consumption of the analysis.
+            analysis.setEnergyConsumption(totalEnergy);
+
+            //Setting the average velocity of the analysis.
+            analysis.setAverageVelocity(Physics.getAverage(velocityPerSegment));
+
+            //Setting the travelled distance.
+            double travelledDistance = getTravelledDistance(path);
+            analysis.setDistance(travelledDistance);
+
+            //Setting the toll cost of the travel.
+            double tollCost = getTollCost(path, vehicle.getTollClass(), project);
+            analysis.setTollCost(tollCost);
+
+            //Setting the fuel mass and volume of the analysis.
+            if ("diesel".equals(vehicle.getFuel())) {
+                analysis.setFuelMass(totalEnergy / DIESEL_FUEL_MASS);
+                analysis.setFuelVolume(analysis.getFuelMass() / DIESEL_FUEL_DENSITY);
+            }
+            if ("gasoline".equals(vehicle.getFuel())) {
+                analysis.setFuelMass(totalEnergy / GASOLINE_FUEL_MASS);
+                analysis.setFuelVolume(analysis.getFuelMass() / GASOLINE_FUEL_DENSITY);
+            }
+
+            return analysis;
+        } catch (Exception ex) {
+
         }
-        analysis.setForcePerSegment(forcePerSegment);
-
-        //Setting the load used in this analysis.
-        analysis.setLoad(load);
-
-        //Setting the travel time of the analysis.
-        analysis.setTravellTime(values[0]);
-
-        //Setting the energy consumption of the analysis.
-        analysis.setEnergyConsumption(totalEnergy);
-
-        //Setting the average velocity of the analysis.
-        analysis.setAverageVelocity(Physics.getAverage(velocityPerSegment));
-
-        //Setting the travelled distance.
-        double travelledDistance = getTravelledDistance(path);
-        analysis.setDistance(travelledDistance);
-
-        //Setting the toll cost of the travel.
-        double tollCost = getTollCost(path, vehicle.getTollClass(), project);
-        analysis.setTollCost(tollCost);
-
-        //Setting the fuel mass and volume of the analysis.
-        if ("diesel".equals(vehicle.getFuel())) {
-            analysis.setFuelMass(totalEnergy / DIESEL_FUEL_MASS);
-            analysis.setFuelVolume(analysis.getFuelMass() / DIESEL_FUEL_DENSITY);
-        }
-        if ("gasoline".equals(vehicle.getFuel())) {
-            analysis.setFuelMass(totalEnergy / GASOLINE_FUEL_MASS);
-            analysis.setFuelVolume(analysis.getFuelMass() / GASOLINE_FUEL_DENSITY);
-        }
-
-        return analysis;
+        return null;
     }
 
     /**

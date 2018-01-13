@@ -112,25 +112,27 @@ public class CreateAnalysisController {
 
         double aAccelaration = Double.parseDouble(accelaration);
         double aBraking = Double.parseDouble(braking);
-
-        if (aBraking < 0 && aAccelaration > 0) {
-            if (a instanceof MostEfficientPathInEnergySavingModeAlgorithm) {
-                ((MostEfficientPathInEnergySavingModeAlgorithm) a).setAceleratingAcceleration(aAccelaration);
-                ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(aBraking);
-                this.result = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+        try {
+            if (aBraking < 0 && aAccelaration > 0) {
+                if (a instanceof MostEfficientPathInEnergySavingModeAlgorithm) {
+                    ((MostEfficientPathInEnergySavingModeAlgorithm) a).setAceleratingAcceleration(aAccelaration);
+                    ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(aBraking);
+                    this.result = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+                    resultList.add(result);
+                    actualproject.addNetworkAnalysis(result);
+                    return true;
+                }
+                ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
+                ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
+                this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
                 resultList.add(result);
                 actualproject.addNetworkAnalysis(result);
                 return true;
+
             }
-            ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
-            ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
-            this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
-            resultList.add(result);
-            actualproject.addNetworkAnalysis(result);
-            return true;
+        } catch (Exception ex) {
 
         }
-
         return false;
     }
 
@@ -256,22 +258,25 @@ public class CreateAnalysisController {
             double accelaration = Double.parseDouble(sAccelarating);
             String vehicleName = (String) data[0];
             Vehicle v = actualproject.getVehicleList().getVehicleByName(vehicleName);
-            if (braking < 0 && accelaration > 0) {
-                if (a instanceof MostEfficientPathInEnergySavingModeAlgorithm) {
-                    ((MostEfficientPathInEnergySavingModeAlgorithm) a).setAceleratingAcceleration(accelaration);
-                    ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(braking);
-                    analysis = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
+            try {
+                if (braking < 0 && accelaration > 0) {
+                    if (a instanceof MostEfficientPathInEnergySavingModeAlgorithm) {
+                        ((MostEfficientPathInEnergySavingModeAlgorithm) a).setAceleratingAcceleration(accelaration);
+                        ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(braking);
+                        analysis = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
 
-                } else {
+                    } else {
 
-                    ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(accelaration);
-                    ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(braking);
-                    analysis = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
+                        ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(accelaration);
+                        ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(braking);
+                        analysis = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
+
+                    }
 
                 }
-
+                resultList.add(analysis);
+            } catch (Exception ex) {
             }
-            resultList.add(analysis);
         }
         return resultList;
     }
