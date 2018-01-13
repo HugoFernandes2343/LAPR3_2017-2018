@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Gear;
-import lapr.project.model.Network;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
 import lapr.project.model.Regime;
-import lapr.project.model.Road;
 import lapr.project.model.RoadSection;
 import lapr.project.model.Segment;
 import lapr.project.model.TheoreticalMostEnergyEfficientAnalysis;
@@ -365,7 +363,7 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             double angle = Physics.getAngle(lengthInMeters, segment.getInitHeight(), segment.getFinalHeight());
             discoverGear(values, 0, vehicle, vr, angle);
             double power = Physics.getEnginePower(values[0], values[1]);
-            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", "")) - kinematicFunctions));
+            energy += power * Physics.getTime(newVelocity, lengthInMeters - kinematicFunctions);
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, 0, kinematicFunctions);
@@ -434,6 +432,14 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             }
         }
 
+        if("electric".equalsIgnoreCase(v.getMotorization())){
+            Throttle t = v.getEnergy().getThrottle(percentages.get(0));
+            Regime r = t.getRegimeList().get(NODE_POSITION);
+            values[0] = r.getTorqueLow();
+            values[1] = r.getRpmLow();
+            return gears.get(NODE_POSITION);
+        }
+        
         Regime r = getLowestSFCRegime(v.getEnergy().getThrottle(percentages.get(0)));
         values[0] = r.getTorqueLow();
         values[1] = r.getRpmLow();
