@@ -80,72 +80,67 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      */
     @Override
     public NetworkAnalysis runAlgorithm(Project project, Node begin, Node end, Vehicle vehicle, String name, double load) {
-        try {
-            this.projectAnalyzed = project;
-            this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
-            AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
-            this.vehicle = vehicle;
-            MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
+        this.projectAnalyzed = project;
+        this.totalMass = Double.parseDouble(vehicle.getMass().replace(" Kg", "")) + load;
+        AdjacencyMatrixGraph<Node, Double> edgeAsDouble = edgeAsDouble(project.getNetwork().getRoadMap(), vehicle);
+        this.vehicle = vehicle;
+        MostEfficientPathInEnergySavingModeAnalysis analysis = new MostEfficientPathInEnergySavingModeAnalysis(begin, end, vehicle, name);
 
-            analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
-            analysis.setBrakingAcceleration(this.brakingAcceleration);
+        analysis.setAceleratingAcceleration(this.aceleratingAcceleration);
+        analysis.setBrakingAcceleration(this.brakingAcceleration);
 
-            //discovering the best path and coverting it.
-            LinkedList<Node> shortestPath = new LinkedList<>();
-            EdgeAsDoubleGraphAlgorithms.shortestPath(edgeAsDouble, begin, end, shortestPath);
-            List<RoadSection> path = recreatePath(shortestPath);
-            analysis.setBestPath(path);
+        //discovering the best path and coverting it.
+        LinkedList<Node> shortestPath = new LinkedList<>();
+        EdgeAsDoubleGraphAlgorithms.shortestPath(edgeAsDouble, begin, end, shortestPath);
+        List<RoadSection> path = recreatePath(shortestPath);
+        analysis.setBestPath(path);
 
-            //Preparing the following steps.
-            double[] values = new double[2];
-            double totalEnergy = getNecessaryData(path, values);
+        //Preparing the following steps.
+        double[] values = new double[2];
+        double totalEnergy = getNecessaryData(path, values);
 
-            //Setting the velocity per segment of the analysis.
-            List<Double> velocityPerSegment = getVelocityPerSegment(path, this.vehicle);
-            analysis.setVelocityPerSegment(velocityPerSegment);
+        //Setting the velocity per segment of the analysis.
+        List<Double> velocities = getVelocityPerSegment(path, this.vehicle);
+        analysis.setVelocityPerSegment(velocities);
 
-            //Setting the force per segment in this analysis.
-            List<Double> forcePerSegment = new ArrayList<>();
-            for (int i = 0; i < path.size(); i++) {
-                forcePerSegment.add(0.0);
-            }
-            analysis.setForcePerSegment(forcePerSegment);
-
-            //Setting the load used in this analysis.
-            analysis.setLoad(load);
-
-            //Setting the travel time of the analysis.
-            analysis.setTravellTime(values[0]);
-
-            //Setting the energy consumption of the analysis.
-            analysis.setEnergyConsumption(totalEnergy);
-
-            //Setting the average velocity of the analysis.
-            analysis.setAverageVelocity(Physics.getAverage(velocityPerSegment));
-
-            //Setting the travelled distance.
-            double travelledDistance = getTravelledDistance(path);
-            analysis.setDistance(travelledDistance);
-
-            //Setting the toll cost of the travel.
-            double tollCost = getTollCost(path, vehicle.getTollClass(), project);
-            analysis.setTollCost(tollCost);
-
-            //Setting the fuel mass and volume of the analysis.
-            if ("diesel".equals(vehicle.getFuel())) {
-                analysis.setFuelMass(totalEnergy / DIESEL_FUEL_MASS);
-                analysis.setFuelVolume(analysis.getFuelMass() / DIESEL_FUEL_DENSITY);
-            }
-            if ("gasoline".equals(vehicle.getFuel())) {
-                analysis.setFuelMass(totalEnergy / GASOLINE_FUEL_MASS);
-                analysis.setFuelVolume(analysis.getFuelMass() / GASOLINE_FUEL_DENSITY);
-            }
-
-            return analysis;
-        } catch (Exception ex) {
-
+        //Setting the force per segment in this analysis.
+        List<Double> forcePerSegment = new ArrayList<>();
+        for (int i = 0; i < path.size(); i++) {
+            forcePerSegment.add(0.0);
         }
-        return null;
+        analysis.setForcePerSegment(forcePerSegment);
+
+        //Setting the load used in this analysis.
+        analysis.setLoad(load);
+
+        //Setting the travel time of the analysis.
+        analysis.setTravellTime(values[0]);
+
+        //Setting the energy consumption of the analysis.
+        analysis.setEnergyConsumption(totalEnergy);
+
+        //Setting the average velocity of the analysis.
+        analysis.setAverageVelocity(Physics.getAverage(velocities));
+
+        //Setting the travelled distance.
+        double travelledDistance = getTravelledDistance(path);
+        analysis.setDistance(travelledDistance);
+
+        //Setting the toll cost of the travel.
+        double tollCost = getTollCost(path, vehicle.getTollClass(), project);
+        analysis.setTollCost(tollCost);
+
+        //Setting the fuel mass and volume of the analysis.
+        if ("diesel".equals(vehicle.getFuel())) {
+            analysis.setFuelMass(totalEnergy / DIESEL_FUEL_MASS);
+            analysis.setFuelVolume(analysis.getFuelMass() / DIESEL_FUEL_DENSITY);
+        }
+        if ("gasoline".equals(vehicle.getFuel())) {
+            analysis.setFuelMass(totalEnergy / GASOLINE_FUEL_MASS);
+            analysis.setFuelVolume(analysis.getFuelMass() / GASOLINE_FUEL_DENSITY);
+        }
+
+        return analysis;
     }
 
     /**
@@ -159,15 +154,21 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
     private Gear selectGear(double[] values, double acceleration, Vehicle vehicle, double vr, double angle) {
         Gear gear = biggestGear(vehicle);
 
-        if (vehicle.getMotorization().equals("eletric")) {
+        if (vehicle.getMotorization().equals("electric")) {
             for (Regime r : vehicle.getEnergy().getThrottle(THROTTLE).getRegimeList()) {
                 if (validateValues(gear, r, acceleration, values, vehicle, vr, angle)) {
                     return gear;
                 }
             }
+            Throttle t = vehicle.getEnergy().getThrottle(THROTTLE);
+            Regime r = t.getRegimeList().get(NODE_POSITION);
+            values[0] = r.getTorqueLow();
+            values[1] = r.getRpmLow();
+            return vehicle.getEnergy().getGearList().get(NODE_POSITION);
         }
+
         Regime regime = getLowestSFCRegime(vehicle, THROTTLE);
-        if (!"eletric".equals(vehicle.getMotorization())) {
+        if (!"electric".equals(vehicle.getMotorization())) {
 
             for (int i = 0; i < vehicle.getEnergy().getGearList().size(); i++) {
 
@@ -180,17 +181,11 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             }
         }
 
-        if (gear.equals(vehicle.getEnergy().getGearList().get(0))) {
-            if (Physics.getForceAppliedToVehicle(regime.getTorqueLow(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) > Physics.getForceAppliedToVehicle(regime.getTorqueHigh(), vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle)) {
-                values[0] = regime.getTorqueLow();
-                values[1] = regime.getRpmLow();
-            } else {
-                values[0] = regime.getTorqueHigh();
-                values[1] = regime.getRpmHigh();
-            }
-        }
-
-        return gear;
+        Throttle t = vehicle.getEnergy().getThrottle(THROTTLE);
+        Regime r = t.getRegimeList().get(NODE_POSITION);
+        values[0] = r.getTorqueLow();
+        values[1] = r.getRpmLow();
+        return vehicle.getEnergy().getGearList().get(NODE_POSITION);
     }
 
     /**
@@ -201,7 +196,8 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      */
     private Gear biggestGear(Vehicle vehicle) {
         int g = 0;
-        Gear gear = null;
+        List<Gear> gears = vehicle.getEnergy().getGearList();
+        Gear gear = gears.get(0);
         for (Gear gr : vehicle.getEnergy().getGearList()) {
             int value = Integer.valueOf(gr.getId());
             if (value > g) {
@@ -243,7 +239,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
      */
     private Regime getLowestSFCRegime(Vehicle vehicle, String throttle) {
         double sfc = Double.MAX_VALUE;
-        Regime reg = null;
+        Regime reg = vehicle.getEnergy().getThrottle(throttle).getRegimeList().get(NODE_POSITION);
         for (Regime r : vehicle.getEnergy().getThrottle(throttle).getRegimeList()) {
             if (r.getSfc() < sfc) {
                 sfc = r.getSfc();
@@ -441,7 +437,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             selectGear(values1, 0, vehicle, vr1, angle);
             double power = Physics.getEnginePower(values1[0], values1[1]);
-            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))) - kinematicFunctions);
+            energy += power * Physics.getTime(newVelocity, lengthInMeters - kinematicFunctions);
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, 0, kinematicFunctions);
@@ -471,7 +467,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             selectGear(values1, 0, vehicle, vr1, angle);
             double power = Physics.getEnginePower(values1[0], values1[1]);
-            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))) - kinematicFunctions);
+            energy += power * Physics.getTime(newVelocity, lengthInMeters - kinematicFunctions);
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, 0, kinematicFunctions);
@@ -488,7 +484,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             double angle = Physics.getAngle(lengthInMeters, segment.getInitHeight(), segment.getFinalHeight());
             selectGear(values, 0, vehicle, vr, angle);
             double power = Physics.getEnginePower(values[0], values[1]);
-            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", "")) - kinematicFunctions));
+            energy += power * Physics.getTime(newVelocity, lengthInMeters - kinematicFunctions);
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, 0, kinematicFunctions);

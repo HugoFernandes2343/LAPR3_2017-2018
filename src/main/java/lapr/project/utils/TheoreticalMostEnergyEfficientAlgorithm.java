@@ -316,7 +316,7 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             discoverGear(values1, 0, vehicle, vr1, angle);
             double power = Physics.getEnginePower(values1[0], values1[1]);
-            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))) - kinematicFunctions);
+            energy += power * Physics.getTime(newVelocity, lengthInMeters - kinematicFunctions);
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, 0, kinematicFunctions);
@@ -346,7 +346,7 @@ public class TheoreticalMostEnergyEfficientAlgorithm implements Algorithm {
             double vr1 = Physics.getVehicleRelativeVelocity(newVelocity, Double.parseDouble(segment.getWindSpeed().replace(" m/s", "")), segment.getWindDirection());
             discoverGear(values1, 0, vehicle, vr1, angle);
             double power = Physics.getEnginePower(values1[0], values1[1]);
-            energy += power * Physics.getTime(newVelocity, Physics.convertKmToMeter(Double.parseDouble(segment.getLength().replace(" Km", ""))) - kinematicFunctions);
+            energy += power * Physics.getTime(newVelocity, lengthInMeters - kinematicFunctions);
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, 0, kinematicFunctions);
