@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
+import lapr.project.model.RoadSection;
 import lapr.project.model.TravelByPhysics;
 import lapr.project.model.Vehicle;
 import lapr.project.utils.Algorithm;
@@ -119,14 +120,12 @@ public class CreateAnalysisController {
                 resultList.add(result);
                 return true;
             }
-                ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
-                ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
-                this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
-                resultList.add(result);
-                return true;
-            
+            ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
+            ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
+            this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+            resultList.add(result);
+            return true;
 
-            
         }
 
         return false;
@@ -262,12 +261,12 @@ public class CreateAnalysisController {
 
                 } else {
 
-                ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(accelaration);
-                ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(braking);
-                analysis = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
-                
+                    ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(accelaration);
+                    ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(braking);
+                    analysis = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
+
                 }
-                
+
             }
             resultList.add(analysis);
         }
@@ -285,14 +284,27 @@ public class CreateAnalysisController {
             data[cont][2] = formatter.format(analysis.getTravellTime());
             data[cont][3] = formatter.format(analysis.getEnergyConsumption());
             data[cont][4] = analysis.getTollCost();
-            for (int i = 1; i < analysis.getBestPath().size(); i++) {
-                bestPath = bestPath + "-" + analysis.getBestPath().get(i).getBegin();
-            }
-            bestPath = bestPath + "-" + analysis.getBestPath().get(analysis.getBestPath().size() - 1).getEnd();
+            bestPath = getCorrectDirection(analysis.getBestPath(), analysis.getBeginNode().getId(), analysis.getEndNode().getId());
             data[cont][1] = bestPath;
             cont++;
         }
         return data;
+    }
+
+    private String getCorrectDirection(List<RoadSection> sections, String beginNode, String endNode) {
+        String bestPath = "";
+        String actualNode = beginNode;
+        for (RoadSection section : sections) {
+            if (actualNode.equals(section.getBegin())) {
+                bestPath = bestPath + section.getBegin() + "-";
+                actualNode = section.getEnd();
+            } else {
+                bestPath = bestPath + section.getEnd() + "-";
+                actualNode = section.getBegin();
+            }
+        }
+        bestPath = bestPath + actualNode;
+        return bestPath;
     }
 
 }

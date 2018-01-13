@@ -344,8 +344,12 @@ public class CompareAnalysisUI extends JPanel implements MessagesAndUtils {
                     if (chosenRows.size() >= 2) {
                         if (ca.validateCandidates(chosenRows, alg)) {
                             na = ca.runBulkAnalysis(chosenRows, alg, node1, node2, analName.getText());
-                            mPanel.add(pageThree(), "page3");
-                            layout.show(mPanel, "page3");
+                            if (na.size() > 0) {
+                                mPanel.add(pageThree(), "page3");
+                                layout.show(mPanel, "page3");
+                            } else {
+                                errMess(ERR_ANAL, MESS_ERR);
+                            }
                         } else {
                             errMess(ERR_LOAD, MESS_ERR);
                         }
