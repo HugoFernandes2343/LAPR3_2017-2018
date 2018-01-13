@@ -150,6 +150,7 @@ public class DAOHandler {
         for(Node nTemp : project.getNetwork().getNodeList()){
             addObjectData(new DAONode(project.getNetwork()), nTemp);
         }
+        
         /*Add Roads*/
         for(Road roadTemp : project.getNetwork().getRoadList()){
             addObjectData(new DAORoad(project.getNetwork()),roadTemp);
@@ -158,6 +159,7 @@ public class DAOHandler {
                 addObjectData(new DAOTollClass(roadTemp),tollTemp);
             }
         }
+        
         /*Add RoadSections*/
         for(RoadSection roadSectionTemp : project.getNetwork().getSectionList()){
             addObjectData(new DAORoadSection(),roadSectionTemp);
@@ -172,6 +174,10 @@ public class DAOHandler {
             
             for(RoadSection nodeBestPath : netAnal.getBestPath()){
                 addObjectData(new DAOBestPath(netAnal),nodeBestPath);
+                
+                for(Segment seg : nodeBestPath.getSegmentList()){
+                    addObjectData(new DAONetSegment(nodeBestPath,netAnal),seg);
+                }
             }
         }
     }

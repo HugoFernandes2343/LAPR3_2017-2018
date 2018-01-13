@@ -16,8 +16,8 @@ public class DAOSegment extends DAOManager {
     /**
      * Name of the function in the database that adds Road Segments
      */
+//    private static final String ADD_SEGMENT_PROCEDURE = "{call proc_insert_segment(s_id,s_init_h,s_final_h,s_length,s_wind_direction,s_wind_speed,s_max_velocity,s_min_velocity,s_road_section_id)}";
     private static final String ADD_SEGMENT_PROCEDURE = "{call proc_insert_segment(?,?,?,?,?,?,?,?,?)}";
-
     /**
      * Name of the function in the database that gets Road Segments
      */
@@ -34,16 +34,25 @@ public class DAOSegment extends DAOManager {
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         Segment seg = (Segment) data;
 
+//        cs.setString("s_id", seg.getId());
+//        cs.setFloat("s_init_h",(float) seg.getInitHeight());
+//        cs.setFloat("s_final_h", (float) seg.getFinalHeight());
+//        cs.setString("s_length", seg.getLength());
+//        cs.setFloat("s_wind_direction", (float) seg.getWindDirection());
+//        cs.setString("s_wind_speed", seg.getWindSpeed());
+//        cs.setString("s_max_velocity", seg.getMaxVelocity());
+//        cs.setString("s_min_velocity", seg.getMinVelocity());
+//        cs.setString("s_road_section_id", rs.getRoadId());
+
         cs.setString(1, seg.getId());
-        cs.setDouble(2, seg.getInitHeight());
-        cs.setDouble(3, seg.getFinalHeight());
+        cs.setDouble(2,  seg.getInitHeight());
+        cs.setDouble(3,  seg.getFinalHeight());
         cs.setString(4, seg.getLength());
         cs.setDouble(5, seg.getWindDirection());
         cs.setString(6, seg.getWindSpeed());
         cs.setString(7, seg.getMaxVelocity());
         cs.setString(8, seg.getMinVelocity());
         cs.setString(9, rs.getRoadId());
-
     }
 
     @Override

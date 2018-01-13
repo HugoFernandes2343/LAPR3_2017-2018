@@ -347,7 +347,7 @@ public class FileXML implements Serializable {
             doc.getDocumentElement().normalize();
             Network roadNetwork = new Network();
 
-            roadNetwork.setId("Description: " + doc.getDocumentElement().getAttribute("id"));
+            roadNetwork.setId(doc.getDocumentElement().getAttribute("id"));
 
             roadNetwork.setDescription(doc.getDocumentElement().getAttribute("description"));
 

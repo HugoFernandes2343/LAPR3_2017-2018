@@ -25,7 +25,6 @@ import oracle.jdbc.internal.OracleTypes;
 public class DAONetworkAnalysis extends DAOManager {
 
     private Project p;
-    private Vehicle v;
 
     /**
      * Name of the function in the database that adds analysis
@@ -35,7 +34,7 @@ public class DAONetworkAnalysis extends DAOManager {
     /**
      * Name of the function in the database that gets analysis
      */
-    private static final String GET_ANALYSIS_PROCEDURE = "{call proc_get_Analysis(?,?,?,?,?,?)}";
+    private static final String GET_ANALYSIS_PROCEDURE = "{call proc_get_analysis(?,?,?,?,?,?)}";
 
     public DAONetworkAnalysis(Project p) throws SQLException {
         super(ADD_ANALYSIS_PROCEDURE, GET_ANALYSIS_PROCEDURE);
@@ -53,14 +52,14 @@ public class DAONetworkAnalysis extends DAOManager {
         cs.setString(5, netAnalysis.getEndNode().getId());
         cs.setString(6, netAnalysis.getType());
         cs.setString(7, netAnalysis.getName());
-        cs.setDouble(8, netAnalysis.getTravellTime());
-        cs.setDouble(9, netAnalysis.getEnergyConsumption());
-        cs.setDouble(10, netAnalysis.getAverageVelocity());
-        cs.setDouble(11, netAnalysis.getDistance());
-        cs.setDouble(12, netAnalysis.getTollCost());
-        cs.setDouble(13, netAnalysis.getLoad());
-        cs.setDouble(14, netAnalysis.getFuelMass());
-        cs.setDouble(15, netAnalysis.getFuelVolume());
+        cs.setFloat(8, (float) netAnalysis.getTravellTime());
+        cs.setFloat(9, (float) netAnalysis.getEnergyConsumption());
+        cs.setFloat(10, (float) netAnalysis.getAverageVelocity());
+        cs.setFloat(11, (float) netAnalysis.getDistance());
+        cs.setFloat(12, (float) netAnalysis.getTollCost());
+        cs.setFloat(13, (float) netAnalysis.getLoad());
+        cs.setFloat(14, (float) netAnalysis.getFuelMass());
+        cs.setFloat(15, (float) netAnalysis.getFuelVolume());
         if (netAnalysis.getType().equalsIgnoreCase("Shortest Travel Time")) {
             cs.setString(16, "N/A");
             cs.setString(17, "N/A");
