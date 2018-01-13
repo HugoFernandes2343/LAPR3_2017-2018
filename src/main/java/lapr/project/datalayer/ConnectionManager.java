@@ -15,17 +15,17 @@ public abstract class ConnectionManager {
     /**
      * Data base url
      */
-    public static final String JDBCURL = "jdbc:oracle:thin://BDDAD@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl";
+    public static final String JDBCURL = "jdbc:oracle:thin://LAPR3_G42@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl";
 
     /**
      * Data base USERNAME
      */
-    public static final String USERNAME = "BDDAD_DN4_c";
+    public static final String USERNAME = "LAPR3_G42";
 
     /**
      * Data base password
      */
-    public static final String PASS = "qwerty";
+    public static final String PASS = "katchow";
     
     /**
      * Constructor
