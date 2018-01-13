@@ -166,7 +166,7 @@ public class CreateAnalysisController {
 
     public Object[][] getInitialTableData(String alg) {
         Object[][] data = new Object[actualproject.getVehicleList().getVehicleList().size()][3];
-        if (alg.equals("Shortest Travell Time (N10)")) {
+        if ("Shortest Travell Time (N10)".equals(alg)) {
             data = new Object[actualproject.getVehicleList().getVehicleList().size()][3];
         } else {
             data = new Object[actualproject.getVehicleList().getVehicleList().size()][5];
@@ -182,7 +182,7 @@ public class CreateAnalysisController {
     }
 
     public boolean validateCandidates(List<Object[]> chosenRows, String alg) {
-        if (alg.equals("Algorithm: Shortest Travell Time (N10)")) {
+        if ("Algorithm: Shortest Travell Time (N10)".equals(alg)) {
             return validateN10Input(chosenRows);
         }
         return validateAlgorithmInput(chosenRows);
@@ -217,14 +217,17 @@ public class CreateAnalysisController {
     }
 
     public List<NetworkAnalysis> runBulkAnalysis(List<Object[]> chosenRows, String alg, String node1, String node2, String name) {
-        if (alg.equals("Algorithm: Shortest Travell Time (N10)")) {
-            return runBulkAlgorithmN10(chosenRows, alg, node1, node2, name);
+        Algorithm a = findAlgorithm(alg);
+        if (a == null) {
+            return resultList;
         }
-        return runBulkAlgorithm(chosenRows, alg, node1, node2, name);
+        if ("Algorithm: Shortest Travell Time (N10)".equals(alg)) {
+            return runBulkAlgorithmN10(chosenRows, a, node1, node2, name);
+        }
+        return runBulkAlgorithm(chosenRows, a, node1, node2, name);
     }
 
-    private List<NetworkAnalysis> runBulkAlgorithmN10(List<Object[]> chosenRows, String alg, String node1, String node2, String name) {
-        Algorithm a = findAlgorithm(alg);
+    private List<NetworkAnalysis> runBulkAlgorithmN10(List<Object[]> chosenRows, Algorithm a, String node1, String node2, String name) {
         for (Object[] data : chosenRows) {
             Node beginN = this.actualproject.getNetwork().searchNode(node1);
             Node endN = this.actualproject.getNetwork().searchNode(node2);
@@ -236,9 +239,8 @@ public class CreateAnalysisController {
         return resultList;
     }
 
-    private List<NetworkAnalysis> runBulkAlgorithm(List<Object[]> chosenRows, String alg, String node1, String node2, String name) {
+    private List<NetworkAnalysis> runBulkAlgorithm(List<Object[]> chosenRows, Algorithm a, String node1, String node2, String name) {
         NetworkAnalysis analysis = null;
-        Algorithm a = findAlgorithm(alg);
         for (Object[] data : chosenRows) {
             Node beginN = this.actualproject.getNetwork().searchNode(node1);
             Node endN = this.actualproject.getNetwork().searchNode(node2);

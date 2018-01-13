@@ -283,7 +283,7 @@ public class CompareAnalysisUI extends JPanel implements MessagesAndUtils {
         String[] tableLabels = {"Vehicle", "Load", "Enable Analysis", "Braking", "Accelaration"};
         String[] tableLabelsN10 = {"Vehicle", "Load", "Enable Analysis"};
         DefaultTableModel model = new DefaultTableModel();
-        if (alg.equals("Algorithm: Shortest Travell Time (N10)")) {
+        if ("Algorithm: Shortest Travell Time (N10)".equals(alg)) {
             model.setDataVector(ca.getInitialTableData(alg), tableLabelsN10);
         } else {
             model.setDataVector(ca.getInitialTableData(alg), tableLabels);
