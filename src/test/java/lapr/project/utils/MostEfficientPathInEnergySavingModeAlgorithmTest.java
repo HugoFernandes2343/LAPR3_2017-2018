@@ -113,13 +113,24 @@ public class MostEfficientPathInEnergySavingModeAlgorithmTest {
         Project project = new Project();
         Node begin = new Node("n0");
         Node end = new Node("n2");
+        Node middle = new Node("n5");
         Road road = new Road("E01", "regular road", "E01", new TollFare());
+        Road e6 = new Road("E06", "regular road", "E06", new TollFare());
         RoadSection section = new RoadSection("n0", "n2", "E01", "bidirection", segments);
+        
+        
+        List<Segment> segments2 = new LinkedList<>();
+        segments2.add(new Segment("04", 350.0, 150.0, "10 Km", -60.0, "2.7 m/s", "90 Km/h", "0 Km/h"));
+        RoadSection middle_section = new RoadSection("n2", "n5", "E06", "bidirection", segments2);
+        
         Network network = new Network();
         network.addRoad(road);
+        network.addRoad(e6);
         network.addNode("n0");
         network.addNode("n2");
+        network.addNode("n5");
         network.addRoadSection(section);
+        network.addRoadSection(middle_section);
         network.loadMap();
         project.setVehicleList(vehicles);
         project.setNetwork(network);
@@ -133,7 +144,6 @@ public class MostEfficientPathInEnergySavingModeAlgorithmTest {
         
         
         NetworkAnalysis result = instance.runAlgorithm(project, begin, end, vehicle, name, load);
-        //assertEquals(expResult, result);
         
         System.out.println(result.getAverageVelocity());
         System.out.println(result.getEnergyConsumption());

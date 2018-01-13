@@ -154,8 +154,16 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
     private Gear selectGear(double[] values, double acceleration, Vehicle vehicle, double vr, double angle) {
         Gear gear = biggestGear(vehicle);
 
+        if (vehicle.getMotorization().equals("eletric")) {
+            for (Regime r : vehicle.getEnergy().getThrottle(THROTTLE).getRegimeList()) {
+                if (validateValues(gear, r, acceleration, values, vehicle, vr, angle)) {
+                    return gear;
+                }
+            }
+        }
         Regime regime = getLowestSFCRegime(vehicle, THROTTLE);
         if (!"eletric".equals(vehicle.getMotorization())) {
+
             for (int i = 0; i < vehicle.getEnergy().getGearList().size(); i++) {
 
                 if (validateValues(gear, regime, acceleration, values, vehicle, vr, angle)) {
@@ -174,14 +182,6 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             } else {
                 values[0] = regime.getTorqueHigh();
                 values[1] = regime.getRpmHigh();
-            }
-        }
-
-        if (vehicle.getMotorization().equals("eletric")) {
-            for (Regime r : vehicle.getEnergy().getThrottle(THROTTLE).getRegimeList()) {
-                if (validateValues(gear, r, acceleration, values, vehicle, vr, angle)) {
-                    return gear;
-                }
             }
         }
 
@@ -423,8 +423,8 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
                 energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions);
             } else {
                 Gear gear = discoverBrakingGearForCombustion(values, this.brakingAcceleration, vehicle, vr, angle);
-                kinematicFunctions += Physics.kinematicFunctions(lastVelocity, newVelocity, this.brakingAcceleration);
-                energy -= Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions);
+                kinematicFunctions += Math.abs(Physics.kinematicFunctions(lastVelocity, newVelocity, this.brakingAcceleration));
+                energy -= Math.abs(Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions));
             }
 
             if (time != null) {
@@ -455,7 +455,7 @@ public class MostEfficientPathInEnergySavingModeAlgorithm implements Algorithm {
             double[] values = new double[10];
             Gear gear = selectGear(values, this.aceleratingAcceleration, vehicle, vr, angle);
             kinematicFunctions += Physics.kinematicFunctions(lastVelocity, newVelocity, this.aceleratingAcceleration);
-            energy += Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions);
+            energy += Math.abs(Physics.getForceAppliedToVehicle(values[0], vehicle.getEnergy().getFinalDriveRatio(), gear.getRatio(), vehicle.getWheelSize(), vehicle.getRrc(), this.totalMass, vehicle.getDrag(), vehicle.getFrontalArea(), vr, angle) * (kinematicFunctions));
 
             if (time != null) {
                 time[0] += calculateSegmentTime(segment, lastVelocity, newVelocity, this.aceleratingAcceleration, 0);

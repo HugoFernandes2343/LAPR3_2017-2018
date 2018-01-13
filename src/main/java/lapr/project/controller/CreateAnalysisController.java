@@ -119,12 +119,14 @@ public class CreateAnalysisController {
                 resultList.add(result);
                 return true;
             }
+                ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
+                ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
+                this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
+                resultList.add(result);
+                return true;
+            
 
-            ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
-            ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
-            this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
-            resultList.add(result);
-            return true;
+            
         }
 
         return false;
@@ -258,12 +260,14 @@ public class CreateAnalysisController {
                     ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(braking);
                     analysis = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
 
-                }
+                } else {
 
                 ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(accelaration);
                 ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(braking);
                 analysis = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, load);
-
+                
+                }
+                
             }
             resultList.add(analysis);
         }
