@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network id="TestSet01" description="5 node test set">
+	<node_list>
+		<node id="n0"/>
+    	<node id="n1"/>
+    	<node id="n2"/>
+    	<node id="n3"/>
+    	<node id="n4"/>
+		<node id="n5"/>
+		<node id="n7"/>
+    </node_list>
+	<road_list>
+		<road id="E01">
+			<road_name>E01</road_name>
+			<typology>regular road</typology>
+		</road>
+		<road id="A01">
+			<road_name>A1</road_name>
+			<typology>toll highway</typology>
+			<toll_fare>
+				<class id="1">0.15</class>
+				<class id="2">0.25</class>
+				<class id="3">0.35</class>
+			</toll_fare>
+		</road>
+		<road id="A02">
+			<road_name>A2</road_name>
+			<typology>gantry toll highway</typology>
+		</road>
+		<road id="E06">
+			<road_name>E06</road_name>
+			<typology>regular road</typology>
+		</road>
+		<road id="N232">
+			<road_name>N232</road_name>
+			<typology>regular road</typology>
+		</road>
+	</road_list>
+    <section_list>
+    	<road_section begin="n0" end="n2">
+    		<road_id>E01</road_id>		
+    		<direction>bidirectional</direction>     		
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>100</init_height>
+    				<final_height>200</final_height>
+    				<length>1.2 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>20</wind_direction>
+					<wind_speed>5 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>200</init_height>
+    				<final_height>150</final_height>
+    				<length>6.5 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>150</init_height>
+    				<final_height>350</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+				<segment id="04">
+    				<init_height>350</init_height>
+    				<final_height>150</final_height>
+    				<length>10 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-60</wind_direction>
+					<wind_speed>2.7 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+    	<road_section begin="n2" end="n3">
+    		<road_id>E01</road_id>
+    		<direction>bidirectional</direction> 
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>150</init_height>
+    				<final_height>250</final_height>
+    				<length>1.5 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>120</wind_direction>
+					<wind_speed>1.5 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>250</init_height>
+    				<final_height>450</final_height>
+    				<length>6.5 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-170</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>450</init_height>
+    				<final_height>250</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-80</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+    	<road_section begin="n3" end="n4">
+    		<road_id>E01</road_id>
+    		<direction>bidirectional</direction> 
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>250</init_height>
+    				<final_height>350</final_height>
+    				<length>10.5 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>40</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>350</init_height>
+    				<final_height>550</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-120</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>550</init_height>
+    				<final_height>350</final_height>
+    				<length>6 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+    	<road_section begin="n0" end="n1">
+    		<road_id>A01</road_id>
+			<direction>bidirectional</direction>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>100</init_height>
+    				<final_height>250</final_height>
+    				<length>10.2 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>30</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>250</init_height>
+    				<final_height>350</final_height>
+    				<length>15 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>350</init_height>
+    				<final_height>300</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>10</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+    	<road_section begin="n1" end="n3">
+    		<road_id>A01</road_id>
+			<direction>bidirectional</direction>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>300</init_height>
+    				<final_height>250</final_height>
+    				<length>10.2 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>30</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>250</init_height>
+    				<final_height>350</final_height>
+    				<length>5 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>350</init_height>
+    				<final_height>250</final_height>
+    				<length>6 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>10</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+		<road_section begin="n3" end="n7">
+    		<road_id>A01</road_id>
+			<direction>bidirectional</direction>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>250</init_height>
+    				<final_height>350</final_height>
+    				<length>6.5 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>15</wind_direction>
+					<wind_speed>0.5 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>350</init_height>
+    				<final_height>395</final_height>
+    				<length>5.8 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>0.2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>395</init_height>
+    				<final_height>480</final_height>
+    				<length>7.5 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>30</wind_direction>
+					<wind_speed>0.5 m/s</wind_speed>
+    			</segment>
+				<segment id="04">
+    				<init_height>480</init_height>
+    				<final_height>420</final_height>
+    				<length>2.5 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>1.5 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+    	<road_section begin="n2" end="n4">
+    		<road_id>E06</road_id>
+			<direction>bidirectional</direction>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>150</init_height>
+    				<final_height>250</final_height>
+    				<length>15.7 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>70</wind_direction>
+					<wind_speed>1.75 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>250</init_height>
+    				<final_height>350</final_height>
+    				<length>6.5 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>150</wind_direction>
+					<wind_speed>2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>350</init_height>
+    				<final_height>350</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>70 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-170</wind_direction>
+					<wind_speed>2.5 m/s</wind_speed>
+    			</segment>
+				<segment id="04">
+    				<init_height>350</init_height>
+    				<final_height>250</final_height>
+    				<length>10 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-60</wind_direction>
+					<wind_speed>2.7 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+		<road_section begin="n2" end="n5">
+    		<road_id>E06</road_id>
+			<direction>bidirectional</direction>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>150</init_height>
+    				<final_height>250</final_height>
+    				<length>8 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>40</wind_direction>
+					<wind_speed>1.15 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>250</init_height>
+    				<final_height>350</final_height>
+    				<length>6.5 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>15</wind_direction>
+					<wind_speed>1.5 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>350</init_height>
+    				<final_height>450</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-20</wind_direction>
+					<wind_speed>1.1 m/s</wind_speed>
+    			</segment>
+				<segment id="04">
+    				<init_height>450</init_height>
+    				<final_height>350</final_height>
+    				<length>10 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>5</wind_direction>
+					<wind_speed>1.7 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+		<road_section begin="n0" end="n5">
+    		<road_id>A02</road_id>
+			<direction>bidirectional</direction>
+			<toll>
+				<class id="1">2.15</class>
+				<class id="2">3.25</class>
+				<class id="3">4.35</class>
+			</toll>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>100</init_height>
+    				<final_height>250</final_height>
+    				<length>10.2 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>135</wind_direction>
+					<wind_speed>1.5 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>250</init_height>
+    				<final_height>370</final_height>
+    				<length>8 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>170</wind_direction>
+					<wind_speed>1.2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>370</init_height>
+    				<final_height>350</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>120 Km/h</max_velocity>
+    				<min_velocity>50 Km/h</min_velocity>
+    				<wind_direction>-170</wind_direction>
+					<wind_speed>0.5 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+		<road_section begin="n1" end="n2">
+    		<road_id>N232</road_id>
+			<direction>bidirectional</direction>
+    		<segment_list>
+    			<segment id="01">
+    				<init_height>250</init_height>
+    				<final_height>280</final_height>
+    				<length>1.7 Km</length>
+    				<max_velocity>50 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>20</wind_direction>
+					<wind_speed>0.75 m/s</wind_speed>
+    			</segment>
+    			<segment id="02">
+    				<init_height>280</init_height>
+    				<final_height>350</final_height>
+    				<length>3.5 Km</length>
+    				<max_velocity>70 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>50</wind_direction>
+					<wind_speed>1.2 m/s</wind_speed>
+    			</segment>
+				<segment id="03">
+    				<init_height>350</init_height>
+    				<final_height>270</final_height>
+    				<length>4 Km</length>
+    				<max_velocity>70 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>20</wind_direction>
+					<wind_speed>0.5 m/s</wind_speed>
+    			</segment>
+				<segment id="04">
+    				<init_height>270</init_height>
+    				<final_height>150</final_height>
+    				<length>70 Km</length>
+    				<max_velocity>90 Km/h</max_velocity>
+    				<min_velocity>0 Km/h</min_velocity>
+    				<wind_direction>-10</wind_direction>
+					<wind_speed>1.7 m/s</wind_speed>
+    			</segment>
+    		</segment_list>
+    	</road_section>
+    </section_list>
+</Network>
