@@ -9,7 +9,7 @@ public class Regime extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 603L;
 
-    private static int flag = 1;
+    private static int flag = 0;
 
     private int torqueHigh;
     private int torqueLow;
@@ -41,6 +41,8 @@ public class Regime extends DatabaseExchangable implements Serializable {
         this.rpmLow = rpmLow;
         this.rpmHigh = rpmHigh;
         this.sfc = sfc;
+        this.id = flag;
+        flag++;
     }
 
     /**
@@ -71,15 +73,19 @@ public class Regime extends DatabaseExchangable implements Serializable {
         return rpmHigh;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    
+
     /**
      * @return the sfc sfc value of the regime
      */
     public Double getSfc() {
         return sfc;
+    }
+
+    public static void setFlag(int newFlag) {
+        flag = newFlag;
     }
 
     /**

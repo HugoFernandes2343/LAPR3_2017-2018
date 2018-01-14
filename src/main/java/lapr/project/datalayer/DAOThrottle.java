@@ -6,6 +6,7 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,6 +18,11 @@ import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
 
 public class DAOThrottle extends DAOManager {
+
+    /**
+     * Gets the hihgest If from the DB
+     */
+    private static final String HIGHEST_THROTTLE_ID_IN_DB = "{call proc_get_number_throttle(?)}";
 
     /**
      * Name of the function in the database that adds throttle
@@ -49,14 +55,14 @@ public class DAOThrottle extends DAOManager {
         List<DatabaseExchangable> tList = placeToAdd.getDBData();
         String vehicleName = (String) references[0];
         ResultSet rs = null;
-        
+
         try {
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, vehicleName);
             stmt.executeUpdate();
             rs = (ResultSet) stmt.getObject(1);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 int percentage = rs.getInt("percentage");
                 Throttle t = new Throttle();
@@ -64,9 +70,31 @@ public class DAOThrottle extends DAOManager {
                 t.setId(id);
                 tList.add(t);
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(DAOThrottle.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+    }
+
+    public int getHightestIDinThrottle(Connection con) throws SQLException {
+        int index = 0;
+        ResultSet rs = null;
+        try (CallableStatement cs = con.prepareCall(HIGHEST_THROTTLE_ID_IN_DB)) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeQuery();
+            rs = (ResultSet) cs.getObject(1);
+            while (rs.next()) {
+                index = rs.getInt("nr_max");
+            }
+            return index;
+        } catch (NullPointerException ex) {
+            Logger.getLogger(DAOThrottle.class.getName()).log(Level.SEVERE, "No Data in DB", ex);
+            index = 0;
+            return index;
+        } finally {
             if (rs != null) {
                 rs.close();
             }

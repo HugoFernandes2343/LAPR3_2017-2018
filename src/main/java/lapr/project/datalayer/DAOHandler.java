@@ -72,9 +72,10 @@ public class DAOHandler {
      *
      * @throws SQLException If the operation was not successful
      */
-    private void deleteAllData() throws SQLException {
+    public void deleteAllData() throws SQLException {
         try (CallableStatement cs = con.prepareCall("{call REMOVE_TABLE_DATA}")) {
             cs.executeUpdate();
+            cs.close();
         }
     }
 

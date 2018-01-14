@@ -1,6 +1,7 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +12,11 @@ import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
 
 public class DAORoadSection extends DAOManager {
+
+    /**
+     * Gets the hihgest If from the DB
+     */
+    private static final String HIGHEST_ROADSECTION_ID_IN_DB = "{call proc_get_number_road_section(?)}";
 
     /**
      * Name of the function in the database that adds RoadSections
@@ -29,7 +35,7 @@ public class DAORoadSection extends DAOManager {
     @Override
     protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
         RoadSection rds = (RoadSection) data;
-        
+
         cs.setInt(1, rds.getId());
         cs.setString(2, rds.getDirection());
         cs.setString(3, rds.getBegin());
@@ -42,7 +48,7 @@ public class DAORoadSection extends DAOManager {
         List<DatabaseExchangable> sec = placeToAdd.getDBData();
         String roadId = (String) references[0];
         ResultSet rs = null;
-        
+
         try {
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, roadId);
@@ -72,5 +78,27 @@ public class DAORoadSection extends DAOManager {
             }
         }
 
+    }
+
+    public int getHighestIDinRoadSection(Connection con) throws SQLException {
+        int index = 0;
+        ResultSet rs = null;
+        try (CallableStatement cs = con.prepareCall(HIGHEST_ROADSECTION_ID_IN_DB)) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeQuery();
+            rs = (ResultSet) cs.getObject(1);
+            while (rs.next()) {
+                index = rs.getInt("nr_max");
+            }
+            return index;
+        } catch (NullPointerException ex) {
+            Logger.getLogger(DAORoadSection.class.getName()).log(Level.SEVERE, "No Data in DB", ex);
+            index = 0;
+            return index;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
     }
 }

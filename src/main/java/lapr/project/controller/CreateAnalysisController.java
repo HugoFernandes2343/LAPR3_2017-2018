@@ -5,12 +5,14 @@
  */
 package lapr.project.controller;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.datalayer.DAONetworkAnalysis;
 import lapr.project.model.NetworkAnalysis;
 import lapr.project.model.Node;
 import lapr.project.model.Project;
@@ -102,7 +104,9 @@ public class CreateAnalysisController {
         if (a instanceof ShortestTravellTimeAlgorithm) {
             this.result = ((ShortestTravellTimeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
             resultList.add(result);
+
             actualproject.addNetworkAnalysis(result);
+
             return true;
         }
 
@@ -119,18 +123,24 @@ public class CreateAnalysisController {
                     ((MostEfficientPathInEnergySavingModeAlgorithm) a).setBrakingAcceleration(aBraking);
                     this.result = ((MostEfficientPathInEnergySavingModeAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
                     resultList.add(result);
+
                     actualproject.addNetworkAnalysis(result);
+
                     return true;
                 }
                 ((TheoreticalMostEnergyEfficientAlgorithm) a).setAceleratingAcceleration(aAccelaration);
                 ((TheoreticalMostEnergyEfficientAlgorithm) a).setBrakingAcceleration(aBraking);
                 this.result = ((TheoreticalMostEnergyEfficientAlgorithm) a).runAlgorithm(actualproject, beginN, endN, v, name, loadValue);
                 resultList.add(result);
+
                 actualproject.addNetworkAnalysis(result);
+
                 return true;
 
             }
         } catch (Exception ex) {
+            Logger.getLogger(CreateAnalysisController.class.getName()).log(Level.SEVERE, "Unexpected Error", ex);
+        } finally {
 
         }
         return false;

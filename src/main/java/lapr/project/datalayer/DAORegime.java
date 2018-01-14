@@ -1,6 +1,7 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +13,11 @@ import lapr.project.utils.DatabaseExchangable;
 import oracle.jdbc.OracleTypes;
 
 public class DAORegime extends DAOManager {
+
+    /**
+     * Gets the hihgest If from the DB
+     */
+    private static final String HIGHEST_REGIME_ID_IN_DB = "{call proc_get_number_regime(?)}";
 
     /**
      * Name of the function in the database that adds Regimes
@@ -54,7 +60,7 @@ public class DAORegime extends DAOManager {
             cs.setDouble(7, 0);
         } else {
             cs.setInt(1, t.getId());
-            cs.setInt(2, id_ph);
+            cs.setInt(2, flag);
             cs.setDouble(3, 1);
             cs.setDouble(4, 1);
             cs.setDouble(5, 1);
@@ -89,6 +95,28 @@ public class DAORegime extends DAOManager {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORegime.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+    }
+
+    public int getHighestIDinRegime(Connection con) throws SQLException {
+        int index = 0;
+        ResultSet rs = null;
+        try (CallableStatement cs = con.prepareCall(HIGHEST_REGIME_ID_IN_DB)) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeQuery();
+            rs = (ResultSet) cs.getObject(1);
+            while (rs.next()) {
+                index = rs.getInt("nr_max");
+            }
+            return index;
+        } catch (NullPointerException ex) {
+            Logger.getLogger(DAONetworkAnalysis.class.getName()).log(Level.SEVERE, "No Data in DB", ex);
+            index = 0;
+            return index;
         } finally {
             if (rs != null) {
                 rs.close();

@@ -10,7 +10,6 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 600L;
 
-    
     private static int flag = 1;
     private int id;
     private String begin;
@@ -35,7 +34,7 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
         this.direction = direction;
         this.segmentList = segments;
         flag++;
-        id = flag;  
+        id = flag;
     }
 
     /**
@@ -44,7 +43,7 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
     public RoadSection() {
         this.segmentList = new LinkedList<>();
         flag++;
-        this.id=flag;
+        this.id = flag;
     }
 
     /**
@@ -81,6 +80,10 @@ public class RoadSection extends DatabaseExchangable implements Serializable {
      */
     public List<Segment> getSegmentList() {
         return segmentList;
+    }
+
+    public static void setFlag(int newFlag) {
+        flag = newFlag;
     }
 
     /**

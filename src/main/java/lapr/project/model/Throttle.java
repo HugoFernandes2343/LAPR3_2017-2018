@@ -10,7 +10,7 @@ public class Throttle extends DatabaseExchangable implements Serializable {
 
     private static final long serialVersionUID = 100L;
 
-    private static int flag = 1;
+    private static int flag = 0;
 
     private int id;
     private String percentage;
@@ -60,6 +60,10 @@ public class Throttle extends DatabaseExchangable implements Serializable {
 
     public int getId() {
         return this.id;
+    }
+
+    public static void setFlag(int newFlag) {
+        flag = newFlag;
     }
 
     /**

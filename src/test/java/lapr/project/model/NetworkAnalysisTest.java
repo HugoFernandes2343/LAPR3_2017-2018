@@ -63,7 +63,7 @@ public class NetworkAnalysisTest {
     public void testGetId() {
         System.out.println("getId");
         int result = instance.getId();
-        assertTrue(result > 0);
+        assertTrue(result >= 0);
 
     }
 

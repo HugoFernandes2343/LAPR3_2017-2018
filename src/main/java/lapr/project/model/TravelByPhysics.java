@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.datalayer.DAOHandler;
+import lapr.project.datalayer.DAONetworkAnalysis;
+import lapr.project.datalayer.DAORegime;
+import lapr.project.datalayer.DAORoadSection;
+import lapr.project.datalayer.DAOThrottle;
 import lapr.project.utils.Algorithm;
 import lapr.project.utils.MostEfficientPathInEnergySavingModeAlgorithm;
 import lapr.project.utils.ShortestTravellTimeAlgorithm;
@@ -44,6 +48,7 @@ public class TravelByPhysics implements Serializable {
         this.algorithmsList.add(new MostEfficientPathInEnergySavingModeAlgorithm());
         this.algorithmsList.add(new TheoreticalMostEnergyEfficientAlgorithm());
         createDataHandler();
+        getMaxIndexes();
         System.out.println("Test");
     }
 
@@ -87,4 +92,39 @@ public class TravelByPhysics implements Serializable {
         }
     }
 
+    private void getMaxIndexes() {
+        int i, j, k, g;
+        try {
+            DAOThrottle daoThrottle = new DAOThrottle(new Vehicle());
+            i = daoThrottle.getHightestIDinThrottle(dataExchange.getConnection());
+            Throttle.setFlag(i + 1);
+        } catch (SQLException ex1) {
+            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, "Error setting highest Throttle ID's from the DB", ex1);
+            Throttle.setFlag(1);
+        }
+        try {
+            DAORegime daoRegime = new DAORegime(new Throttle());
+            j = daoRegime.getHighestIDinRegime(dataExchange.getConnection());
+            Regime.setFlag(j + 1);
+        } catch (SQLException ex2) {
+            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, "Error setting highest Regime ID's from the DB", ex2);
+            Regime.setFlag(1);
+        }
+        try {
+            DAORoadSection daoRoadSection = new DAORoadSection();
+            k = daoRoadSection.getHighestIDinRoadSection(dataExchange.getConnection());
+            RoadSection.setFlag(k + 1);
+        } catch (SQLException ex3) {
+            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, "Error setting highest RoadSection ID's from the DB", ex3);
+            RoadSection.setFlag(1);
+        }
+        try {
+            DAONetworkAnalysis daoNetAnal = new DAONetworkAnalysis(this.getProjectList().getActualProject());
+            g = daoNetAnal.getHightestIDinNetwork(dataExchange.getConnection());
+            NetworkAnalysis.setFlag(g + 1);
+        } catch (SQLException ex4) {
+            Logger.getLogger(TravelByPhysics.class.getName()).log(Level.SEVERE, "Error setting highest Net analysis ID's from the DB", ex4);
+            NetworkAnalysis.setFlag(1);
+        }
+    }
 }

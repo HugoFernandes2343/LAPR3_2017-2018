@@ -6,6 +6,7 @@
 package lapr.project.datalayer;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,6 +26,11 @@ import oracle.jdbc.internal.OracleTypes;
 public class DAONetworkAnalysis extends DAOManager {
 
     private Project p;
+
+    /**
+     * Returns the highest ID present in the DB
+     */
+    private static final String HIGHEST_NETANAL_ID_IN_DB = "{call proc_get_number_analysis(?)}";
 
     /**
      * Name of the function in the database that adds analysis
@@ -70,11 +76,28 @@ public class DAONetworkAnalysis extends DAOManager {
 
     }
 
-//    @Override
-//    protected void add(CallableStatement cs, DatabaseExchangable data) throws SQLException {
-//        NetworkAnalysis netAnalysis = (NetworkAnalysis) data;
-//        
-//    }
+    public int getHightestIDinNetwork(Connection con) throws SQLException {
+        int index = 0;
+        ResultSet rs = null;
+        try (CallableStatement cs = con.prepareCall(HIGHEST_NETANAL_ID_IN_DB)) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeQuery();
+            rs = (ResultSet) cs.getObject(1);
+            while (rs.next()) {
+                index = rs.getInt("nr_max");
+            }
+            return index;
+        } catch (NullPointerException ex) {
+            Logger.getLogger(DAONetworkAnalysis.class.getName()).log(Level.SEVERE, "No Data in DB", ex);
+            index = 0;
+            return index;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+    }
+
     @Override
     protected void read(CallableStatement stmt, DatabaseExchangable placeToAdd, Object[] references) throws SQLException {
         List<DatabaseExchangable> netList = placeToAdd.getDBData();

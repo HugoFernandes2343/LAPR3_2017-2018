@@ -39,6 +39,7 @@ public class MenuUI extends JFrame {
     private JMenuItem bestPath;
     private JMenuItem compareVehicle;
     private JMenuItem saveDatabase;
+    private JMenuItem cleanDataBase;
 
     private final TravelByPhysics tp;
 
@@ -254,7 +255,7 @@ public class MenuUI extends JFrame {
      * @return the menu created
      */
     private JMenu createSaveMenu() {
-        JMenu m = new JMenu("Save");
+        JMenu m = new JMenu("DB Management");
         m.setMnemonic(KeyEvent.VK_D);
 
         saveDatabase = new JMenuItem("N05: Save Project to database");
@@ -277,7 +278,30 @@ public class MenuUI extends JFrame {
                 }
             }
         });
+        
+        cleanDataBase = new JMenuItem("Clean Database?");
+        cleanDataBase.setEnabled(true);
+        cleanDataBase.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                        MESS_CONF, dialogButton);
+                if (dialogResult == 0) {
+                    try {
+                        tp.getDAOHandler().deleteAllData();
+                        tp.getDAOHandler().commitChangesMadeToTheDatabase();
+                    }catch(SQLException ex){
+                        Logger.getLogger(MenuUI.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Error processing",
+                        MESS_ERR,JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        
         m.add(saveDatabase);
+        m.add(cleanDataBase);
         return m;
     }
 
